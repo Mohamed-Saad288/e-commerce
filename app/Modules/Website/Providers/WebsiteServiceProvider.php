@@ -1,10 +1,10 @@
 <?php
 
-namespace App\Modules\Base\Providers;
+namespace App\Modules\Website\Providers;
 
 use Illuminate\Support\ServiceProvider;
 
-class BaseServiceProvider extends ServiceProvider
+class WebsiteServiceProvider extends ServiceProvider
 {
     /**
      * Register services.
@@ -20,11 +20,11 @@ class BaseServiceProvider extends ServiceProvider
     public function boot(): void
     {
         //
-        $this->loadMigrationsFrom(app_path('Modules/Base/Database/Migrations'));
+        $this->loadMigrationsFrom(app_path('Modules/Website/Database/Migrations'));
 
-        $this->loadRoutesFrom(app_path('Modules/Base/app/Http/Routes/api.php'));
-        $this->loadRoutesFrom(app_path('Modules/Base/app/Http/Routes/web.php'));
-        foreach (glob(app_path('Modules/Base/Helpers') . '/*.php') as $filename) {
+        $this->loadRoutesFrom(app_path('Modules/Website/Routes/api.php'));
+        $this->loadRoutesFrom(app_path('Modules/Website/Routes/web.php'));
+        foreach (glob(app_path('Modules/Website/Helpers') . '/*.php') as $filename) {
             require_once $filename;
         }
 
