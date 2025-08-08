@@ -22,8 +22,8 @@ class BaseServiceProvider extends ServiceProvider
         //
         $this->loadMigrationsFrom(app_path('Modules/Base/Database/Migrations'));
 
-        $this->loadRoutesFrom(app_path('Modules/Base/app/Http/Routes/api.php'));
-        $this->loadRoutesFrom(app_path('Modules/Base/app/Http/Routes/web.php'));
+        $this->loadRoutesFrom(app_path('Modules/Base/Routes/api.php'));
+        $this->loadRoutesFrom(app_path('Modules/Base/Routes/web.php'));
         foreach (glob(app_path('Modules/Base/Helpers') . '/*.php') as $filename) {
             require_once $filename;
         }
