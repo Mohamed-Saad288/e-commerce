@@ -1,0 +1,11 @@
+{
+    "dejavu sans": {
+        "bold": "D:\\Qutell\\Nashaat\\newQutell\\qutell\\vendor\\dompdf\\dompdf\/lib\/fonts\/DejaVuSans-Bold",
+        "bold_italic": "D:\\Qutell\\Nashaat\\newQutell\\qutell\\vendor\\dompdf\\dompdf\/lib\/fonts\/DejaVuSans-BoldOblique",
+        "italic": "D:\\Qutell\\Nashaat\\newQutell\\qutell\\vendor\\dompdf\\dompdf\/lib\/fonts\/DejaVuSans-Oblique",
+        "normal": "dejavu_sans_normal_6ada5fd55533116a20e39c14a8f3f39e"
+    },
+    "amiri": {
+        "normal": "amiri_normal_5126aea6f960cd8e59a3c07baf2d4cd0"
+    }
+}

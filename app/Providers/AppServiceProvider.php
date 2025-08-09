@@ -20,6 +20,8 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot(): void
     {
+        $logo = null;
+        view()->share('logo', $logo);
         $featuresPath = app_path('Modules');
         $features = File::directories($featuresPath);
 
