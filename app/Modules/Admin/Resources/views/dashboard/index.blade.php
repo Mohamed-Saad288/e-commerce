@@ -1,5 +1,5 @@
 @extends('admin::dashboard.master')
-@section('title', __('keys.home'))
+@section('title', __('messages.home'))
 
 @section('content')
     <div class="container-fluid">
@@ -7,7 +7,7 @@
             <div class="col-12">
                 <div class="row align-items-center mb-2">
                     <div class="col">
-                        <h2 class="h5 page-title">{{ __('keys.welcome') }}!</h2>
+                        <h2 class="h5 page-title">{{ __('messages.welcome') }}!</h2>
                     </div>
                     <div class="col-auto">
                         <form class="form-inline">
@@ -28,7 +28,7 @@
                                 <div class="row align-items-center">
                                     <div class="col">
                                         <span class="h2 mb-0">0</span>
-                                        <p class="small text-muted mb-0">{{ __('keys.service') }}</p>
+                                        <p class="small text-muted mb-0">{{ __('messages.service') }}</p>
                                     </div>
                                     <div class="col-auto">
                                         <span class="fe fe-32 fe-briefcase text-muted mb-0"></span>
@@ -43,7 +43,7 @@
                                 <div class="row align-items-center">
                                     <div class="col">
                                         <span class="h2 mb-0">0</span>
-                                        <p class="small text-muted mb-0">{{ __('keys.message') }}</p>
+                                        <p class="small text-muted mb-0">{{ __('messages.message') }}</p>
                                     </div>
                                     <div class="col-auto">
                                         <span class="fe fe-32 fe-phone text-muted mb-0"></span>
@@ -58,7 +58,7 @@
                                 <div class="row align-items-center">
                                     <div class="col">
                                         <span class="h2 mb-0">0</span>
-                                        <p class="small text-muted mb-0">{{ __('keys.employees') }}</p>
+                                        <p class="small text-muted mb-0">{{ __('messages.employees') }}</p>
                                     </div>
                                     <div class="col-auto">
                                         <span class="fe fe-32 fe-users text-muted mb-0"></span>

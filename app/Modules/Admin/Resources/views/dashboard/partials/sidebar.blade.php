@@ -12,7 +12,7 @@
         </div>
 
         <p class="text-muted nav-heading mt-4 mb-1">
-            <span>{{ __('keys.dashboard') }}</span>
+            <span>{{ __('messages.dashboard') }}</span>
         </p>
 
         <ul class="navbar-nav flex-fill w-100 mb-2">
@@ -21,13 +21,13 @@
 {{--                <a class="nav-link" href="{{ route('admin.index') }}">--}}
                 <a class="nav-link" href="#">
                     <i class="fe fe-home fe-16"></i>
-                    <span class="ml-3 item-text">{{ __('keys.home') }}</span>
+                    <span class="ml-3 item-text">{{ __('messages.home') }}</span>
                 </a>
             </li>
         </ul>
 
         <p class="text-muted nav-heading mt-4 mb-1">
-            <span>{{ __('keys.users') }}</span>
+            <span>{{ __('messages.users') }}</span>
         </p>
 
 {{--        <ul class="navbar-nav flex-fill w-100 mb-2">--}}

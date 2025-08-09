@@ -14,7 +14,7 @@
                 <!-- Navigation Links -->
                 <div class="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex">
                     <x-admin::nav-link href="{{ route('admin.dashboard') }}" :active="request()->routeIs('dashboard')">
-                        {{ __('Dashboard') }}
+                        {{ __('messages.dashboard') }}
                     </x-admin::nav-link>
                 </div>
             </div>
@@ -35,7 +35,7 @@
 
                     <x-slot name="content">
                         <x-admin::dropdown-link href="{{ route('admin.profile.edit') }}">
-                            {{ __('Profile') }}
+                            {{ __('messages.profile') }}
                         </x-admin::dropdown-link>
 
                         <!-- Authentication -->
@@ -43,7 +43,7 @@
                             @csrf
                             <x-admin::dropdown-link href="{{ route('admin.logout') }}"
                                              onclick="event.preventDefault(); this.closest('form').submit();">
-                                {{ __('Log Out') }}
+                                {{ __('messages.logout') }}
                             </x-admin::dropdown-link>
                         </form>
                     </x-slot>
@@ -66,7 +66,7 @@
     <div :class="{'block': open, 'hidden': ! open}" class="hidden sm:hidden">
         <div class="pt-2 pb-3 space-y-1">
             <x-admin::responsive-nav-link href="{{ route('admin.dashboard') }}" :active="request()->routeIs('admin.dashboard')">
-                {{ __('Dashboard') }}
+                {{ __('messages.dashboard') }}
             </x-admin::responsive-nav-link>
         </div>
 
@@ -79,7 +79,7 @@
 
             <div class="mt-3 space-y-1">
                 <x-admin::responsive-nav-link href="{{ route('admin.profile.edit') }}">
-                    {{ __('Profile') }}
+                    {{ __('messages.profile') }}
                 </x-admin::responsive-nav-link>
 
                 <!-- Authentication -->
@@ -87,7 +87,7 @@
                     @csrf
                     <x-admin::responsive-nav-link href="{{ route('admin.logout') }}"
                                            onclick="event.preventDefault(); this.closest('form').submit();">
-                        {{ __('Log Out') }}
+                        {{ __('messages.logout') }}
                     </x-admin::responsive-nav-link>
                 </form>
             </div>
