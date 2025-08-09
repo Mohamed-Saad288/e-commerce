@@ -36,4 +36,9 @@ class AdminController extends Controller
     {
         $admin = $this->service->deleteAdmin($id);
     }
+
+    public function dashboard()
+    {
+        return view('admin::dashboard.index');
+    }
 }
