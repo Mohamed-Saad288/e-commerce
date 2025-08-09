@@ -12,7 +12,7 @@ class AdminSeeder extends Seeder
     {
         Admin::query()->create([
             'name' => 'Admin',
-            "phone" => "01279867697",
+            "phone" => "01029869611",
             'email' => 'admin@example',
             'password' => "password",
         ]);
