@@ -30,15 +30,15 @@
             <span>{{ __('messages.users') }}</span>
         </p>
 
-{{--        <ul class="navbar-nav flex-fill w-100 mb-2">--}}
+        <ul class="navbar-nav flex-fill w-100 mb-2">
 {{--            @can('show_employees')--}}
-{{--                <!-- Employee -->--}}
-{{--                <li class="nav-item w-100">--}}
-{{--                    <a class="nav-link" href="{{ route('admin.employees.index') }}">--}}
-{{--                        <i class="fe fe-users fe-16"></i>--}}
-{{--                        <span class="ml-3 item-text">{{ __('keys.supervisors') }}</span>--}}
-{{--                    </a>--}}
-{{--                </li>--}}
+                <!-- Employee -->
+                <li class="nav-item w-100">
+                    <a class="nav-link" href="{{ route('admin.features.index') }}">
+                        <i class="fe fe-users fe-16"></i>
+                        <span class="ml-3 item-text">{{ __('keys.features') }}</span>
+                    </a>
+                </li>
 {{--            @endcan--}}
 {{--            <!-- users -->--}}
 {{--            <li class="nav-item w-100">--}}
@@ -51,7 +51,7 @@
 {{--                <!-- ROLES -->--}}
 {{--                <li class="nav-item w-100">--}}
 {{--                    <a class="nav-link" href="{{ route('admin.roles.index') }}">--}}
-{{--                        --}}{{-- <i class="fe fe-shield fe-16"></i> --}}
+{{--                         <i class="fe fe-shield fe-16"></i> --}}
 {{--                        <i class="fe fe-lock fe-16"></i>--}}
 {{--                        <span class="ml-3 item-text">{{ __('keys.roles') }}</span>--}}
 {{--                    </a>--}}
@@ -67,6 +67,7 @@
 {{--                    </a>--}}
 {{--                </li>--}}
 {{--            @endcan--}}
+        </ul>
 
 {{--            <p class="text-muted nav-heading mt-4 mb-1">--}}
 {{--                <span>{{ __('keys.Content_Management') }}</span>--}}

@@ -1,0 +1,43 @@
+@font-face {
+    font-family: 'Bahij';
+    src: url('fonts/Bahij/Bahij.ttf') format('woff2'),
+    url('fonts/Bahij/Bahij.ttf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'cairo';
+    src: url('fonts/Cairo-Black.ttf') format('woff2'),
+    url('fonts/Cairo-Black.ttf') format('woff'),
+    url('fonts/Cairo-Black.ttf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+}
+
+body {
+    font-family: 'Bahij', 'cairo', sans-serif !important;
+}
+
+
+/* Center the no-data div and image */
+.no-data {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+    text-align: center;
+}
+
+.no-data img {
+    max-width: 150px;
+    height: auto;
+    margin-bottom: 10px;
+}
+
+.no-data p {
+    margin: 0;
+    font-size: 1.2em;
+    color: #666;
+}
