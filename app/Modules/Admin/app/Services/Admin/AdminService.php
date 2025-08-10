@@ -11,9 +11,8 @@ class AdminService
     {
         return Admin::create($dto->toArray());
     }
-    public function updateAdmin(DTOInterface $dto)
+    public function updateAdmin($admin, DTOInterface $dto)
     {
-        $admin = Admin::find($dto->id);
         $admin->update($dto->toArray());
         return $admin;
     }
@@ -21,9 +20,9 @@ class AdminService
     {
         return Admin::find($id);
     }
-    public function deleteAdmin($id)
+    public function deleteAdmin($admin)
     {
-        return Admin::find($id)->delete();
+        return $admin->delete();
     }
     public function getAdmins()
     {

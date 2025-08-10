@@ -4,9 +4,12 @@ namespace App\Modules\Admin\app\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Modules\Admin\app\DTO\Admin\AdminDto;
+use App\Modules\Admin\app\DTO\Plans\FeatureDto;
 use App\Modules\Admin\app\Http\Request\Admin\StoreAdminRequest;
 use App\Modules\Admin\app\Http\Request\Admin\UpdateAdminRequest;
+use App\Modules\Admin\app\Models\Admin\Admin;
 use App\Modules\Admin\app\Services\Admin\AdminService;
+use Exception;
 
 class AdminController extends Controller
 {
@@ -14,27 +17,59 @@ class AdminController extends Controller
     public function index()
     {
         $admins = $this->service->getAdmins();
-        return view('admin::dashboard.admins.index', compact('admins'));
+        return view('admin::dashboard.admins.index', get_defined_vars());
     }
     public function create()
     {
-        return view('admin::dashboard.admins.create');
+        $fields = [
+            'name' => 'text',
+            'email' => 'email',
+            'phone' => 'text',
+            'password' => 'password',
+            ];
+        return view('admin::dashboard.admins.single',get_defined_vars());
     }
     public function store(StoreAdminRequest $request)
     {
-        $admin = $this->service->storeAdmin(AdminDTO::fromArray($request->validated()));
+        $this->service->storeAdmin(AdminDto::fromArray($request));
+        return to_route('admin.admins.index')->with(array(
+            'message' => __("messages.success"),
+            'alert-type' => 'success'
+        ));
     }
     public function edit($id)
     {
         $admin = $this->service->getAdmin($id);
+        $fields = [
+            'name' => 'text',
+            'email' => 'email',
+            'phone' => 'text',
+            ];
+        return view('admin::dashboard.admins.single', get_defined_vars());
+
     }
-    public function update(UpdateAdminRequest $request)
+    public function update(Admin $admin, UpdateAdminRequest $request)
     {
-        $admin = $this->service->updateAdmin(AdminDTO::fromArray($request->validated()));
+        $this->service->updateAdmin($admin, AdminDTO::fromArray($request->validated()));
+        return to_route('admin.admins.index')->with([
+            'message' => __("messages.success"),
+            'alert-type' => 'success'
+        ]);
     }
-    public function destroy($id)
+    public function destroy(Admin $admin)
     {
-        $admin = $this->service->deleteAdmin($id);
+        try {
+            $this->service->deleteAdmin(admin: $admin);
+            return response()->json([
+                'success' => true,
+                'message' => __('messages.admin_deleted_successfully')
+            ]);
+        } catch (Exception $e) {
+            return response()->json([
+                'success' => false,
+                'message' => __('messages.something_wrong')
+            ], 500);
+        }
     }
 
     public function dashboard()
