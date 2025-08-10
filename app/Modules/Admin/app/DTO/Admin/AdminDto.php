@@ -23,7 +23,7 @@ class AdminDto implements DTOInterface
         $this->password = $password;
     }
 
-    public static function fromArray(array $data): self
+    public static function fromArray($data): self
     {
         return new self(
             $data['name'] ?? null,

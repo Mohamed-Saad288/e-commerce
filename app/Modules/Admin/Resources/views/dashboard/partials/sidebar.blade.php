@@ -33,12 +33,26 @@
         <ul class="navbar-nav flex-fill w-100 mb-2">
 {{--            @can('show_employees')--}}
                 <!-- Employee -->
+
+
+{{--            admin      --}}
+            <li class="nav-item w-100">
+                <a class="nav-link" href="{{ route('admin.admins.index') }}">
+                    <i class="fe fe-users fe-16"></i>
+                    <span class="ml-3 item-text">{{ __('messages.admins') }}</span>
+                </a>
+            </li>
+
+{{--            features     --}}
                 <li class="nav-item w-100">
                     <a class="nav-link" href="{{ route('admin.features.index') }}">
-                        <i class="fe fe-users fe-16"></i>
-                        <span class="ml-3 item-text">{{ __('keys.features') }}</span>
+                        <i class="fe fe-star fe-16"></i>
+                        <span class="ml-3 item-text">{{ __('messages.features') }}</span>
                     </a>
                 </li>
+
+
+
 {{--            @endcan--}}
 {{--            <!-- users -->--}}
 {{--            <li class="nav-item w-100">--}}

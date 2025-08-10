@@ -1,5 +1,5 @@
 @extends('admin::dashboard.master')
-@section('title', __('messages.features'))
+@section('title', __('messages.admins'))
 
 @section('content')
     <div class="container-fluid">
@@ -7,10 +7,10 @@
             <div class="col-md-12">
                 <div class="card">
                     <div class="card-header d-flex justify-content-between align-items-center">
-                        <h4 class="card-title">{{ __('messages.features') }}</h4>
-{{--                        @can('create_fags')--}}
-                            <a href="{{ route('admin.features.create') }}" class="btn btn-primary">
-                                {{ __('messages.add_feature') }}
+                        <h4 class="card-title">{{ __('messages.admins') }}</h4>
+{{--                        @can('create_employees')--}}
+                            <a href="{{ route('admin.admins.create') }}" class="btn btn-primary">
+                                {{ __('messages.add_admin') }}
                             </a>
 {{--                        @endcan--}}
                     </div>
@@ -22,48 +22,44 @@
                                 <tr>
                                     <th>#</th>
                                     <th>{{ __('messages.name') }}</th>
-                                    <th>{{ __('messages.description') }}</th>
-                                    <th>{{ __('messages.slug') }}</th>
-                                    <th>{{ __('messages.type') }}</th>
-                                    <th>{{ __('messages.status') }}</th>
+                                    <th>{{ __('messages.email') }}</th>
+                                    <th>{{ __('messages.phone') }}</th>
+{{--                                    <th>{{ __('messages.status') }}</th>--}}
                                     <th>{{ __('messages.actions') }}</th>
                                 </tr>
                                 </thead>
                                 <tbody>
-                                @if (count($features) > 0)
-                                    @foreach ($features as $feature)
+                                @if (count($admins) > 0)
+                                    @foreach ($admins as $admin)
                                         <tr>
                                             <td>{{ $loop->iteration }}</td>
-                                            <td>{{ $feature->name }}</td>
-                                            <td>{{ Str::limit($feature->description, 50) }}</td>
-                                            <td>{{ $feature->slug }}</td>
-                                            <td>{{ $feature->type }}</td>
-
-                                            <td>
-{{--                                                @can('active_fags')--}}
-                                                    <div class="custom-control custom-switch">
-                                                        <input type="checkbox"
-                                                               class="custom-control-input toggle-status"
-                                                               id="toggleStatus{{ $feature->id }}"
-                                                               data-id="{{ $feature->id }}"
-                                                            {{ $feature->is_active ? 'checked' : '' }}>
-                                                        <label class="custom-control-label"
-                                                               for="toggleStatus{{ $feature->id }}"></label>
-                                                    </div>
+                                            <td>{{ $admin->name }}</td>
+                                            <td>{{ $admin->email }}</td>
+                                            <td>{{ $admin->phone }}</td>
+{{--                                            <td>--}}
+{{--                                                @can('active_employees')--}}
+{{--                                                    <div class="custom-control custom-switch">--}}
+{{--                                                        <input type="checkbox"--}}
+{{--                                                               class="custom-control-input toggle-status"--}}
+{{--                                                               id="toggleStatus{{ $admin->id }}"--}}
+{{--                                                               data-id="{{ $admin->id }}"--}}
+{{--                                                            {{ $admin->is_active ? 'checked' : '' }}>--}}
+{{--                                                        <label class="custom-control-label"--}}
+{{--                                                               for="toggleStatus{{ $admin->id }}"></label>--}}
+{{--                                                    </div>--}}
 {{--                                                @endcan--}}
-                                            </td>
-
+{{--                                            </td>--}}
                                             <td>
-{{--                                                @can('create_fags')--}}
-                                                    <a href="{{ route('admin.features.edit', $feature->id) }}"
+{{--                                                @can('update_employees')--}}
+                                                    <a href="{{ route('admin.admins.edit', $admin->id) }}"
                                                        class="btn btn-sm btn-success">
                                                         <i class='fe fe-edit fa-2x'></i>
                                                     </a>
 {{--                                                @endcan--}}
-{{--                                                @can('delete_fags')--}}
 
-                                                    <button class="btn btn-sm btn-danger delete-faq"
-                                                            data-id="{{ $feature->id }}">
+{{--                                                @can('delete_employees')--}}
+                                                    <button class="btn btn-sm btn-danger delete-admin"
+                                                            data-id="{{ $admin->id }}">
                                                         <i class="fe fe-trash-2 fa-2x"></i>
                                                     </button>
 {{--                                                @endcan--}}
@@ -96,35 +92,10 @@
     <script>
         $(document).ready(function () {
 
-            $('.toggle-status').change(function () {
-                let faqId = $(this).data('id');
-
-                $.ajax({
-                    url: "{{ route('admin.features.change_status', ':id') }}".replace(':id', faqId),
-                    type: "POST",
-                    data: {
-                        _token: "{{ csrf_token() }}",
-                        faq_id: faqId, // The faq ID to change the status
-                    },
-                    success: function (response) {
-                        if (response.success) {
-                            toastr.success(
-                                "{{ __('messages.the faq status updated successfully') }}");
-                        } else {
-                            toastr.error("{{ __('messages.something_wrong') }}");
-                        }
-                    },
-                    error: function () {
-                        toastr.error("{{ __('messages.error_occurred') }}");
-                    }
-                });
-            });
-
-
-            $(document).on('click', '.delete-faq', function (e) {
+            $(document).on('click', '.delete-admin', function (e) {
                 e.preventDefault();
-                let featureId = $(this).data('id');
-                let deleteUrl = "{{ route('admin.features.destroy', ':id') }}".replace(':id', featureId);
+                let blogId = $(this).data('id');
+                let deleteUrl = "{{ route('admin.admins.destroy', ':id') }}".replace(':id', blogId);
                 let row = $(this).closest('tr'); // Select the row to remove
 
                 // SweetAlert confirmation
