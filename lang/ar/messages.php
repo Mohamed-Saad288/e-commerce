@@ -1,4 +1,5 @@
 <?php
+
 return [
 
     'dashboard' => 'لوحة التحكم',
@@ -53,4 +54,7 @@ return [
     'edit_employee' => 'تعديل موظف',
     'admin_deleted_successfully' => 'تم حذف المسؤول بنجاح',
     'phone' => 'الهاتف',
-    ];
+    "status_updated" => "تم تحديث الحالة بنجاح",
+    "updated" => "تم التعديل بنجاح",
+    "success" => "تم الحفظ بنجاح",
+];

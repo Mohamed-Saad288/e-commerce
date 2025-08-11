@@ -43,6 +43,11 @@ class FeaturesController extends Controller
     public function update(UpdateFeatureRequest $request , Feature $feature)
     {
         $this->service->update(model: $feature, dto: FeatureDto::fromArray($request));
+
+        return to_route('admin.features.index')->with(array(
+            'message' => __("messages.updated"),
+            'alert-type' => 'success'
+        ));
     }
     public function destroy(Feature $feature)
     {
@@ -50,7 +55,7 @@ class FeaturesController extends Controller
             $this->service->delete(model: $feature);
             return response()->json([
                 'success' => true,
-                'message' => __('keys.faq_deleted_successfully')
+                'message' => __('keys.deleted')
             ]);
         } catch (Exception $e) {
             return response()->json([
@@ -66,7 +71,7 @@ class FeaturesController extends Controller
 
         return response()->json([
             'success' => true,
-            'message' => __('keys.status_updated')
+            'message' => __('messages.status_updated')
         ]);
     }
 

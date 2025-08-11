@@ -19,6 +19,7 @@ class StoreFeatureRequest extends FormRequest
         $rules = [
             "slug" => ["nullable", Rule::unique("features", "slug")->whereNull("deleted_at")],
             "type" => ["nullable", new Enum(FeatureTypeEnum::class)],
+            "is_active" => "required|boolean"
         ];
 
         foreach (config('translatable.locales') as $locale) {
