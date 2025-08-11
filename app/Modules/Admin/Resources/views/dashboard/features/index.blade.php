@@ -35,7 +35,7 @@
                                         <tr>
                                             <td>{{ $loop->iteration }}</td>
                                             <td>{{ $feature->name }}</td>
-                                            <td>{{ Str::limit($feature->description, 50) }}</td>
+                                            <td>{{\Illuminate\Support\Str::limit($feature->description, 50)}}</td>
                                             <td>{{ $feature->slug }}</td>
                                             <td>{{ $feature->type }}</td>
 
@@ -109,7 +109,7 @@
                     success: function (response) {
                         if (response.success) {
                             toastr.success(
-                                "{{ __('messages.the faq status updated successfully') }}");
+                                "{{ __('messages.updated') }}");
                         } else {
                             toastr.error("{{ __('messages.something_wrong') }}");
                         }

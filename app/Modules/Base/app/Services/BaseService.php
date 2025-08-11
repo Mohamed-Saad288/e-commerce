@@ -41,9 +41,14 @@ class BaseService
         return $query == "paginate" ? $model->paginate($request->per_page ?? 10) : $model->get();
     }
 
+    public function list(): Collection
+    {
+        return $this->model->query()->get();
+    }
+
     public function toggleStatus(?BaseModel $model = null): void
     {
-        $model->toggleStatus();
+        $model->toggleActivation();
     }
 
 }

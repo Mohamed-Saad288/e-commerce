@@ -7,51 +7,56 @@ use Illuminate\Foundation\Http\FormRequest;
 
 class FeatureDto implements DTOInterface
 {
-    public ?string $name = null;
-    public ?string $description = null;
+    public ?array $translations = [];
     public ?bool $is_active = null;
     public ?string $slug = null;
     public ?int $type = null;
     public ?int $added_by_id = null;
+
     public function __construct(
-        ?string $name = null,
-        ?string $description = null,
+        ?array $translations = [],
         ?bool $is_active = null,
         ?string $slug = null,
         ?int $type = null,
         ?int $added_by_id = null
     ) {
-        $this->name = $name;
-        $this->description = $description;
+        $this->translations = $translations;
         $this->is_active = $is_active;
         $this->slug = $slug;
         $this->type = $type;
         $this->added_by_id = $added_by_id;
     }
 
-
     public static function fromArray(FormRequest|array $data): DTOInterface
     {
-        $added_by_id = auth()->user()->id;
+        $arrayData = $data instanceof FormRequest ? $data->validated() : $data;
+        $translations = [];
+        foreach (config('translatable.locales') as $locale) {
+            $translations[$locale] = [
+                'name'        => $arrayData[$locale]['name'] ?? null,
+                'description' => $arrayData[$locale]['description'] ?? null,
+            ];
+        }
+
         return new self(
-            name: $data->name ?? null,
-            description: $data->description ?? null,
-            is_active: $data->is_active ?? null,
-            slug: $data->slug ?? null,
-            type: $data->type ?? null,
-            added_by_id: $added_by_id ?? null
+            translations: $translations,
+            is_active: $arrayData['is_active'] ?? null,
+            slug: $arrayData['slug'] ?? null,
+            type: $arrayData['type'] ?? null,
+            added_by_id: auth()->id()
         );
     }
 
     public function toArray(): array
     {
-        return [
-            'name' => $this->name,
-            'description' => $this->description,
-            'is_active' => $this->is_active,
-            'slug' => $this->slug,
-            'type' => $this->type,
-            'added_by_id' => $this->added_by_id,
-        ];
+        return array_merge(
+            $this->translations,
+            [
+                'is_active'    => $this->is_active,
+                'slug'         => $this->slug,
+                'type'         => $this->type,
+                'added_by_id'  => $this->added_by_id,
+            ]
+        );
     }
 }

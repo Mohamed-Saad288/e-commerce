@@ -51,4 +51,7 @@ return [
     'edit_user' => 'Edit User',
     'add_employee' => 'Add Employee',
     'admin_deleted_successfully' => 'Admin deleted successfully',
+    "status_updated" => "Status updated successfully",
+    "updated" => "Updated successfully",
+    "success" => "Saved successfully",
 ];

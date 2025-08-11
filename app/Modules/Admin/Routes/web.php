@@ -28,7 +28,7 @@ Route::group(
 
             /**************************change status Routes********************/
             Route::prefix("change_status")->group(function () {
-                Route::get("features/{feature}", [FeaturesController::class, 'changeStatus'])->name('features.change_status');
+                Route::post("features/{feature}", [FeaturesController::class, 'changeStatus'])->name('features.change_status');
             });
             /**************************change status Routes********************/
 
