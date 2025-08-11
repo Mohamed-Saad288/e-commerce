@@ -44,6 +44,7 @@ class OrganizationService
         return $organization->delete();
     }
 
+
     public function getOrganizations()
     {
         return Organization::latest()->paginate(10);
