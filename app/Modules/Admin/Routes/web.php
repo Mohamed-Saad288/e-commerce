@@ -15,14 +15,8 @@ Route::group(
         'middleware' => ['localeSessionRedirect', 'localizationRedirect', 'localeViewPath', 'web'],
     ],
     function () {
-<<<<<<< HEAD
-=======
-        Route::resource("admins", AdminController::class);
-        Route::resource("organizations", OrganizationController::class);
         Route::get("login", [AuthController::class, 'getLogin'])->name('login');
         Route::post("login", [AuthController::class, 'login']);
->>>>>>> 65732eb (Organization crud)
-
         Route::middleware('guest:admin')->group(function () {
             Route::get("login", [AuthController::class, 'getLogin'])->name('login');
             Route::post("login", [AuthController::class, 'login'])->name('admin.login');
@@ -36,6 +30,8 @@ Route::group(
             Route::resource("features", FeaturesController::class);
             Route::resource("plans", PlansController::class);
             Route::resource("admins", AdminController::class);
+            Route::resource("organizations", OrganizationController::class);
+
 
             /**************************change status Routes********************/
             Route::prefix("change_status")->group(function () {

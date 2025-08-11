@@ -43,15 +43,7 @@ class BaseService
 
     public function list(): Collection
     {
-<<<<<<< HEAD
-<<<<<<< HEAD
         return $this->model->query()->where("is_active", 1)->latest()->get();
-=======
-        return $this->model->query()->get();
->>>>>>> ee0ac67 (FullFeatureCrud)
-=======
-        return $this->model->query()->where("is_active", 1)->latest()->get();
->>>>>>> ad9d159 (featurePlans)
     }
 
     public function toggleStatus(?BaseModel $model = null): void

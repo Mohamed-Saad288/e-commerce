@@ -37,34 +37,32 @@
 
 {{--            admin      --}}
             <li class="nav-item w-100">
-                <a class="nav-link" href="{{ route('admin.admins.index') }}">
+                <a class="nav-link {{ request()->routeIs('admin.admins.*') ? 'active' : '' }}" href="{{ route('admin.admins.index') }}">
                     <i class="fe fe-users fe-16"></i>
                     <span class="ml-3 item-text">{{ __('messages.admins') }}</span>
                 </a>
             </li>
 
-            {{--            organization      --}}
             <li class="nav-item w-100">
-                <a class="nav-link" href="{{ route('admin.organizations.index') }}">
+                <a class="nav-link {{ request()->routeIs('admin.organizations.*') ? 'active' : '' }}" href="{{ route('admin.organizations.index') }}">
                     <i class="fe fe-briefcase fe-16"></i>
                     <span class="ml-3 item-text">{{ __('messages.organizations') }}</span>
                 </a>
             </li>
 
-{{--            features     --}}
-                <li class="nav-item w-100">
-                    <a class="nav-link" href="{{ route('admin.features.index') }}">
-                        <i class="fe fe-star fe-16"></i>
-                        <span class="ml-3 item-text">{{ __('messages.features') }}</span>
-                    </a>
-                </li>
+            <li class="nav-item w-100">
+                <a class="nav-link {{ request()->routeIs('admin.features.*') ? 'active' : '' }}" href="{{ route('admin.features.index') }}">
+                    <i class="fe fe-star fe-16"></i>
+                    <span class="ml-3 item-text">{{ __('messages.features') }}</span>
+                </a>
+            </li>
 
             <li class="nav-item w-100">
-                    <a class="nav-link" href="{{ route('admin.plans.index') }}">
-                        <i class="fe fe-star fe-16"></i>
-                        <span class="ml-3 item-text">{{ __('messages.plans') }}</span>
-                    </a>
-                </li>
+                <a class="nav-link {{ request()->routeIs('admin.plans.*') ? 'active' : '' }}" href="{{ route('admin.plans.index') }}">
+                    <i class="fe fe-check-circle"></i>
+                    <span class="ml-3 item-text">{{ __('messages.plans') }}</span>
+                </a>
+            </li>
 
 
 
