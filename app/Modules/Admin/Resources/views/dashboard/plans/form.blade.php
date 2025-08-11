@@ -72,7 +72,7 @@
     <div class="row">
         <div class="col-md-6">
             <div class="form-group">
-                <label for="price" class="font-weight-bold">{{ __("keys.price") }}</label>
+                <label for="price" class="font-weight-bold">{{ __("messages.price") }}</label>
                 <input type="number" step="0.01" name="price" id="price"
                        class="form-control @error('price') is-invalid @enderror"
                        value="{{ old('price', $plan ? $plan->price : '') }}" required>
@@ -84,7 +84,7 @@
 
         <div class="col-md-6">
             <div class="form-group">
-                <label for="duration" class="font-weight-bold">{{ __("keys.duration") }}</label>
+                <label for="duration" class="font-weight-bold">{{ __("messages.duration") }}</label>
                 <input type="number" name="duration" id="duration"
                        class="form-control @error('duration') is-invalid @enderror"
                        value="{{ old('duration', $plan ? $plan->duration : '') }}" required>
@@ -99,7 +99,7 @@
     <div class="row">
         <div class="col-md-6">
             <div class="form-group">
-                <label for="trial_period" class="font-weight-bold">{{ __("keys.trial_period") }}</label>
+                <label for="trial_period" class="font-weight-bold">{{ __("messages.trial_period") }}</label>
                 <input type="number" name="trial_period" id="trial_period"
                        class="form-control @error('trial_period') is-invalid @enderror"
                        value="{{ old('trial_period', $plan ? $plan->trial_period : '') }}" required>
@@ -111,7 +111,7 @@
 
         <div class="col-md-6">
             <div class="form-group">
-                <label for="sort_order" class="font-weight-bold">{{ __("keys.sort_order") }}</label>
+                <label for="sort_order" class="font-weight-bold">{{ __("messages.sort_order") }}</label>
                 <input type="number" name="sort_order" id="sort_order"
                        class="form-control @error('sort_order') is-invalid @enderror"
                        value="{{ old('sort_order', $plan ? $plan->sort_order : '') }}" required>
@@ -126,7 +126,7 @@
     <div class="row">
         <div class="col-md-12">
             <div class="form-group">
-                <label for="features" class="font-weight-bold">{{ __("keys.features") }}</label>
+                <label for="features" class="font-weight-bold">{{ __("messages.features") }}</label>
                 <select multiple name="features[]" id="features"
                         class="form-control select2-features @error('features') is-invalid @enderror">
                     @foreach($features as $feature)
@@ -156,7 +156,7 @@
     <div class="row">
         <div class="col-md-12">
             <div id="feature-values-container" style="display: none;">
-                <label class="font-weight-bold mb-3">{{ __("keys.feature_values") }}</label>
+                <label class="font-weight-bold mb-3">{{ __("messages.feature_values") }}</label>
                 <div class="row" id="feature-values">
                     {{-- Dynamic content will be added here --}}
                 </div>
@@ -168,7 +168,7 @@
     <div class="row">
         <div class="col-md-6">
             <div class="form-group">
-                <label for="image" class="font-weight-bold">{{ __("keys.image") }}</label>
+                <label for="image" class="font-weight-bold">{{ __("messages.image") }}</label>
                 @if(isset($plan) && $plan->getFirstMediaUrl('images'))
                     <div class="mb-2">
                         <img src="{{ $plan->getFirstMediaUrl('images') }}" alt="Current Image"
@@ -178,7 +178,7 @@
                 <div class="custom-file">
                     <input type="file" name="image" class="custom-file-input @error('image') is-invalid @enderror"
                            id="image" accept="image/*" {{ !isset($plan) ? 'required' : '' }}>
-                    <label class="custom-file-label" for="image">{{ __("keys.choose_file") }}</label>
+                    <label class="custom-file-label" for="image">{{ __("messages.choose_file") }}</label>
                     @error('image')
                     <small class="text-danger">{{ $message }}</small>
                     @enderror
@@ -208,9 +208,6 @@
 {{-- Include Select2 CSS --}}
 <link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.13/css/select2.min.css" rel="stylesheet" />
 <link href="https://cdnjs.cloudflare.com/ajax/libs/select2-bootstrap-theme/0.1.0-beta.10/select2-bootstrap.min.css" rel="stylesheet" />
-
-{{-- Include Select2 JS --}}
-<script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.13/js/select2.min.js"></script>
 
 <style>
     .feature-value-card {
@@ -253,16 +250,76 @@
         color: white;
         margin-right: 5px;
     }
+
+    /* RTL Support for Select2 */
+    [dir="rtl"] .select2-container--bootstrap .select2-selection--multiple .select2-selection__choice {
+        float: right;
+        margin-left: 5px;
+        margin-right: 0;
+    }
+
+    [dir="rtl"] .select2-container--bootstrap .select2-selection--multiple .select2-selection__choice__remove {
+        margin-left: 5px;
+        margin-right: 0;
+        float: left;
+    }
+
+    [dir="rtl"] .select2-container--bootstrap .select2-selection--multiple .select2-search--inline {
+        float: right;
+    }
+
+    [dir="rtl"] .select2-container--bootstrap .select2-selection--multiple .select2-search--inline .select2-search__field {
+        direction: rtl;
+        text-align: right;
+    }
+
+    /* Force RTL for Arabic content */
+    .rtl-select2 .select2-container--bootstrap .select2-selection--multiple {
+        direction: rtl;
+        text-align: right;
+    }
+
+    .rtl-select2 .select2-container--bootstrap .select2-selection--multiple .select2-selection__choice {
+        float: right;
+        margin: 2px 0 2px 5px;
+    }
+
+    .rtl-select2 .select2-container--bootstrap .select2-selection--multiple .select2-selection__choice__remove {
+        float: left;
+        margin-left: 5px;
+        margin-right: 0;
+    }
+
+    .rtl-select2 .select2-container--bootstrap .select2-selection--multiple .select2-search--inline {
+        float: right;
+    }
+
+    .rtl-select2 .select2-dropdown {
+        direction: rtl;
+        text-align: right;
+    }
+
+    .rtl-select2 .select2-results__option {
+        text-align: right;
+        direction: rtl;
+    }
 </style>
 
 <script>
     document.addEventListener('DOMContentLoaded', function() {
-        // Initialize Select2
+        // تحديد اتجاه الصفحة
+        const isRTL = document.documentElement.dir === 'rtl' ||
+            document.body.dir === 'rtl' ||
+            '{{ app()->getLocale() }}' === 'ar' ||
+            getComputedStyle(document.body).direction === 'rtl';
+
+        // Initialize Select2 with RTL support
         $('.select2-features').select2({
             theme: 'bootstrap',
-            placeholder: '{{ __("keys.select_features") }}',
+            placeholder: '{{ __("messages.select_features") }}',
             allowClear: true,
             width: '100%',
+            dir: isRTL ? 'rtl' : 'ltr',
             language: {
                 noResults: function() {
                     return '{{ __("messages.no_results_found") }}';
@@ -272,6 +329,16 @@
                 }
             }
         });
+
+        // إضافة كلاس RTL للسيليكت إذا كانت الصفحة عربية
+        if (isRTL) {
+            $('.select2-features').parent().addClass('rtl-select2');
+
+            // تأكد من تطبيق RTL على الدروب داون بعد الفتح
+            $('.select2-features').on('select2:open', function() {
+                $('.select2-dropdown').parent().addClass('rtl-select2');
+            });
+        }
 
         const featuresSelect = document.getElementById('features');
         const featureValuesContainer = document.getElementById('feature-values-container');
@@ -331,6 +398,12 @@
             title.className = 'feature-title';
             title.textContent = feature.name;
 
+            // إضافة دعم RTL للعناوين
+            if (isRTL) {
+                title.style.textAlign = 'right';
+                title.style.direction = 'rtl';
+            }
+
             const inputGroup = document.createElement('div');
             inputGroup.className = 'feature-input';
 
@@ -342,21 +415,22 @@
                 case 1:
                     inputHTML += `
                 <input type="number"
-                       name="features[${index}][value]"
-                       class="form-control form-control-sm"
-                       placeholder="{{ __('keys.enter_limit') }}"
+                       name="features[${index}][feature_value]"
+                       class="form-control form-control-sm ${isRTL ? 'text-right' : ''}"
+                       style="${isRTL ? 'direction: rtl;' : ''}"
+                       placeholder="{{ __('messages.enter_limit') }}"
                        value="${existingValue}"
                        min="0">`;
                     break;
                 case 2:
                     const isChecked = existingValue == '1' || existingValue === true;
                     inputHTML += `
-                <div class="custom-control custom-switch">
+                <div class="custom-control custom-switch ${isRTL ? 'text-right' : ''}">
                     <input type="hidden" name="features[${index}][value]" value="0">
                     <input type="checkbox"
                            class="custom-control-input"
                            id="feature_${feature.id}"
-                           name="features[${index}][value]"
+                           name="features[${index}][feature_value]"
                            value="1"
                            ${isChecked ? 'checked' : ''}>
                     <label class="custom-control-label" for="feature_${feature.id}">
@@ -367,17 +441,19 @@
                 case 3:
                     inputHTML += `
                 <input type="text"
-                       name="features[${index}][value]"
-                       class="form-control form-control-sm"
-                       placeholder="{{ __('keys.enter_text') }}"
+                       name="features[${index}][feature_value]"
+                       class="form-control form-control-sm ${isRTL ? 'text-right' : ''}"
+                       style="${isRTL ? 'direction: rtl;' : ''}"
+                       placeholder="{{ __('messages.enter_text') }}"
                        value="${existingValue}">`;
                     break;
                 default:
                     inputHTML += `
                 <input type="text"
-                       name="features[${index}][value]"
-                       class="form-control form-control-sm"
-                       placeholder="{{ __('keys.enter_value') }}"
+                       name="features[${index}][feature_value]"
+                       class="form-control form-control-sm ${isRTL ? 'text-right' : ''}"
+                       style="${isRTL ? 'direction: rtl;' : ''}"
+                       placeholder="{{ __('messages.enter_value') }}"
                        value="${existingValue}">`;
             }
 
@@ -389,10 +465,17 @@
             return colDiv;
         }
 
-        // Update file input label
         document.querySelector('.custom-file-input').addEventListener('change', function(e) {
-            const fileName = e.target.files[0]?.name || '{{ __("keys.choose_file") }}';
+            const fileName = e.target.files[0]?.name || '{{ __("messages.choose_file") }}';
             e.target.nextElementSibling.innerText = fileName;
         });
+
+        if (isRTL) {
+            const fileInput = document.querySelector('.custom-file-label');
+            if (fileInput) {
+                fileInput.style.textAlign = 'right';
+                fileInput.style.direction = 'rtl';
+            }
+        }
     });
 </script>

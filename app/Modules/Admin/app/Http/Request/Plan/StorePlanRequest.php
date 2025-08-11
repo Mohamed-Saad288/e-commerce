@@ -27,7 +27,7 @@ class StorePlanRequest extends FormRequest
             "image" => "required|image|mimes:jpeg,png,jpg,gif,svg|max:2048",
             "features" => "required|array",
             "features.*.feature_id" => ["required", Rule::exists("features", "id")->whereNull("deleted_at")],
-            "features.*.value" => ["required"],
+            "features.*.feature_value" => ["required"],
         ];
 
         foreach (config('translatable.locales') as $locale) {

@@ -49,6 +49,14 @@
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
 
+{{-- Include Select2 CSS --}}
+{{--<link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.13/css/select2.min.css" rel="stylesheet" />--}}
+{{--<link href="https://cdnjs.cloudflare.com/ajax/libs/select2-bootstrap-theme/0.1.0-beta.10/select2-bootstrap.min.css" rel="stylesheet" />--}}
+
+{{-- Include Select2 JS--}}
+<script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.13/js/select2.min.js"></script>
+
+
 <script src='{{ asset('assets-admin') }}/js/jquery.dataTables.min.js'></script>
 <script src='{{ asset('assets-admin') }}/js/dataTables.bootstrap4.min.js'></script>
 <script src="{{ asset('assets-admin') }}/js/apps.js"></script>

@@ -4,6 +4,7 @@ namespace App\Modules\Admin\app\DTO\Plans;
 
 use App\Modules\Base\app\DTO\DTOInterface;
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Http\UploadedFile;
 
 class PlanDto implements DTOInterface
 {
@@ -17,7 +18,8 @@ class PlanDto implements DTOInterface
     public ?int $trial_period = null;
     public ?int $sort_order = null;
     public ?array $features = [];
-    public ?string $image = null;
+    /** @var UploadedFile[]|string[] */
+    public array $image = [];
 
     public function __construct(
         ?array $translations = [],
@@ -30,7 +32,7 @@ class PlanDto implements DTOInterface
         ?int $trial_period = null,
         ?int $sort_order = null,
         ?array $features = [],
-        ?string $image = null
+        array $image = []
     ) {
         $this->translations = $translations;
         $this->is_active = $is_active;
@@ -48,6 +50,7 @@ class PlanDto implements DTOInterface
     public static function fromArray(FormRequest|array $data): DTOInterface
     {
         $arrayData = $data instanceof FormRequest ? $data->validated() : $data;
+
         $translations = [];
         foreach (config('translatable.locales') as $locale) {
             $translations[$locale] = [
@@ -55,15 +58,17 @@ class PlanDto implements DTOInterface
                 'description' => $arrayData[$locale]['description'] ?? null,
             ];
         }
-        $features = [];
-        if (isset($arrayData['features'])) {
-            foreach ($arrayData['features'] as $feature) {
-                $features[] = [
-                    'feature_id' => $feature['feature_id'],
-                    'feature_value'      => $feature['value']
-                ];
+
+        $images = [];
+        if ($data instanceof FormRequest) {
+            if ($data->hasFile('image')) {
+                $file = $data->file('image');
+                $images = is_array($file) ? $file : [$file];
             }
+        } elseif (!empty($arrayData['image'])) {
+            $images = is_array($arrayData['image']) ? $arrayData['image'] : [$arrayData['image']];
         }
+
         return new self(
             translations: $translations,
             is_active: $arrayData['is_active'] ?? null,
@@ -74,8 +79,8 @@ class PlanDto implements DTOInterface
             price: $arrayData['price'] ?? null,
             trial_period: $arrayData['trial_period'] ?? null,
             sort_order: $arrayData['sort_order'] ?? null,
-            features: $features,
-            image: $data->image ?? null
+            features: $arrayData['features'] ?? [],
+            image: $images
         );
     }
 
@@ -86,14 +91,17 @@ class PlanDto implements DTOInterface
             [
                 'is_active'    => $this->is_active,
                 'slug'         => $this->slug,
-                'billing_type'         => $this->billing_type,
+                'billing_type' => $this->billing_type,
                 'added_by_id'  => $this->added_by_id,
-                "duration"     => $this->duration,
-                "price"        => $this->price,
-                "trial_period" => $this->trial_period,
-                "sort_order"   => $this->sort_order,
-                "features"     => $this->features,
-                "image"        => $this->image
+                'duration'     => $this->duration,
+                'price'        => $this->price,
+                'trial_period' => $this->trial_period,
+                'sort_order'   => $this->sort_order,
+                'features'     => $this->features,
+                'image'        => array_map(
+                    fn($img) => $img instanceof UploadedFile ? $img->getClientOriginalName() : (string) $img,
+                    $this->image
+                )
             ]
         );
     }
