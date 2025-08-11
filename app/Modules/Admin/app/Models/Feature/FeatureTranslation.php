@@ -16,4 +16,6 @@ class FeatureTranslation extends Model
         'name',
         'description',
     ];
+
+
 }
