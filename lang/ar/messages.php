@@ -54,7 +54,18 @@ return [
     'edit_employee' => 'تعديل موظف',
     'admin_deleted_successfully' => 'تم حذف المسؤول بنجاح',
     'phone' => 'الهاتف',
+<<<<<<< HEAD
     "status_updated" => "تم تحديث الحالة بنجاح",
     "updated" => "تم التعديل بنجاح",
     "success" => "تم الحفظ بنجاح",
 ];
+=======
+    'organizations' => 'المؤسسات',
+    'add_organization' => 'إضافة مؤسسة',
+    'edit_organization' => 'تعديل مؤسسة',
+    'organization_deleted_successfully' => 'تم حذف المؤسسة بنجاح',
+    'organization' => 'المؤسسة',
+    'organization_name' => 'اسم المؤسسة',
+    'website_link' => 'الموقع الالكترونى',
+ ];
+>>>>>>> 65732eb (Organization crud)

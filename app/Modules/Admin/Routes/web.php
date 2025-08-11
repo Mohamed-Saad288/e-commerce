@@ -2,6 +2,7 @@
 
 use App\Modules\Admin\app\Http\Controllers\Admin\AdminController;
 use App\Modules\Admin\app\Http\Controllers\Auth\AuthController;
+use App\Modules\Admin\app\Http\Controllers\Organization\OrganizationController;
 use App\Modules\Admin\app\Http\Controllers\Plans\FeaturesController;
 use App\Modules\Admin\app\Http\Controllers\Plans\PlansController;
 use Illuminate\Support\Facades\Route;
@@ -14,6 +15,13 @@ Route::group(
         'middleware' => ['localeSessionRedirect', 'localizationRedirect', 'localeViewPath', 'web'],
     ],
     function () {
+<<<<<<< HEAD
+=======
+        Route::resource("admins", AdminController::class);
+        Route::resource("organizations", OrganizationController::class);
+        Route::get("login", [AuthController::class, 'getLogin'])->name('login');
+        Route::post("login", [AuthController::class, 'login']);
+>>>>>>> 65732eb (Organization crud)
 
         Route::middleware('guest:admin')->group(function () {
             Route::get("login", [AuthController::class, 'getLogin'])->name('login');
