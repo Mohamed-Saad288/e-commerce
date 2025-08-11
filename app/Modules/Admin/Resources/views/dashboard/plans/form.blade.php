@@ -72,7 +72,7 @@
     <div class="row">
         <div class="col-md-6">
             <div class="form-group">
-                <label for="price" class="font-weight-bold">{{ __("keys.price") }}</label>
+                <label for="price" class="font-weight-bold">{{ __("messages.price") }}</label>
                 <input type="number" step="0.01" name="price" id="price"
                        class="form-control @error('price') is-invalid @enderror"
                        value="{{ old('price', $plan ? $plan->price : '') }}" required>
@@ -84,7 +84,7 @@
 
         <div class="col-md-6">
             <div class="form-group">
-                <label for="duration" class="font-weight-bold">{{ __("keys.duration") }}</label>
+                <label for="duration" class="font-weight-bold">{{ __("messages.duration") }}</label>
                 <input type="number" name="duration" id="duration"
                        class="form-control @error('duration') is-invalid @enderror"
                        value="{{ old('duration', $plan ? $plan->duration : '') }}" required>
@@ -99,7 +99,7 @@
     <div class="row">
         <div class="col-md-6">
             <div class="form-group">
-                <label for="trial_period" class="font-weight-bold">{{ __("keys.trial_period") }}</label>
+                <label for="trial_period" class="font-weight-bold">{{ __("messages.trial_period") }}</label>
                 <input type="number" name="trial_period" id="trial_period"
                        class="form-control @error('trial_period') is-invalid @enderror"
                        value="{{ old('trial_period', $plan ? $plan->trial_period : '') }}" required>
@@ -111,7 +111,7 @@
 
         <div class="col-md-6">
             <div class="form-group">
-                <label for="sort_order" class="font-weight-bold">{{ __("keys.sort_order") }}</label>
+                <label for="sort_order" class="font-weight-bold">{{ __("messages.sort_order") }}</label>
                 <input type="number" name="sort_order" id="sort_order"
                        class="form-control @error('sort_order') is-invalid @enderror"
                        value="{{ old('sort_order', $plan ? $plan->sort_order : '') }}" required>
@@ -126,7 +126,7 @@
     <div class="row">
         <div class="col-md-12">
             <div class="form-group">
-                <label for="features" class="font-weight-bold">{{ __("keys.features") }}</label>
+                <label for="features" class="font-weight-bold">{{ __("messages.features") }}</label>
                 <select multiple name="features[]" id="features"
                         class="form-control select2-features @error('features') is-invalid @enderror">
                     @foreach($features as $feature)
@@ -156,7 +156,7 @@
     <div class="row">
         <div class="col-md-12">
             <div id="feature-values-container" style="display: none;">
-                <label class="font-weight-bold mb-3">{{ __("keys.feature_values") }}</label>
+                <label class="font-weight-bold mb-3">{{ __("messages.feature_values") }}</label>
                 <div class="row" id="feature-values">
                     {{-- Dynamic content will be added here --}}
                 </div>
@@ -168,7 +168,7 @@
     <div class="row">
         <div class="col-md-6">
             <div class="form-group">
-                <label for="image" class="font-weight-bold">{{ __("keys.image") }}</label>
+                <label for="image" class="font-weight-bold">{{ __("messages.image") }}</label>
                 @if(isset($plan) && $plan->getFirstMediaUrl('images'))
                     <div class="mb-2">
                         <img src="{{ $plan->getFirstMediaUrl('images') }}" alt="Current Image"
@@ -178,7 +178,7 @@
                 <div class="custom-file">
                     <input type="file" name="image" class="custom-file-input @error('image') is-invalid @enderror"
                            id="image" accept="image/*" {{ !isset($plan) ? 'required' : '' }}>
-                    <label class="custom-file-label" for="image">{{ __("keys.choose_file") }}</label>
+                    <label class="custom-file-label" for="image">{{ __("messages.choose_file") }}</label>
                     @error('image')
                     <small class="text-danger">{{ $message }}</small>
                     @enderror
@@ -260,7 +260,7 @@
         // Initialize Select2
         $('.select2-features').select2({
             theme: 'bootstrap',
-            placeholder: '{{ __("keys.select_features") }}',
+            placeholder: '{{ __("messages.select_features") }}',
             allowClear: true,
             width: '100%',
             language: {
@@ -344,7 +344,7 @@
                 <input type="number"
                        name="features[${index}][value]"
                        class="form-control form-control-sm"
-                       placeholder="{{ __('keys.enter_limit') }}"
+                       placeholder="{{ __('messages.enter_limit') }}"
                        value="${existingValue}"
                        min="0">`;
                     break;
@@ -369,7 +369,7 @@
                 <input type="text"
                        name="features[${index}][value]"
                        class="form-control form-control-sm"
-                       placeholder="{{ __('keys.enter_text') }}"
+                       placeholder="{{ __('messages.enter_text') }}"
                        value="${existingValue}">`;
                     break;
                 default:
@@ -377,7 +377,7 @@
                 <input type="text"
                        name="features[${index}][value]"
                        class="form-control form-control-sm"
-                       placeholder="{{ __('keys.enter_value') }}"
+                       placeholder="{{ __('messages.enter_value') }}"
                        value="${existingValue}">`;
             }
 
