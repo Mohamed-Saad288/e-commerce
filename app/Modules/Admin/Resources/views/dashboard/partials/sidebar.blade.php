@@ -51,6 +51,13 @@
                     </a>
                 </li>
 
+            <li class="nav-item w-100">
+                    <a class="nav-link" href="{{ route('admin.plans.index') }}">
+                        <i class="fe fe-star fe-16"></i>
+                        <span class="ml-3 item-text">{{ __('messages.plans') }}</span>
+                    </a>
+                </li>
+
 
 
 {{--            @endcan--}}

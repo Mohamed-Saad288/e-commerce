@@ -83,5 +83,11 @@ class BaseModel extends Model implements HasMedia
     {
         return $this->belongsTo(User::class, "added_by_id");
     }
+
+
+    public function activeScope($query)
+    {
+        return $query->where("is_active", 1);
+    }
 }
 
