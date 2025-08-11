@@ -43,6 +43,14 @@
                 </a>
             </li>
 
+            {{--            organization      --}}
+            <li class="nav-item w-100">
+                <a class="nav-link" href="{{ route('admin.organizations.index') }}">
+                    <i class="fe fe-briefcase fe-16"></i>
+                    <span class="ml-3 item-text">{{ __('messages.organizations') }}</span>
+                </a>
+            </li>
+
 {{--            features     --}}
                 <li class="nav-item w-100">
                     <a class="nav-link" href="{{ route('admin.features.index') }}">
