@@ -47,15 +47,11 @@ return [
     'address' => 'Address',
     'add_admin' => 'Add Admin',
     'edit_admin' => 'Edit Admin',
-    'organizations' => 'Organizations',
-    'add_organization' => 'Add Organization',
-    'edit_organization' => 'Edit Organization',
-    'organization_deleted_successfully' => 'Organization deleted successfully',
-    'organization' => 'Organization',
     'add_user' => 'Add User',
     'edit_user' => 'Edit User',
     'add_employee' => 'Add Employee',
     'admin_deleted_successfully' => 'Admin deleted successfully',
+<<<<<<< HEAD
 <<<<<<< HEAD
     "status_updated" => "Status updated successfully",
     "updated" => "Updated successfully",
@@ -63,4 +59,6 @@ return [
 =======
     'website_link' => 'Website Link',
 >>>>>>> 65732eb (Organization crud)
+=======
+>>>>>>> ee0ac67 (FullFeatureCrud)
 ];

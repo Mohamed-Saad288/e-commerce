@@ -40,7 +40,10 @@ Route::group(
             /**************************change status Routes********************/
             Route::prefix("change_status")->group(function () {
                 Route::post("features/{feature}", [FeaturesController::class, 'changeStatus'])->name('features.change_status');
+<<<<<<< HEAD
                 Route::post("plans/{plan}", [PlansController::class, 'changeStatus'])->name('plans.change_status');
+=======
+>>>>>>> ee0ac67 (FullFeatureCrud)
             });
             /**************************change status Routes********************/
         });
