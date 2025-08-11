@@ -2,7 +2,6 @@
 
 use App\Modules\Admin\app\Http\Controllers\Admin\AdminController;
 use App\Modules\Admin\app\Http\Controllers\Auth\AuthController;
-use App\Modules\Admin\app\Http\Controllers\Organization\OrganizationController;
 use App\Modules\Admin\app\Http\Controllers\Plans\FeaturesController;
 use App\Modules\Admin\app\Http\Controllers\Plans\PlansController;
 use Illuminate\Support\Facades\Route;
@@ -16,12 +15,15 @@ Route::group(
     ],
     function () {
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
         Route::resource("admins", AdminController::class);
         Route::resource("organizations", OrganizationController::class);
         Route::get("login", [AuthController::class, 'getLogin'])->name('login');
         Route::post("login", [AuthController::class, 'login']);
 >>>>>>> 65732eb (Organization crud)
+=======
+>>>>>>> ad9d159 (featurePlans)
 
         Route::middleware('guest:admin')->group(function () {
             Route::get("login", [AuthController::class, 'getLogin'])->name('login');
@@ -41,9 +43,13 @@ Route::group(
             Route::prefix("change_status")->group(function () {
                 Route::post("features/{feature}", [FeaturesController::class, 'changeStatus'])->name('features.change_status');
 <<<<<<< HEAD
+<<<<<<< HEAD
                 Route::post("plans/{plan}", [PlansController::class, 'changeStatus'])->name('plans.change_status');
 =======
 >>>>>>> ee0ac67 (FullFeatureCrud)
+=======
+                Route::post("plans/{plan}", [PlansController::class, 'changeStatus'])->name('plans.change_status');
+>>>>>>> ad9d159 (featurePlans)
             });
             /**************************change status Routes********************/
         });
