@@ -51,14 +51,7 @@ return [
     'edit_user' => 'Edit User',
     'add_employee' => 'Add Employee',
     'admin_deleted_successfully' => 'Admin deleted successfully',
-<<<<<<< HEAD
-<<<<<<< HEAD
     "status_updated" => "Status updated successfully",
     "updated" => "Updated successfully",
     "success" => "Saved successfully",
-=======
-    'website_link' => 'Website Link',
->>>>>>> 65732eb (Organization crud)
-=======
->>>>>>> ee0ac67 (FullFeatureCrud)
 ];
