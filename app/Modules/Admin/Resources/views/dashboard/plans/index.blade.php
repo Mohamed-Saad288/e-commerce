@@ -29,6 +29,7 @@
                                     <th>{{ __('messages.duration') }}</th>
                                     <th>{{ __('messages.trial_period') }}</th>
                                     <th>{{ __('messages.sort_order') }}</th>
+                                    <th>{{ __('messages.image') }}</th>
                                     <th>{{ __('messages.status') }}</th>
                                     <th>{{ __('messages.actions') }}</th>
                                 </tr>
@@ -46,7 +47,13 @@
                                             <td>{{ $plan->duration }}</td>
                                             <td>{{ $plan->trial_period }}</td>
                                             <td>{{ $plan->sort_order }}</td>
-
+                                            <td>
+                                                @if($plan->getImage())
+                                                    <img src="{{ $plan->getImage() }}" alt="Plan Image" width="60" height="60">
+                                                @else
+                                                    No image
+                                                @endif
+                                            </td>
                                             <td>
 {{--                                                @can('active_fags')--}}
                                                     <div class="custom-control custom-switch">
@@ -112,7 +119,7 @@
                     type: "POST",
                     data: {
                         _token: "{{ csrf_token() }}",
-                        faq_id: faqId, // The faq ID to change the status
+                        faq_id: planId, // The faq ID to change the status
                     },
                     success: function (response) {
                         if (response.success) {

@@ -45,6 +45,7 @@ class PlansController extends Controller
     public function edit(Plan $plan)
     {
         $types = BillingTypeEnum::cases();
+        $features = (new FeatureService())->list();
 
         return view('admin::dashboard.plans.single', get_defined_vars());
     }

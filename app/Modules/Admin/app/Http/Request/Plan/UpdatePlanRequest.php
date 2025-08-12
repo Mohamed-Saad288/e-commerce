@@ -27,8 +27,9 @@ class UpdatePlanRequest extends FormRequest
             "sort_order" => "nullable|numeric",
             "billing_type" => ["nullable", new Enum(BillingTypeEnum::class)],
             "image" => "nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048",
-            "features" => "nullable|array",
-            "features.*" => ["nullable", Rule::exists("features", "id")->whereNull("deleted_at")],
+            "features" => "required|array",
+            "features.*.feature_id" => ["required", Rule::exists("features", "id")->whereNull("deleted_at")],
+            "features.*.feature_value" => ["required"],
         ];
         foreach (config('translatable.locales') as $locale) {
             $rules["$locale.name"] = 'nullable|string|max:255';
