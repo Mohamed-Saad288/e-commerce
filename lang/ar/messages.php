@@ -76,8 +76,6 @@ return [
     "enabled" => "مفعل",
     "cancel" => "الغاء",
     "feature_values" => "قيم الخدمة",
-];
-
     'organizations' => 'المؤسسات',
     'add_organization' => 'إضافة مؤسسة',
     'edit_organization' => 'تعديل مؤسسة',
