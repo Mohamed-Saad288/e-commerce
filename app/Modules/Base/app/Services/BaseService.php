@@ -3,52 +3,106 @@
 namespace App\Modules\Base\app\Services;
 
 use App\Modules\Base\app\DTO\DTOInterface;
-use App\Modules\Base\app\Models\BaseModel;
-use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Pagination\LengthAwarePaginator;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Pipeline\Pipeline;
 
 class BaseService
 {
-
     public function __construct(protected Model $model)
     {
     }
+
+    /**
+     * Store new record with transaction and media handling
+     */
     public function store(DtoInterface $dto): Model
     {
-        return $this->model->query()->create($dto->toArray());
+        return DB::transaction(function () use ($dto) {
+            $data = $dto->toArray();
+            $model = $this->model->query()->create($data);
+
+            if (!empty($dto->image)) {
+                $model->storeImages(media: $dto->image);
+            }
+
+            return $model;
+        });
     }
 
+    /**
+     * Update record with transaction and media handling
+     */
     public function update(Model $model, DtoInterface $dto): Model
     {
-        $model->update($dto->toArray());
-        return $model;
+        return DB::transaction(function () use ($model, $dto) {
+            $data = $dto->toArray();
+            $model->update($data);
+
+            if (!empty($dto->image)) {
+                $model->storeImages(media: $dto->image, update: true);
+            }
+
+            return $model;
+        });
     }
 
+    /**
+     * Delete record (soft or hard depending on model)
+     */
     public function delete(Model $model): bool
     {
         return $model->delete();
     }
 
+    /**
+     * Find record by id
+     */
     public function find(int $id): ?Model
     {
         return $this->model->query()->find($id);
     }
 
-    public function index($query = "paginate",$request = null) : Collection|LengthAwarePaginator
+    /**
+     * Get records with optional pagination and filtering via Pipeline
+     */
+    public function index($request = null, bool $paginate = true): Collection|LengthAwarePaginator
     {
-        $model = $this->model::query()->latest();
-        return $query == "paginate" ? $model->paginate($request->per_page ?? 10) : $model->get();
+        $query = app(Pipeline::class)
+            ->send($this->model::query()->latest())
+            ->through($this->filters())
+            ->thenReturn();
+
+        return $paginate
+            ? $query->paginate($request->per_page ?? 10)
+            : $query->get();
     }
 
+    /**
+     * List only active records
+     */
     public function list(): Collection
     {
         return $this->model->query()->where("is_active", 1)->latest()->get();
     }
 
-    public function toggleStatus(?BaseModel $model = null): void
+    /**
+     * Toggle activation status
+     */
+    public function toggleStatus(Model $model): void
     {
-        $model->toggleActivation();
+        if (method_exists($model, 'toggleActivation')) {
+            $model->toggleActivation();
+        }
     }
 
+    /**
+     * Define the pipeline filters for the service
+     */
+    protected function filters(): array
+    {
+        return []; // Example: [\App\Filters\NameFilter::class, \App\Filters\StatusFilter::class]
+    }
 }

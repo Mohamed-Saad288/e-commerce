@@ -76,7 +76,6 @@ return [
     "enabled" => "مفعل",
     "cancel" => "الغاء",
     "feature_values" => "قيم الخدمة",
-];
 
     'organizations' => 'المؤسسات',
     'add_organization' => 'إضافة مؤسسة',
@@ -85,24 +84,15 @@ return [
     'organization' => 'المؤسسة',
     'organization_name' => 'اسم المؤسسة',
     'website_link' => 'الموقع الالكترونى',
-    'plans' => 'الخطط',
-    'add_plan' => 'إضافة خطة',
-    'edit_plan' => 'تعديل خطة',
     'plan_deleted_successfully' => 'تم حذف الخطة بنجاح',
     'plan' => 'الخطة',
     'plan_name' => 'اسم الخطة',
     'plan_description' => 'وصف الخطة',
-    'billing_type' => 'نوع الفاتورة',
     'billing_type_monthly' => 'شهرى',
-    'duration' => 'المدة',
-    'price' => 'السعر',
-    'trial_period' => 'الفترة التجريبية',
-    'sort_order' => 'ترتيب الترتيب',
+
     'enter_limit' => 'ادخل الحد',
     'enter_text' => 'ادخل النص',
     'enter_value' => 'ادخل القيمة',
-    'select_features' => 'اختر الخدمات',
-    'choose_file' => 'اختر الملف',
-    'image' => 'الصورة',
-    'cancel' => 'الغاء',
- ];
+
+];
+
