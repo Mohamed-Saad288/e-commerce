@@ -2,6 +2,7 @@
 
 use App\Modules\Admin\app\Http\Controllers\Admin\AdminController;
 use App\Modules\Admin\app\Http\Controllers\Auth\AuthController;
+use App\Modules\Admin\app\Http\Controllers\Organization\OrganizationController;
 use App\Modules\Admin\app\Http\Controllers\Plans\FeaturesController;
 use App\Modules\Admin\app\Http\Controllers\Plans\PlansController;
 use Illuminate\Support\Facades\Route;
@@ -14,7 +15,8 @@ Route::group(
         'middleware' => ['localeSessionRedirect', 'localizationRedirect', 'localeViewPath', 'web'],
     ],
     function () {
-
+        Route::get("login", [AuthController::class, 'getLogin'])->name('login');
+        Route::post("login", [AuthController::class, 'login']);
         Route::middleware('guest:admin')->group(function () {
             Route::get("login", [AuthController::class, 'getLogin'])->name('login');
             Route::post("login", [AuthController::class, 'login'])->name('admin.login');
@@ -28,6 +30,8 @@ Route::group(
             Route::resource("features", FeaturesController::class);
             Route::resource("plans", PlansController::class);
             Route::resource("admins", AdminController::class);
+            Route::resource("organizations", OrganizationController::class);
+
 
             /**************************change status Routes********************/
             Route::prefix("change_status")->group(function () {

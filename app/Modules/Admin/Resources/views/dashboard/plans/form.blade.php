@@ -418,6 +418,8 @@
                        name="features[${index}][feature_value]"
                        class="form-control form-control-sm ${isRTL ? 'text-right' : ''}"
                        style="${isRTL ? 'direction: rtl;' : ''}"
+                       name="features[${index}][value]"
+                       class="form-control form-control-sm"
                        placeholder="{{ __('messages.enter_limit') }}"
                        value="${existingValue}"
                        min="0">`;
@@ -444,6 +446,8 @@
                        name="features[${index}][feature_value]"
                        class="form-control form-control-sm ${isRTL ? 'text-right' : ''}"
                        style="${isRTL ? 'direction: rtl;' : ''}"
+                       name="features[${index}][value]"
+                       class="form-control form-control-sm"
                        placeholder="{{ __('messages.enter_text') }}"
                        value="${existingValue}">`;
                     break;
@@ -453,6 +457,8 @@
                        name="features[${index}][feature_value]"
                        class="form-control form-control-sm ${isRTL ? 'text-right' : ''}"
                        style="${isRTL ? 'direction: rtl;' : ''}"
+                       name="features[${index}][value]"
+                       class="form-control form-control-sm"
                        placeholder="{{ __('messages.enter_value') }}"
                        value="${existingValue}">`;
             }
