@@ -32,7 +32,6 @@ Route::group(
             Route::resource("admins", AdminController::class);
             Route::resource("organizations", OrganizationController::class);
 
-
             /**************************change status Routes********************/
             Route::prefix("change_status")->group(function () {
                 Route::post("features/{feature}", [FeaturesController::class, 'changeStatus'])->name('features.change_status');

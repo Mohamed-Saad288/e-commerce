@@ -33,6 +33,18 @@ class PlansController extends Controller
         return view('admin::dashboard.plans.single', get_defined_vars());
     }
 
+    public function show(Plan $plan)
+    {
+        $types = BillingTypeEnum::cases();
+
+        $planFeatures = $plan->featurePlans()
+            ->with(['feature'])
+            ->orderBy('is_active', 'desc')
+            ->orderBy('created_at', 'asc')
+            ->get();
+        return view('admin::dashboard.plans.show', get_defined_vars());
+    }
+
     public function store(StorePlanRequest $request)
     {
         $this->service->store(PlanDto::fromArray($request));
@@ -85,4 +97,5 @@ class PlansController extends Controller
             'message' => __('messages.status_updated')
         ]);
     }
+
 }

@@ -8,11 +8,11 @@
                 <div class="card">
                     <div class="card-header d-flex justify-content-between align-items-center">
                         <h4 class="card-title">{{ __('messages.plans') }}</h4>
-{{--                        @can('create_fags')--}}
-                            <a href="{{ route('admin.plans.create') }}" class="btn btn-primary">
-                                {{ __('messages.add_plan') }}
-                            </a>
-{{--                        @endcan--}}
+                        {{--                        @can('create_fags')--}}
+                        <a href="{{ route('admin.plans.create') }}" class="btn btn-primary">
+                            {{ __('messages.add_plan') }}
+                        </a>
+                        {{--                        @endcan--}}
                     </div>
                     <div class="card-body">
                         <div class="table-responsive">
@@ -55,33 +55,39 @@
                                                 @endif
                                             </td>
                                             <td>
-{{--                                                @can('active_fags')--}}
-                                                    <div class="custom-control custom-switch">
-                                                        <input type="checkbox"
-                                                               class="custom-control-input toggle-status"
-                                                               id="toggleStatus{{ $plan->id }}"
-                                                               data-id="{{ $plan->id }}"
-                                                            {{ $plan->is_active ? 'checked' : '' }}>
-                                                        <label class="custom-control-label"
-                                                               for="toggleStatus{{ $plan->id }}"></label>
-                                                    </div>
-{{--                                                @endcan--}}
+                                                {{--                                                @can('active_fags')--}}
+                                                <div class="custom-control custom-switch">
+                                                    <input type="checkbox"
+                                                           class="custom-control-input toggle-status"
+                                                           id="toggleStatus{{ $plan->id }}"
+                                                           data-id="{{ $plan->id }}"
+                                                        {{ $plan->is_active ? 'checked' : '' }}>
+                                                    <label class="custom-control-label"
+                                                           for="toggleStatus{{ $plan->id }}"></label>
+                                                </div>
+                                                {{--                                                @endcan--}}
                                             </td>
 
                                             <td>
-{{--                                                @can('create_fags')--}}
-                                                    <a href="{{ route('admin.plans.edit', $plan->id) }}"
-                                                       class="btn btn-sm btn-success">
-                                                        <i class='fe fe-edit fa-2x'></i>
-                                                    </a>
-{{--                                                @endcan--}}
-{{--                                                @can('delete_fags')--}}
+                                                {{--                                                @can('view_plans')--}}
+                                                <a href="{{ route('admin.plans.show', $plan->id) }}"
+                                                   class="btn btn-sm btn-info">
+                                                    <i class='fe fe-eye fa-2x'></i>
+                                                </a>
+                                                {{--                                                @endcan--}}
+                                                {{--                                                @can('create_fags')--}}
+                                                <a href="{{ route('admin.plans.edit', $plan->id) }}"
+                                                   class="btn btn-sm btn-success">
+                                                    <i class='fe fe-edit fa-2x'></i>
+                                                </a>
+                                                {{--                                                @endcan--}}
+                                                {{--                                                @can('delete_fags')--}}
 
-                                                    <button class="btn btn-sm btn-danger delete-faq"
-                                                            data-id="{{ $plan->id }}">
-                                                        <i class="fe fe-trash-2 fa-2x"></i>
-                                                    </button>
-{{--                                                @endcan--}}
+                                                <button class="btn btn-sm btn-danger delete-faq"
+                                                        data-id="{{ $plan->id }}">
+                                                    <i class="fe fe-trash-2 fa-2x"></i>
+                                                </button>
+                                                {{--                                                @endcan--}}
                                             </td>
                                         </tr>
                                     @endforeach
