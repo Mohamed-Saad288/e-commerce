@@ -19,14 +19,6 @@ class OrganizationService
             'organization_id' => $organization->id,
             'is_master' => true
         ]);
-        Employee::create([
-            'name' => $organization->name ?? null,
-            'email' => $organization->email ?? null,
-            'password' => $organization->phone ?? null,
-            'phone' => $organization->phone ?? null,
-            'organization_id' => $organization->id,
-            'is_admin' => true
-        ]);
 
         return $organization;
     }
