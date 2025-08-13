@@ -36,7 +36,7 @@ return new class extends BaseMigration
             $table->id();
             $table->string("locale")->index();
             $table->string("name");
-            $table->unique(["product_variation_id", "locale"]);
+            $table->unique(["product_variation_id", "locale"], "product_variation_locale_unique");
             $table->foreignId("product_variation_id")->constrained()->onDelete("cascade");
         });
     }

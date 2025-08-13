@@ -9,9 +9,8 @@ trait OrganizationMigrationTrait
 
     public function addOrganizationFields(Blueprint $table): void
     {
-        $table->unsignedInteger("organization_id")->nullable();
-        $table->foreign("organization_id")->references("id")->on("organizations")->onDelete("set null");
-        $table->unsignedInteger("employee_id")->nullable();
-        $table->foreign("employee_id")->references("id")->on("employees")->onDelete("set null");
+
+        $table->foreignId("organization_id")->nullable()->constrained("organizations")->onDelete("set null");
+        $table->foreignId("employee_id")->nullable()->constrained("employees")->onDelete("set null");
     }
 }
