@@ -16,8 +16,8 @@ class StoreOrganizationRequest extends FormRequest
     {
         return [
             'name' => 'required|max:255',
-            'phone' => 'required|unique:admins,phone',
-            'email' => 'nullable|unique:admins,email',
+            'phone' => 'required|unique:organizations,phone',
+            'email' => 'nullable|unique:organizations,email',
             'address' => 'nullable',
             'website_link' => 'required|max:255',
         ];
