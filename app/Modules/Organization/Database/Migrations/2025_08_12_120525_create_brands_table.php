@@ -13,7 +13,6 @@ return new class extends BaseMigration {
         Schema::create('brands', function (Blueprint $table) {
             $table->id();
             $table->string("slug")->nullable();
-            $table->foreignId("category_id")->nullable()->constrained('categories')->onDelete('cascade');
             $this->addOrganizationFields($table);
             $this->addGeneralFields($table);
         });

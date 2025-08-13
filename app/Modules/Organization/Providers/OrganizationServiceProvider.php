@@ -24,6 +24,7 @@ class OrganizationServiceProvider extends ServiceProvider
 
         $this->loadRoutesFrom(app_path('Modules/Organization/Routes/api.php'));
         $this->loadRoutesFrom(app_path('Modules/Organization/Routes/web.php'));
+        $this->loadViewsFrom(app_path('Modules/Organization/Resources/views'), 'organization');
         foreach (glob(app_path('Modules/Organization/Helpers') . '/*.php') as $filename) {
             require_once $filename;
         }

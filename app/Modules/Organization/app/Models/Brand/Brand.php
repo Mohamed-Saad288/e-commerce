@@ -6,27 +6,24 @@ use App\Modules\Base\app\Models\BaseModel;
 use App\Modules\Organization\app\Models\Category\Category;
 use Astrotomic\Translatable\Contracts\Translatable as TranslatableContract;
 use Astrotomic\Translatable\Translatable;
-use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 
 class Brand extends BaseModel implements TranslatableContract
 {
-
     use Translatable;
 
     public array $translatedAttributes = ['name', 'description'];
-
 
     protected $table = 'brands';
 
     protected $fillable = [
         'slug',
-        'category_id',
         "organization_id",
         "employee_id"
     ];
 
-    public function category(): BelongsTo
+    public function categories(): BelongsToMany
     {
-        return $this->belongsTo(Category::class);
+        return $this->BelongsToMany(Category::class,"brand_categories","brand_id","category_id");
     }
 }

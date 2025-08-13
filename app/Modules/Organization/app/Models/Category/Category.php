@@ -3,10 +3,12 @@
 namespace App\Modules\Organization\app\Models\Category;
 
 use App\Modules\Base\app\Models\BaseModel;
+use App\Modules\Organization\app\Models\Brand\Brand;
 use Astrotomic\Translatable\Contracts\Translatable as TranslatableContract;
 use Astrotomic\Translatable\Translatable;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 
 class Category extends BaseModel implements TranslatableContract
 {
@@ -27,6 +29,11 @@ class Category extends BaseModel implements TranslatableContract
     public function parent(): BelongsTo
     {
         return $this->belongsTo(Category::class, 'parent_id');
+    }
+
+    public function brands() : BelongsToMany
+    {
+        return $this->BelongsToMany(Brand::class,"brand_categories","category_id","brand_id");
     }
 
 }
