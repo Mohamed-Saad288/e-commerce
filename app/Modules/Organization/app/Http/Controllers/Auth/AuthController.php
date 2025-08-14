@@ -11,17 +11,14 @@ class AuthController extends Controller
 
     public function getLogin()
     {
-        return view('organization::auth.login');
+        return view('organization::dashboard.auth.login');
     }
 
     public function login(LoginRequest $request)
     {
-        $auth_field = $request->filled('email') ? 'email' : 'phone';
+        $field = filter_var($request->login, FILTER_VALIDATE_EMAIL) ? 'email' : 'phone';
 
-        $credentials = [
-            $auth_field => $request->input($auth_field),
-            'password' => $request->input('password'),
-        ];
+        $credentials = [$field => $request->login, 'password' => $request->password];
 
         if (Auth::guard('organization_employee')->attempt($credentials)) {
             $request->session()->regenerate();
