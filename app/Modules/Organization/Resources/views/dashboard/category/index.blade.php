@@ -1,0 +1,176 @@
+@extends('dashboard.master')
+@section('title', __('keys.category'))
+
+@section('content')
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="card">
+                    <div class="card-header d-flex justify-content-between align-items-center">
+                        <h4 class="card-title">{{ __('keys.categories') }}</h4>
+                        @can('create_categories')
+                            <a href="{{ route('admin.categories.create') }}" class="btn btn-primary">
+                                {{ __('keys.add_category') }}
+                            </a>
+                        @endcan
+                    </div>
+                    <div class="card-body">
+                        <div class="table-responsive">
+
+                            <table class="table datatables" id="dataTable-1">
+                                <thead>
+                                <tr>
+                                    <th>#</th>
+                                    <th>{{ __('keys.name') }}</th>
+                                    <th>{{ __('keys.image') }}</th>
+                                    <th>{{ __('keys.status') }}</th>
+                                    <th>{{ __('keys.actions') }}</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                @if (count($categories) > 0)
+                                    @foreach ($categories as $category)
+                                        <tr>
+                                            <td>{{ $loop->iteration }}</td>
+                                            <td>{{ $category->translate(app()->getLocale())->name }}</td>
+
+                                            <td>
+                                                @if (!empty($category->getFirstMediaUrl('category_images')))
+                                                    <img src="{{ $category->getFirstMediaUrl('category_images') }}"
+                                                         alt="category Image" width="50">
+                                                @else
+                                                    <span class="text-muted">{{ __('keys.no_image') }}</span>
+                                                @endif
+                                            </td>
+                                            <td>
+                                                @can('active_categories')
+                                                    <div class="custom-control custom-switch">
+                                                        <input type="checkbox"
+                                                               class="custom-control-input toggle-status"
+                                                               id="toggleStatus{{ $category->id }}"
+                                                               data-id="{{ $category->id }}"
+                                                            {{ $category->is_active ? 'checked' : '' }}>
+                                                        <label class="custom-control-label"
+                                                               for="toggleStatus{{ $category->id }}"></label>
+                                                    </div>
+                                                @endcan
+                                            </td>
+                                            <td>
+                                                @can('update_categories')
+                                                    <a href="{{ route('admin.categories.edit', $category->id) }}"
+                                                       class="btn btn-sm btn-success">
+                                                        <i class='fe fe-edit fa-2x'></i>
+                                                    </a>
+                                                @endcan
+                                                @can('delete_categories')
+
+                                                    <button class="btn btn-sm btn-danger delete-category"
+                                                            data-id="{{ $category->id }}">
+                                                        <i class="fe fe-trash-2 fa-2x"></i>
+                                                    </button>
+                                                @endcan
+                                            </td>
+                                        </tr>
+                                    @endforeach
+                                @else
+                                    <tr>
+                                        <td colspan="100%">
+                                            <div class="no-data">
+                                                <img src="{{ asset('no-data.png') }}" alt="No Data Found">
+                                                <p>{{ __('keys.no_data') }}</p>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                @endif
+                                </tbody>
+                            </table>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+@endSection
+
+@section('after_script')
+
+    <script>
+        $(document).ready(function () {
+
+            $('.toggle-status').change(function () {
+                let categoryId = $(this).data('id');
+
+                $.ajax({
+                    url: "{{ route('admin.categories.changeStatus', ':id') }}".replace(':id',categoryId),
+                    type: "POST",
+                    data: {
+                        _token: "{{ csrf_token() }}",
+                        category_id: categoryId, // The category ID to change the status
+                    },
+                    success: function (response) {
+                        if (response.success) {
+                            toastr.success(
+                                "{{ __('keys.Category_status_updated_successfully') }}");
+                        } else {
+                            toastr.error("{{ __('keys.something_wrong') }}");
+                        }
+                    },
+                    error: function () {
+                        toastr.error("{{ __('keys.error_occurred') }}");
+                    }
+                });
+            });
+
+
+            $(document).on('click', '.delete-category', function (e) {
+                e.preventDefault();
+                let categoryId = $(this).data('id');
+                let deleteUrl = "{{ route('admin.categories.destroy', ':id') }}".replace(':id', categoryId);
+                let row = $(this).closest('tr'); // Select the row to remove
+
+                // SweetAlert confirmation
+                Swal.fire({
+                    title: "{{ __('keys.confirm_delete') }}",
+                    text: "{{ __('keys.are_you_sure') }}",
+                    icon: "warning",
+                    showCancelButton: true,
+                    confirmButtonColor: "#d33",
+                    cancelButtonColor: "#3085d6",
+                    confirmButtonText: "{{ __('keys.yes_delete') }}",
+                    cancelButtonText: "{{ __('keys.no_cancel') }}"
+                }).then((result) => {
+                    if (result.isConfirmed) {
+                        $.ajax({
+                            url: deleteUrl,
+                            type: "POST",
+                            data: {
+                                _token: "{{ csrf_token() }}",
+                                _method: "DELETE"
+                            },
+                            success: function (response) {
+                                if (response.success) {
+                                    Swal.fire("{{ __('keys.deleted') }}",
+                                        response.message,
+                                        "success");
+                                    row.fadeOut(500, function () {
+                                        $(this).remove();
+                                    });
+                                } else {
+                                    Swal.fire("{{ __('keys.error') }}",
+                                        "{{ __('keys.something_wrong') }}",
+                                        "error");
+                                }
+                            },
+                            error: function () {
+                                Swal.fire("{{ __('keys.error') }}",
+                                    "{{ __('keys.error_occurred') }}", "error");
+                            }
+                        });
+                    }
+                });
+            });
+        });
+    </script>
+
+@endsection
