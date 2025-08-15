@@ -1,32 +1,35 @@
 <?php
 
-namespace App\Modules\Organization\app\DTO;
+namespace App\Modules\Organization\app\DTO\Category;
 
 use App\Modules\Base\app\DTO\DTOInterface;
 use Illuminate\Foundation\Http\FormRequest;
 
-class BrandDto implements DTOInterface
+class CategoryDto implements DTOInterface
 {
     public ?array $translations = [];
     public ?bool $is_active = null;
     public ?string $slug = null;
     public ?int $organization_id = null;
     public ?int $employee_id = null;
-    public array $categories = [];
+    public ?int $parent_id = null;
+    public ?int $sort_order = null;
     public function __construct(
         ?array $translations = [],
         ?bool $is_active = null,
         ?string $slug = null,
         ?int $organization_id = null,
         ?int $employee_id = null,
-        ?array $categories = []
+        ?int $parent_id = null,
+        ?int $sort_order = null
     ) {
         $this->translations = $translations;
         $this->is_active = $is_active;
         $this->slug = $slug;
         $this->organization_id = $organization_id;
         $this->employee_id = $employee_id;
-        $this->categories = $categories;
+        $this->parent_id = $parent_id;
+        $this->sort_order = $sort_order;
     }
 
     public static function fromArray(FormRequest|array $data): DTOInterface
@@ -46,7 +49,8 @@ class BrandDto implements DTOInterface
             slug: $arrayData['slug'] ?? null,
             organization_id: auth()->user()->organization_id ?? null,
             employee_id: auth()->id(),
-            categories: $arrayData['categories']
+            parent_id: $arrayData['parent_id'] ?? null,
+            sort_order: 1 ?? null
         );
     }
 
@@ -59,7 +63,8 @@ class BrandDto implements DTOInterface
                 'slug'         => $this->slug,
                 'organization_id'         => $this->organization_id,
                 'employee_id'  => $this->employee_id,
-                'categories'   => $this->categories
+                'parent_id'    => $this->parent_id,
+                'sort_order'   => $this->sort_order
             ]
         );
     }

@@ -20,5 +20,10 @@ return [
     'brand_image' => 'صورة العلامة التجارية',
     'brand' => 'العلامة التجارية',
     'brand_categories' => 'التصنيفات الخاصة بالعلامة التجارية',
+    "is_master" => "هل مدير",
+    'supervisors' => 'المشرفون',
+    'add_supervisor' => 'إضافة مشرف',
+    'edit_supervisor' => 'تعديل مشرف',
+    'supervisor_deleted_successfully' => 'تم حذف المشرف بنجاح',
 ];
 

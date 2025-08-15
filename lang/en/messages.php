@@ -105,5 +105,5 @@ return [
     "feature" => "Feature",
     "days" => "Days",
     'none' => 'None',
-
+    'employee_deleted_successfully' => 'Employee deleted successfully',
 ];

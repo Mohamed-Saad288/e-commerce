@@ -111,6 +111,11 @@ return [
     "feature" => "خدمة",
     "days" => "ايام",
     'none' => 'لا شيء',
+    'supervisors' => 'المشرفون',
+    'add_supervisor' => 'إضافة مشرف',
+    'edit_supervisor' => 'تعديل مشرف',
+    'supervisor_deleted_successfully' => 'تم حذف المشرف بنجاح',
+    'employee_deleted_successfully' => 'تم حذف الموظف بنجاح',
 
 
 ];
