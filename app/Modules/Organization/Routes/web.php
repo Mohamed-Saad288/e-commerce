@@ -3,6 +3,7 @@
 use App\Modules\Organization\app\Http\Controllers\Auth\AuthController;
 use App\Modules\Organization\app\Http\Controllers\Brand\BrandController;
 use App\Modules\Organization\app\Http\Controllers\Category\CategoryController;
+use App\Modules\Organization\app\Http\Controllers\Employee\EmployeeController;
 use App\Modules\Organization\app\Http\Controllers\Home\HomeController;
 use Illuminate\Support\Facades\Route;
 use Mcamara\LaravelLocalization\Facades\LaravelLocalization;
@@ -35,6 +36,7 @@ Route::group(
                 Route::get('user_profile', [HomeController::class, 'user_profile'])->name('user_profile');
                 Route::resource('categories', CategoryController::class);
                 Route::resource('brands', BrandController::class);
+                Route::resource('employees', EmployeeController::class);
             });
     }
 );

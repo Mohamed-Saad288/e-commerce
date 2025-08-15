@@ -17,9 +17,10 @@
 
         <ul class="navbar-nav flex-fill w-100 mb-2">
             <!-- HOME -->
-            <li class="nav-item w-100">
+            <li class="nav-item w-100 ">
 {{--                <a class="nav-link" href="{{ route('admin.index') }}">--}}
-                <a class="nav-link" href="{{ route('organization.home') }}">
+                <a class="nav-link {{ request()->routeIs('organization.home') ? 'active' : '' }}"
+                   href="{{ route('organization.home') }}">
                     <i class="fe fe-home fe-16"></i>
                     <span class="ml-3 item-text">{{ __('messages.home') }}</span>
                 </a>
@@ -35,11 +36,11 @@
                 <!-- Employee -->
 
 
-{{--            admin      --}}
+{{--            employee      --}}
             <li class="nav-item w-100">
-                <a class="nav-link {{ request()->routeIs('admin.admins.*') ? 'active' : '' }}" href="{{ route('admin.admins.index') }}">
+                <a class="nav-link {{ request()->routeIs('organization.employees.*') ? 'active' : '' }}" href="{{ route('organization.employees.index') }}">
                     <i class="fe fe-users fe-16"></i>
-                    <span class="ml-3 item-text">{{ __('organizations.employees') }}</span>
+                    <span class="ml-3 item-text">{{ __('organizations.supervisors') }}</span>
                 </a>
             </li>
 

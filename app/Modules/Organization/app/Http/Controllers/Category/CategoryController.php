@@ -3,9 +3,7 @@
 namespace App\Modules\Organization\app\Http\Controllers\Category;
 
 use App\Http\Controllers\Controller;
-
-use App\Modules\Base\app\Services\BaseService;
-use App\Modules\Organization\app\DTO\CategoryDto;
+use App\Modules\Organization\app\DTO\Category\CategoryDto;
 use App\Modules\Organization\app\Http\Request\Category\StoreCategoryRequest;
 use App\Modules\Organization\app\Http\Request\Category\UpdateCategoryRequest;
 use App\Modules\Organization\app\Models\Category\Category;
@@ -23,7 +21,7 @@ class CategoryController extends Controller
     }
     public function create()
     {
-        $categories = Category::get();
+        $categories = Category::whereOrganizationId(auth()->user()->organization_id)->get();
         return view('organization::dashboard.categories.single',get_defined_vars());
     }
     public function store(StoreCategoryRequest $request)
@@ -36,7 +34,7 @@ class CategoryController extends Controller
     }
     public function edit(Category $category)
     {
-        $categories = Category::where('id', '!=', $category->id)->get();
+        $categories = Category::whereOrganizationId(auth()->user()->organization_id)->where('id', '!=', $category->id)->get();
         return view('organization::dashboard.categories.single', get_defined_vars());
     }
     public function update(UpdateCategoryRequest $request , Category $category)

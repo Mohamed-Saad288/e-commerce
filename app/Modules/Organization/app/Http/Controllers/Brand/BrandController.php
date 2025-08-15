@@ -3,8 +3,7 @@
 namespace App\Modules\Organization\app\Http\Controllers\Brand;
 
 use App\Http\Controllers\Controller;
-
-use App\Modules\Organization\app\DTO\BrandDto;
+use App\Modules\Organization\app\DTO\Brand\BrandDto;
 use App\Modules\Organization\app\Http\Request\Brand\StoreBrandRequest;
 use App\Modules\Organization\app\Http\Request\Brand\UpdateBrandRequest;
 use App\Modules\Organization\app\Models\Brand\Brand;
@@ -23,7 +22,7 @@ class BrandController extends Controller
     }
     public function create()
     {
-        $categories = Category::get();
+        $categories = Category::whereOrganizationId(auth()->user()->organization_id)->get();
         return view('organization::dashboard.brands.single',get_defined_vars());
     }
     public function store(StoreBrandRequest $request)
@@ -36,7 +35,7 @@ class BrandController extends Controller
     }
     public function edit(Brand $brand)
     {
-        $categories = Category::get();
+        $categories = Category::whereOrganizationId(auth()->user()->organization_id)->get();
         return view('organization::dashboard.brands.single', get_defined_vars());
     }
     public function update(UpdateBrandRequest $request , Brand $brand)

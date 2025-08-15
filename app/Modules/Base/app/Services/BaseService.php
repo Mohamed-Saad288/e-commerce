@@ -2,6 +2,8 @@
 
 namespace App\Modules\Base\app\Services;
 
+use App\Modules\Admin\app\Models\Admin\Admin;
+use App\Modules\Admin\app\Models\Employee\Employee;
 use App\Modules\Base\app\DTO\DTOInterface;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Collection;
@@ -70,10 +72,18 @@ class BaseService
      */
     public function index($request = null, bool $paginate = true): Collection|LengthAwarePaginator
     {
-        $query = app(Pipeline::class)
-            ->send($this->model::query()->latest())
-            ->through($this->filters())
-            ->thenReturn();
+        if(auth()->user() InstanceOf Admin) {
+            $query = app(Pipeline::class)
+                ->send($this->model::query()->latest())
+                ->through($this->filters())
+                ->thenReturn();
+        }else{
+            $query = app(Pipeline::class)
+                ->send($this->model::query()->Where('organization_id', auth()->user()->organization_id)->latest())
+                ->through($this->filters())
+                ->thenReturn();
+        }
+
 
         return $paginate
             ? $query->paginate($request->per_page ?? 10)
