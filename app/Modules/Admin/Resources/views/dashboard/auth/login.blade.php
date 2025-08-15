@@ -21,7 +21,7 @@
             @endif
 
             <!-- Login Form -->
-            <form method="POST" action="{{ route('admin.login') }}">
+            <form method="POST" action="{{ route('admin.login.submit') }}">
                 @csrf
 
                 <div class="mb-3">

@@ -18,6 +18,8 @@ class StoreBrandRequest extends FormRequest
     {
         $rules = [
             "slug" => ["nullable", Rule::unique("brands", "slug")->whereNull("deleted_at")],
+            "categories" => "nullable|array",
+            "categories.*" => ["nullable", Rule::exists("categories", "id")->whereNull("deleted_at")],
         ];
 
         foreach (config('translatable.locales') as $locale) {

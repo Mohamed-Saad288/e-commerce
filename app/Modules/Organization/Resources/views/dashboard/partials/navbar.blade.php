@@ -32,9 +32,9 @@
                 </span>
             </a>
             <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdownMenuLink">
-                <a class="dropdown-item" href="{{ route('admin.profile.edit') }}">{{ __('messages.profile') }}</a>
+                <a class="dropdown-item" href="{{ route('organization.profile') }}">{{ __('messages.profile') }}</a>
 
-                <form method="POST" action="{{ route('admin.logout') }}">
+                <form method="POST" action="{{ route('organization.logout') }}">
                     @csrf
                     <button type="submit" class="dropdown-item text-danger">{{ __('messages.logout') }}</button>
                 </form>

@@ -50,7 +50,7 @@ class CategoryDto implements DTOInterface
             organization_id: auth()->user()->organization_id ?? null,
             employee_id: auth()->id(),
             parent_id: $arrayData['parent_id'] ?? null,
-            sort_order: $arrayData['sort_order'] ?? null
+            sort_order: 1 ?? null
         );
     }
 

@@ -6,7 +6,7 @@
         <!-- nav bar -->
         <div class="w-100 mb-4 d-flex">
 {{--            <a class="navbar-brand mx-auto mt-2 flex-fill text-center" href={{ route('admin.index') }}>--}}
-            <a class="navbar-brand mx-auto mt-2 flex-fill text-center" href="#">
+            <a class="navbar-brand mx-auto mt-2 flex-fill text-center" href="{{ route('organization.home') }}">
                 <img src="{{ $logo }}" alt="logo" width="50%">
             </a>
         </div>
@@ -19,7 +19,7 @@
             <!-- HOME -->
             <li class="nav-item w-100">
 {{--                <a class="nav-link" href="{{ route('admin.index') }}">--}}
-                <a class="nav-link" href="#">
+                <a class="nav-link" href="{{ route('organization.home') }}">
                     <i class="fe fe-home fe-16"></i>
                     <span class="ml-3 item-text">{{ __('messages.home') }}</span>
                 </a>
@@ -42,6 +42,24 @@
                     <span class="ml-3 item-text">{{ __('organizations.employees') }}</span>
                 </a>
             </li>
+
+{{--           categories  --}}
+            <li class="nav-item w-100">
+                <a class="nav-link {{ request()->routeIs('organization.categories.*') ? 'active' : '' }}" href="{{ route('organization.categories.index') }}">
+                    <i class="fe fe-shopping-bag fe-16"></i>
+                    <span class="ml-3 item-text">{{ __('organizations.categories') }}</span>
+                </a>
+            </li>
+
+            {{--           brands  --}}
+            <li class="nav-item w-100">
+                <a class="nav-link {{ request()->routeIs('organization.brands.*') ? 'active' : '' }}" href="{{ route('organization.brands.index') }}">
+                    <i class="fe fe-tag fe-16"></i>
+                    <span class="ml-3 item-text">{{ __('organizations.brands') }}</span>
+                </a>
+            </li>
+
+
 
 {{--            @endcan--}}
 {{--            <!-- users -->--}}

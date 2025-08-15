@@ -16,7 +16,11 @@ class UpdateCategoryRequest extends FormRequest
 
     public function rules(): array
     {
-        $category_id = $this->route('category') ?? $this->route('category')->id;
+        $categoryParam = $this->route('category');
+        $category_id = is_object($categoryParam)
+            ? $categoryParam->id
+            : $categoryParam;
+
         $rules = [
             "slug" => ["nullable", "unique:categories,slug," . $category_id],
             "parent_id" => ["nullable", Rule::exists("categories", "id")->whereNull("deleted_at")],
@@ -30,4 +34,5 @@ class UpdateCategoryRequest extends FormRequest
 
         return $rules;
     }
+
 }
