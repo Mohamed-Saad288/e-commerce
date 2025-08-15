@@ -104,4 +104,6 @@ return [
     "value" => "Value",
     "feature" => "Feature",
     "days" => "Days",
+    'none' => 'None',
+
 ];

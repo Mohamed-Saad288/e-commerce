@@ -12,18 +12,21 @@ class BrandDto implements DTOInterface
     public ?string $slug = null;
     public ?int $organization_id = null;
     public ?int $employee_id = null;
+    public array $categories = [];
     public function __construct(
         ?array $translations = [],
         ?bool $is_active = null,
         ?string $slug = null,
         ?int $organization_id = null,
-        ?int $employee_id = null
+        ?int $employee_id = null,
+        ?array $categories = []
     ) {
         $this->translations = $translations;
         $this->is_active = $is_active;
         $this->slug = $slug;
         $this->organization_id = $organization_id;
         $this->employee_id = $employee_id;
+        $this->categories = $categories;
     }
 
     public static function fromArray(FormRequest|array $data): DTOInterface
@@ -42,7 +45,8 @@ class BrandDto implements DTOInterface
             is_active: $arrayData['is_active'] ?? null,
             slug: $arrayData['slug'] ?? null,
             organization_id: auth()->user()->organization_id ?? null,
-            employee_id: auth()->id()
+            employee_id: auth()->id(),
+            categories: $arrayData['categories']
         );
     }
 
@@ -55,6 +59,7 @@ class BrandDto implements DTOInterface
                 'slug'         => $this->slug,
                 'organization_id'         => $this->organization_id,
                 'employee_id'  => $this->employee_id,
+                'categories'   => $this->categories
             ]
         );
     }

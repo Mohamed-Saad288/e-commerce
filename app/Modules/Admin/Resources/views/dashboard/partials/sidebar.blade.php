@@ -6,7 +6,7 @@
         <!-- nav bar -->
         <div class="w-100 mb-4 d-flex">
 {{--            <a class="navbar-brand mx-auto mt-2 flex-fill text-center" href={{ route('admin.index') }}>--}}
-            <a class="navbar-brand mx-auto mt-2 flex-fill text-center" href="#">
+            <a class="navbar-brand mx-auto mt-2 flex-fill text-center" href="{{ route('admin.admins.index') }}">
                 <img src="{{ $logo }}" alt="logo" width="50%">
             </a>
         </div>
@@ -19,7 +19,7 @@
             <!-- HOME -->
             <li class="nav-item w-100">
 {{--                <a class="nav-link" href="{{ route('admin.index') }}">--}}
-                <a class="nav-link" href="#">
+                <a class="nav-link" href="{{ route('admin.admins.index') }}">
                     <i class="fe fe-home fe-16"></i>
                     <span class="ml-3 item-text">{{ __('messages.home') }}</span>
                 </a>

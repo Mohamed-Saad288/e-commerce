@@ -16,9 +16,15 @@ class UpdateBrandRequest extends FormRequest
 
     public function rules(): array
     {
-        $brand_id = $this->route('brand') ?? $this->route('brand')->id;
+        $brandParam = $this->route('brand');
+        $brand_id = is_object($brandParam)
+            ? $brandParam->id
+            : $brandParam;
+
         $rules = [
             "slug" => ["nullable", 'unique:brands,slug,' . $brand_id],
+            "categories" => "nullable|array",
+            "categories.*" => ["required", Rule::exists("categories", "id")->whereNull("deleted_at")],
         ];
 
         foreach (config('translatable.locales') as $locale) {

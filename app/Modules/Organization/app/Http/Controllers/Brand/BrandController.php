@@ -4,16 +4,17 @@ namespace App\Modules\Organization\app\Http\Controllers\Brand;
 
 use App\Http\Controllers\Controller;
 
-use App\Modules\Base\app\Services\BaseService;
 use App\Modules\Organization\app\DTO\BrandDto;
 use App\Modules\Organization\app\Http\Request\Brand\StoreBrandRequest;
 use App\Modules\Organization\app\Http\Request\Brand\UpdateBrandRequest;
 use App\Modules\Organization\app\Models\Brand\Brand;
+use App\Modules\Organization\app\Models\Category\Category;
+use App\Modules\Organization\app\Services\Brand\BrandService;
 use Exception;
 
 class BrandController extends Controller
 {
-    public function __construct(protected BaseService $service){}
+    public function __construct(protected BrandService $service){}
 
     public function index()
     {
@@ -22,6 +23,7 @@ class BrandController extends Controller
     }
     public function create()
     {
+        $categories = Category::get();
         return view('organization::dashboard.brands.single',get_defined_vars());
     }
     public function store(StoreBrandRequest $request)
@@ -34,7 +36,7 @@ class BrandController extends Controller
     }
     public function edit(Brand $brand)
     {
-
+        $categories = Category::get();
         return view('organization::dashboard.brands.single', get_defined_vars());
     }
     public function update(UpdateBrandRequest $request , Brand $brand)

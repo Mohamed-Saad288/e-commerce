@@ -14,7 +14,10 @@ class RedirectToAdminDashboard
         if (auth()->guard('admin')->check()) {
             return redirect()->route('admin.dashboard');
         }
+        if (auth()->guard('organization_employee')->check()) {
+            return redirect()->route('organization.home');
+        }
 
-        return redirect()->route('login');
+        return redirect()->route('admin.login');
     }
 }

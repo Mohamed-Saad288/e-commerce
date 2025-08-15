@@ -273,7 +273,7 @@
             <!-- Header -->
             <div class="login-header">
                 <div class="logo">
-                    <a href="{{ route('admin.dashboard') }}">
+                    <a href="{{ route('organization.login') }}">
                         <img src="{{ $logo }}" alt="E-Shop Logo">
                     </a>
                 </div>
@@ -295,7 +295,7 @@
                     </div>
                 @endif
 
-                <form method="POST" action="{{ route('organization.login') }}" id="loginForm">
+                <form method="POST" action="{{ route('organization.login.submit') }}" id="loginForm">
                     @csrf
                     <!-- Toggle: Email or Phone -->
                     <div class="toggle-container">
