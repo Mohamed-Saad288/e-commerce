@@ -33,14 +33,14 @@
 <script src='{{ asset('assets-admin') }}/js/uppy.min.js'></script>
 <script src='{{ asset('assets-admin') }}/js/quill.min.js'></script>
 {{-- <script src='{{ asset('js/tinymce.min.js') }}'></script> --}}
-<script src='{{ asset('tinymce/tinymce.min.js') }}'></script>
-<script src='{{ asset('tinymce/license.md') }}'></script>
-<script src='{{ asset('tinymce/plugins/accordion/plugin.min.js') }}'></script>
-<script src='{{ asset('tinymce/plugins/anchor/plugin.min.js') }}'></script>
+{{--<script src='{{ asset('tinymce/tinymce.min.js') }}'></script>--}}
+{{--<script src='{{ asset('tinymce/license.md') }}'></script>--}}
+{{--<script src='{{ asset('tinymce/plugins/accordion/plugin.min.js') }}'></script>--}}
+{{--<script src='{{ asset('tinymce/plugins/anchor/plugin.min.js') }}'></script>--}}
 
 <!-- Include TinyMCE from CDN with your API key -->
-<script src="https://cdn.tiny.cloud/1/k8dwstiekcrjck6aozkmljqjihrqx0zdkduu2wa3iooc354r/tinymce/5/tinymce.min.js"
-    referrerpolicy="origin"></script>
+{{--<script src="https://cdn.tiny.cloud/1/k8dwstiekcrjck6aozkmljqjihrqx0zdkduu2wa3iooc354r/tinymce/5/tinymce.min.js"--}}
+{{--    referrerpolicy="origin"></script>--}}
 
 <!-- Toastr JS -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
