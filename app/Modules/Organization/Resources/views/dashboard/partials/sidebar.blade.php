@@ -60,6 +60,22 @@
                 </a>
             </li>
 
+            {{--           options  --}}
+            <li class="nav-item w-100">
+                <a class="nav-link {{ request()->routeIs('organization.options.*') ? 'active' : '' }}" href="{{ route('organization.options.index') }}">
+                    <i class="fe fe-sliders fe-16"></i>
+                    <span class="ml-3 item-text">{{ __('organizations.options') }}</span>
+                </a>
+            </li>
+
+            {{--           option_items  --}}
+            <li class="nav-item w-100">
+                <a class="nav-link {{ request()->routeIs('organization.option_items.*') ? 'active' : '' }}" href="{{ route('organization.option_items.index') }}">
+                    <i class="fe fe-list fe-16"></i>
+                    <span class="ml-3 item-text">{{ __('organizations.option_items') }}</span>
+                </a>
+            </li>
+
 
 
 {{--            @endcan--}}

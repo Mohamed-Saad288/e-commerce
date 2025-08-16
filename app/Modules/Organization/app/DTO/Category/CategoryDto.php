@@ -48,7 +48,7 @@ class CategoryDto implements DTOInterface
             is_active: $arrayData['is_active'] ?? null,
             slug: $arrayData['slug'] ?? null,
             organization_id: auth()->user()->organization_id ?? null,
-            employee_id: auth()->id(),
+            employee_id: auth()->user()->id,
             parent_id: $arrayData['parent_id'] ?? null,
             sort_order: 1 ?? null
         );

@@ -16,6 +16,8 @@ class OptionItem extends BaseModel implements TranslatableContract
     public $translatedAttributes = ['name'];
     protected  $fillable = [
         'option_id',
+        'organization_id',
+        'employee_id'
     ];
 
     protected $table = 'option_items';
