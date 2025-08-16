@@ -5,6 +5,8 @@ use App\Modules\Organization\app\Http\Controllers\Brand\BrandController;
 use App\Modules\Organization\app\Http\Controllers\Category\CategoryController;
 use App\Modules\Organization\app\Http\Controllers\Employee\EmployeeController;
 use App\Modules\Organization\app\Http\Controllers\Home\HomeController;
+use App\Modules\Organization\app\Http\Controllers\Option\OptionController;
+use App\Modules\Organization\app\Http\Controllers\OptionItem\OptionItemController;
 use Illuminate\Support\Facades\Route;
 use Mcamara\LaravelLocalization\Facades\LaravelLocalization;
 
@@ -37,6 +39,8 @@ Route::group(
                 Route::resource('categories', CategoryController::class);
                 Route::resource('brands', BrandController::class);
                 Route::resource('employees', EmployeeController::class);
+                Route::resource('options', OptionController::class);
+                Route::resource('option_items', OptionItemController::class);
             });
     }
 );

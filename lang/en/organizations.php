@@ -13,4 +13,12 @@ return [
     "supervisors" => "Supervisors",
     "add_supervisor" => "Add Supervisor",
     "edit_supervisor" => "Edit Supervisor",
+    'options' => 'Options',
+    'edit_option' => 'Edit Option',
+    'add_option' => 'Add Option',
+    'option_name' => 'Option Name',
+    'option_items' => 'Option Items',
+    'add_option_item' => 'Add Option Item',
+    'edit_option_item' => 'Edit Option Item',
+
 ];
