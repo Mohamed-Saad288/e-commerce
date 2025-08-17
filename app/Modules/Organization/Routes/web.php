@@ -8,7 +8,9 @@ use App\Modules\Organization\app\Http\Controllers\{Auth\AuthController,
     Home\HomeController,
     Option\OptionController,
     OptionItem\OptionItemController,
-    products\ProductController};
+    products\ProductController,
+    Question\QuestionController,
+    Term\TermController};
 use Illuminate\Support\Facades\Route;
 use Mcamara\LaravelLocalization\Facades\LaravelLocalization;
 
@@ -45,7 +47,8 @@ Route::group(
                 Route::resource('option_items', OptionItemController::class);
                 Route::resource('products', ProductController::class);
                 Route::resource('headers', HeaderController::class);
-                Route::resource('questions', HeaderController::class);
+                Route::resource('questions', QuestionController::class);
+                Route::resource('terms', TermController::class);
             });
     }
 );

@@ -56,5 +56,9 @@ return [
     "edit_question" => "تعديل السؤال",
     "question_name" => "اسم السؤال",
     "question_description" => "وصف السؤال",
+    'terms' => 'سياسة الخصوصية',
+    'edit_term' => 'تعديل سياسة الخصوصية',
+    'add_term' => 'إنشاء سياسة خصوصية جديدة',
+    'term_name' => 'اسم سياسة الخصوصية',
 ];
 

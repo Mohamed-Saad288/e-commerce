@@ -35,6 +35,12 @@ return [
     "messages" => "Messages",
     "add_message" => "Add Message",
     "edit_message" => "Edit Message",
+    'terms' => "Terms and Condition",
+    'edit_term' => "Edit Term",
+    'add_term' => "Add Term",
+    "features" => "Features",
+    "add_feature" => "Add Feature",
+    "edit_feature" => "Edit Feature",
 
 
 ];
