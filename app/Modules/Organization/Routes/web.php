@@ -45,6 +45,7 @@ Route::group(
                 Route::resource('option_items', OptionItemController::class);
                 Route::resource('products', ProductController::class);
                 Route::resource('headers', HeaderController::class);
+                Route::resource('questions', HeaderController::class);
             });
     }
 );

@@ -51,5 +51,10 @@ return [
     "header_description" => "وصف العنوان",
     "header_image" => "صورة العنوان",
     "header" => "العنوان",
+    "questions" => "الأسئلة الشائعة",
+    "add_question" => "إنشاء سؤال جديد",
+    "edit_question" => "تعديل السؤال",
+    "question_name" => "اسم السؤال",
+    "question_description" => "وصف السؤال",
 ];
 

@@ -118,7 +118,11 @@ return [
     'employee_deleted_successfully' => 'تم حذف الموظف بنجاح',
     'no_found_records' => 'لم يتم العثور على نتائج',
     'upload_image' => 'تحميل الصورة',
-
-
+    'question_en'   => 'السؤال (بالإنجليزية)',
+    'answer_en'     => 'الإجابة (بالإنجليزية)',
+    'question_ar'   => 'السؤال (بالعربية)',
+    'answer_ar'     => 'الإجابة (بالعربية)',
+    'question' => "السؤال",
+    'answer' => "الإجابة",
 ];
 

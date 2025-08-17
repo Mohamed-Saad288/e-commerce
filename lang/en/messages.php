@@ -108,4 +108,10 @@ return [
     'employee_deleted_successfully' => 'Employee deleted successfully',
     'no_found_records' => 'No found records',
     'upload_image' => 'Upload Image',
+    'question_en'   => 'Question (English)',
+    'answer_en'     => 'Answer (English)',
+    'question_ar'   => 'Question (Arabic)',
+    'answer_ar'     => 'Answer (Arabic)',
+    "question" => "Question",
+    "answer" => "Answer",
 ];

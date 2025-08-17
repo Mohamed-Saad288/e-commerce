@@ -1,13 +1,13 @@
 @extends('organization::dashboard.master')
-@section('title', __('organizations.headers'))
+@section('title', __('organization.questions'))
 
 @section('content')
     <div class="container-fluid">
         <div class="row">
             <div class="col-md-12">
                 <div class="card">
-                    <div class="card-header d-flex justify-content-between align-items-center">
-                        <h2 class="h5 page-title">{{ __("organizations.headers") }} </h2>
+                    <div class="card-question d-flex justify-content-between align-items-center">
+                        <h2 class="h5 page-title">{{ __("organization.questions") }} </h2>
                     </div>
                     <div class="card-body">
                         <div class="table-responsive">
@@ -18,13 +18,14 @@
 
                                     <th></th>
                                     <th>#</th>
-                                    <th>{{ __('messages.title') }}</th>
+                                    <th>{{ __('messages.question') }}</th>
+                                    <th>{{ __('messages.answer') }}</th>
                                     <th>{{ __('messages.actions') }}</th>
                                 </tr>
                                 </thead>
                                 <tbody>
-                                @if (count($headers) > 0)
-                                    @foreach($headers as $header)
+                                @if (count($questions) > 0)
+                                    @foreach($questions as $question)
                                         <tr>
                                             <td>
                                                 <div class="custom-control custom-checkbox">
@@ -33,10 +34,11 @@
                                                 </div>
                                             </td>
                                             <td>{{ $loop->iteration }}</td>
-                                            <td>{{$header->name}}</td>
+                                            <td>{{$question->question ?? ''}}</td>
+                                            <td>{{$question->answer ?? ''}}</td>
                                             <td style="width:10%">
-                                                @can('update_header')
-                                                <a href="{{ route('organization.headers.edit', $header->id) }}" class="btn btn-sm btn-success">
+                                                @can('update_question')
+                                                <a href="{{ route('organization.questions.edit', $question->id) }}" class="btn btn-sm btn-success">
                                                     <i class='fe fe-edit fa-2x'></i>
                                                 </a>
                                                 @endcan

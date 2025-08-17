@@ -91,6 +91,14 @@
                 </a>
             </li>
 
+            {{--           Common Questions  --}}
+            <li class="nav-item w-100">
+                <a class="nav-link {{ request()->routeIs('organization.questions.*') ? 'active' : '' }}" href="{{ route('organization.questions.index') }}">
+                    <i class="fe fe-help-circle fe-16"></i>
+                    <span class="ml-3 item-text">{{ __('organizations.questions') }}</span>
+                </a>
+            </li>
+
 
 {{--            @endcan--}}
 {{--            <!-- users -->--}}

@@ -26,6 +26,15 @@ return [
     "headers" => "Headers",
     "add_header" => "Add Header",
     "edit_header" => "Edit Header",
+    'questions' => 'Common Questions',
+    "add_question" => "Add Question",
+    "edit_question" => "Edit Question",
+    "services" => "Services",
+    "add_service" => "Add Service",
+    "edit_service" => "Edit Service",
+    "messages" => "Messages",
+    "add_message" => "Add Message",
+    "edit_message" => "Edit Message",
 
 
 ];
