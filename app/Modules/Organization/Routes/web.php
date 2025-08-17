@@ -1,6 +1,7 @@
 <?php
 
-use App\Modules\Organization\app\Http\Controllers\{Auth\AuthController,
+use App\Modules\Organization\app\Http\Controllers\{About\AboutController,
+    Auth\AuthController,
     Brand\BrandController,
     Category\CategoryController,
     Employee\EmployeeController,
@@ -49,6 +50,7 @@ Route::group(
                 Route::resource('headers', HeaderController::class);
                 Route::resource('questions', QuestionController::class);
                 Route::resource('terms', TermController::class);
+                Route::resource('abouts', AboutController::class);
             });
     }
 );

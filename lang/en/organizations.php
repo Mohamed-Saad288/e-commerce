@@ -41,6 +41,8 @@ return [
     "features" => "Features",
     "add_feature" => "Add Feature",
     "edit_feature" => "Edit Feature",
-
+    'abouts' => "About Us",
+    'edit_about' => "Edit About",
+    'add_about' => "Add About",
 
 ];

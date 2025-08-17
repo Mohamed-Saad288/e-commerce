@@ -107,6 +107,14 @@
                 </a>
             </li>
 
+            {{--           About Us  --}}
+            <li class="nav-item w-100">
+                <a class="nav-link {{ request()->routeIs('organization.abouts.*') ? 'active' : '' }}" href="{{ route('organization.abouts.index') }}">
+                    <i class="fe fe-globe fe-16"></i>
+                    <span class="ml-3 item-text">{{ __('organizations.abouts') }}</span>
+                </a>
+            </li>
+
 
 {{--            @endcan--}}
 {{--            <!-- users -->--}}

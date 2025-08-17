@@ -1,22 +1,22 @@
 @extends("organization::dashboard.master")
-@section('title', isset($about) ? __('organizations.edit_about') : __('organizations.add_about'))
+@section('title', isset($header) ? __('organizations.edit_header') : __('organizations.add_header'))
 
 @section('content')
     <div class="container-fluid">
         <div class="row">
             <div class="col-md-12">
                 <div class="card">
-                    <div class="card-about">
-                        <strong class="card-title">{{ isset($about) ? __('about.edit_about') : __('about.add_about') }}</strong>
+                    <div class="card-header">
+                        <strong class="card-title">{{ isset($header) ? __('header.edit_header') : __('header.add_header') }}</strong>
                     </div>
                     <div class="card-body">
-                        <form action="{{ isset($about) ? route('organization.abouts.update', $about->id) : route('organization.abouts.store') }}"
+                        <form action="{{ isset($header) ? route('organization.headers.update', $header->id) : route('organization.headers.store') }}"
                               method="POST" enctype="multipart/form-data">
                             @csrf
-                            @if(isset($about))
+                            @if(isset($header))
                                 @method('PUT')
                             @endif
-                            @include('organization::dashboard.about.form')
+                            @include('organization::dashboard.header.form')
                         </form>
                     </div>
                 </div>
