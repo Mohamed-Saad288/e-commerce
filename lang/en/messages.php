@@ -106,4 +106,6 @@ return [
     "days" => "Days",
     'none' => 'None',
     'employee_deleted_successfully' => 'Employee deleted successfully',
+    'no_found_records' => 'No found records',
+    'upload_image' => 'Upload Image',
 ];

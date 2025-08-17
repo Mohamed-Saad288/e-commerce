@@ -116,6 +116,8 @@ return [
     'edit_supervisor' => 'تعديل مشرف',
     'supervisor_deleted_successfully' => 'تم حذف المشرف بنجاح',
     'employee_deleted_successfully' => 'تم حذف الموظف بنجاح',
+    'no_found_records' => 'لم يتم العثور على نتائج',
+    'upload_image' => 'تحميل الصورة',
 
 
 ];

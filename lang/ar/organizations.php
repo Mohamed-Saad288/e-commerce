@@ -44,5 +44,12 @@ return [
     "products" => "المنتجات",
     "add_product" => "إنشاء منتج جديد",
     "edit_product" => "تعديل المنتج",
+    "headers"  => "العناوين",
+    "add_header" => "إنشاء عنوان جديد",
+    "edit_header" => "تعديل العنوان",
+    "header_name" => "اسم العنوان",
+    "header_description" => "وصف العنوان",
+    "header_image" => "صورة العنوان",
+    "header" => "العنوان",
 ];
 

@@ -23,6 +23,9 @@ return [
     "products" => "Products",
     'add_product' => 'Add Product',
     "edit_product" => "Edit Product",
+    "headers" => "Headers",
+    "add_header" => "Add Header",
+    "edit_header" => "Edit Header",
 
 
 ];

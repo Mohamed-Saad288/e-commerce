@@ -1,15 +1,14 @@
 <?php
 
-use App\Modules\Organization\app\Http\Controllers\{
-    Auth\AuthController,
+use App\Modules\Organization\app\Http\Controllers\{Auth\AuthController,
     Brand\BrandController,
     Category\CategoryController,
     Employee\EmployeeController,
+    Header\HeaderController,
     Home\HomeController,
     Option\OptionController,
     OptionItem\OptionItemController,
-    products\ProductController
-};
+    products\ProductController};
 use Illuminate\Support\Facades\Route;
 use Mcamara\LaravelLocalization\Facades\LaravelLocalization;
 
@@ -45,6 +44,7 @@ Route::group(
                 Route::resource('options', OptionController::class);
                 Route::resource('option_items', OptionItemController::class);
                 Route::resource('products', ProductController::class);
+                Route::resource('headers', HeaderController::class);
             });
     }
 );

@@ -1,5 +1,5 @@
-@extends('dashboard.master')
-@section('title', __('heroSection.heroSections'))
+@extends('organization::dashboard.master')
+@section('title', __('header.headers'))
 
 @section('content')
     <div class="container-fluid">
@@ -7,7 +7,7 @@
             <div class="col-md-12">
                 <div class="card">
                     <div class="card-header d-flex justify-content-between align-items-center">
-                        <h2 class="h5 page-title">{{ __("heroSection.heroSections") }} </h2>
+                        <h2 class="h5 page-title">{{ __("organization.headers") }} </h2>
                     </div>
                     <div class="card-body">
                         <div class="table-responsive">
@@ -18,13 +18,13 @@
 
                                     <th></th>
                                     <th>#</th>
-                                    <th>{{ __('keys.title') }}</th>
-                                    <th>{{ __('keys.actions') }}</th>
+                                    <th>{{ __('messages.title') }}</th>
+                                    <th>{{ __('messages.actions') }}</th>
                                 </tr>
                                 </thead>
                                 <tbody>
-                                @if (count($heroSections) > 0)
-                                    @foreach($heroSections as $heroSection)
+                                @if (count($headers) > 0)
+                                    @foreach($headers as $header)
                                         <tr>
                                             <td>
                                                 <div class="custom-control custom-checkbox">
@@ -33,10 +33,10 @@
                                                 </div>
                                             </td>
                                             <td>{{ $loop->iteration }}</td>
-                                            <td>{{$heroSection->name}}</td>
+                                            <td>{{$header->name}}</td>
                                             <td style="width:10%">
-                                                @can('update_heroSection')
-                                                <a href="{{ route('admin.hero_sections.edit', $heroSection->id) }}" class="btn btn-sm btn-success">
+                                                @can('update_header')
+                                                <a href="{{ route('organization.headers.edit', $header->id) }}" class="btn btn-sm btn-success">
                                                     <i class='fe fe-edit fa-2x'></i>
                                                 </a>
                                                 @endcan
@@ -47,7 +47,7 @@
                                     <tr>
                                         <td colspan ="100%">
                                             <div class="alert alert-danger">
-                                                {{ __('keys.no_found_records') }}
+                                                {{ __('messages.no_found_records') }}
                                             </div>
                                         </td>
                                     </tr>
