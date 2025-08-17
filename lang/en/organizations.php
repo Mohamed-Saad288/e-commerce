@@ -20,5 +20,9 @@ return [
     'option_items' => 'Option Items',
     'add_option_item' => 'Add Option Item',
     'edit_option_item' => 'Edit Option Item',
+    "products" => "Products",
+    'add_product' => 'Add Product',
+    "edit_product" => "Edit Product",
+
 
 ];

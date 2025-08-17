@@ -38,9 +38,11 @@ return [
     'edit_option_item' => 'تعديل عنصر خيار',
     'option_item_name' => 'اسم عنصر الخيار',
     'option_item_description' => 'وصف عنصر الخيار',
-    'add_option_item' => 'إنشاء عنصر خيار جديد',
     'option_item_image' => 'صورة عنصر الخيار',
     'option_item' => 'عنصر الخيار',
     'option_item_deleted_successfully' => 'تم حذف العنصر بنجاح',
+    "products" => "المنتجات",
+    "add_product" => "إنشاء منتج جديد",
+    "edit_product" => "تعديل المنتج",
 ];
 

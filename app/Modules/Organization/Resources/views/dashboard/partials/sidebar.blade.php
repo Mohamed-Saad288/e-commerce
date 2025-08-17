@@ -18,7 +18,6 @@
         <ul class="navbar-nav flex-fill w-100 mb-2">
             <!-- HOME -->
             <li class="nav-item w-100 ">
-{{--                <a class="nav-link" href="{{ route('admin.index') }}">--}}
                 <a class="nav-link {{ request()->routeIs('organization.home') ? 'active' : '' }}"
                    href="{{ route('organization.home') }}">
                     <i class="fe fe-home fe-16"></i>
@@ -73,6 +72,13 @@
                 <a class="nav-link {{ request()->routeIs('organization.option_items.*') ? 'active' : '' }}" href="{{ route('organization.option_items.index') }}">
                     <i class="fe fe-list fe-16"></i>
                     <span class="ml-3 item-text">{{ __('organizations.option_items') }}</span>
+                </a>
+            </li>
+            {{--           products  --}}
+            <li class="nav-item w-100">
+                <a class="nav-link {{ request()->routeIs('organization.products.*') ? 'active' : '' }}" href="{{ route('organization.products.index') }}">
+                    <i class="fe fe-list fe-16"></i>
+                    <span class="ml-3 item-text">{{ __('organizations.products') }}</span>
                 </a>
             </li>
 
