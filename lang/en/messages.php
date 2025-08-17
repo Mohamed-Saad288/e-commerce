@@ -114,4 +114,9 @@ return [
     'answer_ar'     => 'Answer (Arabic)',
     "question" => "Question",
     "answer" => "Answer",
+
+    "lang_en" => "English",
+    "lang_ar" => "Arabic",
+    "add_product" => "Add Product",
+    "edit_product" => "Edit Product",
 ];

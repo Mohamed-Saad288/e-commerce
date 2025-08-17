@@ -11,7 +11,7 @@
                     </div>
                     <div class="card-body">
                         @include('organization::dashboard.products.form', [
-                            "route" => isset($product) ?  route('organization.products.update', ['product' => $product->id]) : route('organization.brands.store') ,
+                            "route" => isset($product) ?  route('organization.products.update', ['product' => $product->id]) : route('organization.products.store') ,
                             "product" => $product ?? null,
                             "method" => isset($product) ? "PUT" : "POST"
                         ])

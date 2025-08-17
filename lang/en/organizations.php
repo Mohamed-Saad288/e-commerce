@@ -45,4 +45,9 @@ return [
     'edit_about' => "Edit About",
     'add_about' => "Add About",
 
+    "basic_info" => "Basic Info",
+    "pricing&tax" => "Pricing & Tax",
+    "inventory" => "Inventory",
+    "translations" => "Translations",
+
 ];

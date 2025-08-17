@@ -66,5 +66,11 @@ return [
     'about_name' => 'اسم من نحن',
     'about_description' => 'وصف من نحن',
     'about_image' => 'صورة من نحن',
+
+    "basic_info" => "معلومات أساسية",
+    "pricing&tax" => "التسعير والضرائب",
+    "inventory" => "المخزون",
+    "translations" => "الترجمات",
+    "variations" => "المتغيرات",
 ];
 

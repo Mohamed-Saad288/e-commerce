@@ -2,9 +2,7 @@
 <form action="{{ $route }}" method="POST" enctype="multipart/form-data" id="productForm">
     @csrf
     @method($method)
-
     <style>
-        /* Reset & Base Styles */
         * {
             box-sizing: border-box;
         }
@@ -171,21 +169,30 @@
 
     <div class="card-body">
         <!-- Nav Tabs -->
-        <ul class="nav-tabs" id="productTabs" role="tablist">
-            <li class="nav-item">
-                <button class="nav-link active" data-bs-toggle="tab" data-bs-target="#basic">Basic Info</button>
+        <ul class="nav nav-tabs" id="productTabs" role="tablist">
+            <li class="nav-item" role="presentation">
+                <button class="nav-link active" id="basic-tab" data-bs-toggle="tab"
+                        data-bs-target="#basic" type="button" role="tab" aria-controls="basic" aria-selected="true">
+                    {{ __("organizations.basic_info") }}
+                </button>
             </li>
-            <li class="nav-item">
-                <button class="nav-link" data-bs-toggle="tab" data-bs-target="#pricing">Pricing & Tax</button>
+            <li class="nav-item" role="presentation">
+                <button class="nav-link" id="translations-tab" data-bs-toggle="tab"
+                        data-bs-target="#translations" type="button" role="tab" aria-controls="translations" aria-selected="false">
+                    {{ __("organizations.translations") }}
+                </button>
             </li>
-            <li class="nav-item">
-                <button class="nav-link" data-bs-toggle="tab" data-bs-target="#inventory">Inventory</button>
+            <li class="nav-item" role="presentation">
+                <button class="nav-link" id="pricing-tab" data-bs-toggle="tab"
+                        data-bs-target="#pricing" type="button" role="tab" aria-controls="pricing" aria-selected="false">
+                    {{ __("organizations.pricing&tax") }}
+                </button>
             </li>
-            <li class="nav-item">
-                <button class="nav-link" data-bs-toggle="tab" data-bs-target="#translations">Translations</button>
-            </li>
-            <li class="nav-item">
-                <button class="nav-link" data-bs-toggle="tab" data-bs-target="#variations">Variations</button>
+            <li class="nav-item" role="presentation">
+                <button class="nav-link" id="inventory-tab" data-bs-toggle="tab"
+                        data-bs-target="#inventory" type="button" role="tab" aria-controls="inventory" aria-selected="false">
+                    {{ __("organizations.inventory") }}
+                </button>
             </li>
         </ul>
 
@@ -198,7 +205,7 @@
                         <div class="mb-3">
                             <label class="form-label">Slug</label>
                             <input type="text" name="slug" class="form-control @error('slug') is-invalid @enderror"
-                                   value="{{ old('slug') }}" id="slug">
+                                   value="{{ old('slug' , $product->slug ?? '') }}" id="slug">
                             @error('slug')
                             <div class="invalid-feedback">{{ $message }}</div>
                             @enderror
@@ -303,6 +310,58 @@
                         </div>
                     </div>
                 </div>
+
+                <!-- Variations Section -->
+                <div class="mt-4">
+                    <div class="d-flex justify-content-between align-items-center mb-3">
+                        <h5>Variations</h5>
+                        <button type="button" class="btn btn-success btn-sm" id="addVariation">
+                            <i class="fas fa-plus"></i> Add Variation
+                        </button>
+                    </div>
+                    <div id="variationsContainer"></div>
+                </div>
+            </div>
+
+            <!-- Translations -->
+            <div class="tab-pane" id="translations">
+                @foreach(config('translatable.locales') as $locale)
+                    <div class="card mb-3">
+                        <div class="card-header bg-light">
+                            <strong>{{ strtoupper($locale) }}</strong> - {{ __('messages.lang_'.$locale) ?? ucfirst($locale) }}
+                        </div>
+                        <div class="card-body">
+                            <input type="hidden" name="translations[{{ $locale }}][locale]" value="{{ $locale }}">
+
+                            <div class="mb-3">
+                                <label class="form-label">Name</label>
+                                <input type="text" name="{{ $locale }}[name]" class="form-control @error("$locale.name") is-invalid @enderror"
+                                       value="{{ old("$locale.name", $product?->translate($locale)?->name ?? '') }}" >
+                                @error("$locale.name")
+                                <div class="invalid-feedback">{{ $message }}</div>
+                                @enderror
+                            </div>
+
+                            <div class="mb-3">
+                                <label class="form-label">Short Description</label>
+                                <input type="text" name="{{ $locale }}[short_description]" class="form-control @error("$locale.short_description") is-invalid @enderror"
+                                       value="{{ old("$locale.short_description", $product?->translate($locale)?->short_description ?? '') }}">
+                                @error("$locale.short_description")
+                                <div class="invalid-feedback">{{ $message }}</div>
+                                @enderror
+                            </div>
+
+                            <div class="mb-3">
+                                <label class="form-label">Description</label>
+                                <textarea name="{{ $locale }}[description]" class="form-control @error("$locale.description") is-invalid @enderror"
+                                          rows="3">{{ old("$locale.description", $product?->translate($locale)?->description ?? '') }}</textarea>
+                                @error("$locale.description")
+                                <div class="invalid-feedback">{{ $message }}</div>
+                                @enderror
+                            </div>
+                        </div>
+                    </div>
+                @endforeach
             </div>
 
             <!-- Pricing & Tax -->
@@ -408,58 +467,6 @@
                     </div>
                 </div>
             </div>
-
-            <!-- Translations -->
-            <div class="tab-pane" id="translations">
-                @foreach(config('translatable.locales') as $locale)
-                    <div class="card mb-3">
-                        <div class="card-header bg-light">
-                            <strong>{{ strtoupper($locale) }}</strong> - {{ __('messages.lang_'.$locale) ?? ucfirst($locale) }}
-                        </div>
-                        <div class="card-body">
-                            <input type="hidden" name="translations[{{ $locale }}][locale]" value="{{ $locale }}">
-
-                            <div class="mb-3">
-                                <label class="form-label">Name</label>
-                                <input type="text" name="{{ $locale }}[name]" class="form-control @error("$locale.name") is-invalid @enderror"
-                                       value="{{ old("$locale.name", $product?->translate($locale)?->name ?? '') }}" required>
-                                @error("$locale.name")
-                                <div class="invalid-feedback">{{ $message }}</div>
-                                @enderror
-                            </div>
-
-                            <div class="mb-3">
-                                <label class="form-label">Short Description</label>
-                                <input type="text" name="{{ $locale }}[short_description]" class="form-control @error("$locale.short_description") is-invalid @enderror"
-                                       value="{{ old("$locale.short_description", $product?->translate($locale)?->short_description ?? '') }}" required>
-                                @error("$locale.short_description")
-                                <div class="invalid-feedback">{{ $message }}</div>
-                                @enderror
-                            </div>
-
-                            <div class="mb-3">
-                                <label class="form-label">Description</label>
-                                <textarea name="{{ $locale }}[description]" class="form-control @error("$locale.description") is-invalid @enderror"
-                                          rows="3" required>{{ old("$locale.description", $product?->translate($locale)?->description ?? '') }}</textarea>
-                                @error("$locale.description")
-                                <div class="invalid-feedback">{{ $message }}</div>
-                                @enderror
-                            </div>
-                        </div>
-                    </div>
-                @endforeach
-            </div>
-
-            <!-- Variations -->
-            <div class="tab-pane" id="variations">
-                <div class="d-flex justify-content-between align-items-center mb-3">
-                    <h5 class="mb-0">Variations</h5>
-                    <button type="button" class="btn btn-success btn-sm" id="addVariation">
-                        <i class="fas fa-plus"></i> Add Variation
-                    </button>
-                </div>
-                <div id="variationsContainer"></div>
-            </div>
         </div>
     </div>
 
@@ -511,7 +518,7 @@
                 <div class="col-md-4">
                     <div class="mb-3">
                         <label class="form-label">Stock Quantity</label>
-                        <input type="number" name="variations[INDEX][stock_quantity]" class="form-control" value="0">
+                        <input type="number" name="variations[INDEX][stock_quantity]" class="form-control variation-stock" value="0">
                     </div>
                 </div>
             </div>
@@ -578,22 +585,21 @@
                 </div>
             </div>
 
-            <div class="mb-3">
-                <label class="form-label">Variation Names</label>
-                @foreach(config('translatable.locales') as $locale)
-                    <div class="mb-2">
-                        <label class="form-label">{{ ucfirst($locale) }}</label>
-                        <input type="hidden" name="variations[INDEX][translations][{{ $locale }}][locale]" value="{{ $locale }}">
-                        <input type="text" name="variations[INDEX][translations][{{ $locale }}][name]" class="form-control" placeholder="Name in {{ ucfirst($locale) }}">
-                    </div>
-                @endforeach
-            </div>
+            {{--            <div class="mb-3">--}}
+            {{--                <label class="form-label">Variation Names</label>--}}
+            {{--                @foreach(config('translatable.locales') as $locale)--}}
+            {{--                    <div class="mb-2">--}}
+            {{--                        <label class="form-label">{{ ucfirst($locale) }}</label>--}}
+            {{--                        <input type="hidden" name="variations[INDEX][translations][{{ $locale }}][locale]" value="{{ $locale }}">--}}
+            {{--                        <input type="text" name="variations[INDEX][translations][{{ $locale }}][name]" class="form-control" placeholder="Name in {{ ucfirst($locale) }}">--}}
+            {{--                    </div>--}}
+            {{--                @endforeach--}}
+            {{--            </div>--}}
         </div>
     </div>
 </div>
 
 <script>
-    // Pure JavaScript (no jQuery) for Tabs, Slug, Price Calc, Variations
     document.addEventListener('DOMContentLoaded', function () {
         // Slug from English name
         const nameEn = document.querySelector('input[name="en[name]"]') || document.getElementById('name_en');
@@ -647,24 +653,87 @@
             }
         });
 
-        // Dynamic Variations
-        let variationIndex = 0;
+        // --- Dynamic Variations & Stock Sync ---
+        let variationCounter = 0;
         const addBtn = document.getElementById('addVariation');
         const container = document.getElementById('variationsContainer');
         const template = document.getElementById('variationTemplate');
+        const stockInput = document.getElementById('stock_quantity'); // يجب أن يكون معرف بدون readonly
 
+        // Reference to Pricing Tab
+        const pricingTabLi = document.querySelector('button[data-bs-target="#pricing"]').closest('.nav-item');
+
+        function togglePricingTab() {
+            const hasVariations = container.children.length > 0;
+            if (hasVariations) {
+                if (pricingTabLi) pricingTabLi.style.display = 'none';
+                document.getElementById('cost_price')?.setAttribute('disabled', 'disabled');
+                document.getElementById('selling_price')?.setAttribute('disabled', 'disabled');
+            } else {
+                if (pricingTabLi) pricingTabLi.style.display = '';
+                document.getElementById('cost_price')?.removeAttribute('disabled');
+                document.getElementById('selling_price')?.removeAttribute('disabled');
+            }
+            updateTotalStock();
+        }
+
+        // Update main stock based on variations or allow manual input
+        function updateTotalStock() {
+            const hasVariations = container.children.length > 0;
+
+            if (hasVariations) {
+                // Calculate sum of variation stocks
+                let total = 0;
+                document.querySelectorAll('.variation-stock').forEach(input => {
+                    total += parseFloat(input.value) || 0;
+                });
+                stockInput.value = total;
+                stockInput.setAttribute('readonly', 'readonly');
+                stockInput.style.backgroundColor = '#f8f9fa';
+                stockInput.style.cursor = 'not-allowed';
+            } else {
+                // Allow manual input
+                stockInput.removeAttribute('readonly');
+                stockInput.style.backgroundColor = '#fff';
+                stockInput.style.cursor = 'text';
+                // If empty, default to 0
+                if (stockInput.value === '' || isNaN(stockInput.value)) {
+                    stockInput.value = 0;
+                }
+            }
+        }
+
+        // Re-index variations after add/remove
+        function reindexVariations() {
+            Array.from(container.children).forEach((variation, index) => {
+                variation.querySelector('.variation-number').textContent = index + 1;
+                const inputs = variation.querySelectorAll('input, select');
+                inputs.forEach(input => {
+                    if (input.name) {
+                        input.name = input.name.replace(/\[variations\]\[\d+\]/, `[variations][${index}]`);
+                    }
+                });
+            });
+            variationCounter = container.children.length;
+            updateTotalStock(); // Recalculate stock after reindex
+        }
+
+        // Add new variation
         addBtn?.addEventListener('click', () => {
             const clone = template.firstElementChild.cloneNode(true);
-            clone.innerHTML = clone.innerHTML.replace(/INDEX/g, variationIndex);
-            clone.querySelector('.variation-number').textContent = variationIndex + 1;
+            clone.innerHTML = clone.innerHTML.replace(/INDEX/g, variationCounter);
+            clone.querySelector('.variation-number').textContent = variationCounter + 1;
 
             container.appendChild(clone);
-
             setupVariationCalc(clone);
-            variationIndex++;
+            variationCounter++;
+            togglePricingTab();
+            updateTotalStock(); // Ensure stock is updated
         });
 
+        // Setup calculation for each variation
         function setupVariationCalc(variation) {
+            const stockInputVar = variation.querySelector('.variation-stock');
             const inputs = [
                 '.variation-selling-price',
                 '.variation-discount',
@@ -685,6 +754,7 @@
                 let total = price - discount;
                 if (taxable) total += type == '1' ? tax : (total * tax / 100);
                 totalEl.value = total.toFixed(2);
+                updateTotalStock(); // Update main stock on price change (مهم لو حاب تضيف حاجة هنا)
             }
 
             inputs.forEach(selector => {
@@ -695,10 +765,21 @@
                 }
             });
 
-            // Remove button
+            // Update main stock when variation stock changes
+            if (stockInputVar) {
+                stockInputVar.addEventListener('input', updateTotalStock);
+            }
+
+            // Remove variation
             variation.querySelector('.remove-variation').addEventListener('click', () => {
                 variation.remove();
+                togglePricingTab();
+                reindexVariations();
             });
         }
+
+        // Initial setup
+        updateTotalStock();  // Set initial state
+        togglePricingTab();  // Hide pricing tab if needed
     });
 </script>
