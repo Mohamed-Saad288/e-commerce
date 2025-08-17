@@ -115,6 +115,14 @@
                 </a>
             </li>
 
+            {{--           Why Us  --}}
+            <li class="nav-item w-100">
+                <a class="nav-link {{ request()->routeIs('organization.whys.*') ? 'active' : '' }}" href="{{ route('organization.whys.index') }}">
+                    <i class="fe fe-star fe-16"></i>
+                    <span class="ml-3 item-text">{{ __('organizations.whys') }}</span>
+                </a>
+            </li>
+
 
 {{--            @endcan--}}
 {{--            <!-- users -->--}}

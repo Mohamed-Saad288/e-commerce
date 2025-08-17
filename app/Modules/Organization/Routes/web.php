@@ -11,7 +11,8 @@ use App\Modules\Organization\app\Http\Controllers\{About\AboutController,
     OptionItem\OptionItemController,
     products\ProductController,
     Question\QuestionController,
-    Term\TermController};
+    Term\TermController,
+    Why\WhyController};
 use Illuminate\Support\Facades\Route;
 use Mcamara\LaravelLocalization\Facades\LaravelLocalization;
 
@@ -51,6 +52,7 @@ Route::group(
                 Route::resource('questions', QuestionController::class);
                 Route::resource('terms', TermController::class);
                 Route::resource('abouts', AboutController::class);
+                Route::resource('whys', WhyController::class);
             });
     }
 );

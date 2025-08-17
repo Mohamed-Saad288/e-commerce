@@ -66,5 +66,10 @@ return [
     'about_name' => 'اسم من نحن',
     'about_description' => 'وصف من نحن',
     'about_image' => 'صورة من نحن',
+    'whys' => 'لماذا نحن',
+    'edit_why' => 'تعديل لماذا نحن',
+    'add_why' => 'إنشاء لماذا نحن جديد',
+    'why_name' => 'اسم لماذا نحن',
+    'why_description' => 'وصف لماذا نحن',
 ];
 
