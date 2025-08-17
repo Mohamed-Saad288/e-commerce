@@ -54,4 +54,9 @@ return [
     'add_organization' => "Add Organization",
     'edit_organization' => "Edit Organization",
 
+    "basic_info" => "Basic Info",
+    "pricing&tax" => "Pricing & Tax",
+    "inventory" => "Inventory",
+    "translations" => "Translations",
+
 ];
