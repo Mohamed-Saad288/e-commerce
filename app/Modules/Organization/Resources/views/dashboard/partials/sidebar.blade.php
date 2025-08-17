@@ -83,6 +83,14 @@
             </li>
 
 
+            {{--           Headers  --}}
+            <li class="nav-item w-100">
+                <a class="nav-link {{ request()->routeIs('organization.headers.*') ? 'active' : '' }}" href="{{ route('organization.headers.index') }}">
+                    <i class="fe fe-layout fe-16"></i>
+                    <span class="ml-3 item-text">{{ __('organizations.headers') }}</span>
+                </a>
+            </li>
+
 
 {{--            @endcan--}}
 {{--            <!-- users -->--}}
