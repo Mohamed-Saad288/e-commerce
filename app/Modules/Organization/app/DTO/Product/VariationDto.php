@@ -7,6 +7,10 @@ use Illuminate\Foundation\Http\FormRequest;
 
 class VariationDto implements DTOInterface
 {
+    public ?int $id = null;
+    public ?int $organization_id = null;
+    public ?int $employee_id = null;
+
     public ?string $slug = null;
     public ?string $sku = null;
     public ?int $sort_order = null;
@@ -22,9 +26,13 @@ class VariationDto implements DTOInterface
     public ?float $selling_price = null;
     public ?float $total_price = null;
     public ?array $translations = [];
+    public ?array $option_items = [];
 
 
     public function __construct(
+        ?int $id = null,
+        ?int $organization_id = null,
+        ?int $employee_id = null,
         ?string $slug = null,
         ?string $sku = null,
         ?int $sort_order = null,
@@ -40,8 +48,11 @@ class VariationDto implements DTOInterface
         ?float $selling_price = null,
         ?float $total_price = null,
         ?array $translations = [],
+        ?array $option_items = []
 
-    ){
+    ) {
+        $this->organization_id = $organization_id;
+        $this->employee_id = $employee_id;
         $this->slug = $slug;
         $this->sku = $sku;
         $this->sort_order = $sort_order;
@@ -57,37 +68,52 @@ class VariationDto implements DTOInterface
         $this->selling_price = $selling_price;
         $this->total_price = $total_price;
         $this->translations = $translations;
+        $this->option_items = $option_items;
+        $this->id = $id;
     }
-
 
 
     public static function fromArray(FormRequest|array $data): DTOInterface
     {
+        $total_price = calculateTotalPrice($data);
+
+        $translations = [];
+        foreach (config('translatable.locales') as $locale) {
+            $translations[$locale] = [
+                'name' => $data[$locale]['name'] ?? null,
+            ];
+        }
         return new self(
-            slug: $data['slug'],
-            sku: $data['sku'],
-            sort_order: $data['sort_order'],
-            barcode: $data['barcode'],
-            stock_quantity: $data['stock_quantity'],
-            requires_shipping: $data['requires_shipping'],
-            is_featured: $data['is_featured'],
-            is_taxable: $data['is_taxable'],
-            tax_type: $data['tax_type'],
-            tax_amount: $data['tax_amount'],
-            discount: $data['discount'],
-            cost_price: $data['cost_price'],
-            selling_price: $data['selling_price'],
-            total_price: $data['total_price'],
-            translations: $data['translations'],
+            id: $data['id'] ?? null,
+            organization_id: auth()->user()->organization_id ?? null,
+            employee_id: auth()->user()->id,
+//            slug: $data['slug'] ?? null,
+            sku: $data['sku'] ?? null,
+            sort_order: $data['sort_order'] ?? 0,
+            barcode: $data['barcode'] ?? null,
+            stock_quantity: $data['stock_quantity'] ?? null,
+            is_featured: $data['is_featured'] ?? 0,
+            is_taxable: $data['is_taxable'] ?? 0,
+            tax_type: $data['tax_type'] ?? 1,
+            tax_amount: $data['tax_amount'] ?? 0,
+            discount: $data['discount'] ?? 0,
+            cost_price: $data['cost_price'] ?? 0,
+            selling_price: $data['selling_price'] ?? 0,
+            total_price: $total_price,
+            translations: $translations,
+            option_items: $data['option_items'] ?? [],
         );
     }
 
     public function toArray(): array
     {
-       return array_merge(
+        return array_merge(
             $this->translations,
             [
-                'slug' => $this->slug,
+                "id" => $this->id,
+                'organization_id' => $this->organization_id,
+                "employee_id" => $this->employee_id,
+//                'slug' => $this->slug,
                 'sku' => $this->sku,
                 'sort_order' => $this->sort_order,
                 'barcode' => $this->barcode,
@@ -101,6 +127,7 @@ class VariationDto implements DTOInterface
                 'cost_price' => $this->cost_price,
                 'selling_price' => $this->selling_price,
                 'total_price' => $this->total_price,
+                'option_items' => $this->option_items
             ]
         );
     }

@@ -3,8 +3,13 @@
 namespace App\Modules\Organization\app\Models\Product;
 
 use App\Modules\Base\app\Models\BaseModel;
+use App\Modules\Organization\app\Models\Brand\Brand;
+use App\Modules\Organization\app\Models\Category\Category;
+use App\Modules\Organization\app\Models\ProductVariation\ProductVariation;
 use Astrotomic\Translatable\Contracts\Translatable as TranslatableContract;
 use Astrotomic\Translatable\Translatable;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class Product extends  BaseModel implements TranslatableContract
 {
@@ -36,7 +41,24 @@ class Product extends  BaseModel implements TranslatableContract
       "added_by_id",
       "organization_id",
       "employee_id",
+        "is_active"
     ];
+
+
+    public function variations() : HasMany
+    {
+        return $this->hasMany(ProductVariation::class , "product_id");
+    }
+
+    public function brand() : BelongsTo
+    {
+        return $this->belongsTo(Brand::class , "brand_id");
+    }
+
+    public function category() : BelongsTo
+    {
+        return $this->belongsTo(Category::class , "category_id");
+    }
 
 
 }

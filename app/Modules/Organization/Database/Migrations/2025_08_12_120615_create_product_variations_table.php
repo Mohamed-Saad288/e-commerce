@@ -17,6 +17,7 @@ return new class extends BaseMigration
             $table->string("sku")->nullable();
             $table->string('barcode')->nullable();
             $table->boolean('is_featured')->default(0);
+            $table->integer('sort_order')->default(0);
 
 
             $table->integer("stock_quantity")->default(0);

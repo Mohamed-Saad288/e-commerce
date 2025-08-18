@@ -11,7 +11,8 @@ use App\Modules\Organization\app\Http\Controllers\{About\AboutController,
     OptionItem\OptionItemController,
     products\ProductController,
     Question\QuestionController,
-    Term\TermController};
+    Term\TermController
+};
 use Illuminate\Support\Facades\Route;
 use Mcamara\LaravelLocalization\Facades\LaravelLocalization;
 
@@ -26,7 +27,6 @@ Route::group(
         ],
     ],
     function () {
-
         // Guest routes (not logged in)
         Route::middleware('guest:organization_employee')->group(function () {
             Route::get('login', [AuthController::class, 'getLogin'])->name('organization.login');
@@ -47,10 +47,17 @@ Route::group(
                 Route::resource('options', OptionController::class);
                 Route::resource('option_items', OptionItemController::class);
                 Route::resource('products', ProductController::class);
+                Route::get('products/filter', [ProductController::class, 'filter'])->name('products.filter');
                 Route::resource('headers', HeaderController::class);
                 Route::resource('questions', QuestionController::class);
                 Route::resource('terms', TermController::class);
                 Route::resource('abouts', AboutController::class);
+
+                /************************** Change status Routes ********************/
+                Route::prefix('change_status')->group(function () {
+                    Route::post('products/{product}', [ProductController::class, 'changeStatus'])->name('products.change_status');
+                });
+                /********************************************************************/
             });
     }
 );
