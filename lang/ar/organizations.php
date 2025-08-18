@@ -72,5 +72,10 @@ return [
     "inventory" => "المخزون",
     "translations" => "الترجمات",
     "variations" => "المتغيرات",
+    'whys' => 'لماذا نحن',
+    'edit_why' => 'تعديل لماذا نحن',
+    'add_why' => 'إنشاء لماذا نحن جديد',
+    'why_name' => 'اسم لماذا نحن',
+    'why_description' => 'وصف لماذا نحن',
 ];
 

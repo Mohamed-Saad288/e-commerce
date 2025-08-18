@@ -1,22 +1,22 @@
 @extends("organization::dashboard.master")
-@section('title', isset($about) ? __('organizations.edit_about') : __('organizations.add_about'))
+@section('title', isset($why) ? __('organizations.edit_why') : __('organizations.add_why'))
 
 @section('content')
     <div class="container-fluid">
         <div class="row">
             <div class="col-md-12">
                 <div class="card">
-                    <div class="card-about">
-                        <strong class="card-title">{{ isset($about) ? __('about.edit_about') : __('about.add_about') }}</strong>
+                    <div class="card-why">
+                        <strong class="card-title">{{ isset($why) ? __('why.edit_why') : __('why.add_why') }}</strong>
                     </div>
                     <div class="card-body">
-                        <form action="{{ isset($about) ? route('organization.abouts.update', $about->id) : route('organization.abouts.store') }}"
+                        <form action="{{ isset($why) ? route('organization.whys.update', $why->id) : route('organization.whys.store') }}"
                               method="POST" enctype="multipart/form-data">
                             @csrf
-                            @if(isset($about))
+                            @if(isset($why))
                                 @method('PUT')
                             @endif
-                            @include('organization::dashboard.about.form')
+                            @include('organization::dashboard.why.form')
                         </form>
                     </div>
                 </div>
