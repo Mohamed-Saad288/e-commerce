@@ -16,6 +16,7 @@ use App\Modules\Organization\app\Http\Controllers\{About\AboutController,
 use Illuminate\Support\Facades\Route;
 use Mcamara\LaravelLocalization\Facades\LaravelLocalization;
 
+
 Route::group(
     [
         'prefix' => LaravelLocalization::setLocale() . "/organizations",
@@ -32,6 +33,11 @@ Route::group(
             Route::get('login', [AuthController::class, 'getLogin'])->name('organization.login');
             Route::post('login', [AuthController::class, 'login'])->name('organization.login.submit');
         });
+
+        /************************** Exports Routes ********************/
+        Route::get('products/export', [ProductController::class, 'export'])->name('organization.products.export');
+        /************************** Exports Routes ********************/
+
 
         // Authenticated routes
         Route::middleware('auth:organization_employee')
@@ -52,7 +58,6 @@ Route::group(
                 Route::resource('terms', TermController::class);
                 Route::resource('abouts', AboutController::class);
                 Route::resource('whys', WhyController::class);
-
 
                 /************************** Change status Routes ********************/
                 Route::prefix('change_status')->group(function () {

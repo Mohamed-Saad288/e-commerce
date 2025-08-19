@@ -119,4 +119,6 @@ return [
     "lang_ar" => "Arabic",
     "add_product" => "Add Product",
     "edit_product" => "Edit Product",
+    "short_description" => "Short Description",
+    "sku" => "Sku",
 ];
