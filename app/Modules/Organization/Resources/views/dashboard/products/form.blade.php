@@ -1,7 +1,8 @@
-<!-- Product Form - All-in-One (HTML + CSS + JS) -->
+<!-- Product Form - Create & Edit (All-in-One) -->
 <form action="{{ $route }}" method="POST" enctype="multipart/form-data" id="productForm">
     @csrf
     @method($method)
+
     <style>
         * {
             box-sizing: border-box;
@@ -167,6 +168,15 @@
         }
     </style>
 
+    @if ($errors->any())
+        <div class="alert alert-danger">
+            <ul>
+                @foreach ($errors->all() as $error)
+                    <li>{{ $error }}</li>
+                @endforeach
+            </ul>
+        </div>
+    @endif
     <div class="card-body">
         <!-- Nav Tabs -->
         <ul class="nav nav-tabs" id="productTabs" role="tablist">
@@ -205,7 +215,7 @@
                         <div class="mb-3">
                             <label class="form-label">Slug</label>
                             <input type="text" name="slug" class="form-control @error('slug') is-invalid @enderror"
-                                   value="{{ old('slug' , $product->slug ?? '') }}" id="slug">
+                                   value="{{ old('slug', $product->slug ?? '') }}" id="slug">
                             @error('slug')
                             <div class="invalid-feedback">{{ $message }}</div>
                             @enderror
@@ -215,7 +225,7 @@
                         <div class="mb-3">
                             <label class="form-label">SKU</label>
                             <input type="text" name="sku" class="form-control @error('sku') is-invalid @enderror"
-                                   value="{{ old('sku') }}">
+                                   value="{{ old('sku', $product->sku ?? '') }}">
                             @error('sku')
                             <div class="invalid-feedback">{{ $message }}</div>
                             @enderror
@@ -230,7 +240,8 @@
                             <select name="brand_id" class="form-select @error('brand_id') is-invalid @enderror">
                                 <option value="">Select Brand</option>
                                 @foreach($brands as $brand)
-                                    <option value="{{ $brand->id }}" {{ old('brand_id') == $brand->id ? 'selected' : '' }}>
+                                    <option value="{{ $brand->id }}"
+                                        {{ (old('brand_id', $product->brand_id ?? '') == $brand->id) ? 'selected' : '' }}>
                                         {{ $brand->name }}
                                     </option>
                                 @endforeach
@@ -246,7 +257,8 @@
                             <select name="category_id" class="form-select @error('category_id') is-invalid @enderror">
                                 <option value="">Select Category</option>
                                 @foreach($categories as $category)
-                                    <option value="{{ $category->id }}" {{ old('category_id') == $category->id ? 'selected' : '' }}>
+                                    <option value="{{ $category->id }}"
+                                        {{ (old('category_id', $product->category_id ?? '') == $category->id) ? 'selected' : '' }}>
                                         {{ $category->name }}
                                     </option>
                                 @endforeach
@@ -263,9 +275,9 @@
                         <div class="mb-3">
                             <label class="form-label">Product Type</label>
                             <select name="type" class="form-select @error('type') is-invalid @enderror">
-                                <option value="1" {{ old('type', 1) == 1 ? 'selected' : '' }}>Physical</option>
-                                <option value="2" {{ old('type') == 2 ? 'selected' : '' }}>Digital</option>
-                                <option value="3" {{ old('type') == 3 ? 'selected' : '' }}>Service</option>
+                                <option value="1" {{ old('type', $product->type ?? 1) == 1 ? 'selected' : '' }}>Physical</option>
+                                <option value="2" {{ old('type', $product->type ?? '') == 2 ? 'selected' : '' }}>Digital</option>
+                                <option value="3" {{ old('type', $product->type ?? '') == 3 ? 'selected' : '' }}>Service</option>
                             </select>
                             @error('type')
                             <div class="invalid-feedback">{{ $message }}</div>
@@ -276,7 +288,7 @@
                         <div class="mb-3">
                             <label class="form-label">Barcode</label>
                             <input type="text" name="barcode" class="form-control @error('barcode') is-invalid @enderror"
-                                   value="{{ old('barcode') }}">
+                                   value="{{ old('barcode', $product->barcode ?? '') }}">
                             @error('barcode')
                             <div class="invalid-feedback">{{ $message }}</div>
                             @enderror
@@ -286,7 +298,7 @@
                         <div class="mb-3">
                             <label class="form-label">Sort Order</label>
                             <input type="number" name="sort_order" class="form-control @error('sort_order') is-invalid @enderror"
-                                   value="{{ old('sort_order', 0) }}">
+                                   value="{{ old('sort_order', $product->sort_order ?? 0) }}">
                             @error('sort_order')
                             <div class="invalid-feedback">{{ $message }}</div>
                             @enderror
@@ -298,14 +310,14 @@
                     <div class="col-md-4">
                         <div class="form-check mb-3">
                             <input class="form-check-input" type="checkbox" name="requires_shipping" value="1"
-                                   id="requires_shipping" {{ old('requires_shipping', 1) ? 'checked' : '' }}>
+                                   id="requires_shipping" {{ old('requires_shipping', $product->requires_shipping ?? 1) ? 'checked' : '' }}>
                             <label class="form-check-label" for="requires_shipping">Requires Shipping</label>
                         </div>
                     </div>
                     <div class="col-md-4">
                         <div class="form-check mb-3">
                             <input class="form-check-input" type="checkbox" name="is_featured" value="1"
-                                   id="is_featured" {{ old('is_featured') ? 'checked' : '' }}>
+                                   id="is_featured" {{ old('is_featured', $product->is_featured ?? '') ? 'checked' : '' }}>
                             <label class="form-check-label" for="is_featured">Featured Product</label>
                         </div>
                     </div>
@@ -319,7 +331,148 @@
                             <i class="fas fa-plus"></i> Add Variation
                         </button>
                     </div>
-                    <div id="variationsContainer"></div>
+                    <div id="variationsContainer">
+                        <!-- Existing Variations from Edit -->
+                        @if(isset($product) && $product->variations)
+                            @foreach($product->variations as $index => $variation)
+                                <div class="variation-item">
+                                    <div class="card-header">
+                                        <span>Variation <span class="variation-number">{{ $index + 1 }}</span></span>
+                                        <button type="button" class="btn btn-danger btn-sm remove-variation">Remove</button>
+                                    </div>
+                                    <div class="card-body">
+                                        <input type="hidden" name="variations[{{ $index }}][id]" value="{{ $variation->id }}">
+
+                                        <div class="row">
+                                            <div class="col-md-4">
+                                                <div class="mb-3">
+                                                    <label class="form-label">SKU</label>
+                                                    <input type="text" name="variations[{{ $index }}][sku]" class="form-control"
+                                                           value="{{ $variation->sku }}">
+                                                </div>
+                                            </div>
+                                            <div class="col-md-4">
+                                                <div class="mb-3">
+                                                    <label class="form-label">Barcode</label>
+                                                    <input type="text" name="variations[{{ $index }}][barcode]" class="form-control"
+                                                           value="{{ $variation->barcode }}">
+                                                </div>
+                                            </div>
+
+                                            <div class="col-md-4">
+                                                <div class="mb-3">
+                                                    <label class="form-label">Sort Order</label>
+                                                    <input type="number" name="variations[{{ $index }}][sort_order]" class="form-control"
+                                                           value="{{ $variation->sort_order }}">
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="row">
+                                            <div class="col-md-4">
+                                                <div class="mb-3">
+                                                    <label class="form-label">Cost Price</label>
+                                                    <input type="number" step="0.01" name="variations[{{ $index }}][cost_price]"
+                                                           class="form-control variation-cost-price"
+                                                           value="{{ $variation->cost_price }}">
+                                                </div>
+                                            </div>
+                                            <div class="col-md-4">
+                                                <div class="mb-3">
+                                                    <label class="form-label">Selling Price</label>
+                                                    <input type="number" step="0.01" name="variations[{{ $index }}][selling_price]"
+                                                           class="form-control variation-selling-price"
+                                                           value="{{ $variation->selling_price }}">
+                                                </div>
+                                            </div>
+                                            <div class="col-md-4">
+                                                <div class="mb-3">
+                                                    <label class="form-label">Stock Quantity</label>
+                                                    <input type="number" name="variations[{{ $index }}][stock_quantity]"
+                                                           class="form-control variation-stock"
+                                                           value="{{ $variation->stock_quantity }}">
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="row">
+                                            <div class="col-md-3">
+                                                <div class="mb-3">
+                                                    <label class="form-label">Discount</label>
+                                                    <input type="number" step="0.01" name="variations[{{ $index }}][discount]"
+                                                           class="form-control variation-discount"
+                                                           value="{{ $variation->discount }}">
+                                                </div>
+                                            </div>
+                                            <div class="col-md-3">
+                                                <div class="mb-3">
+                                                    <label class="form-label">Tax Amount</label>
+                                                    <input type="number" step="0.01" name="variations[{{ $index }}][tax_amount]"
+                                                           class="form-control variation-tax-amount"
+                                                           value="{{ $variation->tax_amount }}">
+                                                </div>
+                                            </div>
+                                            <div class="col-md-3">
+                                                <div class="mb-3">
+                                                    <label class="form-label">Tax Type</label>
+                                                    <select name="variations[{{ $index }}][tax_type]" class="form-select variation-tax-type">
+                                                        <option value="1" {{ $variation->tax_type == 1 ? 'selected' : '' }}>Amount</option>
+                                                        <option value="2" {{ $variation->tax_type == 2 ? 'selected' : '' }}>Percentage</option>
+                                                    </select>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-3">
+                                                <div class="mb-3">
+                                                    <label class="form-label">Total Price</label>
+                                                    <input type="number" step="0.01" name="variations[{{ $index }}][total_price]"
+                                                           class="form-control variation-total-price"
+                                                           value="{{ $variation->total_price }}" readonly>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="row">
+                                            <div class="col-md-6">
+                                                <div class="form-check mb-3">
+                                                    <input class="form-check-input" type="checkbox" name="variations[{{ $index }}][is_taxable]"
+                                                           value="1" {{ $variation->is_taxable ? 'checked' : '' }}>
+                                                    <label class="form-check-label">Is Taxable</label>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <div class="form-check mb-3">
+                                                    <input class="form-check-input" type="checkbox" name="variations[{{ $index }}][is_featured]"
+                                                           value="1" {{ $variation->is_featured ? 'checked' : '' }}>
+                                                    <label class="form-check-label">Is Featured</label>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="mb-3">
+                                            <label class="form-label">Options</label>
+                                            <div class="row">
+                                                @foreach($options as $option)
+                                                    <div class="col-md-6 mb-2">
+                                                        <label class="form-label">{{ $option->name }}</label>
+                                                        <select name="variations[{{ $index }}][option_items][]" class="form-select">
+                                                            <option value="">Select {{ $option->name }}</option>
+                                                            @foreach($option->items as $item)
+                                                                <option value="{{ $item->id }}"
+                                                                    {{ $variation->option_items->contains('id', $item->id) ? 'selected' : '' }}>
+                                                                    {{ $item->name }}
+                                                                </option>
+                                                            @endforeach
+                                                        </select>
+                                                    </div>
+                                                @endforeach
+                                            </div>
+                                        </div>
+
+                                    </div>
+                                </div>
+                            @endforeach
+                        @endif
+                    </div>
                 </div>
             </div>
 
@@ -336,7 +489,7 @@
                             <div class="mb-3">
                                 <label class="form-label">Name</label>
                                 <input type="text" name="{{ $locale }}[name]" class="form-control @error("$locale.name") is-invalid @enderror"
-                                       value="{{ old("$locale.name", $product?->translate($locale)?->name ?? '') }}" >
+                                       value="{{ old("$locale.name", $product?->translate($locale)?->name ?? '') }}">
                                 @error("$locale.name")
                                 <div class="invalid-feedback">{{ $message }}</div>
                                 @enderror
@@ -371,7 +524,7 @@
                         <div class="mb-3">
                             <label class="form-label">Cost Price</label>
                             <input type="number" step="0.01" name="cost_price" class="form-control @error('cost_price') is-invalid @enderror"
-                                   value="{{ old('cost_price', 0) }}" id="cost_price">
+                                   value="{{ old('cost_price', $product->cost_price ?? 0) }}" id="cost_price">
                             @error('cost_price')
                             <div class="invalid-feedback">{{ $message }}</div>
                             @enderror
@@ -381,7 +534,7 @@
                         <div class="mb-3">
                             <label class="form-label">Selling Price</label>
                             <input type="number" step="0.01" name="selling_price" class="form-control @error('selling_price') is-invalid @enderror"
-                                   value="{{ old('selling_price', 0) }}" id="selling_price">
+                                   value="{{ old('selling_price', $product->selling_price ?? 0) }}" id="selling_price">
                             @error('selling_price')
                             <div class="invalid-feedback">{{ $message }}</div>
                             @enderror
@@ -394,7 +547,7 @@
                         <div class="mb-3">
                             <label class="form-label">Discount</label>
                             <input type="number" step="0.01" name="discount" class="form-control @error('discount') is-invalid @enderror"
-                                   value="{{ old('discount', 0) }}" id="discount">
+                                   value="{{ old('discount', $product->discount ?? 0) }}" id="discount">
                             @error('discount')
                             <div class="invalid-feedback">{{ $message }}</div>
                             @enderror
@@ -404,7 +557,7 @@
                         <div class="mb-3">
                             <label class="form-label">Total Price</label>
                             <input type="number" step="0.01" name="total_price" class="form-control"
-                                   value="{{ old('total_price', 0) }}" id="total_price" readonly>
+                                   value="{{ old('total_price', $product->total_price ?? 0) }}" id="total_price" readonly>
                         </div>
                     </div>
                 </div>
@@ -413,7 +566,7 @@
                     <div class="col-md-4">
                         <div class="form-check mb-3">
                             <input class="form-check-input" type="checkbox" name="is_taxable" value="1"
-                                   id="is_taxable" {{ old('is_taxable') ? 'checked' : '' }}>
+                                   id="is_taxable" {{ old('is_taxable', $product->is_taxable ?? '') ? 'checked' : '' }}>
                             <label class="form-check-label" for="is_taxable">Is Taxable</label>
                         </div>
                     </div>
@@ -421,8 +574,8 @@
                         <div class="mb-3">
                             <label class="form-label">Tax Type</label>
                             <select name="tax_type" class="form-select @error('tax_type') is-invalid @enderror" id="tax_type">
-                                <option value="1" {{ old('tax_type', 1) == 1 ? 'selected' : '' }}>Amount</option>
-                                <option value="2" {{ old('tax_type') == 2 ? 'selected' : '' }}>Percentage</option>
+                                <option value="1" {{ old('tax_type', $product->tax_type ?? 1) == 1 ? 'selected' : '' }}>Amount</option>
+                                <option value="2" {{ old('tax_type', $product->tax_type ?? '') == 2 ? 'selected' : '' }}>Percentage</option>
                             </select>
                             @error('tax_type')
                             <div class="invalid-feedback">{{ $message }}</div>
@@ -433,7 +586,7 @@
                         <div class="mb-3">
                             <label class="form-label">Tax Amount</label>
                             <input type="number" step="0.01" name="tax_amount" class="form-control @error('tax_amount') is-invalid @enderror"
-                                   value="{{ old('tax_amount', 0) }}" id="tax_amount">
+                                   value="{{ old('tax_amount', $product->tax_amount ?? 0) }}" id="tax_amount">
                             @error('tax_amount')
                             <div class="invalid-feedback">{{ $message }}</div>
                             @enderror
@@ -449,7 +602,7 @@
                         <div class="mb-3">
                             <label class="form-label">Stock Quantity</label>
                             <input type="number" name="stock_quantity" class="form-control @error('stock_quantity') is-invalid @enderror"
-                                   value="{{ old('stock_quantity', 0) }}" id="stock_quantity">
+                                   value="{{ old('stock_quantity', $product->stock_quantity ?? 0) }}" id="stock_quantity">
                             @error('stock_quantity')
                             <div class="invalid-feedback">{{ $message }}</div>
                             @enderror
@@ -459,7 +612,7 @@
                         <div class="mb-3">
                             <label class="form-label">Low Stock Threshold</label>
                             <input type="number" name="low_stock_threshold" class="form-control @error('low_stock_threshold') is-invalid @enderror"
-                                   value="{{ old('low_stock_threshold', 5) }}" id="low_stock_threshold">
+                                   value="{{ old('low_stock_threshold', $product->low_stock_threshold ?? 5) }}" id="low_stock_threshold">
                             @error('low_stock_threshold')
                             <div class="invalid-feedback">{{ $message }}</div>
                             @enderror
@@ -487,17 +640,25 @@
             <button type="button" class="btn btn-danger btn-sm remove-variation">Remove</button>
         </div>
         <div class="card-body">
+
             <div class="row">
-                <div class="col-md-6">
+                <div class="col-md-4">
                     <div class="mb-3">
                         <label class="form-label">SKU</label>
                         <input type="text" name="variations[INDEX][sku]" class="form-control">
                     </div>
                 </div>
-                <div class="col-md-6">
+                <div class="col-md-4">
                     <div class="mb-3">
                         <label class="form-label">Barcode</label>
                         <input type="text" name="variations[INDEX][barcode]" class="form-control">
+                    </div>
+                </div>
+
+                <div class="col-md-4">
+                    <div class="mb-3">
+                        <label class="form-label">Sort Order</label>
+                        <input type="number" name="variations[INDEX][sort_order]" class="form-control">
                     </div>
                 </div>
             </div>
@@ -585,16 +746,6 @@
                 </div>
             </div>
 
-            {{--            <div class="mb-3">--}}
-            {{--                <label class="form-label">Variation Names</label>--}}
-            {{--                @foreach(config('translatable.locales') as $locale)--}}
-            {{--                    <div class="mb-2">--}}
-            {{--                        <label class="form-label">{{ ucfirst($locale) }}</label>--}}
-            {{--                        <input type="hidden" name="variations[INDEX][translations][{{ $locale }}][locale]" value="{{ $locale }}">--}}
-            {{--                        <input type="text" name="variations[INDEX][translations][{{ $locale }}][name]" class="form-control" placeholder="Name in {{ ucfirst($locale) }}">--}}
-            {{--                    </div>--}}
-            {{--                @endforeach--}}
-            {{--            </div>--}}
         </div>
     </div>
 </div>
@@ -654,11 +805,11 @@
         });
 
         // --- Dynamic Variations & Stock Sync ---
-        let variationCounter = 0;
+        let variationCounter = @isset($product) {{ $product->variations->count() }} @else 0 @endisset;
         const addBtn = document.getElementById('addVariation');
         const container = document.getElementById('variationsContainer');
         const template = document.getElementById('variationTemplate');
-        const stockInput = document.getElementById('stock_quantity'); // يجب أن يكون معرف بدون readonly
+        const stockInput = document.getElementById('stock_quantity');
 
         // Reference to Pricing Tab
         const pricingTabLi = document.querySelector('button[data-bs-target="#pricing"]').closest('.nav-item');
@@ -677,12 +828,10 @@
             updateTotalStock();
         }
 
-        // Update main stock based on variations or allow manual input
         function updateTotalStock() {
             const hasVariations = container.children.length > 0;
 
             if (hasVariations) {
-                // Calculate sum of variation stocks
                 let total = 0;
                 document.querySelectorAll('.variation-stock').forEach(input => {
                     total += parseFloat(input.value) || 0;
@@ -690,20 +839,15 @@
                 stockInput.value = total;
                 stockInput.setAttribute('readonly', 'readonly');
                 stockInput.style.backgroundColor = '#f8f9fa';
-                stockInput.style.cursor = 'not-allowed';
             } else {
-                // Allow manual input
                 stockInput.removeAttribute('readonly');
                 stockInput.style.backgroundColor = '#fff';
-                stockInput.style.cursor = 'text';
-                // If empty, default to 0
                 if (stockInput.value === '' || isNaN(stockInput.value)) {
                     stockInput.value = 0;
                 }
             }
         }
 
-        // Re-index variations after add/remove
         function reindexVariations() {
             Array.from(container.children).forEach((variation, index) => {
                 variation.querySelector('.variation-number').textContent = index + 1;
@@ -715,10 +859,9 @@
                 });
             });
             variationCounter = container.children.length;
-            updateTotalStock(); // Recalculate stock after reindex
+            updateTotalStock();
         }
 
-        // Add new variation
         addBtn?.addEventListener('click', () => {
             const clone = template.firstElementChild.cloneNode(true);
             clone.innerHTML = clone.innerHTML.replace(/INDEX/g, variationCounter);
@@ -728,10 +871,9 @@
             setupVariationCalc(clone);
             variationCounter++;
             togglePricingTab();
-            updateTotalStock(); // Ensure stock is updated
+            updateTotalStock();
         });
 
-        // Setup calculation for each variation
         function setupVariationCalc(variation) {
             const stockInputVar = variation.querySelector('.variation-stock');
             const inputs = [
@@ -754,7 +896,7 @@
                 let total = price - discount;
                 if (taxable) total += type == '1' ? tax : (total * tax / 100);
                 totalEl.value = total.toFixed(2);
-                updateTotalStock(); // Update main stock on price change (مهم لو حاب تضيف حاجة هنا)
+                updateTotalStock();
             }
 
             inputs.forEach(selector => {
@@ -765,12 +907,10 @@
                 }
             });
 
-            // Update main stock when variation stock changes
             if (stockInputVar) {
                 stockInputVar.addEventListener('input', updateTotalStock);
             }
 
-            // Remove variation
             variation.querySelector('.remove-variation').addEventListener('click', () => {
                 variation.remove();
                 togglePricingTab();
@@ -778,8 +918,9 @@
             });
         }
 
-        // Initial setup
-        updateTotalStock();  // Set initial state
-        togglePricingTab();  // Hide pricing tab if needed
+        // Initialize existing variations
+        document.querySelectorAll('.variation-item').forEach(setupVariationCalc);
+        reindexVariations(); // Initialize numbering and stock
+        togglePricingTab(); // Hide pricing tab if needed
     });
 </script>

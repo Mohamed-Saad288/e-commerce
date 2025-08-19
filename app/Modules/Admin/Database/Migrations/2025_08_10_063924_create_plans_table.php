@@ -19,6 +19,7 @@ return new class extends BaseMigration
             $table->tinyInteger("billing_type")->default(1)->comment("1=>monthly , 2=>yearly");
             $table->integer("duration")->default(0);
             $table->integer("trial_period")->default(0);
+            $this->addAddedByFields($table);
             $this->addGeneralFields($table);
         });
         Schema::create("plan_translations", function (Blueprint $table) {

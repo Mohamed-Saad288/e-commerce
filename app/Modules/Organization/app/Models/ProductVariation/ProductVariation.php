@@ -3,9 +3,11 @@
 namespace App\Modules\Organization\app\Models\ProductVariation;
 
 use App\Modules\Base\app\Models\BaseModel;
+use App\Modules\Organization\app\Models\OptionItem\OptionItem;
 use Astrotomic\Translatable\Contracts\Translatable as TranslatableContract;
 use Astrotomic\Translatable\Translatable;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 
 class ProductVariation extends BaseModel implements TranslatableContract
 {
@@ -33,5 +35,17 @@ class ProductVariation extends BaseModel implements TranslatableContract
         "organization_id",
         "employee_id",
     ];
+
+    public function option_items(): BelongsToMany
+    {
+        return $this->belongsToMany(
+            OptionItem::class,
+            "product_variation_option_items",
+            "product_variation_id",
+            "option_item_id"
+        )->withTimestamps();
+    }
+
+
 
 }

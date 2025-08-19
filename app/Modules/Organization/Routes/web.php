@@ -27,7 +27,6 @@ Route::group(
         ],
     ],
     function () {
-
         // Guest routes (not logged in)
         Route::middleware('guest:organization_employee')->group(function () {
             Route::get('login', [AuthController::class, 'getLogin'])->name('organization.login');
@@ -53,6 +52,13 @@ Route::group(
                 Route::resource('terms', TermController::class);
                 Route::resource('abouts', AboutController::class);
                 Route::resource('whys', WhyController::class);
+
+
+                /************************** Change status Routes ********************/
+                Route::prefix('change_status')->group(function () {
+                    Route::post('products/{product}', [ProductController::class, 'changeStatus'])->name('products.change_status');
+                });
+                /********************************************************************/
             });
     }
 );

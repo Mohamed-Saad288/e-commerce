@@ -12,6 +12,7 @@ return new class extends BaseMigration
             $table->id();
             $table->string("slug")->nullable();
             $table->tinyInteger("type")->default(1)->comment("1=>limit , 2=>boolean , 3=>text");
+            $this->addAddedByFields($table);
             $this->addGeneralFields($table);
         });
         Schema::create("feature_translations", function (Blueprint $table) {

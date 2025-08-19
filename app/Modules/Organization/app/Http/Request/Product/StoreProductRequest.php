@@ -2,7 +2,6 @@
 
 namespace App\Modules\Organization\app\Http\Request\Product;
 
-use App\Modules\Admin\Enums\Feature\FeatureTypeEnum;
 use App\Modules\Organization\Enums\Product\ProductTypeEnum;
 use App\Modules\Organization\Enums\Product\TaxTypeEnum;
 use Illuminate\Foundation\Http\FormRequest;
@@ -44,17 +43,34 @@ class StoreProductRequest extends FormRequest
                     auth("organization_employee")->user()->organization_id
                 )
             ],
+            "barcode" => [
+                "nullable",
+                Rule::unique("products", "barcode")->whereNull("deleted_at")->where(
+                    "organization_id",
+                    auth("organization_employee")->user()->organization_id
+                )
+            ],
             "type" => ["required", new Enum(ProductTypeEnum::class)],
             "stock_quantity" => ["required", "numeric"],
             "low_stock_threshold" => ["required", "numeric"],
-            "requires_shipping" => ["required", "boolean"],
-            "is_featured" => ["required", "boolean"],
-            "is_taxable" => ["required", "boolean"],
-            "tax_type" => ["required", new Enum(TaxTypeEnum::class)],
-            "tax_amount" => ["required", "numeric"],
-            "discount" => ["required", "numeric"],
-            "cost_price" => ["required", "numeric"],
-            "selling_price" => ["required", "numeric"],
+            "requires_shipping" => ["nullable", "boolean"],
+            "is_featured" => ["nullable", "boolean"],
+            "is_taxable" => ["nullable", "boolean"],
+            "tax_type" => ["nullable", new Enum(TaxTypeEnum::class)],
+            "tax_amount" => ["nullable", "numeric"],
+            "discount" => ["nullable", "numeric"],
+            "cost_price" => [
+                Rule::requiredIf(fn() => empty($this->variations)),
+                "numeric",
+                "gt:0"
+            ],
+
+            "selling_price" => [
+                Rule::requiredIf(fn() => empty($this->variations)),
+                "numeric",
+                "gt:0"
+            ],
+            "sort_order" => ["required", "numeric"],
             "variations" => ["nullable", "array"],
             "variations.*.sku" => [
                 "required",
@@ -63,14 +79,23 @@ class StoreProductRequest extends FormRequest
                     auth("organization_employee")->user()->organization_id
                 )
             ],
-            "variations.*.price" => ["required", "numeric"],
+
+            "variations.*.option_items" => ["required", "array"],
+            "variations.*.option_items.*" => [
+                "required",
+                Rule::exists("option_items", "id")->whereNull("deleted_at")->where(
+                    "organization_id",
+                    auth("organization_employee")->user()->organization_id
+                )
+            ],
+            "variations.*.sort_order" => ["required", "numeric"],
             "variations.*.stock_quantity" => ["required", "numeric"],
-            "variations.*.cost_price" => ["required", "boolean"],
-            "variations.*.selling_price" => ["required", "boolean"],
-            "variations.*.is_taxable" => ["required", "boolean"],
-            "variations.*.tax_type" => ["required", new Enum(TaxTypeEnum::class)],
-            "variations.*.tax_amount" => ["required", "numeric"],
-            "variations.*.discount" => ["required", "numeric"],
+            "variations.*.cost_price" => [Rule::requiredIf(fn() => !empty($this->variations)), "numeric", "gt:0"],
+            "variations.*.selling_price" => [Rule::requiredIf(fn() => !empty($this->variations)), "numeric", "gt:0"],
+            "variations.*.is_taxable" => ["nullable", "boolean"],
+            "variations.*.tax_type" => ["nullable", new Enum(TaxTypeEnum::class)],
+            "variations.*.tax_amount" => ["nullable", "numeric"],
+            "variations.*.discount" => ["nullable", "numeric"],
             "variations.*.image" => ["nullable", "image|mimes:jpeg,png,jpg,gif,svg|max:2048"],
         ];
 
