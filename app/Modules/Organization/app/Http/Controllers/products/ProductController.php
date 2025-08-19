@@ -13,6 +13,9 @@ use App\Modules\Organization\app\Models\Product\Product;
 use App\Modules\Organization\app\Services\Product\ProductService;
 use Exception;
 use Illuminate\Http\Request;
+use Maatwebsite\Excel\Facades\Excel;
+use App\Exports\ProductsExport;
+use PDF;
 
 class ProductController extends Controller
 {
@@ -23,32 +26,40 @@ class ProductController extends Controller
 
     public function index(Request $request)
     {
-        $categories = Category::where('organization_id', auth('organization_employee')->id())
-            ->get();
-        $brands = Brand::where('organization_id', auth('organization_employee')->id())
-            ->get();
-//        $products = $this->service->index();
-
-        $products = Product::query()
-            ->when($request->name, function($query, $name) {
-                $query->where('name', 'like', "%{$name}%");
+        $products = Product::with(['category', 'brand'])
+            ->when($request->category, function($query) use ($request) {
+                return $query->where('category_id', $request->category);
             })
-            ->when($request->sku, function($query, $sku) {
-                $query->where('sku', 'like', "%{$sku}%");
+            ->when($request->brand, function($query) use ($request) {
+                return $query->where('brand_id', $request->brand);
             })
-            ->when($request->category, function($query, $categoryId) {
-                $query->where('category_id', $categoryId);
+            ->when($request->status !== null, function($query) use ($request) {
+                return $query->where('is_active', $request->status);
             })
-            ->when($request->brand, function($query, $brandId) {
-                $query->where('brand_id', $brandId);
+            ->when($request->stock_status, function($query) use ($request) {
+                if ($request->stock_status == 'in_stock') {
+                    return $query->where('stock_quantity', '>', 10);
+                } elseif ($request->stock_status == 'low_stock') {
+                    return $query->whereBetween('stock_quantity', [1, 10]);
+                } elseif ($request->stock_status == 'out_of_stock') {
+                    return $query->where('stock_quantity', '<=', 0);
+                }
             })
-            ->when(isset($request->status), function($query) use ($request) {
-                $query->where('is_active', $request->status);
-            })
+            ->latest()
             ->paginate(10);
+
+        if ($request->ajax()) {
+            return response()->json([
+                'products_rows' => view('organization::dashboard.products.products_rows', compact('products'))->render(),
+                'pagination' => $products->appends(request()->query())->links()->toHtml()
+            ]);
+        }
+
+        $categories = Category::whereOrganizationId(auth()->user()->organization_id)->get();
+        $brands = Brand::whereOrganizationId(auth()->user()->organization_id)->get();
+
         return view('organization::dashboard.products.index', get_defined_vars());
     }
-
     public function create()
     {
         $categories = Category::whereOrganizationId(auth()->user()->organization_id)->get();
@@ -117,4 +128,52 @@ class ProductController extends Controller
         ]);
     }
 
+    public function export(Request $request)
+    {
+        $type = $request->get('type', 'excel');
+
+        $products = Product::with(['category', 'brand'])
+            ->when($request->category, function($query) use ($request) {
+                return $query->where('category_id', $request->category);
+            })
+            ->when($request->brand, function($query) use ($request) {
+                return $query->where('brand_id', $request->brand);
+            })
+            ->when($request->status !== null, function($query) use ($request) {
+                return $query->where('is_active', $request->status);
+            })
+            ->when($request->stock_status, function($query) use ($request) {
+                if ($request->stock_status == 'in_stock') {
+                    return $query->where('stock_quantity', '>', 10);
+                } elseif ($request->stock_status == 'low_stock') {
+                    return $query->whereBetween('stock_quantity', [1, 10]);
+                } elseif ($request->stock_status == 'out_of_stock') {
+                    return $query->where('stock_quantity', '<=', 0);
+                }
+            })
+            ->latest()
+            ->get();
+
+        // Check if there are products to export
+        if ($products->isEmpty()) {
+            return response()->json([
+                'error' => __('organizations.no_data_to_export')
+            ], 404);
+        }
+
+        try {
+            if ($type === 'csv') {
+                return Excel::download(new ProductsExport($products), 'products.csv');
+            } elseif ($type === 'pdf') {
+                $pdf = PDF::loadView('organization::dashboard.products.export_pdf', compact('products'));
+                return $pdf->download('products.pdf');
+            } else {
+                return Excel::download(new ProductsExport($products), 'products.xlsx');
+            }
+        } catch (\Exception $e) {
+            return response()->json([
+                'error' => __('organizations.export_error')
+            ], 500);
+        }
+    }
 }

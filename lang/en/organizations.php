@@ -59,4 +59,25 @@ return [
     "inventory" => "Inventory",
     "translations" => "Translations",
 
+    "all_brands" => "All Brands",
+    "all_categories" => "All Categories",
+    "in_stock" => "In Stock",
+    "low_stock" => "Low Stock",
+    "out_of_stock" => "Out of Stock",
+    "category" => "Category",
+    "brand" => "Brand",
+    "status" => "Status",
+    "stock_status" => "Stock Status",
+    "stock_quantity" => "Stock Quantity",
+    "price" => "Price",
+    "all_stock_status" => "All Stock Status",
+    "all_status" => "All Status",
+    "stock" => "Stock",
+
+    "export" => "Export",
+    "excel" => "Excel",
+    "csv" => "CSV",
+    "pdf" => "PDF",
+
+
 ];

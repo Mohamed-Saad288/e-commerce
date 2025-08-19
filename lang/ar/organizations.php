@@ -77,5 +77,25 @@ return [
     'add_why' => 'إنشاء لماذا نحن جديد',
     'why_name' => 'اسم لماذا نحن',
     'why_description' => 'وصف لماذا نحن',
+
+    "all_brands" => "كل العلامات التجارية",
+    "all_categories" => "كل الأقسام",
+    "in_stock" => "متوفر",
+    "low_stock" => "منخفض",
+    "out_of_stock" => "نفذ",
+    "category" => "قسم",
+    "status" => "الحالة",
+    "stock_status" => "حالة المخزون",
+    "stock_quantity" => "كمية المخزون",
+    "price" => "السعر",
+    "all_stock_status" => "كل حالات المخزون",
+    "all_status" => "كل الحالات",
+    "stock" => "المخزون",
+
+    "export" => "تصدير",
+    "excel" => "إكسيل",
+    "csv" => "ملف CSV",
+    "pdf" => "بي دي اف",
+    "import" => "استيراد",
 ];
 
