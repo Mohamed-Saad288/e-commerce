@@ -79,5 +79,8 @@ return [
     "csv" => "CSV",
     "pdf" => "PDF",
 
+    "number_of_variations" => "Number of Variations",
+
+
 
 ];

@@ -1,0 +1,444 @@
+{
+    "countries": [
+        {
+            "translations": {
+                "en": "Saudi Arabia",
+                "ar": "السعودية"
+            },
+            "cities": [
+                {
+                    "translations": {
+                        "en": "Riyadh",
+                        "ar": "الرياض"
+                    }
+                },
+                {
+                    "translations": {
+                        "en": "Jeddah",
+                        "ar": "جدة"
+                    }
+                },
+                {
+                    "translations": {
+                        "en": "Dammam",
+                        "ar": "الدمام"
+                    }
+                },
+                {
+                    "translations": {
+                        "en": "Mecca",
+                        "ar": "مكة"
+                    }
+                },
+                {
+                    "translations": {
+                        "en": "Medina",
+                        "ar": "المدينة"
+                    }
+                },
+                {
+                    "translations": {
+                        "en": "Taif",
+                        "ar": "الطائف"
+                    }
+                }
+            ]
+        },
+        {
+            "translations": {
+                "en": "United Arab Emirates",
+                "ar": "الإمارات"
+            },
+            "cities": [
+                {
+                    "translations": {
+                        "en": "Dubai",
+                        "ar": "دبي"
+                    }
+                },
+                {
+                    "translations": {
+                        "en": "Abu Dhabi",
+                        "ar": "أبوظبي"
+                    }
+                },
+                {
+                    "translations": {
+                        "en": "Sharjah",
+                        "ar": "الشارقة"
+                    }
+                },
+                {
+                    "translations": {
+                        "en": "Ajman",
+                        "ar": "عجمان"
+                    }
+                },
+                {
+                    "translations": {
+                        "en": "Fujairah",
+                        "ar": "الفجيرة"
+                    }
+                },
+                {
+                    "translations": {
+                        "en": "Ras Al Khaimah",
+                        "ar": "رأس الخيمة"
+                    }
+                }
+            ]
+        },
+        {
+            "translations": {
+                "en": "Egypt",
+                "ar": "مصر"
+            },
+            "cities": [
+                {
+                    "translations": {
+                        "en": "Cairo",
+                        "ar": "القاهرة"
+                    }
+                },
+                {
+                    "translations": {
+                        "en": "Alexandria",
+                        "ar": "الإسكندرية"
+                    }
+                },
+                {
+                    "translations": {
+                        "en": "Giza",
+                        "ar": "الجيزة"
+                    }
+                },
+                {
+                    "translations": {
+                        "en": "Luxor",
+                        "ar": "الأقصر"
+                    }
+                },
+                {
+                    "translations": {
+                        "en": "Aswan",
+                        "ar": "أسوان"
+                    }
+                },
+                {
+                    "translations": {
+                        "en": "Sharm El Sheikh",
+                        "ar": "شرم الشيخ"
+                    }
+                }
+            ]
+        },
+        {
+            "translations": {
+                "en": "United States",
+                "ar": "الولايات المتحدة"
+            },
+            "cities": [
+                {
+                    "translations": {
+                        "en": "New York",
+                        "ar": "نيويورك"
+                    }
+                },
+                {
+                    "translations": {
+                        "en": "Los Angeles",
+                        "ar": "لوس أنجلوس"
+                    }
+                },
+                {
+                    "translations": {
+                        "en": "Chicago",
+                        "ar": "شيكاغو"
+                    }
+                },
+                {
+                    "translations": {
+                        "en": "Houston",
+                        "ar": "هيوستن"
+                    }
+                },
+                {
+                    "translations": {
+                        "en": "Miami",
+                        "ar": "ميامي"
+                    }
+                },
+                {
+                    "translations": {
+                        "en": "Las Vegas",
+                        "ar": "لاس فيغاس"
+                    }
+                }
+            ]
+        },
+        {
+            "translations": {
+                "en": "France",
+                "ar": "فرنسا"
+            },
+            "cities": [
+                {
+                    "translations": {
+                        "en": "Paris",
+                        "ar": "باريس"
+                    }
+                },
+                {
+                    "translations": {
+                        "en": "Lyon",
+                        "ar": "ليون"
+                    }
+                },
+                {
+                    "translations": {
+                        "en": "Marseille",
+                        "ar": "مارسيليا"
+                    }
+                },
+                {
+                    "translations": {
+                        "en": "Nice",
+                        "ar": "نيس"
+                    }
+                },
+                {
+                    "translations": {
+                        "en": "Toulouse",
+                        "ar": "تولوز"
+                    }
+                },
+                {
+                    "translations": {
+                        "en": "Bordeaux",
+                        "ar": "بوردو"
+                    }
+                }
+            ]
+        },
+        {
+            "translations": {
+                "en": "Japan",
+                "ar": "اليابان"
+            },
+            "cities": [
+                {
+                    "translations": {
+                        "en": "Tokyo",
+                        "ar": "طوكيو"
+                    }
+                },
+                {
+                    "translations": {
+                        "en": "Osaka",
+                        "ar": "أوساكا"
+                    }
+                },
+                {
+                    "translations": {
+                        "en": "Kyoto",
+                        "ar": "كيوتو"
+                    }
+                },
+                {
+                    "translations": {
+                        "en": "Hiroshima",
+                        "ar": "هيروشيما"
+                    }
+                },
+                {
+                    "translations": {
+                        "en": "Yokohama",
+                        "ar": "يوكوهاما"
+                    }
+                },
+                {
+                    "translations": {
+                        "en": "Nagoya",
+                        "ar": "ناغويا"
+                    }
+                }
+            ]
+        },
+        {
+            "translations": {
+                "en": "Turkey",
+                "ar": "تركيا"
+            },
+            "cities": [
+                {
+                    "translations": {
+                        "en": "Istanbul",
+                        "ar": "إسطنبول"
+                    }
+                },
+                {
+                    "translations": {
+                        "en": "Ankara",
+                        "ar": "أنقرة"
+                    }
+                },
+                {
+                    "translations": {
+                        "en": "Izmir",
+                        "ar": "إزمير"
+                    }
+                },
+                {
+                    "translations": {
+                        "en": "Antalya",
+                        "ar": "أنطاليا"
+                    }
+                },
+                {
+                    "translations": {
+                        "en": "Bursa",
+                        "ar": "بورصة"
+                    }
+                },
+                {
+                    "translations": {
+                        "en": "Trabzon",
+                        "ar": "طرابزون"
+                    }
+                }
+            ]
+        },
+        {
+            "translations": {
+                "en": "United Kingdom",
+                "ar": "المملكة المتحدة"
+            },
+            "cities": [
+                {
+                    "translations": {
+                        "en": "London",
+                        "ar": "لندن"
+                    }
+                },
+                {
+                    "translations": {
+                        "en": "Manchester",
+                        "ar": "مانشستر"
+                    }
+                },
+                {
+                    "translations": {
+                        "en": "Liverpool",
+                        "ar": "ليفربول"
+                    }
+                },
+                {
+                    "translations": {
+                        "en": "Birmingham",
+                        "ar": "برمنغهام"
+                    }
+                },
+                {
+                    "translations": {
+                        "en": "Edinburgh",
+                        "ar": "إدنبرة"
+                    }
+                },
+                {
+                    "translations": {
+                        "en": "Glasgow",
+                        "ar": "غلاسكو"
+                    }
+                }
+            ]
+        },
+        {
+            "translations": {
+                "en": "Italy",
+                "ar": "إيطاليا"
+            },
+            "cities": [
+                {
+                    "translations": {
+                        "en": "Rome",
+                        "ar": "روما"
+                    }
+                },
+                {
+                    "translations": {
+                        "en": "Milan",
+                        "ar": "ميلانو"
+                    }
+                },
+                {
+                    "translations": {
+                        "en": "Venice",
+                        "ar": "البندقية"
+                    }
+                },
+                {
+                    "translations": {
+                        "en": "Florence",
+                        "ar": "فلورنسا"
+                    }
+                },
+                {
+                    "translations": {
+                        "en": "Naples",
+                        "ar": "نابولي"
+                    }
+                },
+                {
+                    "translations": {
+                        "en": "Turin",
+                        "ar": "تورينو"
+                    }
+                }
+            ]
+        },
+        {
+            "translations": {
+                "en": "Canada",
+                "ar": "كندا"
+            },
+            "cities": [
+                {
+                    "translations": {
+                        "en": "Toronto",
+                        "ar": "تورونتو"
+                    }
+                },
+                {
+                    "translations": {
+                        "en": "Montreal",
+                        "ar": "مونتريال"
+                    }
+                },
+                {
+                    "translations": {
+                        "en": "Vancouver",
+                        "ar": "فانكوفر"
+                    }
+                },
+                {
+                    "translations": {
+                        "en": "Ottawa",
+                        "ar": "أوتاوا"
+                    }
+                },
+                {
+                    "translations": {
+                        "en": "Calgary",
+                        "ar": "كالجاري"
+                    }
+                },
+                {
+                    "translations": {
+                        "en": "Quebec City",
+                        "ar": "مدينة كيبيك"
+                    }
+                }
+            ]
+        }
+    ]
+}

@@ -107,7 +107,7 @@ class UpdateProductRequest extends FormRequest
         foreach (config('translatable.locales') as $locale) {
             $rules["$locale.name"] = 'required|string|max:255';
             $rules["$locale.short_description"] = 'nullable|string|max:255';
-            $rules["$locale.description"] = 'nullable|string|max:255';
+            $rules["$locale.description"] = 'nullable|string';
         }
 
         return $rules;

@@ -17,3 +17,11 @@ function calculateTotalPrice(array $data): float
 
     return round($total, 2);
 }
+
+
+
+// In helpers.php or AppServiceProvider
+function format_price($price): string
+{
+    return number_format($price, 2);
+}

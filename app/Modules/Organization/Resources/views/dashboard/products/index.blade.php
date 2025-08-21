@@ -118,6 +118,7 @@
                                     <th>{{ __('organizations.category') }}</th>
                                     <th>{{ __('organizations.brand') }}</th>
                                     <th>{{ __('organizations.stock') }}</th>
+                                    <th>{{ __('organizations.number_of_variations') }}</th>
                                     <th>{{ __('messages.status') }}</th>
                                     <th>{{ __('messages.actions') }}</th>
                                 </tr>
@@ -172,30 +173,11 @@
                 });
             }
 
-            {{--// Export functionality--}}
-            {{--$('.export-btn').click(function(e) {--}}
-            {{--    e.preventDefault();--}}
-            {{--    const exportType = $(this).data('type');--}}
-            {{--    const formData = $('#filterForm').serialize();--}}
-            {{--    const url = "{{ route('organization.products.export') }}?type=" + exportType + "&" + formData;--}}
-
-            {{--    // Create a temporary link to trigger download--}}
-            {{--    const link = document.createElement('a');--}}
-            {{--    link.href = url;--}}
-            {{--    link.setAttribute('download', 'products_' + new Date().toISOString().slice(0, 10) + '.' + exportType);--}}
-            {{--    document.body.appendChild(link);--}}
-            {{--    link.click();--}}
-            {{--    document.body.removeChild(link);--}}
-            {{--});--}}
-
             $('.export-btn').click(function(e) {
                 e.preventDefault();
                 const exportType = $(this).data('type');
                 const formData = $('#filterForm').serialize();
                 const url = "{{ route('organization.products.export') }}?type=" + exportType + "&" + formData;
-
-                console.log("Export URL:", url);  // 👈 Add this line
-
                 window.location.href = url;
             });
 

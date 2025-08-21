@@ -18,6 +18,8 @@
                     <span class="badge badge-danger">{{ __('organizations.out_of_stock') }}</span>
                 @endif
             </td>
+            <td>{{$product->variations?->count() ?? 0}}</td>
+
             <td>
                 <div class="custom-control custom-switch">
                     <input type="checkbox"
@@ -30,6 +32,10 @@
                 </div>
             </td>
             <td>
+                <a href="{{ route('organization.products.show', $product->id) }}"
+                   class="btn btn-sm btn-info">
+                    <i class='fe fe-eye fa-2x'></i>
+                </a>
                 <a href="{{ route('organization.products.edit', $product->id) }}"
                    class="btn btn-sm btn-success">
                     <i class='fe fe-edit'></i>

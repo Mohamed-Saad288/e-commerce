@@ -79,9 +79,9 @@ class ProductController extends Controller
     }
 
 
-    public function show(Product $Product)
+    public function show(Product $product)
     {
-        return view('organization::dashboard.products.show', compact('Product'));
+        return view('organization::dashboard.products.show',get_defined_vars());
     }
 
     public function edit(Product $product)
