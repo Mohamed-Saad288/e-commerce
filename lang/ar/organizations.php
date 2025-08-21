@@ -97,5 +97,7 @@ return [
     "csv" => "ملف CSV",
     "pdf" => "بي دي اف",
     "import" => "استيراد",
+
+    "number_of_variations" => "عدد المنتجات"
 ];
 
