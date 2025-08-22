@@ -16,7 +16,7 @@
                             @if(isset($question))
                                 @method('PUT')
                             @endif
-                            @include('organization::dashboard.question.form')
+                            @include('organization::dashboard.questions.form')
                         </form>
                     </div>
                 </div>

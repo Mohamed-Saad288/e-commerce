@@ -1,15 +1,15 @@
 @extends('organization::dashboard.master')
-@section('title', __('messages.questions'))
+@section('title', __('messages.headers'))
 
 @section('content')
     <div class="container-fluid">
         <div class="row">
             <div class="col-md-12">
                 <div class="card">
-                    <div class="card-question d-flex justify-content-between align-items-center">
-                        <h4 class="card-title">{{ __('organizations.questions') }}</h4>
-                        <a href="{{ route('organization.questions.create') }}" class="btn btn-primary">
-                            {{ __('organizations.add_question') }}
+                    <div class="card-header d-flex justify-content-between align-items-center">
+                        <h4 class="card-title">{{ __('organizations.headers') }}</h4>
+                        <a href="{{ route('organization.headers.create') }}" class="btn btn-primary">
+                            {{ __('organizations.add_header') }}
                         </a>
                     </div>
                     <div class="card-body">
@@ -19,27 +19,25 @@
                                 <thead>
                                 <tr>
                                     <th>#</th>
-                                    <th>{{ __('messages.question') }}</th>
-                                    <th>{{ __('messages.answer') }}</th>
+                                    <th>{{ __('messages.title') }}</th>
                                     {{--                                    <th>{{ __('messages.role') }}</th>--}}
                                     {{--                                    <th>{{ __('messages.status') }}</th>--}}
                                     <th>{{ __('messages.actions') }}</th>
                                 </tr>
                                 </thead>
                                 <tbody>
-                                @if (count($questions) > 0)
-                                    @foreach ($questions as $question)
+                                @if (count($headers) > 0)
+                                    @foreach ($headers as $header)
                                         <tr>
                                             <td>{{ $loop->iteration }}</td>
-                                            <td>{{ $question->question ?? '-' }}</td>>
-                                            <td>{{ $question->answer ?? '-' }}</td>>
+                                            <td>{{ $header->name ?? '-' }}</td>>
                                             <td>
-                                                <a href="{{ route('organization.questions.edit', $question->id) }}"
+                                                <a href="{{ route('organization.headers.edit', $header->id) }}"
                                                    class="btn btn-sm btn-success">
                                                     <i class='fe fe-edit fa-2x'></i>
                                                 </a>
-                                                <button class="btn btn-sm btn-danger delete-question"
-                                                        data-id="{{ $question->id }}">
+                                                <button class="btn btn-sm btn-danger delete-header"
+                                                        data-id="{{ $header->id }}">
                                                     <i class="fe fe-trash-2 fa-2x"></i>
                                                 </button>
                                             </td>
@@ -70,10 +68,10 @@
 
     <script>
 
-        $(document).on('click', '.delete-question', function (e) {
+        $(document).on('click', '.delete-header', function (e) {
             e.preventDefault();
-            let questionId = $(this).data('id');
-            let deleteUrl = "{{ route('organization.questions.destroy', ':id') }}".replace(':id', questionId);
+            let headerId = $(this).data('id');
+            let deleteUrl = "{{ route('organization.headers.destroy', ':id') }}".replace(':id', headerId);
             let row = $(this).closest('tr'); // Select the row to remove
 
             // SweetAlert confirmation

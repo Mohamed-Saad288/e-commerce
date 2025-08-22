@@ -121,4 +121,5 @@ return [
     "edit_product" => "Edit Product",
     "short_description" => "Short Description",
     "sku" => "Sku",
+    'title' => 'title'
 ];

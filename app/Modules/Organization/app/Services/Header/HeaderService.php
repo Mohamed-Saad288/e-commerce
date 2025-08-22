@@ -2,9 +2,13 @@
 
 namespace App\Modules\Organization\app\Services\Header;
 
+use App\Modules\Base\app\DTO\DTOInterface;
 use App\Modules\Base\app\Services\BaseService;
 use App\Modules\Organization\app\Models\Category\Category;
 use App\Modules\Organization\app\Models\Header\Header;
+use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Storage;
 
 class HeaderService extends BaseService
 {
@@ -12,4 +16,41 @@ class HeaderService extends BaseService
     {
         parent::__construct(resolve(Header::class));
     }
-}
+    public function store(DtoInterface $dto): Model
+    {
+        return DB::transaction(function () use ($dto) {
+            $data = $dto->toArray();
+            if (!empty($dto->image)) {
+
+                $data['image'] = uploadImage($dto->image, 'header');
+
+            }
+            $model = $this->model->query()->create($data);
+
+            if (!empty($dto->image)) {
+
+            }
+
+            return $model;
+        });
+
+    }
+    public function update(Model $model, DtoInterface $dto): Model
+    {
+        return DB::transaction(function () use ($model, $dto) {
+            $data = $dto->toArray();
+
+            if (!empty($dto->image)) {
+                if ($model->image && Storage::disk('public')->exists($model->image)) {
+                    Storage::disk('public')->delete($model->image);
+                }
+
+                $data['image'] = uploadImage($dto->image, 'header');
+            }
+
+            $model->update($data);
+
+            return $model;
+        });
+    }
+    }

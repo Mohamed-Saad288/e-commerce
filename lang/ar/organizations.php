@@ -44,10 +44,10 @@ return [
     "products" => "المنتجات",
     "add_product" => "إنشاء منتج جديد",
     "edit_product" => "تعديل المنتج",
-    "headers"  => "العناوين",
-    "add_header" => "إنشاء عنوان جديد",
-    "edit_header" => "تعديل العنوان",
-    "header_name" => "اسم العنوان",
+    "headers"  => "اسليدر",
+    "add_header" => "إنشاء اسليدر جديد",
+    "edit_header" => "تعديل اسليدر",
+    "header_name" => "اسم اسليدر",
     "header_description" => "وصف العنوان",
     "header_image" => "صورة العنوان",
     "header" => "العنوان",
@@ -98,6 +98,11 @@ return [
     "pdf" => "بي دي اف",
     "import" => "استيراد",
 
-    "number_of_variations" => "عدد المنتجات"
+    "number_of_variations" => "عدد المنتجات",
+    'product_management' => 'إدارة المنتجات',
+    'content_website' => 'محتوى الموقع',
+    'content_menu' => 'محتوى القائمة',
+    'products_menu' => 'قائمة المنتجات',
+
 ];
 

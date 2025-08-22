@@ -20,7 +20,7 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot(): void
     {
-        $logo = File::exists(public_path('img/logo-without-text.png')) ? asset('/img/logo-without-text.png') : '';
+        $logo = File::exists(public_path('img/logo2.png')) ? asset('/img/logo2.png') : '';
         view()->share('logo', $logo);
         $featuresPath = app_path('Modules');
         $features = File::directories($featuresPath);

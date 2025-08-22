@@ -7,7 +7,7 @@
                 <label for="name_{{ $locale }}">{{ __("messages.name_$locale") }}</label>
                 <input type="text" name="{{ $locale }}[name]" id="name_{{ $locale }}"
                        class="form-control @error("$locale.name") is-invalid @enderror"
-                       value="{{ old("$locale.name", isset($category) ? $category->translate($locale)->name : '') }}" required>
+                       value="{{ old("$locale.name", isset($header) ? $header->translate($locale)->name : '') }}" required>
                 @error("$locale.name")
                 <span class="text-danger">{{ $message }}</span>
                 @enderror
@@ -23,7 +23,7 @@
             <div class="form-group">
                 <label for="description_{{ $locale }}" class="font-weight-bold">{{ __("messages.description_$locale") }}</label>
                 <textarea name="{{ $locale }}[description]" id="description_{{ $locale }}"
-                          class="form-control tinymce-editor @error("$locale.description") is-invalid @enderror" rows="3">{{ old("$locale.description", isset($category) ? $category->translate($locale)->description : '') }}</textarea>
+                          class="form-control tinymce-editor @error("$locale.description") is-invalid @enderror" rows="3">{{ old("$locale.description", isset($header) ? $header->translate($locale)->description : '') }}</textarea>
                 @error("$locale.description")
                 <small class="text-danger">{{ $message }}</small>
                 @enderror
@@ -37,12 +37,7 @@
     <div class="col-md-6">
         <div class="form-group">
             {{-- Show old image if editing --}}
-            @if(isset($header) && $header->getFirstMediaUrl('header_images'))
-                <div class="mb-3">
-                    <img src="{{ $header->getFirstMediaUrl('header_images') }}"
-                         alt="Header Image" class="img-thumbnail" width="150">
-                </div>
-            @endif
+
 
             {{-- Upload new image --}}
             <div class="custom-file">
@@ -56,7 +51,12 @@
                 <small class="text-danger">{{ $message }}</small>
                 @enderror
             </div>
-
+            @if(isset($header) &&  $header->image )
+                <div class="mb-3">
+                    <img src="{{ asset("storage/$header->image") }}"
+                         alt="Header Image" class="img-thumbnail" width="150">
+                </div>
+            @endif
             {{-- Preview for new selected image --}}
             <div id="image-preview" class="mt-2"></div>
         </div>

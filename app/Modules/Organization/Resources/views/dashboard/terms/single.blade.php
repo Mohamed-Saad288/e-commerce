@@ -7,7 +7,7 @@
             <div class="col-md-12">
                 <div class="card">
                     <div class="card-term">
-                        <strong class="card-title">{{ isset($term) ? __('term.edit_term') : __('term.add_term') }}</strong>
+                        <strong class="card-title">{{ isset($term) ? __('organizations.edit_term') : __('organizations.add_term') }}</strong>
                     </div>
                     <div class="card-body">
                         <form action="{{ isset($term) ? route('organization.terms.update', $term->id) : route('organization.terms.store') }}"
@@ -16,7 +16,7 @@
                             @if(isset($term))
                                 @method('PUT')
                             @endif
-                            @include('organization::dashboard.term.form')
+                            @include('organization::dashboard.terms.form')
                         </form>
                     </div>
                 </div>

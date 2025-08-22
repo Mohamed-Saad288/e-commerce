@@ -8,7 +8,7 @@
             <div class="form-group">
                 <label for="description_{{ $locale }}" class="font-weight-bold">{{ __("messages.description_$locale") }}</label>
                 <textarea name="{{ $locale }}[description]" id="description_{{ $locale }}"
-                          class="form-control tinymce-editor @error("$locale.description") is-invalid @enderror" rows="3">{{ old("$locale.description", isset($category) ? $category->translate($locale)->description : '') }}</textarea>
+                          class="form-control tinymce-editor @error("$locale.description") is-invalid @enderror" rows="3">{{ old("$locale.description", isset($term) ? $term->translate($locale)->description : '') }}</textarea>
                 @error("$locale.description")
                 <small class="text-danger">{{ $message }}</small>
                 @enderror
