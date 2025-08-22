@@ -80,7 +80,10 @@ return [
     "pdf" => "PDF",
 
     "number_of_variations" => "Number of Variations",
-
+    'product_management' => "Product Management",
+    'content_website' => "Website Content",
+    'content_menu' => "Menu Content",
+    'products_menu' => "Products Menu",
 
 
 ];

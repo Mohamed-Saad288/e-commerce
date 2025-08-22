@@ -23,7 +23,7 @@ return new class extends BaseMigration
             $table->string("name")->nullable();
             $table->longText("description")->nullable();
             $table->unique(["about_id", "locale"]);
-            $table->foreignId("about_id")->constrained()->onDelete("cascade");
+            $table->foreignId("about_id")->constrained("about")->onDelete("cascade");
         });
     }
 

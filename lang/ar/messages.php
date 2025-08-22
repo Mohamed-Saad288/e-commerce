@@ -134,5 +134,6 @@ return [
     "short_description" => "وصف قصير",
     "sku" => "SKU",
     "product_deleted_successfully" => "تم حذف المنتج بنجاح",
+    'title' => 'العنوان',
 ];
 

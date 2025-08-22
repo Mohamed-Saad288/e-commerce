@@ -10,6 +10,7 @@ use App\Modules\Organization\app\Models\Header\Header;
 use App\Modules\Organization\app\Models\Category\Category;
 use App\Modules\Organization\app\Services\Header\HeaderService;
 use Exception;
+use Illuminate\Support\Facades\Storage;
 
 class HeaderController extends Controller
 {
@@ -48,6 +49,9 @@ class HeaderController extends Controller
     public function destroy(Header $header)
     {
         try {
+            if ($header->image && Storage::disk('public')->exists($header->image)) {
+                Storage::disk('public')->delete($header->image);
+            }
             $this->service->delete(model: $header);
             return response()->json([
                 'success' => true,
