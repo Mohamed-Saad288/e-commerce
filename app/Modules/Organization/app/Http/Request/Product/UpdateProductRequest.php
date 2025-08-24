@@ -63,6 +63,9 @@ class UpdateProductRequest extends FormRequest
             "cost_price" => [Rule::requiredIf(fn() => empty($this->variations)), "numeric", "gt:0"],
             "selling_price" => [Rule::requiredIf(fn() => empty($this->variations)), "numeric", "gt:0"],
             "sort_order" => ["nullable", "numeric"],
+            "featured_image" => ["nullable", "image", "mimes:jpeg,png,jpg,gif,svg", "max:2048"],
+            "images" => ["nullable", "array"],
+            "images.*" => ["nullable", "image", "mimes:jpeg,png,jpg,gif,svg", "max:2048"],
             "variations" => ["nullable", "array"],
         ];
 
@@ -100,7 +103,8 @@ class UpdateProductRequest extends FormRequest
                 $rules["variations.{$index}.tax_type"] = ["nullable", new Enum(TaxTypeEnum::class)];
                 $rules["variations.{$index}.tax_amount"] = ["nullable", "numeric"];
                 $rules["variations.{$index}.discount"] = ["nullable", "numeric"];
-                $rules["variations.{$index}.image"] = ["nullable", "image|mimes:jpeg,png,jpg,gif,svg|max:2048"];
+                $rules["variations.{$index}.images"] = ["nullable", "array"];
+                $rules["variations.{$index}.images.*"] = ["nullable", "image", "mimes:jpeg,png,jpg,gif,svg", "max:2048"];
             }
         }
 
