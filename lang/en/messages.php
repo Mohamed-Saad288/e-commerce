@@ -121,5 +121,9 @@ return [
     "edit_product" => "Edit Product",
     "short_description" => "Short Description",
     "sku" => "Sku",
-    'title' => 'title'
+    'title' => 'title',
+    'facebook_link' => 'Facebook Link',
+    'instagram_link' => "Instagram Link",
+    "x_link" => "X Link",
+    "tiktok_link" => "Tiktok Link"
 ];

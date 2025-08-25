@@ -135,5 +135,9 @@ return [
     "sku" => "SKU",
     "product_deleted_successfully" => "تم حذف المنتج بنجاح",
     'title' => 'العنوان',
+    'facebook_link' => "لينك فيس بوك",
+    'instagram_link' => 'لينك انستجرام',
+    'x_link' => "لينك اكس",
+    'tiktok_link' => "لينك التيك توك",
 ];
 

@@ -46,16 +46,17 @@
         <ul class="navbar-nav flex-fill w-100 mb-2">
             <!-- Product Management Collapse -->
             <li class="nav-item w-100">
-                <a class="nav-link collapsed d-flex justify-content-between align-items-center"
+                <a class="nav-link d-flex justify-content-between align-items-center"
                    href="#productMenu" data-toggle="collapse"
-                   aria-expanded="false" aria-controls="productMenu">
+                   aria-expanded="{{ request()->routeIs('organization.categories.*') || request()->routeIs('organization.brands.*') || request()->routeIs('organization.options.*') || request()->routeIs('organization.option_items.*') || request()->routeIs('organization.products.*') ? 'true' : 'false' }}"
+                   aria-controls="productMenu">
                     <span>
                         <i class="fe fe-shopping-cart fe-16"></i>
                         <span class="ml-3 item-text">{{ __('organizations.products_menu') }}</span>
                     </span>
                     <i class="fe fe-chevron-down rotate-icon"></i>
                 </a>
-                <ul class="collapse list-unstyled pl-4 w-100" id="productMenu">
+                <ul class="collapse list-unstyled pl-4 w-100 {{ request()->routeIs('organization.categories.*') || request()->routeIs('organization.brands.*') || request()->routeIs('organization.options.*') || request()->routeIs('organization.option_items.*') || request()->routeIs('organization.products.*') ? 'show' : '' }}" id="productMenu">
                     <li class="nav-item">
                         <a class="nav-link {{ request()->routeIs('organization.categories.*') ? 'active' : '' }}" href="{{ route('organization.categories.index') }}">
                             <i class="fe fe-shopping-bag fe-16"></i>
@@ -97,16 +98,17 @@
         <ul class="navbar-nav flex-fill w-100 mb-2">
             <!-- Content Management Collapse -->
             <li class="nav-item w-100">
-                <a class="nav-link collapsed d-flex justify-content-between align-items-center"
+                <a class="nav-link d-flex justify-content-between align-items-center"
                    href="#contentMenu" data-toggle="collapse"
-                   aria-expanded="false" aria-controls="contentMenu">
+                   aria-expanded="{{ request()->routeIs('organization.headers.*') || request()->routeIs('organization.questions.*') || request()->routeIs('organization.terms.*') || request()->routeIs('organization.abouts.*') || request()->routeIs('organization.whys.*') ? 'true' : 'false' }}"
+                   aria-controls="contentMenu">
                     <span>
                         <i class="fe fe-edit-3 fe-16"></i>
                         <span class="ml-3 item-text">{{ __('organizations.content_menu') }}</span>
                     </span>
                     <i class="fe fe-chevron-down rotate-icon"></i>
                 </a>
-                <ul class="collapse list-unstyled pl-4 w-100" id="contentMenu">
+                <ul class="collapse list-unstyled pl-4 w-100 {{ request()->routeIs('organization.headers.*') || request()->routeIs('organization.questions.*') || request()->routeIs('organization.terms.*') || request()->routeIs('organization.abouts.*') || request()->routeIs('organization.whys.*') ? 'show' : '' }}" id="contentMenu">
                     <li class="nav-item">
                         <a class="nav-link {{ request()->routeIs('organization.headers.*') ? 'active' : '' }}" href="{{ route('organization.headers.index') }}">
                             <i class="fe fe-layout fe-16"></i>
@@ -126,7 +128,7 @@
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link {{ request()->routeIs('organization.abouts.*') ? 'active' : '' }}" href="{{ route('organization.abouts.index') }}">
+                        <a class="nav-link {{ request()->routeIs('organization.abouts.*') ? 'active' : '' }}" href="{{ route('organization.abouts.create') }}">
                             <i class="fe fe-info fe-16"></i>
                             <span class="ml-3 item-text">{{ __('organizations.abouts') }}</span>
                         </a>
@@ -137,6 +139,14 @@
                             <span class="ml-3 item-text">{{ __('organizations.whys') }}</span>
                         </a>
                     </li>
+
+                    <li class="nav-item">
+                        <a class="nav-link {{ request()->routeIs('organization.our_teams.*') ? 'active' : '' }}" href="{{ route('organization.our_teams.index') }}">
+                            <i class="fe fe-user-check fe-16"></i>
+                            <span class="ml-3 item-text">{{ __('organizations.our_teams') }}</span>
+                        </a>
+                    </li>
+
                 </ul>
             </li>
         </ul>
@@ -153,3 +163,14 @@
     }
 </style>
 
+{{-- JS لمنع القفل التلقائي --}}
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        // امنع الـ collapse إنه يقفل لما اضغط على لينكات جوه
+        document.querySelectorAll('#productMenu .nav-link, #contentMenu .nav-link').forEach(function (link) {
+            link.addEventListener('click', function (e) {
+                e.stopPropagation();
+            });
+        });
+    });
+</script>
