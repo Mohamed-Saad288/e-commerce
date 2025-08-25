@@ -1,30 +1,28 @@
 @extends("organization::dashboard.master")
-@section('title', isset($about) ? __('organizations.edit_about') : __('organizations.add_about'))
+@section('title', isset($our_team) ? __('organizations.edit_our_team') : __('organizations.add_our_team'))
 
 @section('content')
     <div class="container-fluid">
         <div class="row">
             <div class="col-md-12">
                 <div class="card">
-                    <div class="card-about">
-                        <strong class="card-title">{{ isset($about) ? __('organizations.edit_about') : __('organizations.add_about') }}</strong>
+                    <div class="card-our_team">
+                        <strong class="card-title">{{ isset($our_team) ? __('organizations.edit_our_team') : __('organizations.add_our_team') }}</strong>
                     </div>
                     <div class="card-body">
-                        <form action="{{ isset($about) ? route('organization.abouts.update', $about->id) : route('organization.abouts.store') }}"
+                        <form action="{{ isset($our_team) ? route('organization.our_teams.update', $our_team->id) : route('organization.our_teams.store') }}"
                               method="POST" enctype="multipart/form-data">
                             @csrf
-                            @if(isset($about))
+                            @if(isset($our_team))
                                 @method('PUT')
                             @endif
-                            @include('organization::dashboard.abouts.form')
+                            @include('organization::dashboard.our_teams.form')
                         </form>
                     </div>
                 </div>
             </div>
         </div>
     </div>
-
-
     <script>
         document.addEventListener('DOMContentLoaded', function () {
             const input = document.getElementById('image');

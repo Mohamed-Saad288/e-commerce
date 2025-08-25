@@ -84,6 +84,9 @@ return [
     'content_website' => "Website Content",
     'content_menu' => "Menu Content",
     'products_menu' => "Products Menu",
+    'our_teams' => "Our Team Section",
+    'add_our_team' => "Add Our Team",
+    'edit_our_team' => "Edit Our Team",
 
 
 ];
