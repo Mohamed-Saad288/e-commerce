@@ -72,18 +72,10 @@ class BaseService
      */
     public function index($request = null, bool $paginate = true): Collection|LengthAwarePaginator
     {
-        if(auth()->user() InstanceOf Admin) {
-            $query = app(Pipeline::class)
-                ->send($this->model::query()->latest())
-                ->through($this->filters())
-                ->thenReturn();
-        }else{
-            $query = app(Pipeline::class)
-                ->send($this->model::query()->Where('organization_id', auth()->user()->organization_id)->latest())
-                ->through($this->filters())
-                ->thenReturn();
-        }
-
+        $query = app(Pipeline::class)
+            ->send($this->model::query()->latest())
+            ->through($this->filters())
+            ->thenReturn();
 
         return $paginate
             ? $query->paginate($request->per_page ?? 10)
@@ -93,9 +85,13 @@ class BaseService
     /**
      * List only active records
      */
-    public function list(): Collection
+    public function list($request = null): Collection
     {
-        return $this->model->query()->where("is_active", 1)->latest()->get();
+        $query = app(Pipeline::class)
+            ->send($this->model::query()->where("is_active", 1)->latest())
+            ->through($this->filters())
+            ->thenReturn();
+        return $query->get();
     }
 
     /**
@@ -111,7 +107,7 @@ class BaseService
     /**
      * Define the pipeline filters for the service
      */
-    protected function filters(): array
+    protected function filters($request = null): array
     {
         return []; // Example: [\App\Filters\NameFilter::class, \App\Filters\StatusFilter::class]
     }

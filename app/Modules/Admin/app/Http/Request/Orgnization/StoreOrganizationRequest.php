@@ -19,7 +19,7 @@ class StoreOrganizationRequest extends FormRequest
             'phone' => 'required|unique:organizations,phone',
             'email' => 'nullable|unique:organizations,email',
             'address' => 'nullable',
-            'website_link' => 'required|max:255',
+            'website_link' => ["required", "unique:organizations,website_link"],
         ];
     }
 

@@ -3,6 +3,7 @@
 namespace App\Modules\Organization\app\Models\Brand;
 
 use App\Modules\Base\app\Models\BaseModel;
+use App\Modules\Base\app\Scopes\TenantScope;
 use App\Modules\Organization\app\Models\Category\Category;
 use Astrotomic\Translatable\Contracts\Translatable as TranslatableContract;
 use Astrotomic\Translatable\Translatable;
@@ -21,6 +22,12 @@ class Brand extends BaseModel implements TranslatableContract
         "organization_id",
         "employee_id"
     ];
+
+
+    protected static function booted(): void
+    {
+        static::addGlobalScope(new TenantScope);
+    }
 
     public function categories(): BelongsToMany
     {

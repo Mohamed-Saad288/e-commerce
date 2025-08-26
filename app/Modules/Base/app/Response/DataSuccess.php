@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Modules\Base\Application\Response;
+namespace App\Modules\Base\app\Response;
 
 class DataSuccess extends DataStatus
 {

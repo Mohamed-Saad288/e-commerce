@@ -55,16 +55,16 @@ class ProductController extends Controller
             ]);
         }
 
-        $categories = Category::whereOrganizationId(auth()->user()->organization_id)->get();
-        $brands = Brand::whereOrganizationId(auth()->user()->organization_id)->get();
+        $categories = Category::query()->get();
+        $brands = Brand::query()->get();
 
         return view('organization::dashboard.products.index', get_defined_vars());
     }
     public function create()
     {
-        $categories = Category::whereOrganizationId(auth()->user()->organization_id)->get();
-        $brands = Brand::whereOrganizationId(auth()->user()->organization_id)->get();
-        $options = Option::whereOrganizationId(auth()->user()->organization_id)->get();
+        $categories = Category::query()->get();
+        $brands = Brand::query()->get();
+        $options = Option::query()->get();
 
         return view('organization::dashboard.products.single', get_defined_vars());
     }
@@ -86,9 +86,9 @@ class ProductController extends Controller
 
     public function edit(Product $product)
     {
-        $categories = Category::whereOrganizationId(auth()->user()->organization_id)->get();
-        $brands = Brand::whereOrganizationId(auth()->user()->organization_id)->get();
-        $options = Option::whereOrganizationId(auth()->user()->organization_id)->get();
+        $categories = Category::query()->get();
+        $brands = Brand::query()->get();
+        $options = Option::query()->get();
         return view('organization::dashboard.products.single', get_defined_vars());
     }
 
