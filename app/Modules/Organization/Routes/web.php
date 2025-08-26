@@ -9,6 +9,7 @@ use App\Modules\Organization\app\Http\Controllers\{About\AboutController,
     Home\HomeController,
     Option\OptionController,
     OptionItem\OptionItemController,
+    OurTeam\OurTeamController,
     products\ProductController,
     Question\QuestionController,
     Term\TermController,
@@ -58,6 +59,7 @@ Route::group(
                 Route::resource('terms', TermController::class);
                 Route::resource('abouts', AboutController::class);
                 Route::resource('whys', WhyController::class);
+                Route::resource('our_teams', OurTeamController::class);
 
                 /************************** Change status Routes ********************/
                 Route::prefix('change_status')->group(function () {

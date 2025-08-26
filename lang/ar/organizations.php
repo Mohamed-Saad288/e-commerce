@@ -103,6 +103,9 @@ return [
     'content_website' => 'محتوى الموقع',
     'content_menu' => 'محتوى القائمة',
     'products_menu' => 'قائمة المنتجات',
+    'our_teams' => "سكشن فريقنا",
+    "add_our_team" => "اضافة بيانات عضو",
+    "edit_our_team" => "تعديل بيانات عضو"
 
 ];
 

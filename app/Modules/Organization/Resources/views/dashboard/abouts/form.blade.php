@@ -37,12 +37,7 @@
     <div class="col-md-6">
         <div class="form-group">
             {{-- Show old image if editing --}}
-            @if(isset($about) && $about->getFirstMediaUrl('about_images'))
-                <div class="mb-3">
-                    <img src="{{ $about->getFirstMediaUrl('about_images') }}"
-                         alt="Header Image" class="img-thumbnail" width="150">
-                </div>
-            @endif
+
 
             {{-- Upload new image --}}
             <div class="custom-file">
@@ -56,7 +51,12 @@
                 <small class="text-danger">{{ $message }}</small>
                 @enderror
             </div>
-
+            @if(isset($about) &&  $about->image )
+                <div class="mb-3">
+                    <img src="{{ asset("storage/$about->image") }}"
+                         alt="Header Image" class="img-thumbnail" width="150">
+                </div>
+            @endif
             {{-- Preview for new selected image --}}
             <div id="image-preview" class="mt-2"></div>
         </div>
