@@ -135,9 +135,19 @@ return [
     "sku" => "SKU",
     "product_deleted_successfully" => "تم حذف المنتج بنجاح",
     'title' => 'العنوان',
-    'facebook_link' => "لينك فيس بوك",
-    'instagram_link' => 'لينك انستجرام',
-    'x_link' => "لينك اكس",
-    'tiktok_link' => "لينك التيك توك",
+    'facebook_link' => "رابط فيس بوك",
+    'instagram_link' => 'رابط انستجرام',
+    'x_link' => "رابط اكس",
+    'tiktok_link' => "رابط التيك توك",
+    'upload_logo'      => 'رفع الشعار',
+    'primary_color'    => 'اللون الأساسي',
+    'secondary_color'  => 'اللون الثانوي',
+    'facebook'         => 'رابط فيسبوك',
+    'instagram'        => 'رابط إنستجرام',
+    'tiktok'           => 'رابط تيك توك',
+    'address'          => 'العنوان',
+    'latitude'         => 'خط العرض',
+    'longitude'        => 'خط الطول',
+
 ];
 

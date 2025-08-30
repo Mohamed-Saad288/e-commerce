@@ -125,5 +125,15 @@ return [
     'facebook_link' => 'Facebook Link',
     'instagram_link' => "Instagram Link",
     "x_link" => "X Link",
-    "tiktok_link" => "Tiktok Link"
+    "tiktok_link" => "Tiktok Link",
+    "organization_settings" => "Organization Settings",
+    "edit_organization_setting" => "Edit Organization Setting",
+    "upload_logo" => "Upload Logo",
+    'primary_color'    => 'Primary Color',
+    'secondary_color'  => 'Secondary Color',
+    'facebook'         => 'Facebook Link',
+    'instagram'        => 'Instagram Link',
+    'tiktok'           => 'TikTok Link',
+    'latitude'         => 'Latitude',
+    'longitude'        => 'Longitude',
 ];

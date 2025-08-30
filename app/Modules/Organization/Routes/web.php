@@ -9,6 +9,7 @@ use App\Modules\Organization\app\Http\Controllers\{About\AboutController,
     Home\HomeController,
     Option\OptionController,
     OptionItem\OptionItemController,
+    OrganizationSetting\OrganizationSettingController,
     OurTeam\OurTeamController,
     products\ProductController,
     Question\QuestionController,
@@ -60,7 +61,8 @@ Route::group(
                 Route::resource('abouts', AboutController::class);
                 Route::resource('whys', WhyController::class);
                 Route::resource('our_teams', OurTeamController::class);
-
+                Route::get('organization_settings/edit', [OrganizationSettingController::class, 'edit'])->name('organization_settings.edit');
+                Route::post('organization_settings/edit', [OrganizationSettingController::class, 'update'])->name('organization_settings.update');
                 /************************** Change status Routes ********************/
                 Route::prefix('change_status')->group(function () {
                     Route::post('products/{product}', [ProductController::class, 'changeStatus'])->name('products.change_status');
