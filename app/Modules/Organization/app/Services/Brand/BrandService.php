@@ -51,7 +51,7 @@ class BrandService extends BaseService
     public function filters($request = null): array
     {
         return [
-            new CategoryIdFilter($request),
+            CategoryIdFilter::class
         ];
     }
 }
