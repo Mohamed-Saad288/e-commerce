@@ -85,7 +85,7 @@ class BaseService
     /**
      * List only active records
      */
-    public function list($request = null): Collection
+    public function list(): Collection
     {
         $query = app(Pipeline::class)
             ->send($this->model::query()->where("is_active", 1)->latest())
