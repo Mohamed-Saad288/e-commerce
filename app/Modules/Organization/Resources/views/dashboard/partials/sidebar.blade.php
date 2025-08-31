@@ -147,6 +147,13 @@
                         </a>
                     </li>
 
+                    <li class="nav-item">
+                        <a class="nav-link {{ request()->routeIs('organization.organization_settings.edit.*') ? 'active' : '' }}" href="{{ route('organization.organization_settings.edit') }}">
+                            <i class="fe fe-settings fe-16"></i>
+                            <span class="ml-3 item-text">{{ __('organizations.organization_settings') }}</span>
+                        </a>
+                    </li>
+
                 </ul>
             </li>
         </ul>
@@ -163,10 +170,8 @@
     }
 </style>
 
-{{-- JS لمنع القفل التلقائي --}}
 <script>
     document.addEventListener("DOMContentLoaded", function () {
-        // امنع الـ collapse إنه يقفل لما اضغط على لينكات جوه
         document.querySelectorAll('#productMenu .nav-link, #contentMenu .nav-link').forEach(function (link) {
             link.addEventListener('click', function (e) {
                 e.stopPropagation();

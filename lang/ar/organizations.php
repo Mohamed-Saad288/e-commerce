@@ -105,7 +105,9 @@ return [
     'products_menu' => 'قائمة المنتجات',
     'our_teams' => "سكشن فريقنا",
     "add_our_team" => "اضافة بيانات عضو",
-    "edit_our_team" => "تعديل بيانات عضو"
+    "edit_our_team" => "تعديل بيانات عضو",
+    "edit_organization_setting" => "تعديل اعدادت المنظمة",
+    "organization_settings" => "اعدات المنظمة",
 
 ];
 

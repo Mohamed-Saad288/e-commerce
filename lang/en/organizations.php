@@ -87,6 +87,8 @@ return [
     'our_teams' => "Our Team Section",
     'add_our_team' => "Add Our Team",
     'edit_our_team' => "Edit Our Team",
+    "organization_settings" => "Organization Settings",
+    "edit_organization_setting" => "Edit Organization Setting",
 
 
 ];
