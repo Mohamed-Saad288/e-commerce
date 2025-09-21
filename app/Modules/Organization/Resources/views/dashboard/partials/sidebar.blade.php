@@ -87,6 +87,13 @@
                             <span class="ml-3 item-text">{{ __('organizations.products') }}</span>
                         </a>
                     </li>
+
+                    <li class="nav-item">
+                        <a class="nav-link {{ request()->routeIs('organization.payment_settings.*') ? 'active' : '' }}" href="{{ route('organization.payment.settings.index') }}">
+                            <i class="fe fe-box fe-16"></i>
+                            <span class="ml-3 item-text">{{ __('organizations.payment') }}</span>
+                        </a>
+                    </li>
                 </ul>
             </li>
         </ul>
