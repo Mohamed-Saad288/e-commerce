@@ -43,7 +43,7 @@ Route::group(
         /************************** Exports Routes ********************/
 
         // Authenticated routes
-        Route::middleware('auth:organization_employee')
+        Route::middleware(['auth:organization_employee' , 'set.organization.context'])
             ->as('organization.')
             ->group(function () {
                 Route::get('/', [HomeController::class, 'home'])->name('home');

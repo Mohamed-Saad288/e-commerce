@@ -3,6 +3,7 @@
 namespace App\Modules\Organization\app\Models\OptionItem;
 
 use App\Modules\Base\app\Models\BaseModel;
+use App\Modules\Base\app\Scopes\TenantScope;
 use App\Modules\Organization\app\Models\Option\Option;
 use Astrotomic\Translatable\Contracts\Translatable as TranslatableContract;
 use Astrotomic\Translatable\Translatable;
@@ -21,6 +22,11 @@ class OptionItem extends BaseModel implements TranslatableContract
     ];
 
     protected $table = 'option_items';
+
+    protected static function booted(): void
+    {
+        static::addGlobalScope(new TenantScope);
+    }
 
     public function option() : BelongsTo
     {

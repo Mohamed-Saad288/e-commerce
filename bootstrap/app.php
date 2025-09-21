@@ -18,7 +18,8 @@ return Application::configure(basePath: dirname(__DIR__))
             'localeSessionRedirect'   => \Mcamara\LaravelLocalization\Middleware\LocaleSessionRedirect::class,
             'localeCookieRedirect'    => \Mcamara\LaravelLocalization\Middleware\LocaleCookieRedirect::class,
             'localeViewPath'          => \Mcamara\LaravelLocalization\Middleware\LaravelLocalizationViewPath::class,
-            "redirect.admin" => \App\Modules\Admin\app\Http\Middleware\RedirectToAdminDashboard::class
+            "redirect.admin" => \App\Modules\Admin\app\Http\Middleware\RedirectToAdminDashboard::class,
+            "set.organization.context" => \App\Modules\Base\app\Http\Middleware\SetOrganizationContext::class
         ]);
     })
     ->withExceptions(function (Exceptions $exceptions) {
