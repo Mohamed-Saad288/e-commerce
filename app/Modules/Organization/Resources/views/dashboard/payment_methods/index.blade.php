@@ -1,70 +1,104 @@
 @extends('organization::dashboard.master')
-@section('title', __('keys.payment_methods'))
+@section('title', __('organizations.payment_methods'))
+
 @section('content')
-    <div class="container mx-auto px-4 py-8">
-        <div class="mb-6">
-            <h1 class="text-2xl font-bold text-gray-800">Payment Methods</h1>
-            <p class="text-gray-600">Enable or disable payment methods for your store.</p>
-        </div>
+    <div class="container">
+        <h2>Manage Payment Methods</h2>
 
-        @if(session('success'))
-            <div class="bg-green-100 border border-green-400 text-green-700 px-4 py-3 rounded mb-6">
-                {{ session('success') }}
-            </div>
-        @endif
-
-        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-            @foreach($paymentMethods as $pm)
-                <div class="bg-white rounded-lg shadow-sm border p-5 hover:shadow-md transition-shadow">
-                    <div class="flex items-start justify-between">
-                        <div class="flex items-center space-x-3">
-                            @if($pm->icon)
-                                <img src="{{ asset($pm->icon) }}" alt="{{ $pm->name }}" class="w-12 h-12 object-contain">
-                            @else
-                                <div class="w-12 h-12 bg-gray-200 rounded flex items-center justify-center">
-                                    <span class="text-gray-500 uppercase text-sm font-bold">{{ substr($pm->code, 0, 2) }}</span>
-                                </div>
-                            @endif
-                            <div>
-                                <h4 class="font-medium text-gray-800">{{ $pm->name }}</h4>
-                                <p class="text-sm text-gray-500">{{ $pm->description }}</p>
-                            </div>
+        @foreach($paymentMethods as $method)
+            <div class="card mb-3">
+                <div class="card-header d-flex justify-content-between align-items-center">
+                    <span>{{ $method->translateOrDefault(app()->getLocale())->name }}</span>
+                    <form action="{{ route('organization.payment_methods.update', $method->id) }}" method="POST" class="payment-method-form">
+                        @csrf
+                        @method('PUT')
+                        <div class="form-check form-switch">
+                            <input class="form-check-input toggle-switch" type="checkbox"
+                                   name="is_active"
+                                   data-method-id="{{ $method->id }}"
+                                {{ (isset($orgPaymentMethods[$method->id]) && json_decode($orgPaymentMethods[$method->id], true) !== null) ? 'checked' : '' }}>
                         </div>
-
-                        <div class="flex flex-col items-end space-y-2">
-                            <!-- Toggle Form -->
-                            <form action="{{ route('vendor.payment-methods.toggle') }}" method="POST" class="inline">
-                                @csrf
-                                <input type="hidden" name="payment_method_id" value="{{ $pm->id }}">
-
-                                <label class="relative inline-flex items-center cursor-pointer">
-                                    <input type="checkbox" name="is_active" class="sr-only peer"
-                                           onchange="this.form.submit()"
-                                        {{ $pm->pivot->is_active ? 'checked' : '' }}
-                                    >
-                                    <div class="w-11 h-6 bg-gray-200 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-blue-300 rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-blue-600"></div>
-                                </label>
-                            </form>
-
-                            <!-- Configure Button -->
-                            @if(count(json_decode($pm->required_settings, true)) > 0)
-                                <a href="{{ route('vendor.payment-methods.configure', $pm) }}"
-                                   class="text-blue-600 hover:text-blue-800 text-sm font-medium">
-                                    Configure
-                                </a>
-                            @endif
-                        </div>
-                    </div>
-
-                    <div class="mt-4">
-                    <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium
-                        {{ $pm->pivot->is_active ? 'bg-green-100 text-green-800' : 'bg-red-100 text-red-800' }}">
-                        {{ $pm->pivot->is_active ? 'Active' : 'Inactive' }}
-                    </span>
-                    </div>
+                    </form>
                 </div>
-            @endforeach
-        </div>
+                <div class="card-body" id="credentials-{{ $method->id }}" style="display: none;">
+                    <form action="{{ route('organization.payment_methods.update', $method->id) }}" method="POST">
+                        @csrf
+                        @method('PUT')
+
+                        @php
+                            $requiredSettings = json_decode($method->required_settings, true) ?? [];
+                            $credentials = isset($orgPaymentMethods[$method->id]) ? json_decode($orgPaymentMethods[$method->id], true) : [];
+                        @endphp
+
+                        @foreach($requiredSettings as $fieldKey => $fieldValue)
+                            <div class="mb-3">
+                                <label for="{{ $fieldKey }}" class="form-label">
+                                    {{ ucfirst(str_replace('_', ' ', $fieldKey)) }}
+                                </label>
+                                <input type="text" name="credentials[{{ $fieldKey }}]" class="form-control"
+                                       value="{{ is_array($credentials[$fieldKey] ?? '') ? '' : ($credentials[$fieldKey] ?? '') }}"
+                                    {{ is_array($credentials[$fieldKey] ?? '') ? '' : 'required' }}>
+                            </div>
+                        @endforeach
+
+                        <button type="submit" class="btn btn-primary">Save Credentials</button>
+                    </form>
+                </div>
+            </div>
+        @endforeach
     </div>
 @endsection
 
+@section('after_script')
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Initialize toggle states
+            document.querySelectorAll('.toggle-switch').forEach(switchEl => {
+                const methodId = switchEl.dataset.methodId;
+                const credentialDiv = document.getElementById(`credentials-${methodId}`);
+
+                if (credentialDiv && switchEl.checked) {
+                    credentialDiv.style.display = 'block';
+                }
+
+                // Handle toggle change with confirmation
+                switchEl.addEventListener('change', function () {
+                    const methodId = this.dataset.methodId;
+                    const credentialDiv = document.getElementById(`credentials-${methodId}`);
+                    const isChecked = this.checked;
+
+                    if (credentialDiv) {
+                        credentialDiv.style.display = isChecked ? 'block' : 'none';
+                    }
+
+                    // Submit via AJAX to prevent page reload for enable/disable
+                    const formData = new FormData();
+                    formData.append('_token', document.querySelector('meta[name="csrf-token"]').getAttribute('content'));
+                    formData.append('_method', 'PUT');
+                    formData.append('is_active', isChecked ? '1' : '0');
+
+                    fetch(`/organization/payment-methods/${methodId}`, {
+                        method: 'POST',
+                        body: formData,
+                        headers: {
+                            'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content')
+                        }
+                    })
+                        .then(response => {
+                            if (!response.ok) {
+                                throw new Error('Network response was not ok');
+                            }
+                            return response.json();
+                        })
+                        .catch(error => {
+                            console.error('Error:', error);
+                            this.checked = !isChecked;
+                            if (credentialDiv) {
+                                credentialDiv.style.display = !isChecked ? 'block' : 'none';
+                            }
+                        });
+                });
+            });
+        });
+    </script>
+@endsection

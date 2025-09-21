@@ -1,7 +1,6 @@
 <?php
 
-use App\Modules\Organization\app\Http\Controllers\{
-    About\AboutController,
+use App\Modules\Organization\app\Http\Controllers\{About\AboutController,
     Auth\AuthController,
     Brand\BrandController,
     Category\CategoryController,
@@ -10,14 +9,14 @@ use App\Modules\Organization\app\Http\Controllers\{
     Home\HomeController,
     Option\OptionController,
     OptionItem\OptionItemController,
+    OrganizationSetting\OrganizationPaymentMethodController,
     OrganizationSetting\OrganizationSettingController,
     OurTeam\OurTeamController,
     Products\ProductController,
     Question\QuestionController,
     Term\TermController,
     Why\WhyController,
-    Payment\PaymentSettingsController
-};
+    };
 use Illuminate\Support\Facades\Route;
 use Mcamara\LaravelLocalization\Facades\LaravelLocalization;
 
@@ -65,15 +64,10 @@ Route::group(
                 Route::get('organization_settings/edit', [OrganizationSettingController::class, 'edit'])->name('organization_settings.edit');
                 Route::post('organization_settings/edit', [OrganizationSettingController::class, 'update'])->name('organization_settings.update');
 
-                /************************** Payment Settings Routes ********************/
-                Route::prefix('payment_settings')->as('payment.settings.')->group(function () {
-                    Route::get('/', [PaymentSettingsController::class, 'index'])->name('index');
-                    Route::post('{paymentMethod}', [PaymentSettingsController::class, 'update'])->name('update');
-                    Route::post('order/update', [PaymentSettingsController::class, 'updateOrder'])->name('update-order');
-                    Route::post('toggle-status/{paymentMethod}', [PaymentSettingsController::class, 'toggleStatus'])->name('toggle-status');
-                });
-                /********************************************************************/
 
+                // Payment methods
+                Route::get('/payment-methods', [OrganizationPaymentMethodController::class, 'index'])->name('payment_methods.index');
+                Route::put('/payment-methods/{id}', [OrganizationPaymentMethodController::class, 'update'])->name('payment_methods.update');
                 /************************** Change status Routes ********************/
                 Route::prefix('change_status')->group(function () {
                     Route::post('products/{product}', [ProductController::class, 'changeStatus'])->name('products.change_status');

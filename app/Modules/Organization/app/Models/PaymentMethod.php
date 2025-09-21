@@ -2,6 +2,7 @@
 
 namespace App\Modules\Organization\app\Models;
 
+use App\Modules\Admin\app\Models\Organization\Organization;
 use Astrotomic\Translatable\Translatable;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\HasMany;
@@ -33,5 +34,12 @@ class PaymentMethod extends Model
     public function organizationPaymentMethods(): HasMany
     {
         return $this->hasMany(OrganizationPaymentMethod::class);
+    }
+
+    public function organizations()
+    {
+        return $this->belongsToMany(Organization::class, 'organization_payment_methods')
+            ->withPivot(['is_active', 'credentials'])
+            ->withTimestamps();
     }
 }

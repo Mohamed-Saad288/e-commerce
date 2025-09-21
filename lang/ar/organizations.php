@@ -108,6 +108,7 @@ return [
     "edit_our_team" => "تعديل بيانات عضو",
     "edit_organization_setting" => "تعديل اعدادت المنظمة",
     "organization_settings" => "اعدات المنظمة",
+    "payment_methods" => "طرق الدفع"
 
 ];
 
