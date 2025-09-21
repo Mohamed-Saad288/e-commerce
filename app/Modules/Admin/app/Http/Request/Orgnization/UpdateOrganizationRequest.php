@@ -17,7 +17,7 @@ class UpdateOrganizationRequest extends FormRequest
             'phone'    => 'nullable|unique:organizations,phone,' . $organizationId,
             'email'    => 'nullable|email|unique:organizations,email,' . $organizationId,
             'address'  => 'nullable',
-            'website_link' => 'nullable|max:255',
+            'website_link' => ["required", "unique:organizations,website_link," . $organizationId],
         ];
     }
 

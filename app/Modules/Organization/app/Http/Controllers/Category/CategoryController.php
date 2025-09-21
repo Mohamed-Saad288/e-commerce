@@ -21,7 +21,7 @@ class CategoryController extends Controller
     }
     public function create()
     {
-        $categories = Category::whereOrganizationId(auth()->user()->organization_id)->get();
+        $categories = Category::query()->get();
         return view('organization::dashboard.categories.single',get_defined_vars());
     }
     public function store(StoreCategoryRequest $request)
@@ -34,7 +34,7 @@ class CategoryController extends Controller
     }
     public function edit(Category $category)
     {
-        $categories = Category::whereOrganizationId(auth()->user()->organization_id)->where('id', '!=', $category->id)->get();
+        $categories = Category::query()->where('id', '!=', $category->id)->get();
         return view('organization::dashboard.categories.single', get_defined_vars());
     }
     public function update(UpdateCategoryRequest $request , Category $category)

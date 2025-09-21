@@ -31,6 +31,7 @@ class ProductDto implements DTOInterface
     public ?float $total_price = 0;
     public ?array $variations = [];
     public ?array $images = [];
+    public ?string $featured_image = null;
 
     public function __construct(
         ?array $translations = [],
@@ -55,7 +56,8 @@ class ProductDto implements DTOInterface
         ?float $selling_price = null,
         ?float $total_price = null,
         ?array $variations = [],
-        ?array $images = []
+        ?array $images = [],
+        ?string $featured_image = null
     ) {
         $this->translations = $translations;
         $this->brand_id = $brand_id;
@@ -80,6 +82,7 @@ class ProductDto implements DTOInterface
         $this->total_price = $total_price;
         $this->variations = $variations;
         $this->images = $images;
+        $this->featured_image = $featured_image;
     }
 
     public static function fromArray(FormRequest|array $data): DTOInterface
@@ -126,7 +129,8 @@ class ProductDto implements DTOInterface
             selling_price: $arrayData['selling_price'] ?? 0,
             total_price: $total_price,
             variations: $variations,
-            images: $arrayData['images'] ?? []
+            images: $data->hasFile('images') ? $data->file('images') : [],
+            featured_image: $data->hasFile('featured_image') ? $data->file('featured_image') : null
         );
     }
 
@@ -156,7 +160,8 @@ class ProductDto implements DTOInterface
                 'selling_price' => $this->selling_price,
                 'total_price' => $this->total_price,
                 'variations' => $this->variations,
-                'images' => $this->images
+                'images' => $this->images,
+                'featured_image' => $this->featured_image
             ]
         );
     }

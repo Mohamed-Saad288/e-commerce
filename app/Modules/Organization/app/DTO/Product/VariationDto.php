@@ -27,6 +27,7 @@ class VariationDto implements DTOInterface
     public ?float $total_price = null;
     public ?array $translations = [];
     public ?array $option_items = [];
+    public ?array $images = [];
 
 
     public function __construct(
@@ -48,7 +49,8 @@ class VariationDto implements DTOInterface
         ?float $selling_price = null,
         ?float $total_price = null,
         ?array $translations = [],
-        ?array $option_items = []
+        ?array $option_items = [],
+        ?array $images = []
 
     ) {
         $this->organization_id = $organization_id;
@@ -70,6 +72,7 @@ class VariationDto implements DTOInterface
         $this->translations = $translations;
         $this->option_items = $option_items;
         $this->id = $id;
+        $this->images = $images;
     }
 
 
@@ -102,6 +105,7 @@ class VariationDto implements DTOInterface
             total_price: $total_price,
             translations: $translations,
             option_items: $data['option_items'] ?? [],
+            images: $data['images'] ?? []
         );
     }
 
@@ -127,7 +131,8 @@ class VariationDto implements DTOInterface
                 'cost_price' => $this->cost_price,
                 'selling_price' => $this->selling_price,
                 'total_price' => $this->total_price,
-                'option_items' => $this->option_items
+                'option_items' => $this->option_items,
+                'images' => $this->images
             ]
         );
     }

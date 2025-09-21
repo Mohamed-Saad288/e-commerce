@@ -3,6 +3,7 @@
 namespace App\Modules\Organization\app\Services\Brand;
 
 use App\Modules\Base\app\DTO\DTOInterface;
+use App\Modules\Base\app\Filters\CategoryIdFilter;
 use App\Modules\Base\app\Services\BaseService;
 use App\Modules\Organization\app\Models\Brand\Brand;
 use Illuminate\Database\Eloquent\Model;
@@ -45,5 +46,12 @@ class BrandService extends BaseService
 
             return $model;
         });
+    }
+
+    public function filters($request = null): array
+    {
+        return [
+            CategoryIdFilter::class
+        ];
     }
 }
