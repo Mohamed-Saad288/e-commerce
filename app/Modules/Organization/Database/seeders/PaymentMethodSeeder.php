@@ -76,7 +76,7 @@ class PaymentMethodSeeder extends Seeder
                 'code' => $code,
                 'icon' => 'icons/payments/' . $code . '.png',
                 'is_active' => $data['is_active'],
-                'required_settings' => json_encode(config("organization.payment_methods.$code", [])),
+                'required_settings' => json_encode(config("organization.payment_methods.$code.required_settings", [])),
             ];
 
             $paymentMethod = PaymentMethod::updateOrCreate(

@@ -42,4 +42,6 @@ class PaymentMethod extends Model
             ->withPivot(['is_active', 'credentials'])
             ->withTimestamps();
     }
+
+
 }

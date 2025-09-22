@@ -67,7 +67,7 @@ Route::group(
 
                 // Payment methods
                 Route::get('/payment-methods', [OrganizationPaymentMethodController::class, 'index'])->name('payment_methods.index');
-                Route::put('/payment-methods/{id}', [OrganizationPaymentMethodController::class, 'update'])->name('payment_methods.update');
+                Route::PUT('/payment-methods/{id}', [OrganizationPaymentMethodController::class, 'update'])->name('payment_methods.update');
                 /************************** Change status Routes ********************/
                 Route::prefix('change_status')->group(function () {
                     Route::post('products/{product}', [ProductController::class, 'changeStatus'])->name('products.change_status');

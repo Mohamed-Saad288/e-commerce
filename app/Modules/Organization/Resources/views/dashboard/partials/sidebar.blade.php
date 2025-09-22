@@ -90,7 +90,7 @@
 
                     <li class="nav-item">
                         <a class="nav-link {{ request()->routeIs('organization.payment_settings.*') ? 'active' : '' }}" href="{{ route('organization.payment_methods.index') }}">
-                            <i class="fe fe-box fe-16"></i>
+                            <i class="fe fe-credit-card fe-16"></i>
                             <span class="ml-3 item-text">{{ __('organizations.payment_methods') }}</span>
                         </a>
                     </li>
