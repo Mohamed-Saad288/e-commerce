@@ -38,7 +38,7 @@ class HeaderDto implements DTOInterface
             translations: $translations,
             organization_id: auth()->user()->organization_id ?? null,
             employee_id: auth()->user()->id,
-            image: $arrayData['image']
+            image: $arrayData['image'] ?? null
         );
     }
 

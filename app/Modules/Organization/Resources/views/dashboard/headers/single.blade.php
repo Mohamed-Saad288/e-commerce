@@ -52,4 +52,17 @@
             });
         });
     </script>
+    <script>
+        $(document).ready(function() {
+            $('.summernote').summernote({
+                height: 200,  // Set editor height
+                toolbar: [
+                    ['style', ['bold', 'italic', 'underline', 'clear']],
+                    ['para', ['ul', 'ol', 'paragraph']],
+                    ['insert', ['link', 'picture']],
+                    ['view', ['fullscreen', 'codeview']]
+                ]
+            });
+        });
+    </script>
 @endsection
