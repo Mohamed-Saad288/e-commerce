@@ -66,6 +66,55 @@ class PaymentMethodSeeder extends Seeder
                     'ar' => ['name' => 'إنستا باي', 'description' => 'ادفع فورًا باستخدام حساب إنستا باي الخاص بك.'],
                 ],
             ],
+            'visa' => [
+                'is_active' => true,
+                'translations' => [
+                    'en' => ['name' => 'Visa', 'description' => 'Securely pay with your Visa card.'],
+                    'ar' => ['name' => 'فيزا', 'description' => 'ادفع بأمان باستخدام بطاقة فيزا.'],
+                ],
+            ],
+            'mastercard' => [
+                'is_active' => true,
+                'translations' => [
+                    'en' => ['name' => 'Mastercard', 'description' => 'Securely pay with your Mastercard.'],
+                    'ar' => ['name' => 'ماستركارد', 'description' => 'ادفع بأمان باستخدام بطاقة ماستركارد.'],
+                ],
+            ],
+            'mada' => [
+                'is_active' => false,
+                'translations' => [
+                    'en' => ['name' => 'Mada', 'description' => 'Use your Mada debit card for a secure payment.'],
+                    'ar' => ['name' => 'مدى', 'description' => 'استخدم بطاقة مدى الخاصة بك للدفع الآمن.'],
+                ],
+            ],
+            'fawry' => [
+                'is_active' => false,
+                'translations' => [
+                    'en' => ['name' => 'Fawry', 'description' => 'Pay through any Fawry payment channel.'],
+                    'ar' => ['name' => 'فوري', 'description' => 'ادفع عبر أي من قنوات الدفع الخاصة بفوري.'],
+                ],
+            ],
+            'tabby' => [
+                'is_active' => false,
+                'translations' => [
+                    'en' => ['name' => 'Tabby', 'description' => 'Buy now, pay later with Tabby.'],
+                    'ar' => ['name' => 'تابي', 'description' => 'اشترِ الآن، وادفع لاحقًا مع تابي.'],
+                ],
+            ],
+            'moyasar' => [
+                'is_active' => false,
+                'translations' => [
+                    'en' => ['name' => 'Moyasar', 'description' => 'Pay with a secure gateway for payments in Saudi Arabia.'],
+                    'ar' => ['name' => 'ميسر', 'description' => 'ادفع باستخدام بوابة دفع آمنة للمدفوعات في المملكة العربية السعودية.'],
+                ],
+            ],
+            'paymob' => [
+                'is_active' => false,
+                'translations' => [
+                    'en' => ['name' => 'Paymob', 'description' => 'A payment gateway for online and in-store transactions.'],
+                    'ar' => ['name' => 'باي موب', 'description' => 'بوابة دفع للمعاملات عبر الإنترنت وفي المتاجر.'],
+                ],
+            ],
         ];
 
         foreach ($paymentMethods as $code => $data) {

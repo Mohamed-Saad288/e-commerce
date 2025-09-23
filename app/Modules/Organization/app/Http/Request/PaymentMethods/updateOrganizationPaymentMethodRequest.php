@@ -21,7 +21,6 @@ class updateOrganizationPaymentMethodRequest extends FormRequest
             'credentials.*' => 'nullable|string|max:255',
         ];
 
-        // إضافة قواعد إضافية عند تفعيل طريقة الدفع
         if ($this->boolean('is_active')) {
             $paymentMethodId = $this->route('payment_method') ?? $this->route()->parameter('id');
             $paymentMethod = PaymentMethod::find($paymentMethodId);

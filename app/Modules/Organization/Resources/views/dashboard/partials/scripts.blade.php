@@ -1,8 +1,9 @@
-<script src="{{ asset('assets-admin') }}/js/jquery.min.js"></script>
-<script src="{{ asset('assets-admin') }}/js/popper.min.js"></script>
-<script src="{{ asset('assets-admin') }}/js/moment.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
 <script src="{{ asset('assets-admin') }}/js/bootstrap.min.js"></script>
+
 <script src="{{ asset('assets-admin') }}/js/simplebar.min.js"></script>
+<script src="{{ asset('assets-admin') }}/js/moment.min.js"></script>
 <script src='{{ asset('assets-admin') }}/js/daterangepicker.js'></script>
 <script src='{{ asset('assets-admin') }}/js/jquery.stickOnScroll.js'></script>
 <script src="{{ asset('assets-admin') }}/js/tinycolor-min.js"></script>
@@ -15,11 +16,6 @@
 <script src="{{ asset('assets-admin') }}/js/Chart.min.js"></script>
 <script src='{{ asset('assets-admin') }}/js/jquery.dataTables.min.js'></script>
 <script src='{{ asset('assets-admin') }}/js/dataTables.bootstrap4.min.js'></script>
-<script>
-    /* defind global options */
-    Chart.defaults.global.defaultFontFamily = base.defaultFontFamily;
-    Chart.defaults.global.defaultFontColor = colors.mutedColor;
-</script>
 <script src="{{ asset('assets-admin') }}/js/gauge.min.js"></script>
 <script src="{{ asset('assets-admin') }}/js/jquery.sparkline.min.js"></script>
 <script src="{{ asset('assets-admin') }}/js/apexcharts.min.js"></script>
@@ -32,6 +28,32 @@
 <script src='{{ asset('assets-admin') }}/js/dropzone.min.js'></script>
 <script src='{{ asset('assets-admin') }}/js/uppy.min.js'></script>
 <script src='{{ asset('assets-admin') }}/js/quill.min.js'></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.13/js/select2.min.js"></script>
+
+<script src="{{ asset('assets-admin') }}/js/apps.js"></script>
+<script>
+    /* defind global options */
+    Chart.defaults.global.defaultFontFamily = base.defaultFontFamily;
+    Chart.defaults.global.defaultFontColor = colors.mutedColor;
+</script>
+{{--<script src="{{ asset('assets-admin') }}/js/gauge.min.js"></script>--}}
+{{--<script src="{{ asset('assets-admin') }}/js/jquery.sparkline.min.js"></script>--}}
+{{--<script src="{{ asset('assets-admin') }}/js/apexcharts.min.js"></script>--}}
+{{--<script src="{{ asset('assets-admin') }}/js/apexcharts.custom.js"></script>--}}
+{{--<script src='{{ asset('assets-admin') }}/js/jquery.mask.min.js'></script>--}}
+{{--<script src='{{ asset('assets-admin') }}/js/select2.min.js'></script>--}}
+{{--<script src='{{ asset('assets-admin') }}/js/jquery.steps.min.js'></script>--}}
+{{--<script src='{{ asset('assets-admin') }}/js/jquery.validate.min.js'></script>--}}
+{{--<script src='{{ asset('assets-admin') }}/js/jquery.timepicker.js'></script>--}}
+{{--<script src='{{ asset('assets-admin') }}/js/dropzone.min.js'></script>--}}
+{{--<script src='{{ asset('assets-admin') }}/js/uppy.min.js'></script>--}}
+{{--<script src='{{ asset('assets-admin') }}/js/quill.min.js'></script>--}}
+{{--<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>--}}
 {{-- <script src='{{ asset('js/tinymce.min.js') }}'></script> --}}
 {{--<script src='{{ asset('tinymce/tinymce.min.js') }}'></script>--}}
 {{--<script src='{{ asset('tinymce/license.md') }}'></script>--}}
@@ -43,10 +65,10 @@
 {{--    referrerpolicy="origin"></script>--}}
 
 <!-- Toastr JS -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
+{{--<script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>--}}
 
 {{-- sweet alert --}}
-<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+{{--<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>--}}
 
 
 {{-- Include Select2 CSS --}}
@@ -54,12 +76,12 @@
 {{--<link href="https://cdnjs.cloudflare.com/ajax/libs/select2-bootstrap-theme/0.1.0-beta.10/select2-bootstrap.min.css" rel="stylesheet" />--}}
 
 {{-- Include Select2 JS--}}
-<script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.13/js/select2.min.js"></script>
+{{--<script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.13/js/select2.min.js"></script>--}}
 
 
-<script src='{{ asset('assets-admin') }}/js/jquery.dataTables.min.js'></script>
-<script src='{{ asset('assets-admin') }}/js/dataTables.bootstrap4.min.js'></script>
-<script src="{{ asset('assets-admin') }}/js/apps.js"></script>
+{{--<script src='{{ asset('assets-admin') }}/js/jquery.dataTables.min.js'></script>--}}
+{{--<script src='{{ asset('assets-admin') }}/js/dataTables.bootstrap4.min.js'></script>--}}
+{{--<script src="{{ asset('assets-admin') }}/js/apps.js"></script>--}}
 
 
 <script>

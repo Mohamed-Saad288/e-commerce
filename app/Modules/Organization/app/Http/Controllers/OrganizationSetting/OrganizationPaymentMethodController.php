@@ -34,7 +34,12 @@ class OrganizationPaymentMethodController extends Controller
                 })
                 ->toArray();
 
-            return view('organization::dashboard.payment_methods.index', compact('paymentMethods', 'orgPaymentMethods'));
+            $activeMethodId = $organization->paymentMethods()
+                ->withPivot('is_active')
+                ->wherePivot('is_active', true)
+                ->orderBy('payment_methods.id') // Use the table name to clarify
+                ->value('payment_method_id');
+            return view('organization::dashboard.payment_methods.index', get_defined_vars());
 
         } catch (\Exception $e) {
             Log::error('Error loading payment methods: ' . $e->getMessage());
@@ -54,7 +59,6 @@ class OrganizationPaymentMethodController extends Controller
                 ], 404);
             }
 
-            // التحقق من وجود payment method
             $paymentMethod = PaymentMethod::findOrFail($id);
 
             $validated = $request->validated();
@@ -64,22 +68,19 @@ class OrganizationPaymentMethodController extends Controller
                 'payment_method_id' => $id,
             ]);
 
-            // تحديث حالة التفعيل
             if ($request->has('is_active')) {
                 $orgPaymentMethod->is_active = (bool) $request->input('is_active');
             }
 
-            // تحديث بيانات الاعتماد
+            $credentials = $validated['credentials'] ?? [];
             if (array_key_exists('credentials', $validated)) {
-                $credentials = $validated['credentials'] ?? [];
-
-                // تنظيف البيانات الفارغة
                 $cleanedCredentials = array_filter($credentials, function($value) {
                     return !is_null($value) && trim($value) !== '';
                 });
 
-                $orgPaymentMethod->credentials = json_encode($cleanedCredentials);
+                $credentials = $cleanedCredentials;
             }
+            $orgPaymentMethod->credentials = json_encode($credentials);
 
             $orgPaymentMethod->save();
 

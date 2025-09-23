@@ -25,4 +25,25 @@ return [
     'instapay' => [
         'required_settings' => ['instapay_id'],
     ],
+    'visa' => [
+        'required_settings' => ['api_key', 'secret_key'],
+    ],
+    'mastercard' => [
+        'required_settings' => ['api_key', 'secret_key'],
+    ],
+    'mada' => [
+        'required_settings' => ['api_key', 'secret_key', 'merchant_id'],
+    ],
+    'fawry' => [
+        'required_settings' => ['merchant_code', 'security_key'],
+    ],
+    'tabby' => [
+        'required_settings' => ['public_key', 'secret_key'],
+    ],
+    'moyasar' => [
+        'required_settings' => ['api_key', 'publishable_api_key'],
+    ],
+    'paymob' => [
+        'required_settings' => ['api_key', 'hmac_secret', 'merchant_id'],
+    ],
 ];
