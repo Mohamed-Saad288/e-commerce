@@ -89,6 +89,7 @@ return [
     'edit_our_team' => "Edit Our Team",
     "organization_settings" => "Organization Settings",
     "edit_organization_setting" => "Edit Organization Setting",
+    'payment' => "Payment"
 
 
 ];

@@ -2,376 +2,267 @@
 @section('title', __('messages.home'))
 
 @section('content')
+    <style>
+        .card {
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            border-radius: 15px;
+            backdrop-filter: blur(5px); /* Reduced blur for better visibility */
+            background: rgba(255, 255, 255, 0.7); /* Increased opacity for less transparency */
+            border: 1px solid rgba(255, 255, 255, 0.4); /* Slightly stronger border */
+        }
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+        }
+        .card-body {
+            padding: 1.5rem;
+        }
+        .progress {
+            background: rgba(255, 255, 255, 0.3);
+            border-radius: 5px;
+        }
+        .progress-bar {
+            border-radius: 5px;
+        }
+        h5 {
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+        h2 {
+            font-weight: 700;
+            font-size: 2.5rem;
+        }
+        .options-card {
+            background: linear-gradient(135deg, #1f4037 0%, #99f2c8 100%) !important;
+            box-shadow: 0 0 20px rgba(153, 242, 200, 0.3);
+        }
+        .options-card .btn {
+            transition: background-color 0.3s ease, transform 0.2s ease, box-shadow 0.3s ease;
+            border-radius: 10px;
+            font-size: 1.1rem;
+            padding: 0.75rem 1.5rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: linear-gradient(135deg, #ffffff 0%, #e0e0e0 100%);
+            color: #1f4037;
+            font-weight: 500;
+        }
+        .options-card .btn:hover {
+            transform: scale(1.05);
+            background: linear-gradient(135deg, #e0e0e0 0%, #ffffff 100%);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+        }
+        .options-card .btn i {
+            margin-right: 0.5rem;
+        }
+        .options-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 1rem;
+        }
+    </style>
+
     <div class="container-fluid">
         <div class="row justify-content-center">
             <div class="col-12">
-                <div class="row align-items-center mb-2">
+                <div class="row align-items-center mb-5">
                     <div class="col">
-                        <h2 class="h5 page-title">{{ __('messages.welcome') }}!</h2>
+                        <h2 class="h3 page-title text-dark">{{ __('messages.welcome') }}!</h2>
                     </div>
                     <div class="col-auto">
                         <form class="form-inline">
                             <div class="form-group d-none d-lg-inline">
-                                <span class="small"> {{ now()->format('F j, Y') }} <div class="clock" id="clock"></div>
+                                <span class="small text-dark"> {{ now()->format('F j, Y') }} <div class="clock" id="clock"></div>
                                 </span>
                             </div>
                         </form>
                     </div>
                 </div>
 
-                <!-- info small box -->
-                <div class="row">
-                    <div class="col-md-4 mb-4">
-                        <div class="card shadow">
+                <!-- Luxurious Statistics Section -->
+                <div class="row my-4">
+                    <!-- Pending Orders -->
+                    <div class="col-md-4 col-lg-3 mb-4">
+                        <div class="card shadow border-0 rounded-lg overflow-hidden" style="background: linear-gradient(135deg, #d4a017 0%, #e5734f 100%);">
                             <div class="card-body">
-                                <div class="row align-items-center">
-                                    <div class="col">
-                                        <span class="h2 mb-0">0</span>
-                                        <p class="small text-muted mb-0">{{ __('messages.service') }}</p>
+                                <div class="d-flex align-items-center">
+                                    <div class="flex-grow-1">
+                                        <h5 class="text-white mb-2">Pending Orders</h5>
+                                        <h2 class="text-white mb-0">{{ $pendingOrders ?? 0 }}</h2>
                                     </div>
-                                    <div class="col-auto">
-                                        <span class="fe fe-32 fe-briefcase text-muted mb-0"></span>
+                                    <div class="ml-auto">
+                                        <i class="fe fe-clock fe-3x text-white-50"></i>
                                     </div>
+                                </div>
+                                <div class="progress mt-3" style="height: 6px;">
+                                    <div class="progress-bar bg-white" role="progressbar" style="width: 60%;" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100"></div>
                                 </div>
                             </div>
                         </div>
                     </div>
-                    <div class="col-md-4 mb-4">
-                        <div class="card shadow">
+
+                    <!-- Approved Orders -->
+                    <div class="col-md-4 col-lg-3 mb-4">
+                        <div class="card shadow border-0 rounded-lg overflow-hidden" style="background: linear-gradient(135deg, #5fc78a 0%, #5f9cc5 100%);">
                             <div class="card-body">
-                                <div class="row align-items-center">
-                                    <div class="col">
-                                        <span class="h2 mb-0">0</span>
-                                        <p class="small text-muted mb-0">{{ __('messages.message') }}</p>
+                                <div class="d-flex align-items-center">
+                                    <div class="flex-grow-1">
+                                        <h5 class="text-white mb-2">Approved Orders</h5>
+                                        <h2 class="text-white mb-0">{{ $approvedOrders ?? 0 }}</h2>
                                     </div>
-                                    <div class="col-auto">
-                                        <span class="fe fe-32 fe-phone text-muted mb-0"></span>
+                                    <div class="ml-auto">
+                                        <i class="fe fe-check-circle fe-3x text-white-50"></i>
                                     </div>
+                                </div>
+                                <div class="progress mt-3" style="height: 6px;">
+                                    <div class="progress-bar bg-white" role="progressbar" style="width: 80%;" aria-valuenow="80" aria-valuemin="0" aria-valuemax="100"></div>
                                 </div>
                             </div>
                         </div>
                     </div>
-                    <div class="col-md-4 mb-4">
-                        <div class="card shadow">
+
+                    <!-- Total Orders -->
+                    <div class="col-md-4 col-lg-3 mb-4">
+                        <div class="card shadow border-0 rounded-lg overflow-hidden" style="background: linear-gradient(135deg, #7b4ca0 0%, #d88eb2 100%);">
                             <div class="card-body">
-                                <div class="row align-items-center">
-                                    <div class="col">
-                                        <span class="h2 mb-0">0</span>
-                                        <p class="small text-muted mb-0">{{ __('messages.employees') }}</p>
+                                <div class="d-flex align-items-center">
+                                    <div class="flex-grow-1">
+                                        <h5 class="text-white mb-2">Total Orders</h5>
+                                        <h2 class="text-white mb-0">{{ $totalOrders ?? 0 }}</h2>
                                     </div>
-                                    <div class="col-auto">
-                                        <span class="fe fe-32 fe-users text-muted mb-0"></span>
+                                    <div class="ml-auto">
+                                        <i class="fe fe-shopping-cart fe-3x text-white-50"></i>
                                     </div>
+                                </div>
+                                <div class="progress mt-3" style="height: 6px;">
+                                    <div class="progress-bar bg-white" role="progressbar" style="width: 90%;" aria-valuenow="90" aria-valuemin="0" aria-valuemax="100"></div>
                                 </div>
                             </div>
                         </div>
                     </div>
-                </div> <!-- end section -->
 
+                    <!-- Products -->
+                    <div class="col-md-4 col-lg-3 mb-4">
+                        <div class="card shadow border-0 rounded-lg overflow-hidden" style="background: linear-gradient(135deg, #4a5db5 0%, #4a326b 100%);">
+                            <div class="card-body">
+                                <div class="d-flex align-items-center">
+                                    <div class="flex-grow-1">
+                                        <h5 class="text-white mb-2">Products</h5>
+                                        <h2 class="text-white mb-0">{{ $products ?? 0 }}</h2>
+                                    </div>
+                                    <div class="ml-auto">
+                                        <i class="fe fe-package fe-3x text-white-50"></i>
+                                    </div>
+                                </div>
+                                <div class="progress mt-3" style="height: 6px;">
+                                    <div class="progress-bar bg-white" role="progressbar" style="width: 70%;" aria-valuenow="70" aria-valuemin="0" aria-valuemax="100"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
 
-{{--                <div class="row">--}}
-{{--                    <!-- Recent Activity -->--}}
-{{--                    <div class="col-md-12 col-lg-4 mb-4">--}}
-{{--                        <div class="card timeline shadow">--}}
-{{--                            <div class="card-header">--}}
-{{--                                <strong class="card-title">{{__('activity.activity_log')}}</strong>--}}
-{{--                                <a class="float-right small text-muted"--}}
-{{--                                   href="{{route('admin.fetch_activity')}}">{{__('activity.view_all')}}</a>--}}
-{{--                            </div>--}}
-{{--                            <div class="card-body" data-simplebar--}}
-{{--                                 style="height:355px; overflow-y: auto; overflow-x: hidden;">--}}
-{{--                                <h6 class="text-uppercase text-muted mb-4">{{__('activity.last_activity')}}</h6>--}}
-{{--                                <div class="pb-3 timeline-item ">--}}
-{{--                                    @foreach($activities as $activity)--}}
-{{--                                        <div class="pl-5">--}}
-{{--                                            <div class="mb-1">--}}
-{{--                                                {{ $loop->iteration }}--}}
-{{--                                            </div>--}}
-{{--                                            <div class="mb-1">--}}
-{{--                                                <strong>--}}
-{{--                                                    <a href="{{ route('admin.profile.show', $activity->causer->id ?? '#') }}">--}}
-{{--                                                        {{ $activity->causer->name ?? 'Admin' }}--}}
-{{--                                                    </a>--}}
-{{--                                                </strong>--}}
-{{--                                                <span--}}
-{{--                                                    class="text-muted small mx-2">   @if(App::isLocale('ar'))--}}
-{{--                                                        {{ $activity->description_ar }}--}}
-{{--                                                    @else--}}
-{{--                                                        {{ $activity->description_en }}--}}
-{{--                                                    @endif--}}
-{{--                                                </span>--}}
-{{--                                            </div>--}}
-{{--                                            <p class="small text-muted">--}}
-{{--                                                {{ $activity->created_at->diffForHumans() }}--}}
-{{--                                                <span--}}
-{{--                                                    class="badge badge-light">{{ $activity->created_at->format('g:i A') }}</span>--}}
-{{--                                            </p>--}}
-{{--                                        </div>--}}
-{{--                                    @endforeach--}}
+                    <!-- Brands -->
+                    <div class="col-md-4 col-lg-3 mb-4">
+                        <div class="card shadow border-0 rounded-lg overflow-hidden" style="background: linear-gradient(135deg, #cc6569 0%, #d99bc3 100%);">
+                            <div class="card-body">
+                                <div class="d-flex align-items-center">
+                                    <div class="flex-grow-1">
+                                        <h5 class="text-white mb-2">Brands</h5>
+                                        <h2 class="text-white mb-0">{{ $brands ?? 0 }}</h2>
+                                    </div>
+                                    <div class="ml-auto">
+                                        <i class="fe fe-tag fe-3x text-white-50"></i>
+                                    </div>
+                                </div>
+                                <div class="progress mt-3" style="height: 6px;">
+                                    <div class="progress-bar bg-white" role="progressbar" style="width: 50%;" aria-valuenow="50" aria-valuemin="0" aria-valuemax="100"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
 
-{{--                                </div>--}}
-{{--                            </div> <!-- / .card-body -->--}}
-{{--                        </div> <!-- / .card -->--}}
-{{--                    </div> <!-- / .col-md-6 -->--}}
-{{--                    <!-- Striped rows -->--}}
-{{--                    <div class="col-md-12 col-lg-8">--}}
-{{--                        <div class="card shadow">--}}
-{{--                            <div class="card-header">--}}
-{{--                                <strong class="card-title">Recent Data</strong>--}}
-{{--                                <a class="float-right small text-muted" href="#!">View all</a>--}}
-{{--                            </div>--}}
-{{--                            <div class="card-body my-n2">--}}
-{{--                                <table class="table table-striped table-hover table-borderless">--}}
-{{--                                    <thead>--}}
-{{--                                    <tr>--}}
-{{--                                        <th>ID</th>--}}
-{{--                                        <th>Name</th>--}}
-{{--                                        <th>Address</th>--}}
-{{--                                        <th>Date</th>--}}
-{{--                                        <th>Action</th>--}}
-{{--                                    </tr>--}}
-{{--                                    </thead>--}}
-{{--                                    <tbody>--}}
-{{--                                    <tr>--}}
-{{--                                        <td>2474</td>--}}
-{{--                                        <th scope="col">Brown, Asher D.</th>--}}
-{{--                                        <td>Ap #331-7123 Lobortis Avenue</td>--}}
-{{--                                        <td>13/09/2020</td>--}}
-{{--                                        <td>--}}
-{{--                                            <div class="dropdown">--}}
-{{--                                                <button class="btn btn-sm dropdown-toggle more-vertical"--}}
-{{--                                                        type="button" id="dr1" data-toggle="dropdown"--}}
-{{--                                                        aria-haspopup="true" aria-expanded="false">--}}
-{{--                                                    <span class="text-muted sr-only">Action</span>--}}
-{{--                                                </button>--}}
-{{--                                                <div class="dropdown-menu dropdown-menu-right" aria-labelledby="dr1">--}}
-{{--                                                    <a class="dropdown-item" href="#">Edit</a>--}}
-{{--                                                    <a class="dropdown-item" href="#">Remove</a>--}}
-{{--                                                    <a class="dropdown-item" href="#">Assign</a>--}}
-{{--                                                </div>--}}
-{{--                                            </div>--}}
-{{--                                        </td>--}}
-{{--                                    </tr>--}}
-{{--                                    <tr>--}}
-{{--                                        <td>2786</td>--}}
-{{--                                        <th scope="col">Leblanc, Yoshio V.</th>--}}
-{{--                                        <td>287-8300 Nisl. St.</td>--}}
-{{--                                        <td>04/05/2019</td>--}}
-{{--                                        <td>--}}
-{{--                                            <div class="dropdown">--}}
-{{--                                                <button class="btn btn-sm dropdown-toggle more-vertical"--}}
-{{--                                                        type="button" id="dr2" data-toggle="dropdown"--}}
-{{--                                                        aria-haspopup="true" aria-expanded="false">--}}
-{{--                                                    <span class="text-muted sr-only">Action</span>--}}
-{{--                                                </button>--}}
-{{--                                                <div class="dropdown-menu dropdown-menu-right" aria-labelledby="dr2">--}}
-{{--                                                    <a class="dropdown-item" href="#">Edit</a>--}}
-{{--                                                    <a class="dropdown-item" href="#">Remove</a>--}}
-{{--                                                    <a class="dropdown-item" href="#">Assign</a>--}}
-{{--                                                </div>--}}
-{{--                                            </div>--}}
-{{--                                        </td>--}}
-{{--                                    </tr>--}}
-{{--                                    <tr>--}}
-{{--                                        <td>2747</td>--}}
-{{--                                        <th scope="col">Hester, Nissim L.</th>--}}
-{{--                                        <td>4577 Cras St.</td>--}}
-{{--                                        <td>04/06/2019</td>--}}
-{{--                                        <td>--}}
-{{--                                            <div class="dropdown">--}}
-{{--                                                <button class="btn btn-sm dropdown-toggle more-vertical"--}}
-{{--                                                        type="button" data-toggle="dropdown" aria-haspopup="true"--}}
-{{--                                                        aria-expanded="false">--}}
-{{--                                                    <span class="text-muted sr-only">Action</span>--}}
-{{--                                                </button>--}}
-{{--                                                <div class="dropdown-menu dropdown-menu-right">--}}
-{{--                                                    <a class="dropdown-item" href="#">Edit</a>--}}
-{{--                                                    <a class="dropdown-item" href="#">Remove</a>--}}
-{{--                                                    <a class="dropdown-item" href="#">Assign</a>--}}
-{{--                                                </div>--}}
-{{--                                            </div>--}}
-{{--                                        </td>--}}
-{{--                                    </tr>--}}
-{{--                                    <tr>--}}
-{{--                                        <td>2639</td>--}}
-{{--                                        <th scope="col">Gardner, Leigh S.</th>--}}
-{{--                                        <td>P.O. Box 228, 7512 Lectus Ave</td>--}}
-{{--                                        <td>04/08/2019</td>--}}
-{{--                                        <td>--}}
-{{--                                            <div class="dropdown">--}}
-{{--                                                <button class="btn btn-sm dropdown-toggle more-vertical"--}}
-{{--                                                        type="button" id="dr4" data-toggle="dropdown"--}}
-{{--                                                        aria-haspopup="true" aria-expanded="false">--}}
-{{--                                                    <span class="text-muted sr-only">Action</span>--}}
-{{--                                                </button>--}}
-{{--                                                <div class="dropdown-menu dropdown-menu-right" aria-labelledby="dr4">--}}
-{{--                                                    <a class="dropdown-item" href="#">Edit</a>--}}
-{{--                                                    <a class="dropdown-item" href="#">Remove</a>--}}
-{{--                                                    <a class="dropdown-item" href="#">Assign</a>--}}
-{{--                                                </div>--}}
-{{--                                            </div>--}}
-{{--                                        </td>--}}
-{{--                                    </tr>--}}
-{{--                                    <tr>--}}
-{{--                                        <td>2238</td>--}}
-{{--                                        <th scope="col">Higgins, Uriah L.</th>--}}
-{{--                                        <td>Ap #377-5357 Sed Road</td>--}}
-{{--                                        <td>04/01/2019</td>--}}
-{{--                                        <td>--}}
-{{--                                            <div class="dropdown">--}}
-{{--                                                <button class="btn btn-sm dropdown-toggle more-vertical"--}}
-{{--                                                        type="button" id="dr5" data-toggle="dropdown"--}}
-{{--                                                        aria-haspopup="true" aria-expanded="false">--}}
-{{--                                                    <span class="text-muted sr-only">Action</span>--}}
-{{--                                                </button>--}}
-{{--                                                <div class="dropdown-menu dropdown-menu-right" aria-labelledby="dr5">--}}
-{{--                                                    <a class="dropdown-item" href="#">Edit</a>--}}
-{{--                                                    <a class="dropdown-item" href="#">Remove</a>--}}
-{{--                                                    <a class="dropdown-item" href="#">Assign</a>--}}
-{{--                                                </div>--}}
-{{--                                            </div>--}}
-{{--                                        </td>--}}
-{{--                                    </tr>--}}
-{{--                                    </tbody>--}}
-{{--                                </table>--}}
-{{--                            </div>--}}
-{{--                        </div>--}}
-{{--                    </div> <!-- Striped rows -->--}}
-{{--                </div> <!-- .row-->--}}
+                    <!-- Categories -->
+                    <div class="col-md-4 col-lg-3 mb-4">
+                        <div class="card shadow border-0 rounded-lg overflow-hidden" style="background: linear-gradient(135deg, #6cc2bf 0%, #d998b2 100%);">
+                            <div class="card-body">
+                                <div class="d-flex align-items-center">
+                                    <div class="flex-grow-1">
+                                        <h5 class="text-white mb-2">Categories</h5>
+                                        <h2 class="text-white mb-0">{{ $categories ?? 0 }}</h2>
+                                    </div>
+                                    <div class="ml-auto">
+                                        <i class="fe fe-grid fe-3x text-white-50"></i>
+                                    </div>
+                                </div>
+                                <div class="progress mt-3" style="height: 6px;">
+                                    <div class="progress-bar bg-white" role="progressbar" style="width: 40%;" aria-valuenow="40" aria-valuemin="0" aria-valuemax="100"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Users -->
+                    <div class="col-md-4 col-lg-3 mb-4">
+                        <div class="card shadow border-0 rounded-lg overflow-hidden" style="background: linear-gradient(135deg, #5cd6d4 0%, #b71fa6 100%);">
+                            <div class="card-body">
+                                <div class="d-flex align-items-center">
+                                    <div class="flex-grow-1">
+                                        <h5 class="text-white mb-2">Users</h5>
+                                        <h2 class="text-white mb-0">{{ $users ?? 0 }}</h2>
+                                    </div>
+                                    <div class="ml-auto">
+                                        <i class="fe fe-users fe-3x text-white-50"></i>
+                                    </div>
+                                </div>
+                                <div class="progress mt-3" style="height: 6px;">
+                                    <div class="progress-bar bg-white" role="progressbar" style="width: 85%;" aria-valuenow="85" aria-valuemin="0" aria-valuemax="100"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Employees -->
+                    <div class="col-md-4 col-lg-3 mb-4">
+                        <div class="card shadow border-0 rounded-lg overflow-hidden" style="background: linear-gradient(135deg, #1e3c53 0%, #3a2f53 100%);">
+                            <div class="card-body">
+                                <div class="d-flex align-items-center">
+                                    <div class="flex-grow-1">
+                                        <h5 class="text-white mb-2">Employees</h5>
+                                        <h2 class="text-white mb-0">{{ $employees ?? 0 }}</h2>
+                                    </div>
+                                    <div class="ml-auto">
+                                        <i class="fe fe-briefcase fe-3x text-white-50"></i>
+                                    </div>
+                                </div>
+                                <div class="progress mt-3" style="height: 6px;">
+                                    <div class="progress-bar bg-white" role="progressbar" style="width: 75%;" aria-valuenow="75" aria-valuemin="0" aria-valuemax="100"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div> <!-- end statistics section -->
+
+                <!-- Full-Width Quick Actions Card -->
+                <div class="row my-4">
+                    <div class="col-12">
+                        <div class="card shadow border-0 rounded-lg overflow-hidden options-card">
+                            <div class="card-body">
+                                <h5 class="text-white mb-4">Quick Actions</h5>
+                                <div class="options-grid">
+                                    <a href="/" class="btn btn-light"><i class="fe fe-plus-circle"></i> Create Order</a>
+                                    <a href="/" class="btn btn-light"><i class="fe fe-package"></i> Add Product</a>
+                                    <a href="/" class="btn btn-light"><i class="fe fe-users"></i> Manage Users</a>
+                                    <a href="/" class="btn btn-light"><i class="fe fe-bar-chart-2"></i> View Reports</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div> <!-- .col-12 -->
         </div> <!-- .row -->
     </div> <!-- .container-fluid -->
-    <div class="modal fade modal-notif modal-slide" tabindex="-1" role="dialog" aria-labelledby="defaultModalLabel"
-         aria-hidden="true">
-        <div class="modal-dialog modal-sm" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="defaultModalLabel">Notifications</h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                </div>
-                <div class="modal-body">
-                    <div class="list-group list-group-flush my-n3">
-                        <div class="list-group-item bg-transparent">
-                            <div class="row align-items-center">
-                                <div class="col-auto">
-                                    <span class="fe fe-box fe-24"></span>
-                                </div>
-                                <div class="col">
-                                    <small><strong>Package has uploaded successfull</strong></small>
-                                    <div class="my-0 text-muted small">Package is zipped and uploaded</div>
-                                    <small class="badge badge-pill badge-light text-muted">1m ago</small>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="list-group-item bg-transparent">
-                            <div class="row align-items-center">
-                                <div class="col-auto">
-                                    <span class="fe fe-download fe-24"></span>
-                                </div>
-                                <div class="col">
-                                    <small><strong>Widgets are updated successfull</strong></small>
-                                    <div class="my-0 text-muted small">Just create new layout Index, form,
-                                        table
-                                    </div>
-                                    <small class="badge badge-pill badge-light text-muted">2m ago</small>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="list-group-item bg-transparent">
-                            <div class="row align-items-center">
-                                <div class="col-auto">
-                                    <span class="fe fe-inbox fe-24"></span>
-                                </div>
-                                <div class="col">
-                                    <small><strong>Notifications have been sent</strong></small>
-                                    <div class="my-0 text-muted small">Fusce dapibus, tellus ac cursus commodo
-                                    </div>
-                                    <small class="badge badge-pill badge-light text-muted">30m ago</small>
-                                </div>
-                            </div> <!-- / .row -->
-                        </div>
-                        <div class="list-group-item bg-transparent">
-                            <div class="row align-items-center">
-                                <div class="col-auto">
-                                    <span class="fe fe-link fe-24"></span>
-                                </div>
-                                <div class="col">
-                                    <small><strong>Link was attached to menu</strong></small>
-                                    <div class="my-0 text-muted small">New layout has been attached to the menu
-                                    </div>
-                                    <small class="badge badge-pill badge-light text-muted">1h ago</small>
-                                </div>
-                            </div>
-                        </div> <!-- / .row -->
-                    </div> <!-- / .list-group -->
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary btn-block" data-dismiss="modal">Clear
-                        All
-                    </button>
-                </div>
-            </div>
-        </div>
-    </div>
-    <div class="modal fade modal-shortcut modal-slide" tabindex="-1" role="dialog" aria-labelledby="defaultModalLabel"
-         aria-hidden="true">
-        <div class="modal-dialog" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="defaultModalLabel">Shortcuts</h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                </div>
-                <div class="modal-body px-5">
-                    <div class="row align-items-center">
-                        <div class="col-6 text-center">
-                            <div class="squircle bg-success justify-content-center">
-                                <i class="fe fe-cpu fe-32 align-self-center text-white"></i>
-                            </div>
-                            <p>Control area</p>
-                        </div>
-                        <div class="col-6 text-center">
-                            <div class="squircle bg-primary justify-content-center">
-                                <i class="fe fe-activity fe-32 align-self-center text-white"></i>
-                            </div>
-                            <p>Activity</p>
-                        </div>
-                    </div>
-                    <div class="row align-items-center">
-                        <div class="col-6 text-center">
-                            <div class="squircle bg-primary justify-content-center">
-                                <i class="fe fe-droplet fe-32 align-self-center text-white"></i>
-                            </div>
-                            <p>Droplet</p>
-                        </div>
-                        <div class="col-6 text-center">
-                            <div class="squircle bg-primary justify-content-center">
-                                <i class="fe fe-upload-cloud fe-32 align-self-center text-white"></i>
-                            </div>
-                            <p>Upload</p>
-                        </div>
-                    </div>
-                    <div class="row align-items-center">
-                        <div class="col-6 text-center">
-                            <div class="squircle bg-primary justify-content-center">
-                                <i class="fe fe-users fe-32 align-self-center text-white"></i>
-                            </div>
-                            <p>Users</p>
-                        </div>
-                        <div class="col-6 text-center">
-                            <div class="squircle bg-primary justify-content-center">
-                                <i class="fe fe-settings fe-32 align-self-center text-white"></i>
-                            </div>
-                            <p>Settings</p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
 @endsection
 
 @section('after_script')
