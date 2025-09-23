@@ -2,84 +2,79 @@
     $dir = LaravelLocalization::getCurrentLocale() == 'ar' ? 'assets-admin-rtl' : 'assets-admin';
 @endphp
 
-
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <meta name="description" content="">
+    <meta name="description" content="{{ getSiteName() }} - Admin Dashboard">
     <meta name="author" content="">
-    <link rel="icon" href="{{ $logo }}">
+    <link rel="icon" href="{{ htmlspecialchars($logo) }}">
     <title>{{ getSiteName() }} - @yield('title')</title>
+
     <!-- Simple bar CSS -->
-    <link rel="stylesheet" href="{{ asset($dir) }}/css/simplebar.css">
+    <link rel="stylesheet" href="{{ asset($dir . '/css/simplebar.css') }}">
 
     <!-- Icons CSS -->
-    <link rel="stylesheet" href="{{ asset($dir) }}/css/feather.css">
-    <link rel="stylesheet" href="{{ asset($dir) }}/css/select2.css">
-    <link rel="stylesheet" href="{{ asset($dir) }}/css/dropzone.css">
-    <link rel="stylesheet" href="{{ asset($dir) }}/css/uppy.min.css">
-    <link rel="stylesheet" href="{{ asset($dir) }}/css/jquery.steps.css">
-    <link rel="stylesheet" href="{{ asset($dir) }}/css/jquery.timepicker.css">
-    <link rel="stylesheet" href="{{ asset($dir) }}/css/quill.snow.css">
-    <link rel="stylesheet" href="{{ asset($dir) }}/css/feather.css">
-    <link rel="stylesheet" href="{{ asset($dir) }}/css/dataTables.bootstrap4.css">
+    <link rel="stylesheet" href="{{ asset($dir . '/css/feather.css') }}">
+    <link rel="stylesheet" href="{{ asset($dir . '/css/select2.css') }}">
+    <link rel="stylesheet" href="{{ asset($dir . '/css/dropzone.css') }}">
+    <link rel="stylesheet" href="{{ asset($dir . '/css/uppy.min.css') }}">
+    <link rel="stylesheet" href="{{ asset($dir . '/css/jquery.steps.css') }}">
+    <link rel="stylesheet" href="{{ asset($dir . '/css/jquery.timepicker.css') }}">
+    <link rel="stylesheet" href="{{ asset($dir . '/css/quill.snow.css') }}">
+    <link rel="stylesheet" href="{{ asset($dir . '/css/dataTables.bootstrap4.css') }}">
+
     <!-- Date Range Picker CSS -->
-    <link rel="stylesheet" href="{{ asset($dir) }}/css/daterangepicker.css">
+    <link rel="stylesheet" href="{{ asset($dir . '/css/daterangepicker.css') }}">
+
     <!-- App CSS -->
-    <link rel="stylesheet" href="{{ asset($dir) }}/css/app-light.css" id="lightTheme">
-    <link rel="stylesheet" href="{{ asset($dir) }}/css/app-dark.css" id="darkTheme" disabled>
-    <link rel="stylesheet" href="{{ asset('custom.css') }}" id="lightTheme">
+    <link rel="stylesheet" href="{{ asset($dir . '/css/app-light.css') }}" id="lightTheme">
+    <link rel="stylesheet" href="{{ asset($dir . '/css/app-dark.css') }}" id="darkTheme" disabled>
+    <link rel="stylesheet" href="{{ asset('custom.css') }}">
 
     <!-- Toastr CSS -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css"/>
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.20/summernote-bs4.min.css" rel="stylesheet">
-    <!-- jQuery (لازم قبل Summernote) -->
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-
-    <!-- Bootstrap JS (متوافق مع summernote-bs4) -->
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.bundle.min.js"></script>
-
-    <!-- Summernote -->
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.20/summernote-bs4.min.css" rel="stylesheet">
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.20/summernote-bs4.min.js"></script>
-
-
-    <style>
-        .image-preview {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 10px;
-            margin-top: 10px;
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css" onload="if(this.media!='all')this.media='all'" media="print">
+    <!-- Fallback for Toastr CSS -->
+    <script>
+        if (!window.toastr) {
+            document.write('<link rel="stylesheet" href="{{ asset($dir . '/css/toastr.min.css') }}">');
         }
+    </script>
 
-        .image-preview .image-container {
-            position: relative;
-            display: inline-block;
+    <!-- Summernote CSS -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.20/summernote-bs4.min.css" onload="if(this.media!='all')this.media='all'" media="print">
+    <!-- Fallback for Summernote CSS -->
+    <script>
+        if (!window.summernote) {
+            document.write('<link rel="stylesheet" href="{{ asset($dir . '/css/summernote-bs4.min.css') }}">');
         }
+    </script>
 
-        .image-preview img {
-            max-width: 100px;
-            max-height: 100px;
-            object-fit: cover;
-            border: 1px solid #ddd;
-            border-radius: 5px;
+    <!-- jQuery -->
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js" defer></script>
+    <!-- Fallback for jQuery -->
+    <script>
+        if (typeof jQuery === 'undefined') {
+            document.write('<script src="{{ asset($dir . '/js/jquery-3.7.1.min.js') }}" defer><\/script>');
         }
+    </script>
 
-        .remove-image {
-            position: absolute;
-            top: 5px;
-            right: 5px;
-            background: red;
-            color: white;
-            border-radius: 50%;
-            width: 20px;
-            height: 20px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            cursor: pointer;
+    <!-- Bootstrap JS -->
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.bundle.min.js" defer></script>
+    <!-- Fallback for Bootstrap JS -->
+    <script>
+        if (typeof bootstrap === 'undefined') {
+            document.write('<script src="{{ asset($dir . '/js/bootstrap.bundle.min.js') }}" defer><\/script>');
         }
-    </style>
+    </script>
+
+    <!-- Summernote JS -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.20/summernote-bs4.min.js" defer></script>
+    <!-- Fallback for Summernote JS -->
+    <script>
+        if (!window.summernote) {
+            document.write('<script src="{{ asset($dir . '/js/summernote-bs4.min.js') }}" defer><\/script>');
+        }
+    </script>
+
     @yield('styles')
-
 </head>
