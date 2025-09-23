@@ -21,9 +21,13 @@
     @foreach (config('translatable.locales') as $locale)
         <div class="col-md-12">
             <div class="form-group">
-                <label for="description_{{ $locale }}" class="font-weight-bold">{{ __("messages.description_$locale") }}</label>
+                <label for="description_{{ $locale }}" class="font-weight-bold">
+                    {{ __("messages.description_$locale") }}
+                </label>
                 <textarea name="{{ $locale }}[description]" id="description_{{ $locale }}"
-                          class="form-control tinymce-editor @error("$locale.description") is-invalid @enderror" rows="3">{{ old("$locale.description", isset($header) ? $header->translate($locale)->description : '') }}</textarea>
+                          class="form-control summernote @error("$locale.description") is-invalid @enderror" rows="5">
+                    {{ old("$locale.description", isset($header) ? $header->translate($locale)->description : '') }}
+                </textarea>
                 @error("$locale.description")
                 <small class="text-danger">{{ $message }}</small>
                 @enderror

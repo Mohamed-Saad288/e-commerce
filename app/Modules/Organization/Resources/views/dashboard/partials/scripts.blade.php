@@ -60,6 +60,12 @@
 <script src='{{ asset('assets-admin') }}/js/jquery.dataTables.min.js'></script>
 <script src='{{ asset('assets-admin') }}/js/dataTables.bootstrap4.min.js'></script>
 <script src="{{ asset('assets-admin') }}/js/apps.js"></script>
+<!-- jQuery (required for Summernote) -->
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<!-- Bootstrap JS (if not already included) -->
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.bundle.min.js"></script>
+<!-- Summernote JS -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.20/summernote-bs4.min.js"></script>
 
 
 <script>
