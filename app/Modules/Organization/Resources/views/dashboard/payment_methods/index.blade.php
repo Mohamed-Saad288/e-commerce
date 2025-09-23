@@ -73,7 +73,7 @@
                     <div class="d-flex gap-3">
                         <small class="text-muted">
                             <i class="fas fa-toggle-on text-success me-1"></i>
-                            <span class="fw-bold text-success">{{ $activeMethodsCount }}</span> active
+                            <span class="fw-bold text-success active-count">{{ $activeMethodsCount }}</span> active
                         </small>
                         <small class="text-muted">
                             <i class="fas fa-credit-card me-1"></i>
@@ -82,28 +82,13 @@
                     </div>
                 </div>
 
-                <!-- Active Methods Summary (Optional) -->
-                @if($activeMethodsCount > 0)
-                    <div class="mt-2">
-                        <small class="text-success">
-                            <i class="fas fa-check-circle me-1"></i>
-                            Active methods:
-                            @php
-                                $activeMethodNames = [];
-                                foreach($paymentMethods as $method) {
-                                    $pivotData = $orgPaymentMethods[$method->id] ?? null;
-                                    if(($pivotData['is_active'] ?? false)) {
-                                        $activeMethodNames[] = $method->name;
-                                    }
-                                }
-                                echo implode(', ', array_slice($activeMethodNames, 0, 3));
-                                if(count($activeMethodNames) > 3) {
-                                    echo ' and ' . (count($activeMethodNames) - 3) . ' more';
-                                }
-                            @endphp
-                        </small>
-                    </div>
-                @endif
+                <!-- Active Methods Summary (Will show all active methods) -->
+                <div class="mt-2">
+                    <small class="text-success active-methods-summary">
+                        <i class="fas fa-check-circle me-1"></i>
+                        Active methods: <span class="active-methods-list">Loading...</span>
+                    </small>
+                </div>
             </div>
 
             <div class="card-body p-4">
@@ -123,7 +108,8 @@
                              role="tabpanel"
                              aria-labelledby="tab-{{ $method->id }}">
 
-                            <div class="d-flex justify-content-between align-items-center mb-4 p-3 border rounded-3 {{ $isActive ? 'bg-success bg-opacity-10 border-success' : 'bg-light' }}">
+                            <div class="d-flex justify-content-between align-items-center mb-4 p-3 border rounded-3 {{ $isActive ? 'bg-success bg-opacity-10 border-success' : 'bg-light' }}"
+                                 data-method-name="{{ $method->name }}">
                                 <div class="d-flex align-items-center">
                                     <i class="fas fa-credit-card fa-lg me-3 {{ $isActive ? 'text-success' : 'text-muted' }}"></i>
                                     <span class="fw-bold">{{ $method->name }}</span>
@@ -206,6 +192,39 @@
                 return;
             }
 
+            // Store initial active methods for summary
+            let activeMethods = [];
+
+            // Initialize active methods list
+            function initializeActiveMethods() {
+                const methodCards = document.querySelectorAll('[data-method-name]');
+                activeMethods = [];
+                methodCards.forEach(card => {
+                    const badge = card.querySelector('.badge');
+                    if (badge) {
+                        const methodName = card.dataset.methodName;
+                        if (methodName) {
+                            activeMethods.push(methodName);
+                        }
+                    }
+                });
+                updateActiveMethodsSummary();
+            }
+
+            // Update active methods summary - SHOW ALL ACTIVE METHODS
+            function updateActiveMethodsSummary() {
+                const summaryElement = document.querySelector('.active-methods-list');
+                if (!summaryElement) return;
+
+                if (activeMethods.length === 0) {
+                    summaryElement.textContent = 'None';
+                    return;
+                }
+
+                // SHOW ALL ACTIVE METHODS (no truncation)
+                summaryElement.textContent = activeMethods.join(', ');
+            }
+
             function fetchWithHeaders(url, options = {}) {
                 const defaultHeaders = {
                     'X-Requested-With': 'XMLHttpRequest',
@@ -248,26 +267,50 @@
                 }
             }
 
-            // Update active methods counter
-            function updateActiveMethodsCounter() {
+            // Update active methods counter and summary - PREVENT DUPLICATES
+            function updateActiveMethodsDisplay(methodName, isActive) {
                 try {
-                    const activeSwitches = document.querySelectorAll('.toggle-switch:checked');
-                    const activeCount = activeSwitches.length;
-
-                    // Update counter in header
-                    const counterElement = document.querySelector('.text-success.fw-bold');
+                    // Update counter
+                    const counterElement = document.querySelector('.active-count');
                     if (counterElement) {
-                        counterElement.textContent = activeCount;
+                        let currentCount = parseInt(counterElement.textContent) || 0;
+
+                        // Check if method is already in active list
+                        const isAlreadyActive = activeMethods.includes(methodName);
+
+                        if (isActive && !isAlreadyActive) {
+                            // Adding new active method
+                            currentCount++;
+                            activeMethods.push(methodName);
+                        } else if (!isActive && isAlreadyActive) {
+                            // Removing active method
+                            currentCount = Math.max(0, currentCount - 1);
+                            const index = activeMethods.indexOf(methodName);
+                            if (index > -1) {
+                                activeMethods.splice(index, 1);
+                            }
+                        }
+                        // If already active and we're setting active, or already inactive and we're setting inactive, do nothing
+
+                        counterElement.textContent = currentCount;
+                    } else {
+                        // Fallback: just update the list without counter
+                        const isAlreadyActive = activeMethods.includes(methodName);
+                        if (isActive && !isAlreadyActive) {
+                            activeMethods.push(methodName);
+                        } else if (!isActive && isAlreadyActive) {
+                            const index = activeMethods.indexOf(methodName);
+                            if (index > -1) {
+                                activeMethods.splice(index, 1);
+                            }
+                        }
                     }
 
-                    // Update summary text
-                    const summaryElement = document.querySelector('small.text-success');
-                    if (summaryElement && activeCount > 0) {
-                        // This would require more complex logic to rebuild the list
-                        // For now, we'll just refresh the page to show updated summary
-                    }
+                    // Always show all active methods
+                    updateActiveMethodsSummary();
+
                 } catch (error) {
-                    console.error('Error updating active methods counter:', error);
+                    console.error('Error updating active methods display:', error);
                 }
             }
 
@@ -286,6 +329,7 @@
                     const label = document.querySelector(`label[for="switch-${methodId}"]`);
                     const tabContent = document.querySelector(`#content-${methodId}`);
                     const badge = tabContent?.querySelector('.badge');
+                    const methodName = tabContent?.querySelector('[data-method-name]')?.dataset.methodName || 'Unknown';
 
                     const formData = new FormData();
                     formData.append('_method', 'PUT');
@@ -299,20 +343,27 @@
                                 label.classList.add('text-success');
                             }
                             if (tabContent) {
-                                tabContent.querySelector('.d-flex').classList.remove('bg-light');
-                                tabContent.querySelector('.d-flex').classList.add('bg-success', 'bg-opacity-10', 'border-success');
-                                tabContent.querySelector('.fa-credit-card').classList.remove('text-muted');
-                                tabContent.querySelector('.fa-credit-card').classList.add('text-success');
+                                const cardDiv = tabContent.querySelector('.d-flex.justify-content-between');
+                                if (cardDiv) {
+                                    cardDiv.classList.remove('bg-light');
+                                    cardDiv.classList.add('bg-success', 'bg-opacity-10', 'border-success');
+                                    const icon = cardDiv.querySelector('.fa-credit-card');
+                                    if (icon) {
+                                        icon.classList.remove('text-muted');
+                                        icon.classList.add('text-success');
+                                    }
 
-                                // Add badge if not exists
-                                if (!badge) {
-                                    const badgeHtml = '<span class="badge bg-success ms-2">ACTIVE</span>';
-                                    const container = tabContent.querySelector('.d-flex.align-items-center');
-                                    if (container) {
-                                        container.insertAdjacentHTML('beforeend', badgeHtml);
+                                    // Add badge if not exists
+                                    if (!badge) {
+                                        const badgeHtml = '<span class="badge bg-success ms-2">ACTIVE</span>';
+                                        const container = cardDiv.querySelector('.d-flex.align-items-center');
+                                        if (container) {
+                                            container.insertAdjacentHTML('beforeend', badgeHtml);
+                                        }
                                     }
                                 }
                             }
+                            updateActiveMethodsDisplay(methodName, true);
                         } else {
                             credentialsDiv.style.display = 'none';
                             if (label) {
@@ -321,19 +372,26 @@
                                 label.classList.add('text-danger');
                             }
                             if (tabContent) {
-                                tabContent.querySelector('.d-flex').classList.remove('bg-success', 'bg-opacity-10', 'border-success');
-                                tabContent.querySelector('.d-flex').classList.add('bg-light');
-                                tabContent.querySelector('.fa-credit-card').classList.remove('text-success');
-                                tabContent.querySelector('.fa-credit-card').classList.add('text-muted');
+                                const cardDiv = tabContent.querySelector('.d-flex.justify-content-between');
+                                if (cardDiv) {
+                                    cardDiv.classList.remove('bg-success', 'bg-opacity-10', 'border-success');
+                                    cardDiv.classList.add('bg-light');
+                                    const icon = cardDiv.querySelector('.fa-credit-card');
+                                    if (icon) {
+                                        icon.classList.remove('text-success');
+                                        icon.classList.add('text-muted');
+                                    }
 
-                                // Remove badge
-                                if (badge) {
-                                    badge.remove();
+                                    // Remove badge
+                                    const currentBadge = cardDiv.querySelector('.badge');
+                                    if (currentBadge) {
+                                        currentBadge.remove();
+                                    }
                                 }
                             }
 
                             formData.append('is_active', '0');
-                            sendToggleRequest(updateUrl, formData, switchEl, credentialsDiv, label, methodId);
+                            sendToggleRequest(updateUrl, formData, switchEl, credentialsDiv, label, methodId, methodName, false);
                         }
                     } else {
                         if (label) {
@@ -342,40 +400,50 @@
                             label.classList.add(isChecked ? 'text-success' : 'text-danger');
                         }
                         if (tabContent) {
-                            if (isChecked) {
-                                tabContent.querySelector('.d-flex').classList.remove('bg-light');
-                                tabContent.querySelector('.d-flex').classList.add('bg-success', 'bg-opacity-10', 'border-success');
-                                tabContent.querySelector('.fa-credit-card').classList.remove('text-muted');
-                                tabContent.querySelector('.fa-credit-card').classList.add('text-success');
-
-                                // Add badge if not exists
-                                if (!badge) {
-                                    const badgeHtml = '<span class="badge bg-success ms-2">ACTIVE</span>';
-                                    const container = tabContent.querySelector('.d-flex.align-items-center');
-                                    if (container) {
-                                        container.insertAdjacentHTML('beforeend', badgeHtml);
+                            const cardDiv = tabContent.querySelector('.d-flex.justify-content-between');
+                            if (cardDiv) {
+                                if (isChecked) {
+                                    cardDiv.classList.remove('bg-light');
+                                    cardDiv.classList.add('bg-success', 'bg-opacity-10', 'border-success');
+                                    const icon = cardDiv.querySelector('.fa-credit-card');
+                                    if (icon) {
+                                        icon.classList.remove('text-muted');
+                                        icon.classList.add('text-success');
                                     }
-                                }
-                            } else {
-                                tabContent.querySelector('.d-flex').classList.remove('bg-success', 'bg-opacity-10', 'border-success');
-                                tabContent.querySelector('.d-flex').classList.add('bg-light');
-                                tabContent.querySelector('.fa-credit-card').classList.remove('text-success');
-                                tabContent.querySelector('.fa-credit-card').classList.add('text-muted');
 
-                                // Remove badge
-                                if (badge) {
-                                    badge.remove();
+                                    // Add badge if not exists
+                                    if (!badge) {
+                                        const badgeHtml = '<span class="badge bg-success ms-2">ACTIVE</span>';
+                                        const container = cardDiv.querySelector('.d-flex.align-items-center');
+                                        if (container) {
+                                            container.insertAdjacentHTML('beforeend', badgeHtml);
+                                        }
+                                    }
+                                } else {
+                                    cardDiv.classList.remove('bg-success', 'bg-opacity-10', 'border-success');
+                                    cardDiv.classList.add('bg-light');
+                                    const icon = cardDiv.querySelector('.fa-credit-card');
+                                    if (icon) {
+                                        icon.classList.remove('text-success');
+                                        icon.classList.add('text-muted');
+                                    }
+
+                                    // Remove badge
+                                    const currentBadge = cardDiv.querySelector('.badge');
+                                    if (currentBadge) {
+                                        currentBadge.remove();
+                                    }
                                 }
                             }
                         }
 
                         formData.append('is_active', isChecked ? '1' : '0');
-                        sendToggleRequest(updateUrl, formData, switchEl, credentialsDiv, label, methodId);
+                        sendToggleRequest(updateUrl, formData, switchEl, credentialsDiv, label, methodId, methodName, isChecked);
                     }
                 });
             });
 
-            function sendToggleRequest(url, formData, switchEl, credentialsDiv, label, methodId) {
+            function sendToggleRequest(url, formData, switchEl, credentialsDiv, label, methodId, methodName, isActive) {
                 fetchWithHeaders(url, {
                     method: 'POST',
                     body: formData
@@ -390,10 +458,10 @@
                             if (switchEl) switchEl.checked = !switchEl.checked;
                             if (credentialsDiv) credentialsDiv.style.display = switchEl?.checked ? 'block' : 'none';
                             updateLabel(label, switchEl?.checked);
-                            updateActiveMethodsCounter();
+                            updateActiveMethodsDisplay(methodName, switchEl?.checked);
                         } else {
                             showToast(json.message || 'Status updated successfully.', 'success');
-                            updateActiveMethodsCounter();
+                            updateActiveMethodsDisplay(methodName, isActive);
                         }
                     })
                     .catch(err => {
@@ -403,7 +471,7 @@
                         if (switchEl) switchEl.checked = !switchEl.checked;
                         if (credentialsDiv) credentialsDiv.style.display = switchEl?.checked ? 'block' : 'none';
                         updateLabel(label, switchEl?.checked);
-                        updateActiveMethodsCounter();
+                        updateActiveMethodsDisplay(methodName, switchEl?.checked);
                     });
             }
 
@@ -415,7 +483,7 @@
                 }
             }
 
-            // Form submission handler
+            // Form submission handler - DON'T UPDATE COUNTER IF ALREADY ACTIVE
             document.querySelectorAll('.update-credentials-form').forEach(form => {
                 if (!form.dataset.methodId || !form.dataset.updateUrl) {
                     console.warn('Form missing required data attributes');
@@ -430,6 +498,8 @@
                     const btn = this.querySelector('.save-credentials-btn');
                     const spinner = btn?.querySelector('.spinner-border');
                     const icon = btn?.querySelector('.fas');
+                    const tabContent = document.querySelector(`#content-${methodId}`);
+                    const methodName = tabContent?.querySelector('[data-method-name]')?.dataset.methodName || 'Unknown';
 
                     const isActiveInput = this.querySelector('input[name="is_active"]');
                     if (isActiveInput) isActiveInput.value = '1';
@@ -475,25 +545,38 @@
                                     updateLabel(label, true);
 
                                     // Update UI elements
-                                    const tabContent = document.querySelector(`#content-${methodId}`);
                                     if (tabContent) {
-                                        tabContent.querySelector('.d-flex').classList.remove('bg-light');
-                                        tabContent.querySelector('.d-flex').classList.add('bg-success', 'bg-opacity-10', 'border-success');
-                                        tabContent.querySelector('.fa-credit-card').classList.remove('text-muted');
-                                        tabContent.querySelector('.fa-credit-card').classList.add('text-success');
+                                        const cardDiv = tabContent.querySelector('.d-flex.justify-content-between');
+                                        if (cardDiv) {
+                                            cardDiv.classList.remove('bg-light');
+                                            cardDiv.classList.add('bg-success', 'bg-opacity-10', 'border-success');
+                                            const icon = cardDiv.querySelector('.fa-credit-card');
+                                            if (icon) {
+                                                icon.classList.remove('text-muted');
+                                                icon.classList.add('text-success');
+                                            }
 
-                                        // Add badge if not exists
-                                        const badge = tabContent.querySelector('.badge');
-                                        if (!badge) {
-                                            const badgeHtml = '<span class="badge bg-success ms-2">ACTIVE</span>';
-                                            const container = tabContent.querySelector('.d-flex.align-items-center');
-                                            if (container) {
-                                                container.insertAdjacentHTML('beforeend', badgeHtml);
+                                            // Add badge if not exists
+                                            const badge = cardDiv.querySelector('.badge');
+                                            if (!badge) {
+                                                const badgeHtml = '<span class="badge bg-success ms-2">ACTIVE</span>';
+                                                const container = cardDiv.querySelector('.d-flex.align-items-center');
+                                                if (container) {
+                                                    container.insertAdjacentHTML('beforeend', badgeHtml);
+                                                }
                                             }
                                         }
                                     }
                                 }
-                                updateActiveMethodsCounter();
+
+                                // ONLY UPDATE DISPLAY IF METHOD WAS NOT ALREADY ACTIVE
+                                const isAlreadyActive = activeMethods.includes(methodName);
+                                if (!isAlreadyActive) {
+                                    updateActiveMethodsDisplay(methodName, true);
+                                } else {
+                                    // Just update the UI summary without changing counter
+                                    updateActiveMethodsSummary();
+                                }
                             } else {
                                 showToast('Failed to save credentials.', 'error');
                             }
@@ -535,6 +618,9 @@
                     }
                 });
             });
+
+            // Initialize active methods on page load
+            initializeActiveMethods();
         });
     </script>
 @endsection

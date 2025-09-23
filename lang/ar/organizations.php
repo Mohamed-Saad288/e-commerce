@@ -44,7 +44,7 @@ return [
     "products" => "المنتجات",
     "add_product" => "إنشاء منتج جديد",
     "edit_product" => "تعديل المنتج",
-    "headers"  => "اسليدر",
+    "headers" => "اسليدر",
     "add_header" => "إنشاء اسليدر جديد",
     "edit_header" => "تعديل اسليدر",
     "header_name" => "اسم اسليدر",
@@ -108,7 +108,11 @@ return [
     "edit_our_team" => "تعديل بيانات عضو",
     "edit_organization_setting" => "تعديل اعدادت المنظمة",
     "organization_settings" => "اعدات المنظمة",
-    "payment_methods" => "طرق الدفع"
-
+    "payment_methods" => "طرق الدفع",
+    "An_error_occurred_while_updating_payment_method. Please_try_again_later." => "حدث خطأ ما اثناء تحديث طريقة الدفع. يرجى المحاولة مرة أخرى لاحقا.",
+    "payment_method_not_found." => "طريقة الدفع غير موجودة.",
+    "Organization not found." => "المنظمة غير موجودة.",
+    "Payment method activated successfully." => "تم تفعيل طريقة الدفع بنجاح.",
+    "Payment method deactivated successfully." => "تم تعطيل طريقة الدفع بنجاح.",
 ];
 
