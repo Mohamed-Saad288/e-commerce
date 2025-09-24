@@ -7,6 +7,7 @@ use Astrotomic\Translatable\Contracts\Translatable as TranslatableContract;
 
 use Astrotomic\Translatable\Translatable;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class Header extends BaseModel implements TranslatableContract
 {
@@ -18,4 +19,9 @@ class Header extends BaseModel implements TranslatableContract
         "organization_id",
         "employee_id"
     ];
+
+    public function images() : HasMany
+    {
+        return $this->hasMany(HeaderImage::class,'header_id');
+    }
 }

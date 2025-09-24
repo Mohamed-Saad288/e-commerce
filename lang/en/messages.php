@@ -136,4 +136,5 @@ return [
     'tiktok'           => 'TikTok Link',
     'latitude'         => 'Latitude',
     'longitude'        => 'Longitude',
+    'upload_images' => "Upload Images",
 ];
