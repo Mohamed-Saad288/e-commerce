@@ -82,7 +82,6 @@
                     </div>
                 </div>
 
-                <!-- Active Methods Summary (Will show all active methods) -->
                 <div class="mt-2">
                     <small class="text-success active-methods-summary">
                         <i class="fas fa-check-circle me-1"></i>
@@ -290,11 +289,9 @@
                                 activeMethods.splice(index, 1);
                             }
                         }
-                        // If already active and we're setting active, or already inactive and we're setting inactive, do nothing
 
                         counterElement.textContent = currentCount;
                     } else {
-                        // Fallback: just update the list without counter
                         const isAlreadyActive = activeMethods.includes(methodName);
                         if (isActive && !isAlreadyActive) {
                             activeMethods.push(methodName);
@@ -483,7 +480,6 @@
                 }
             }
 
-            // Form submission handler - DON'T UPDATE COUNTER IF ALREADY ACTIVE
             document.querySelectorAll('.update-credentials-form').forEach(form => {
                 if (!form.dataset.methodId || !form.dataset.updateUrl) {
                     console.warn('Form missing required data attributes');
@@ -504,7 +500,6 @@
                     const isActiveInput = this.querySelector('input[name="is_active"]');
                     if (isActiveInput) isActiveInput.value = '1';
 
-                    // Clear validation errors
                     document.querySelectorAll(`#content-${methodId} .invalid-feedback`).forEach(el => {
                         el.style.display = 'none';
                         el.textContent = '';
@@ -531,7 +526,6 @@
                             return res.json();
                         })
                         .then(json => {
-                            // Hide loading
                             if (btn) btn.disabled = false;
                             if (spinner) spinner.classList.add('d-none');
                             if (icon) icon.classList.remove('d-none');
@@ -544,7 +538,6 @@
                                     const label = document.querySelector(`label[for="switch-${methodId}"]`);
                                     updateLabel(label, true);
 
-                                    // Update UI elements
                                     if (tabContent) {
                                         const cardDiv = tabContent.querySelector('.d-flex.justify-content-between');
                                         if (cardDiv) {
@@ -556,7 +549,6 @@
                                                 icon.classList.add('text-success');
                                             }
 
-                                            // Add badge if not exists
                                             const badge = cardDiv.querySelector('.badge');
                                             if (!badge) {
                                                 const badgeHtml = '<span class="badge bg-success ms-2">ACTIVE</span>';
@@ -569,12 +561,10 @@
                                     }
                                 }
 
-                                // ONLY UPDATE DISPLAY IF METHOD WAS NOT ALREADY ACTIVE
                                 const isAlreadyActive = activeMethods.includes(methodName);
                                 if (!isAlreadyActive) {
                                     updateActiveMethodsDisplay(methodName, true);
                                 } else {
-                                    // Just update the UI summary without changing counter
                                     updateActiveMethodsSummary();
                                 }
                             } else {
@@ -601,19 +591,15 @@
             // Handle dropdown items
             document.querySelectorAll('.dropdown-item').forEach(item => {
                 item.addEventListener('click', function () {
-                    // Get target tab content
                     const target = this.dataset.bsTarget;
                     if (!target) return;
 
-                    // Activate the tab content
                     const tabContent = document.querySelector(target);
                     if (tabContent) {
-                        // Hide all tab contents
                         document.querySelectorAll('.tab-pane').forEach(pane => {
                             pane.classList.remove('show', 'active');
                         });
 
-                        // Show target tab content
                         tabContent.classList.add('show', 'active');
                     }
                 });
