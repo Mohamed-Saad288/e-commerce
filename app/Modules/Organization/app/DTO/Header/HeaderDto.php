@@ -10,17 +10,17 @@ class HeaderDto implements DTOInterface
     public ?array $translations = [];
     public ?int $organization_id = null;
     public ?int $employee_id = null;
-    public  $image;
+    public  $images;
     public function __construct(
         ?array $translations = [],
         ?int $organization_id = null,
         ?int $employee_id = null,
-        $image = null
+        $images = null
     ) {
         $this->translations = $translations;
         $this->organization_id = $organization_id;
         $this->employee_id = $employee_id;
-        $this->image = $image;
+        $this->images = $images;
     }
 
     public static function fromArray(FormRequest|array $data): DTOInterface
@@ -38,7 +38,7 @@ class HeaderDto implements DTOInterface
             translations: $translations,
             organization_id: auth()->user()->organization_id ?? null,
             employee_id: auth()->user()->id,
-            image: $arrayData['image'] ?? null
+            images: $arrayData['images'] ?? null
         );
     }
 
@@ -49,7 +49,7 @@ class HeaderDto implements DTOInterface
             [
                 'organization_id'         => $this->organization_id,
                 'employee_id'  => $this->employee_id,
-                'image' => $this->image
+                'image' => $this->images
             ]
         );
     }

@@ -56,7 +56,7 @@ Route::group(
                 Route::resource('options', OptionController::class);
                 Route::resource('option_items', OptionItemController::class);
                 Route::resource('products', ProductController::class);
-                Route::resource('headers', HeaderController::class);
+//                Route::resource('headers', HeaderController::class);
                 Route::resource('questions', QuestionController::class);
                 Route::resource('terms', TermController::class);
                 Route::resource('abouts', AboutController::class);
@@ -64,7 +64,8 @@ Route::group(
                 Route::resource('our_teams', OurTeamController::class);
                 Route::get('organization_settings/edit', [OrganizationSettingController::class, 'edit'])->name('organization_settings.edit');
                 Route::post('organization_settings/edit', [OrganizationSettingController::class, 'update'])->name('organization_settings.update');
-
+                Route::get('headers/edit', [HeaderController::class, 'edit'])->name('headers.edit');
+                Route::post('headers/edit', [HeaderController::class, 'update'])->name('headers.update');
                 /************************** Payment Settings Routes ********************/
                 Route::prefix('payment_settings')->as('payment.settings.')->group(function () {
                     Route::get('/', [PaymentSettingsController::class, 'index'])->name('index');

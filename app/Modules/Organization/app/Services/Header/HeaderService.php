@@ -40,12 +40,20 @@ class HeaderService extends BaseService
         return DB::transaction(function () use ($model, $dto) {
             $data = $dto->toArray();
 
-            if (!empty($dto->image)) {
-                if ($model->image && Storage::disk('public')->exists($model->image)) {
-                    Storage::disk('public')->delete($model->image);
+            if (!empty($dto->images)) {
+                foreach ($model->images as $oldImage) {
+                    if (Storage::disk('public')->exists($oldImage->image)) {
+                        Storage::disk('public')->delete($oldImage->image);
+                    }
+                    $oldImage->delete();
                 }
 
-                $data['image'] = uploadImage($dto->image, 'header');
+                foreach ($dto->images as $image) {
+                    $path = uploadImage($image, 'headers');
+                    $model->images()->create([
+                        'image' => $path
+                    ]);
+                }
             }
 
             $model->update($data);
@@ -53,4 +61,5 @@ class HeaderService extends BaseService
             return $model;
         });
     }
-    }
+
+}

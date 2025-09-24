@@ -7,7 +7,7 @@
                 <label for="name_{{ $locale }}">{{ __("messages.name_$locale") }}</label>
                 <input type="text" name="{{ $locale }}[name]" id="name_{{ $locale }}"
                        class="form-control @error("$locale.name") is-invalid @enderror"
-                       value="{{ old("$locale.name", isset($header) ? $header->translate($locale)->name : '') }}" required>
+                       value="{{ old("$locale.name", isset($header) ? optional($header->translate($locale))->name : '') }}" required>
                 @error("$locale.name")
                 <span class="text-danger">{{ $message }}</span>
                 @enderror
@@ -24,10 +24,12 @@
                 <label for="description_{{ $locale }}" class="font-weight-bold">
                     {{ __("messages.description_$locale") }}
                 </label>
-                <textarea name="{{ $locale }}[description]" id="description_{{ $locale }}"
-                          class="form-control summernote @error("$locale.description") is-invalid @enderror" rows="5">
-                    {{ old("$locale.description", isset($header) ? $header->translate($locale)->description : '') }}
+                <textarea name="{{ $locale }}[description]"
+                          id="description_{{ $locale }}"
+                          class="form-control summernote @error("$locale.description") is-invalid @enderror"
+                          rows="5">{{ old("$locale.description", isset($header) ? $header->translate($locale)?->description : '') }}
                 </textarea>
+
                 @error("$locale.description")
                 <small class="text-danger">{{ $message }}</small>
                 @enderror
@@ -36,35 +38,44 @@
     @endforeach
 </div>
 
+
 <div class="row">
-    {{-- Image Upload Section --}}
-    <div class="col-md-6">
+    {{-- Images Upload Section --}}
+    <div class="col-md-12">
         <div class="form-group">
-            {{-- Show old image if editing --}}
-
-
-            {{-- Upload new image --}}
+            {{-- Upload multiple images --}}
             <div class="custom-file">
                 <input type="file"
-                       name="image"
-                       class="custom-file-input @error('image') is-invalid @enderror"
-                       id="image"
-                       accept="image/*">
-                <label class="custom-file-label" for="image">{{ __('messages.upload_image') }}</label>
-                @error('image')
+                       name="images[]"
+                       class="custom-file-input @error('images.*') is-invalid @enderror"
+                       id="images"
+                       accept="image/*"
+                       multiple>
+                <label class="custom-file-label" for="images">{{ __('messages.upload_images') }}</label>
+                @error('images.*')
                 <small class="text-danger">{{ $message }}</small>
                 @enderror
             </div>
-            @if(isset($header) &&  $header->image )
-                <div class="mb-3">
-                    <img src="{{ asset("storage/$header->image") }}"
-                         alt="Header Image" class="img-thumbnail" width="150">
+
+            {{-- Show old images if editing --}}
+            @if(isset($header) && $header->images)
+                <div class="mb-3 d-flex flex-wrap gap-2" id="old-images-container">
+                    @foreach($header->images as $img)
+                        <img src="{{ asset("storage/$img") }}"
+                             alt="Header Image"
+                             class="img-thumbnail"
+                             width="150">
+                    @endforeach
                 </div>
             @endif
-            {{-- Preview for new selected image --}}
-            <div id="image-preview" class="mt-2"></div>
+
+            {{-- Preview for new selected images --}}
+            <div id="images-preview" class="mt-2 d-flex flex-wrap gap-2"></div>
         </div>
     </div>
 </div>
 
 <button type="submit" class="btn btn-primary">{{ __('messages.submit') }}</button>
+
+{{-- Script to preview multiple images --}}
+

@@ -148,6 +148,7 @@ return [
     'address'          => 'العنوان',
     'latitude'         => 'خط العرض',
     'longitude'        => 'خط الطول',
+    'upload_images' => "تحميل الصور"
 
 ];
 

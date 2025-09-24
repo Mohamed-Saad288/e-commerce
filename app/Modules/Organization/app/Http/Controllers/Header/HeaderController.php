@@ -33,19 +33,26 @@ class HeaderController extends Controller
             'alert-type' => 'success'
         ));
     }
-    public function edit(Header $header)
+    public function edit()
     {
+        $header = Header::where('organization_id',auth()->user()->organization_id)->first();
         return view('organization::dashboard.headers.single', get_defined_vars());
     }
-    public function update(UpdateHeaderRequest $request , Header $header)
+    public function update(UpdateHeaderRequest $request)
     {
-        $this->service->update(model: $header, dto: HeaderDto::fromArray($request));
+        $header = Header::firstOrCreate(
+            ['organization_id' => auth()->user()->organization_id],
+            ['organization_id' => auth()->user()->organization_id] // قيم افتراضية
+        );
 
-        return to_route('organization.headers.index')->with(array(
+        $this->service->update(model: $header, dto: HeaderDto::fromArray($request->validated()));
+
+        return to_route('organization.headers.edit')->with([
             'message' => __("messages.updated"),
             'alert-type' => 'success'
-        ));
+        ]);
     }
+
     public function destroy(Header $header)
     {
         try {
