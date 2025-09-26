@@ -1,4 +1,5 @@
 <?php
+
 return [
     "employees" => "Employees",
     "categories" => "Categories",
@@ -89,6 +90,12 @@ return [
     'edit_our_team' => "Edit Our Team",
     "organization_settings" => "Organization Settings",
     "edit_organization_setting" => "Edit Organization Setting",
+    "payment_methods" => "Payment Methods",
+    "payment_method_not_found" => "Payment method not found",
+    "An_error_occurred_while_updating_payment_method. Please_try_again_later." => "An error occurred while updating payment method. Please try again later.",
+    "Organization not found." => "Organization not found.",
+    "Payment method activated successfully." => "Payment method activated successfully.",
+    "Payment method deactivated successfully." => "Payment method deactivated successfully.",
     'payment' => "Payment"
 
 

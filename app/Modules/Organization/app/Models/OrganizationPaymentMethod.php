@@ -18,7 +18,6 @@ class OrganizationPaymentMethod extends Model
 
     protected $casts = [
         'is_active' => 'boolean',
-//        'credentials' => 'encrypted:array',
     ];
 
     /**

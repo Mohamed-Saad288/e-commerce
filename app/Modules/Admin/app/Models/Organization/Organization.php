@@ -3,6 +3,7 @@
 namespace App\Modules\Admin\app\Models\Organization;
 
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
+use App\Modules\Organization\app\Models\PaymentMethod;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
@@ -46,5 +47,14 @@ class Organization extends Authenticatable
             'email_verified_at' => 'datetime',
             'password' => 'hashed',
         ];
+    }
+
+
+
+    public function paymentMethods()
+    {
+        return $this->belongsToMany(PaymentMethod::class, 'organization_payment_methods')
+            ->withPivot(['is_active', 'credentials'])
+            ->withTimestamps();
     }
 }
