@@ -47,5 +47,4 @@ class ProductVariation extends BaseModel implements TranslatableContract
     }
 
 
-
 }
