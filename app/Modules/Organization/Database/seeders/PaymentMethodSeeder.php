@@ -32,35 +32,35 @@ class PaymentMethodSeeder extends Seeder
                 ],
             ],
             'bank_transfer' => [
-                'is_active' => false,
+                'is_active' => true,
                 'translations' => [
                     'en' => ['name' => 'Bank Transfer', 'description' => 'Transfer the amount directly to our bank account.'],
                     'ar' => ['name' => 'التحويل البنكي', 'description' => 'قم بتحويل المبلغ مباشرة إلى حسابنا البنكي.'],
                 ],
             ],
             'apple_pay' => [
-                'is_active' => false,
+                'is_active' => true,
                 'translations' => [
                     'en' => ['name' => 'Apple Pay', 'description' => 'Pay easily with Apple Pay on your iPhone or iPad.'],
                     'ar' => ['name' => 'آبل باي', 'description' => 'ادفع بسهولة باستخدام آبل باي على جهاز iPhone أو iPad.'],
                 ],
             ],
             'google_pay' => [
-                'is_active' => false,
+                'is_active' => true,
                 'translations' => [
                     'en' => ['name' => 'Google Pay', 'description' => 'Quick checkout with Google Pay.'],
                     'ar' => ['name' => 'جوجل باي', 'description' => 'ادفع بسرعة باستخدام جوجل باي.'],
                 ],
             ],
             'vodafone_cash' => [
-                'is_active' => false,
+                'is_active' => true,
                 'translations' => [
                     'en' => ['name' => 'Vodafone Cash', 'description' => 'Pay using Vodafone Cash mobile wallet.'],
                     'ar' => ['name' => 'فودافون كاش', 'description' => 'ادفع باستخدام محفظة فودافون كاش.'],
                 ],
             ],
             'instapay' => [
-                'is_active' => false,
+                'is_active' => true,
                 'translations' => [
                     'en' => ['name' => 'Instapay', 'description' => 'Pay instantly using your Instapay account.'],
                     'ar' => ['name' => 'إنستا باي', 'description' => 'ادفع فورًا باستخدام حساب إنستا باي الخاص بك.'],
@@ -81,35 +81,35 @@ class PaymentMethodSeeder extends Seeder
                 ],
             ],
             'mada' => [
-                'is_active' => false,
+                'is_active' => true,
                 'translations' => [
                     'en' => ['name' => 'Mada', 'description' => 'Use your Mada debit card for a secure payment.'],
                     'ar' => ['name' => 'مدى', 'description' => 'استخدم بطاقة مدى الخاصة بك للدفع الآمن.'],
                 ],
             ],
             'fawry' => [
-                'is_active' => false,
+                'is_active' => true,
                 'translations' => [
                     'en' => ['name' => 'Fawry', 'description' => 'Pay through any Fawry payment channel.'],
                     'ar' => ['name' => 'فوري', 'description' => 'ادفع عبر أي من قنوات الدفع الخاصة بفوري.'],
                 ],
             ],
             'tabby' => [
-                'is_active' => false,
+                'is_active' => true,
                 'translations' => [
                     'en' => ['name' => 'Tabby', 'description' => 'Buy now, pay later with Tabby.'],
                     'ar' => ['name' => 'تابي', 'description' => 'اشترِ الآن، وادفع لاحقًا مع تابي.'],
                 ],
             ],
             'moyasar' => [
-                'is_active' => false,
+                'is_active' => true,
                 'translations' => [
                     'en' => ['name' => 'Moyasar', 'description' => 'Pay with a secure gateway for payments in Saudi Arabia.'],
                     'ar' => ['name' => 'ميسر', 'description' => 'ادفع باستخدام بوابة دفع آمنة للمدفوعات في المملكة العربية السعودية.'],
                 ],
             ],
             'paymob' => [
-                'is_active' => false,
+                'is_active' => true,
                 'translations' => [
                     'en' => ['name' => 'Paymob', 'description' => 'A payment gateway for online and in-store transactions.'],
                     'ar' => ['name' => 'باي موب', 'description' => 'بوابة دفع للمعاملات عبر الإنترنت وفي المتاجر.'],
