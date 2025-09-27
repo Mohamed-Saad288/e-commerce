@@ -19,7 +19,6 @@ return new class extends BaseMigration
             $table->boolean('is_featured')->default(0);
             $table->integer('sort_order')->default(0);
 
-
             $table->integer("stock_quantity")->default(0);
             /*** tAX && DISCOUNT && PRICE ***/
             $table->boolean("is_taxable")->default(0);

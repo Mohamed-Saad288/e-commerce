@@ -12,36 +12,24 @@ use Astrotomic\Translatable\Translatable;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 
-class Product extends  BaseModel implements TranslatableContract
+class Product extends BaseModel implements TranslatableContract
 {
     use Translatable;
 
-    public array $translatedAttributes = ['name', 'description' , "short_description"];
+    public array $translatedAttributes = ['name', 'description', "short_description"];
 
     protected $table = 'products';
 
     protected $fillable = [
-      "slug",
-      "brand_id",
-      "category_id",
-      "sort_order",
-      "sku",
-      "barcode",
-      "type",
-      "stock_quantity",
-      "low_stock_threshold",
-      "requires_shipping",
-      "is_featured",
-      "is_taxable",
-      "tax_type",
-      "tax_amount",
-      "discount",
-      "cost_price",
-      "selling_price",
-      "total_price",
-      "added_by_id",
-      "organization_id",
-      "employee_id",
+        "slug",
+        "brand_id",
+        "category_id",
+        "type",
+        "low_stock_threshold",
+        "requires_shipping",
+        "added_by_id",
+        "organization_id",
+        "employee_id",
         "is_active"
     ];
 
@@ -51,19 +39,19 @@ class Product extends  BaseModel implements TranslatableContract
         static::addGlobalScope(new TenantScope);
     }
 
-    public function variations() : HasMany
+    public function variations(): HasMany
     {
-        return $this->hasMany(ProductVariation::class , "product_id");
+        return $this->hasMany(ProductVariation::class, "product_id");
     }
 
-    public function brand() : BelongsTo
+    public function brand(): BelongsTo
     {
-        return $this->belongsTo(Brand::class , "brand_id");
+        return $this->belongsTo(Brand::class, "brand_id");
     }
 
-    public function category() : BelongsTo
+    public function category(): BelongsTo
     {
-        return $this->belongsTo(Category::class , "category_id");
+        return $this->belongsTo(Category::class, "category_id");
     }
 
 
