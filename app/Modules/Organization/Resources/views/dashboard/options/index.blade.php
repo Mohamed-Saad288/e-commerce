@@ -28,7 +28,7 @@
                                     @foreach ($options as $option)
                                         <tr>
                                             <td>{{ $loop->iteration }}</td>
-                                            <td>{{ $option->translate(app()->getLocale())->name }}</td>
+                                            <td>{{ $option->name ?? null }}</td>
                                             <td>
                                                     <a href="{{ route('organization.options.edit', $option->id) }}"
                                                        class="btn btn-sm btn-success">

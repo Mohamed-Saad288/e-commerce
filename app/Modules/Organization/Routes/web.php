@@ -12,11 +12,10 @@ use App\Modules\Organization\app\Http\Controllers\{About\AboutController,
     OrganizationSetting\OrganizationPaymentMethodController,
     OrganizationSetting\OrganizationSettingController,
     OurTeam\OurTeamController,
-    Products\ProductController,
+    products\ProductController,
     Question\QuestionController,
     Term\TermController,
-    Why\WhyController,
-    };
+    Why\WhyController};
 use Illuminate\Support\Facades\Route;
 use Mcamara\LaravelLocalization\Facades\LaravelLocalization;
 
@@ -42,7 +41,7 @@ Route::group(
         /************************** Exports Routes ********************/
 
         // Authenticated routes
-        Route::middleware(['auth:organization_employee' , 'set.organization.context'])
+        Route::middleware(['auth:organization_employee', 'set.organization.context'])
             ->as('organization.')
             ->group(function () {
                 Route::get('/', [HomeController::class, 'home'])->name('home');
@@ -66,14 +65,7 @@ Route::group(
 
                 Route::get('headers/edit', [HeaderController::class, 'edit'])->name('headers.edit');
                 Route::post('headers/edit', [HeaderController::class, 'update'])->name('headers.update');
-                /************************** Payment Settings Routes ********************/
-                Route::prefix('payment_settings')->as('payment.settings.')->group(function () {
-                    Route::get('/', [PaymentSettingsController::class, 'index'])->name('index');
-                    Route::post('{paymentMethod}', [PaymentSettingsController::class, 'update'])->name('update');
-                    Route::post('order/update', [PaymentSettingsController::class, 'updateOrder'])->name('update-order');
-                    Route::post('toggle-status/{paymentMethod}', [PaymentSettingsController::class, 'toggleStatus'])->name('toggle-status');
-                });
-                /********************************************************************/
+
 
                 // Payment methods
                 Route::get('/payment-methods', [OrganizationPaymentMethodController::class, 'index'])->name('payment_methods.index');

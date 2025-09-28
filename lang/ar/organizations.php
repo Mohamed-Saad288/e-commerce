@@ -114,6 +114,6 @@ return [
     "Organization not found." => "المنظمة غير موجودة.",
     "Payment method activated successfully." => "تم تفعيل طريقة الدفع بنجاح.",
     "Payment method deactivated successfully." => "تم تعطيل طريقة الدفع بنجاح.",
-    'payment' => "طرق الدفع"
+    'payment' => "طرق الدفع",
 ];
 
