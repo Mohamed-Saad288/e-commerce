@@ -22,6 +22,7 @@ class DatabaseSeeder extends Seeder
             OrganizationWithEmployeesSeeder::class,
             PaymentMethodSeeder::class,
             OrganizationPaymentMethodSeeder::class,
+            OptionsAndOptionItemsSeeder::class
         ]);
     }
 }

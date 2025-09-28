@@ -2,12 +2,10 @@
 <form action="{{ $route }}" method="POST" enctype="multipart/form-data" id="productForm">
     @csrf
     @method($method)
-
     <style>
         * {
             box-sizing: border-box;
         }
-
         /* Tab Styling */
         .nav-tabs {
             display: flex;
@@ -16,11 +14,9 @@
             margin: 0 0 1rem 0;
             border-bottom: 2px solid #dee2e6;
         }
-
         .nav-tabs .nav-item {
             margin: 0;
         }
-
         .nav-tabs .nav-link {
             display: block;
             padding: 0.75rem 1.25rem;
@@ -36,11 +32,9 @@
             cursor: pointer;
             transition: all 0.2s;
         }
-
         .nav-tabs .nav-link:hover {
             background-color: #e9ecef;
         }
-
         .nav-tabs .nav-link.active {
             background-color: #fff;
             border-color: #0d6efd;
@@ -48,7 +42,6 @@
             color: #0d6efd;
             font-weight: 600;
         }
-
         /* Tab Content */
         .tab-content {
             background-color: #fff;
@@ -57,7 +50,6 @@
             padding: 1.5rem;
             min-height: 300px;
         }
-
         /* Form Controls */
         .form-label {
             font-weight: 500;
@@ -65,7 +57,6 @@
             margin-bottom: 0.5rem;
             display: block;
         }
-
         .form-control,
         .form-select {
             display: block;
@@ -80,14 +71,12 @@
             border-radius: 0.375rem;
             transition: border-color 0.15s ease-in-out;
         }
-
         .form-control:focus,
         .form-select:focus {
             border-color: #86b7fe;
             outline: 0;
             box-shadow: 0 0 0 0.25rem rgba(13, 110, 253, 0.25);
         }
-
         .form-select {
             appearance: none;
             background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3e%3cpath d='M2 5l6 6 6-6z'/%3e%3c/svg%3e");
@@ -95,12 +84,10 @@
             background-position: right 0.75rem center;
             background-size: 16px 12px;
         }
-
         /* Invalid Feedback */
         .is-invalid {
             border-color: #dc3545;
         }
-
         .invalid-feedback {
             display: block;
             width: 100%;
@@ -108,18 +95,15 @@
             font-size: 0.875em;
             color: #dc3545;
         }
-
         /* Card */
         .card {
             border: 1px solid rgba(0, 0, 0, 0.125);
             border-radius: 0.5rem;
             box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
         }
-
         .card-body {
             padding: 1.25rem;
         }
-
         .card-footer {
             background-color: #f8f9fa;
             border-top: 1px solid #dee2e6;
@@ -128,14 +112,12 @@
             border-bottom-left-radius: 0.5rem;
             border-bottom-right-radius: 0.5rem;
         }
-
         /* Variations */
         .variation-item {
             border: 1px solid #e9ecef;
             border-radius: 0.5rem;
             margin-bottom: 1rem;
         }
-
         .variation-item .card-header {
             background-color: #f8f9fa;
             padding: 0.75rem 1rem;
@@ -145,12 +127,10 @@
             align-items: center;
             font-weight: 600;
         }
-
         .remove-variation {
             padding: 0.25rem 0.5rem;
             font-size: 0.875rem;
         }
-
         /* Responsive */
         @media (max-width: 768px) {
             .row {
@@ -161,13 +141,11 @@
                 margin-bottom: 0.75rem;
             }
         }
-
         /* Hide Template */
         #variationTemplate {
             display: none;
         }
     </style>
-
     @if ($errors->any())
         <div class="alert alert-danger">
             <ul>
@@ -205,22 +183,11 @@
                 </button>
             </li>
         </ul>
-
         <!-- Tab Content -->
         <div class="tab-content">
             <!-- Basic Info -->
             <div class="tab-pane active" id="basic">
                 <div class="row">
-                    <div class="col-md-6">
-                        <div class="mb-3">
-                            <label class="form-label">Slug</label>
-                            <input type="text" name="slug" class="form-control @error('slug') is-invalid @enderror"
-                                   value="{{ old('slug', $product->slug ?? '') }}" id="slug">
-                            @error('slug')
-                            <div class="invalid-feedback">{{ $message }}</div>
-                            @enderror
-                        </div>
-                    </div>
                     <div class="col-md-6">
                         <div class="mb-3">
                             <label class="form-label">SKU</label>
@@ -231,9 +198,6 @@
                             @enderror
                         </div>
                     </div>
-                </div>
-
-                <div class="row">
                     <div class="col-md-6">
                         <div class="mb-3">
                             <label class="form-label">Brand</label>
@@ -251,6 +215,8 @@
                             @enderror
                         </div>
                     </div>
+                </div>
+                <div class="row">
                     <div class="col-md-6">
                         <div class="mb-3">
                             <label class="form-label">Category</label>
@@ -268,10 +234,7 @@
                             @enderror
                         </div>
                     </div>
-                </div>
-
-                <div class="row">
-                    <div class="col-md-4">
+                    <div class="col-md-6">
                         <div class="mb-3">
                             <label class="form-label">Product Type</label>
                             <select name="type" class="form-select @error('type') is-invalid @enderror">
@@ -284,7 +247,9 @@
                             @enderror
                         </div>
                     </div>
-                    <div class="col-md-4">
+                </div>
+                <div class="row">
+                    <div class="col-md-6">
                         <div class="mb-3">
                             <label class="form-label">Barcode</label>
                             <input type="text" name="barcode" class="form-control @error('barcode') is-invalid @enderror"
@@ -294,7 +259,7 @@
                             @enderror
                         </div>
                     </div>
-                    <div class="col-md-4">
+                    <div class="col-md-6">
                         <div class="mb-3">
                             <label class="form-label">Sort Order</label>
                             <input type="number" name="sort_order" class="form-control @error('sort_order') is-invalid @enderror"
@@ -305,24 +270,23 @@
                         </div>
                     </div>
                 </div>
-
                 <div class="row">
-                    <div class="col-md-4">
-                        <div class="form-check mb-3">
-                            <input class="form-check-input" type="checkbox" name="requires_shipping" value="1"
-                                   id="requires_shipping" {{ old('requires_shipping', $product->requires_shipping ?? 1) ? 'checked' : '' }}>
-                            <label class="form-check-label" for="requires_shipping">Requires Shipping</label>
-                        </div>
-                    </div>
-                    <div class="col-md-4">
+                    <div class="col-md-6">
                         <div class="form-check mb-3">
                             <input class="form-check-input" type="checkbox" name="is_featured" value="1"
                                    id="is_featured" {{ old('is_featured', $product->is_featured ?? '') ? 'checked' : '' }}>
                             <label class="form-check-label" for="is_featured">Featured Product</label>
                         </div>
                     </div>
-                </div>
 
+                    <div class="col-md-6">
+                        <div class="form-check mb-3">
+                            <input class="form-check-input" type="checkbox" name="requires_shipping" value="1"
+                                   id="requires_shipping" {{ old('requires_shipping', $product->requires_shipping ?? 1) ? 'checked' : '' }}>
+                            <label class="form-check-label" for="requires_shipping">Requires Shipping</label>
+                        </div>
+                    </div>
+                </div>
                 <!-- Variations Section -->
                 <div class="mt-4">
                     <div class="d-flex justify-content-between align-items-center mb-3">
@@ -342,7 +306,6 @@
                                     </div>
                                     <div class="card-body">
                                         <input type="hidden" name="variations[{{ $index }}][id]" value="{{ $variation->id }}">
-
                                         <div class="row">
                                             <div class="col-md-4">
                                                 <div class="mb-3">
@@ -358,7 +321,6 @@
                                                            value="{{ $variation->barcode }}">
                                                 </div>
                                             </div>
-
                                             <div class="col-md-4">
                                                 <div class="mb-3">
                                                     <label class="form-label">Sort Order</label>
@@ -367,7 +329,6 @@
                                                 </div>
                                             </div>
                                         </div>
-
                                         <div class="row">
                                             <div class="col-md-4">
                                                 <div class="mb-3">
@@ -394,7 +355,6 @@
                                                 </div>
                                             </div>
                                         </div>
-
                                         <div class="row">
                                             <div class="col-md-3">
                                                 <div class="mb-3">
@@ -430,7 +390,6 @@
                                                 </div>
                                             </div>
                                         </div>
-
                                         <div class="row">
                                             <div class="col-md-6">
                                                 <div class="form-check mb-3">
@@ -447,7 +406,6 @@
                                                 </div>
                                             </div>
                                         </div>
-
                                         <div class="mb-3">
                                             <label class="form-label">Options</label>
                                             <div class="row">
@@ -467,7 +425,6 @@
                                                 @endforeach
                                             </div>
                                         </div>
-
                                     </div>
                                 </div>
                             @endforeach
@@ -475,7 +432,6 @@
                     </div>
                 </div>
             </div>
-
             <!-- Translations -->
             <div class="tab-pane" id="translations">
                 @foreach(config('translatable.locales') as $locale)
@@ -485,7 +441,6 @@
                         </div>
                         <div class="card-body">
                             <input type="hidden" name="translations[{{ $locale }}][locale]" value="{{ $locale }}">
-
                             <div class="mb-3">
                                 <label class="form-label">Name</label>
                                 <input type="text" name="{{ $locale }}[name]" class="form-control @error("$locale.name") is-invalid @enderror"
@@ -494,7 +449,6 @@
                                 <div class="invalid-feedback">{{ $message }}</div>
                                 @enderror
                             </div>
-
                             <div class="mb-3">
                                 <label class="form-label">Short Description</label>
                                 <input type="text" name="{{ $locale }}[short_description]" class="form-control @error("$locale.short_description") is-invalid @enderror"
@@ -503,7 +457,6 @@
                                 <div class="invalid-feedback">{{ $message }}</div>
                                 @enderror
                             </div>
-
                             <div class="mb-3">
                                 <label class="form-label">Description</label>
                                 <textarea name="{{ $locale }}[description]" class="form-control @error("$locale.description") is-invalid @enderror"
@@ -516,7 +469,6 @@
                     </div>
                 @endforeach
             </div>
-
             <!-- Pricing & Tax -->
             <div class="tab-pane" id="pricing">
                 <div class="row">
@@ -541,7 +493,6 @@
                         </div>
                     </div>
                 </div>
-
                 <div class="row">
                     <div class="col-md-6">
                         <div class="mb-3">
@@ -561,7 +512,6 @@
                         </div>
                     </div>
                 </div>
-
                 <div class="row">
                     <div class="col-md-4">
                         <div class="form-check mb-3">
@@ -594,7 +544,6 @@
                     </div>
                 </div>
             </div>
-
             <!-- Inventory -->
             <div class="tab-pane" id="inventory">
                 <div class="row">
@@ -622,7 +571,6 @@
             </div>
         </div>
     </div>
-
     <!-- Footer -->
     <div class="card-footer">
         <a href="{{ route('organization.products.index') }}" class="btn btn-secondary">Cancel</a>
@@ -631,7 +579,6 @@
         </button>
     </div>
 </form>
-
 <!-- Hidden Variation Template -->
 <div id="variationTemplate">
     <div class="variation-item">
@@ -640,7 +587,6 @@
             <button type="button" class="btn btn-danger btn-sm remove-variation">Remove</button>
         </div>
         <div class="card-body">
-
             <div class="row">
                 <div class="col-md-4">
                     <div class="mb-3">
@@ -654,7 +600,6 @@
                         <input type="text" name="variations[INDEX][barcode]" class="form-control">
                     </div>
                 </div>
-
                 <div class="col-md-4">
                     <div class="mb-3">
                         <label class="form-label">Sort Order</label>
@@ -662,7 +607,6 @@
                     </div>
                 </div>
             </div>
-
             <div class="row">
                 <div class="col-md-4">
                     <div class="mb-3">
@@ -683,7 +627,6 @@
                     </div>
                 </div>
             </div>
-
             <div class="row">
                 <div class="col-md-3">
                     <div class="mb-3">
@@ -713,7 +656,6 @@
                     </div>
                 </div>
             </div>
-
             <div class="row">
                 <div class="col-md-6">
                     <div class="form-check mb-3">
@@ -728,7 +670,6 @@
                     </div>
                 </div>
             </div>
-
             <div class="mb-3">
                 <label class="form-label">Options</label>
                 <div class="row">
@@ -745,30 +686,11 @@
                     @endforeach
                 </div>
             </div>
-
         </div>
     </div>
 </div>
-
 <script>
     document.addEventListener('DOMContentLoaded', function () {
-        // Slug from English name
-        const nameEn = document.querySelector('input[name="en[name]"]') || document.getElementById('name_en');
-        const slugInput = document.getElementById('slug');
-        if (nameEn && slugInput) {
-            nameEn.addEventListener('input', function () {
-                const value = this.value.trim();
-                if (value) {
-                    const slug = value
-                        .toLowerCase()
-                        .replace(/[^a-z0-9\s-]/g, '')
-                        .replace(/[\s_-]+/g, '-')
-                        .replace(/^-+|-+$/g, '');
-                    slugInput.value = slug;
-                }
-            });
-        }
-
         // Tab System
         const tabs = document.querySelectorAll('.nav-link');
         const panes = document.querySelectorAll('.tab-pane');
@@ -780,7 +702,6 @@
                 document.querySelector(tab.dataset.bsTarget).classList.add('active');
             });
         });
-
         // Main Price Calculation
         function calculateMainPrice() {
             const selling = parseFloat(document.getElementById('selling_price')?.value) || 0;
@@ -788,14 +709,12 @@
             const taxAmount = parseFloat(document.getElementById('tax_amount')?.value) || 0;
             const taxType = document.getElementById('tax_type')?.value;
             const isTaxable = document.getElementById('is_taxable')?.checked;
-
             let total = selling - discount;
             if (isTaxable) {
                 total += taxType == '1' ? taxAmount : (total * taxAmount / 100);
             }
             document.getElementById('total_price').value = total.toFixed(2);
         }
-
         ['selling_price', 'discount', 'tax_amount', 'tax_type', 'is_taxable'].forEach(id => {
             const el = document.getElementById(id);
             if (el) {
@@ -803,17 +722,14 @@
                 el.addEventListener('input', calculateMainPrice);
             }
         });
-
         // --- Dynamic Variations & Stock Sync ---
         let variationCounter = @isset($product) {{ $product->variations->count() }} @else 0 @endisset;
         const addBtn = document.getElementById('addVariation');
         const container = document.getElementById('variationsContainer');
         const template = document.getElementById('variationTemplate');
         const stockInput = document.getElementById('stock_quantity');
-
         // Reference to Pricing Tab
         const pricingTabLi = document.querySelector('button[data-bs-target="#pricing"]').closest('.nav-item');
-
         function togglePricingTab() {
             const hasVariations = container.children.length > 0;
             if (hasVariations) {
@@ -827,10 +743,8 @@
             }
             updateTotalStock();
         }
-
         function updateTotalStock() {
             const hasVariations = container.children.length > 0;
-
             if (hasVariations) {
                 let total = 0;
                 document.querySelectorAll('.variation-stock').forEach(input => {
@@ -847,7 +761,6 @@
                 }
             }
         }
-
         function reindexVariations() {
             Array.from(container.children).forEach((variation, index) => {
                 variation.querySelector('.variation-number').textContent = index + 1;
@@ -861,19 +774,16 @@
             variationCounter = container.children.length;
             updateTotalStock();
         }
-
         addBtn?.addEventListener('click', () => {
             const clone = template.firstElementChild.cloneNode(true);
             clone.innerHTML = clone.innerHTML.replace(/INDEX/g, variationCounter);
             clone.querySelector('.variation-number').textContent = variationCounter + 1;
-
             container.appendChild(clone);
             setupVariationCalc(clone);
             variationCounter++;
             togglePricingTab();
             updateTotalStock();
         });
-
         function setupVariationCalc(variation) {
             const stockInputVar = variation.querySelector('.variation-stock');
             const inputs = [
@@ -883,22 +793,18 @@
                 '.variation-tax-type',
                 'input[name*="is_taxable"]'
             ];
-
             const totalEl = variation.querySelector('.variation-total-price');
-
             function calculate() {
                 const price = parseFloat(variation.querySelector('.variation-selling-price').value) || 0;
                 const discount = parseFloat(variation.querySelector('.variation-discount').value) || 0;
                 const tax = parseFloat(variation.querySelector('.variation-tax-amount').value) || 0;
                 const type = variation.querySelector('.variation-tax-type').value;
                 const taxable = variation.querySelector('input[name*="is_taxable"]').checked;
-
                 let total = price - discount;
                 if (taxable) total += type == '1' ? tax : (total * tax / 100);
                 totalEl.value = total.toFixed(2);
                 updateTotalStock();
             }
-
             inputs.forEach(selector => {
                 const el = variation.querySelector(selector);
                 if (el) {
@@ -906,18 +812,15 @@
                     if (el.type === 'checkbox') el.addEventListener('change', calculate);
                 }
             });
-
             if (stockInputVar) {
                 stockInputVar.addEventListener('input', updateTotalStock);
             }
-
             variation.querySelector('.remove-variation').addEventListener('click', () => {
                 variation.remove();
                 togglePricingTab();
                 reindexVariations();
             });
         }
-
         // Initialize existing variations
         document.querySelectorAll('.variation-item').forEach(setupVariationCalc);
         reindexVariations(); // Initialize numbering and stock

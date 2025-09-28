@@ -96,7 +96,8 @@ return [
     "Organization not found." => "Organization not found.",
     "Payment method activated successfully." => "Payment method activated successfully.",
     "Payment method deactivated successfully." => "Payment method deactivated successfully.",
-    'payment' => "Payment"
+    'payment' => "Payment",
+    "option" => "Option"
 
 
 ];
