@@ -71,9 +71,9 @@ class StoreProductRequest extends FormRequest
                 "gt:0"
             ],
             "sort_order" => ["required", "numeric"],
-            "featured_image" => ["required", "image", "mimes:jpeg,png,jpg,gif,svg", "max:2048"],
+            "featured_image" => ["nullable", "image", "mimes:jpeg,png,jpg,gif,svg", "max:2048"],
             "images"   => ["nullable", "array"],
-            "images.*" => ["required", "image", "mimes:jpeg,png,jpg,gif,svg", "max:2048"],
+            "images.*" => ["nullable", "image", "mimes:jpeg,png,jpg,gif,svg", "max:2048"],
             "variations" => ["nullable", "array"],
             "variations.*.sku" => [
                 "required",
@@ -100,7 +100,7 @@ class StoreProductRequest extends FormRequest
             "variations.*.tax_amount" => ["nullable", "numeric"],
             "variations.*.discount" => ["nullable", "numeric"],
             "variations.*.images" => ["nullable", "array"],
-            "variations.*.images.*" => ["required", "image", "mimes:jpeg,png,jpg,gif,svg", "max:2048"],
+            "variations.*.images.*" => ["nullable", "image", "mimes:jpeg,png,jpg,gif,svg", "max:2048"],
         ];
 
         foreach (config('translatable.locales') as $locale) {

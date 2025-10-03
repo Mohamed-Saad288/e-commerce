@@ -13,7 +13,11 @@ class HomeSection extends Model
 {
     use Translatable;
     protected $table = "home_sections";
-    public array $translatedAttributes = ['name','description'];
+    public array $translatedAttributes = ['title','description'];
+    protected $casts = [
+        'start_date' => 'datetime',
+        'end_date'   => 'datetime',
+    ];
 
     protected $fillable = [
         "organization_id",

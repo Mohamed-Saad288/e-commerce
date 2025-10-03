@@ -123,6 +123,12 @@
                         </a>
                     </li>
                     <li class="nav-item">
+                        <a class="nav-link {{ request()->routeIs('organization.home_sections.*') ? 'active' : '' }}" href="{{ route('organization.home_sections.index') }}">
+                            <i class="fe fe-help-circle fe-16"></i>
+                            <span class="ml-3 item-text">{{ __('organizations.home_sections') }}</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
                         <a class="nav-link {{ request()->routeIs('organization.questions.*') ? 'active' : '' }}" href="{{ route('organization.questions.index') }}">
                             <i class="fe fe-help-circle fe-16"></i>
                             <span class="ml-3 item-text">{{ __('organizations.questions') }}</span>
