@@ -7,6 +7,7 @@ use App\Modules\Organization\app\Http\Controllers\{About\AboutController,
     Employee\EmployeeController,
     Header\HeaderController,
     Home\HomeController,
+    HomeSection\HomeSectionController,
     Option\OptionController,
     OptionItem\OptionItemController,
     OrganizationSetting\OrganizationPaymentMethodController,
@@ -60,6 +61,7 @@ Route::group(
                 Route::resource('abouts', AboutController::class);
                 Route::resource('whys', WhyController::class);
                 Route::resource('our_teams', OurTeamController::class);
+                Route::resource('home_sections', HomeSectionController::class);
                 Route::get('organization_settings/edit', [OrganizationSettingController::class, 'edit'])->name('organization_settings.edit');
                 Route::post('organization_settings/edit', [OrganizationSettingController::class, 'update'])->name('organization_settings.update');
 

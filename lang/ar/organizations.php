@@ -115,5 +115,8 @@ return [
     "Payment method activated successfully." => "تم تفعيل طريقة الدفع بنجاح.",
     "Payment method deactivated successfully." => "تم تعطيل طريقة الدفع بنجاح.",
     'payment' => "طرق الدفع",
+    "home_sections" => "سكاشن الريئسية",
+    "add_home_section" => "اضافة سكشن",
+    "edit_home_section" => "تعديل سكشن",
 ];
 

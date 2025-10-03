@@ -97,7 +97,10 @@ return [
     "Payment method activated successfully." => "Payment method activated successfully.",
     "Payment method deactivated successfully." => "Payment method deactivated successfully.",
     'payment' => "Payment",
-    "option" => "Option"
+    "option" => "Option",
+    "home_sections" => "Home Sections",
+    "add_home_section" => "Add Home Section",
+    "edit_home_section" => "Edit Home Section",
 
 
 ];

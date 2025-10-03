@@ -148,7 +148,18 @@ return [
     'address'          => 'العنوان',
     'latitude'         => 'خط العرض',
     'longitude'        => 'خط الطول',
-    'upload_images' => "تحميل الصور"
+    'upload_images' => "تحميل الصور",
+    "products" => "منتجات",
+    "start_date" => "تاريخ البداية",
+    "end_date"  => "تاريخ النهاية",
+    "custom_fields" => "ادخل اسم ووصف السكشن",
+    'Best_Sellers'       => 'الأكثر مبيعاً',
+    'Trending'           => 'الرائج',
+    'Special_Offer'      => 'عرض خاص',
+    'New_Collection'     => 'مجموعة جديدة',
+    'Top_Rated'          => 'الأعلى تقييماً',
+    'Featured_Products'  => 'منتجات مميزة',
+    'Custom'             => 'مخصص',
 
 ];
 

@@ -61,7 +61,7 @@
             @if(isset($header) && $header->images)
                 <div class="mb-3 d-flex flex-wrap gap-2" id="old-images-container">
                     @foreach($header->images as $img)
-                        <img src="{{ asset("storage/$img") }}"
+                        <img src="{{ asset("storage/$img->image") }}"
                              alt="Header Image"
                              class="img-thumbnail"
                              width="150">
