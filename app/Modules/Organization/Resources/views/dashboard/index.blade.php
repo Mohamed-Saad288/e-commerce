@@ -89,8 +89,8 @@
                             <div class="card-body">
                                 <div class="d-flex align-items-center">
                                     <div class="flex-grow-1">
-                                        <h5 class="text-white mb-2">Pending Orders</h5>
-                                        <h2 class="text-white mb-0">{{ $pendingOrders ?? 0 }}</h2>
+                                        <h5 class="text-white mb-2">{{ __("messages.pending_orders") }}</h5>
+                                        <h2 class="text-white mb-0">{{ $data['pendingOrders'] ?? 0 }}</h2>
                                     </div>
                                     <div class="ml-auto">
                                         <i class="fe fe-clock fe-3x text-white-50"></i>
@@ -109,8 +109,8 @@
                             <div class="card-body">
                                 <div class="d-flex align-items-center">
                                     <div class="flex-grow-1">
-                                        <h5 class="text-white mb-2">Approved Orders</h5>
-                                        <h2 class="text-white mb-0">{{ $approvedOrders ?? 0 }}</h2>
+                                        <h5 class="text-white mb-2">{{ __("messages.approved_orders") }}</h5>
+                                        <h2 class="text-white mb-0">{{ $data['approvedOrders'] ?? 0 }}</h2>
                                     </div>
                                     <div class="ml-auto">
                                         <i class="fe fe-check-circle fe-3x text-white-50"></i>
@@ -129,8 +129,8 @@
                             <div class="card-body">
                                 <div class="d-flex align-items-center">
                                     <div class="flex-grow-1">
-                                        <h5 class="text-white mb-2">Total Orders</h5>
-                                        <h2 class="text-white mb-0">{{ $totalOrders ?? 0 }}</h2>
+                                        <h5 class="text-white mb-2">{{ __("messages.total_orders") }}</h5>
+                                        <h2 class="text-white mb-0">{{ $data['totalOrders'] ?? 0 }}</h2>
                                     </div>
                                     <div class="ml-auto">
                                         <i class="fe fe-shopping-cart fe-3x text-white-50"></i>
@@ -149,8 +149,8 @@
                             <div class="card-body">
                                 <div class="d-flex align-items-center">
                                     <div class="flex-grow-1">
-                                        <h5 class="text-white mb-2">Products</h5>
-                                        <h2 class="text-white mb-0">{{ $products ?? 0 }}</h2>
+                                        <h5 class="text-white mb-2">{{ __("organizations.products") }}</h5>
+                                        <h2 class="text-white mb-0">{{ $data['products'] ?? 0 }}</h2>
                                     </div>
                                     <div class="ml-auto">
                                         <i class="fe fe-package fe-3x text-white-50"></i>
@@ -169,8 +169,8 @@
                             <div class="card-body">
                                 <div class="d-flex align-items-center">
                                     <div class="flex-grow-1">
-                                        <h5 class="text-white mb-2">Brands</h5>
-                                        <h2 class="text-white mb-0">{{ $brands ?? 0 }}</h2>
+                                        <h5 class="text-white mb-2">{{ __("organizations.brand") }}</h5>
+                                        <h2 class="text-white mb-0">{{ $data['brands'] ?? 0 }}</h2>
                                     </div>
                                     <div class="ml-auto">
                                         <i class="fe fe-tag fe-3x text-white-50"></i>
@@ -189,8 +189,8 @@
                             <div class="card-body">
                                 <div class="d-flex align-items-center">
                                     <div class="flex-grow-1">
-                                        <h5 class="text-white mb-2">Categories</h5>
-                                        <h2 class="text-white mb-0">{{ $categories ?? 0 }}</h2>
+                                        <h5 class="text-white mb-2">{{ __("organizations.categories") }}</h5>
+                                        <h2 class="text-white mb-0">{{ $data['categories'] ?? 0 }}</h2>
                                     </div>
                                     <div class="ml-auto">
                                         <i class="fe fe-grid fe-3x text-white-50"></i>
@@ -209,8 +209,8 @@
                             <div class="card-body">
                                 <div class="d-flex align-items-center">
                                     <div class="flex-grow-1">
-                                        <h5 class="text-white mb-2">Users</h5>
-                                        <h2 class="text-white mb-0">{{ $users ?? 0 }}</h2>
+                                        <h5 class="text-white mb-2">{{__("messages.users")}}</h5>
+                                        <h2 class="text-white mb-0">{{ $data['users'] ?? 0 }}</h2>
                                     </div>
                                     <div class="ml-auto">
                                         <i class="fe fe-users fe-3x text-white-50"></i>
@@ -229,8 +229,8 @@
                             <div class="card-body">
                                 <div class="d-flex align-items-center">
                                     <div class="flex-grow-1">
-                                        <h5 class="text-white mb-2">Employees</h5>
-                                        <h2 class="text-white mb-0">{{ $employees ?? 0 }}</h2>
+                                        <h5 class="text-white mb-2">{{ __('organizations.supervisors') }}</h5>
+                                        <h2 class="text-white mb-0">{{ $data['employees'] ?? 0 }}</h2>
                                     </div>
                                     <div class="ml-auto">
                                         <i class="fe fe-briefcase fe-3x text-white-50"></i>
@@ -249,12 +249,12 @@
                     <div class="col-12">
                         <div class="card shadow border-0 rounded-lg overflow-hidden options-card">
                             <div class="card-body">
-                                <h5 class="text-white mb-4">Quick Actions</h5>
+                                <h5 class="text-white mb-4">{{ __("messages.quick_actions") }}</h5>
                                 <div class="options-grid">
-                                    <a href="/" class="btn btn-light"><i class="fe fe-plus-circle"></i> Create Order</a>
-                                    <a href="/" class="btn btn-light"><i class="fe fe-package"></i> Add Product</a>
-                                    <a href="/" class="btn btn-light"><i class="fe fe-users"></i> Manage Users</a>
-                                    <a href="/" class="btn btn-light"><i class="fe fe-bar-chart-2"></i> View Reports</a>
+                                    <a href="{{ route("organization.categories.create") }}" class="btn btn-light"><i class="fe fe-plus-circle"></i>{{ __('organizations.add_category') }}</a>
+                                    <a href="{{ route("organization.products.create") }}" class="btn btn-light"><i class="fe fe-package"></i>{{ __("organizations.add_product") }}</a>
+                                    <a href="{{ route("organization.employees.create") }}" class="btn btn-light"><i class="fe fe-users"></i>{{ __("organizations.add_supervisor") }}</a>
+                                    <a href="{{ route("organization.products.index") }}" class="btn btn-light"><i class="fe fe-bar-chart-2"></i>{{ __("organizations.products") }}</a>
                                 </div>
                             </div>
                         </div>
