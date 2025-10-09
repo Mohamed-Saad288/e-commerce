@@ -7,6 +7,7 @@ use App\Modules\Website\app\Http\Controllers\Brand\BrandController;
 use App\Modules\Website\app\Http\Controllers\Category\CategoryController;
 use App\Modules\Website\app\Http\Controllers\Faq\FaqController;
 use App\Modules\Website\app\Http\Controllers\Header\HeaderController;
+use App\Modules\Website\app\Http\Controllers\Privacy\PrivacyController;
 use App\Modules\Website\app\Http\Controllers\Term\TermController;
 use App\Modules\Website\app\Http\Controllers\WebStatus\WebStatusController;
 use Illuminate\Support\Facades\Route;
@@ -65,6 +66,10 @@ Route::prefix('api/site')->middleware(["set.organization.context"])->group(funct
         Route::post("fetch_web_status","fetch_web_status");
     });
 
+    /** Privacy Endpoints */
+    Route::controller(PrivacyController::class)->group(function (){
+        Route::post("fetch_privacy","fetch_privacy");
+    });
 });
 
 
