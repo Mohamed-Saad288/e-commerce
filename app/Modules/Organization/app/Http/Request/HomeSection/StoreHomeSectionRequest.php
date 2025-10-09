@@ -19,7 +19,12 @@ class StoreHomeSectionRequest extends FormRequest
     {
         $rules = [
             'products' => 'required|array|exists:products,id',
-            'type' => ['required', new Enum(HomeSectionTypeEnum::class) ],
+            'type' => [
+                'required',
+                new Enum(HomeSectionTypeEnum::class),
+                Rule::unique('home_sections', 'type')
+                    ->where(fn ($query) => $query->where('organization_id', auth()->user()->organization_id)),
+            ],
             'sort_order' => 'nullable|integer',
             'start_date' => 'nullable|date',
             'end_date' => 'nullable|date|after:start_date',
