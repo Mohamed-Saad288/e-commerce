@@ -143,7 +143,7 @@
                     </li>
 
                     <li class="nav-item">
-                        <a class="nav-link {{ request()->routeIs('organization.terms.*') ? 'active' : '' }}" href="{{ route('organization.terms.index') }}">
+                        <a class="nav-link {{ request()->routeIs('organization.terms.*') ? 'active' : '' }}" href="{{ route('organization.terms.edit') }}">
                             <i class="fe fe-file-text fe-16"></i>
                             <span class="ml-3 item-text">{{ __('organizations.terms') }}</span>
                         </a>

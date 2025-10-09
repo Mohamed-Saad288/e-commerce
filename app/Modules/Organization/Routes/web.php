@@ -58,7 +58,7 @@ Route::group(
                 Route::resource('products', ProductController::class);
 //                Route::resource('headers', HeaderController::class);
                 Route::resource('questions', QuestionController::class);
-                Route::resource('terms', TermController::class);
+//                Route::resource('terms', TermController::class);
                 Route::resource('abouts', AboutController::class);
                 Route::resource('whys', WhyController::class);
                 Route::resource('our_teams', OurTeamController::class);
@@ -72,6 +72,10 @@ Route::group(
 
                 Route::get('privacy/edit', [PrivacyController::class, 'edit'])->name('privacy.edit');
                 Route::post('privacy/edit', [PrivacyController::class, 'update'])->name('privacy.update');
+
+
+                Route::get('terms/edit', [TermController::class, 'edit'])->name('terms.edit');
+                Route::post('terms/edit', [TermController::class, 'update'])->name('terms.update');
 
                 // Payment methods
                 Route::get('/payment-methods', [OrganizationPaymentMethodController::class, 'index'])->name('payment_methods.index');

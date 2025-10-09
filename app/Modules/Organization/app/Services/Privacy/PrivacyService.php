@@ -6,6 +6,7 @@ use App\Modules\Base\app\DTO\DTOInterface;
 use App\Modules\Base\app\Services\BaseService;
 use App\Modules\Organization\app\Models\Category\Category;
 use App\Modules\Organization\app\Models\Header\Header;
+use App\Modules\Organization\app\Models\Privacy\Privacy;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Storage;
@@ -14,7 +15,7 @@ class PrivacyService extends BaseService
 {
     public function __construct()
     {
-        parent::__construct(resolve(Header::class));
+        parent::__construct(resolve(Privacy::class));
     }
     public function update(Model $model, DtoInterface $dto): Model
     {

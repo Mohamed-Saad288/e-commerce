@@ -1,15 +1,15 @@
 @extends('organization::dashboard.master')
-@section('title', __('messages.terms'))
+@section('title', __('messages.headers'))
 
 @section('content')
     <div class="container-fluid">
         <div class="row">
             <div class="col-md-12">
                 <div class="card">
-                    <div class="card-term d-flex justify-content-between align-items-center">
-                        <h4 class="card-title">{{ __('organizations.terms') }}</h4>
-                        <a href="{{ route('organization.terms.create') }}" class="btn btn-primary">
-                            {{ __('organizations.add_term') }}
+                    <div class="card-header d-flex justify-content-between align-items-center">
+                        <h4 class="card-title">{{ __('organizations.headers') }}</h4>
+                        <a href="{{ route('organization.headers.create') }}" class="btn btn-primary">
+                            {{ __('organizations.add_header') }}
                         </a>
                     </div>
                     <div class="card-body">
@@ -19,25 +19,25 @@
                                 <thead>
                                 <tr>
                                     <th>#</th>
-                                    <th>{{ __('messages.description') }}</th>
+                                    <th>{{ __('messages.title') }}</th>
                                     {{--                                    <th>{{ __('messages.role') }}</th>--}}
                                     {{--                                    <th>{{ __('messages.status') }}</th>--}}
                                     <th>{{ __('messages.actions') }}</th>
                                 </tr>
                                 </thead>
                                 <tbody>
-                                @if (count($terms) > 0)
-                                    @foreach ($terms as $term)
+                                @if (count($headers) > 0)
+                                    @foreach ($headers as $header)
                                         <tr>
                                             <td>{{ $loop->iteration }}</td>
-                                            <td>{{ $term->description ?? '-' }}</td>>
+                                            <td>{{ $header->name ?? '-' }}</td>>
                                             <td>
-                                                <a href="{{ route('organization.terms.edit', $term->id) }}"
+                                                <a href="{{ route('organization.headers.edit', $header->id) }}"
                                                    class="btn btn-sm btn-success">
                                                     <i class='fe fe-edit fa-2x'></i>
                                                 </a>
-                                                <button class="btn btn-sm btn-danger delete-term"
-                                                        data-id="{{ $term->id }}">
+                                                <button class="btn btn-sm btn-danger delete-header"
+                                                        data-id="{{ $header->id }}">
                                                     <i class="fe fe-trash-2 fa-2x"></i>
                                                 </button>
                                             </td>
@@ -68,10 +68,10 @@
 
     <script>
 
-        $(document).on('click', '.delete-term', function (e) {
+        $(document).on('click', '.delete-header', function (e) {
             e.preventDefault();
-            let termId = $(this).data('id');
-            let deleteUrl = "{{ route('organization.terms.destroy', ':id') }}".replace(':id', termId);
+            let headerId = $(this).data('id');
+            let deleteUrl = "{{ route('organization.headers.destroy', ':id') }}".replace(':id', headerId);
             let row = $(this).closest('tr'); // Select the row to remove
 
             // SweetAlert confirmation

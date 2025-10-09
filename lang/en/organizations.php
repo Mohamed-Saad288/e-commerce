@@ -37,7 +37,7 @@ return [
     "add_message" => "Add Message",
     "edit_message" => "Edit Message",
     'terms' => "Terms and Condition",
-    'edit_term' => "Edit Term",
+    'edit_terms' => "Edit Term",
     'add_term' => "Add Term",
     "features" => "Features",
     "add_feature" => "Add Feature",
