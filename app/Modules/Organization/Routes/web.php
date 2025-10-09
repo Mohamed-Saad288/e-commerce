@@ -13,6 +13,7 @@ use App\Modules\Organization\app\Http\Controllers\{About\AboutController,
     OrganizationSetting\OrganizationPaymentMethodController,
     OrganizationSetting\OrganizationSettingController,
     OurTeam\OurTeamController,
+    Privacy\PrivacyController,
     products\ProductController,
     Question\QuestionController,
     Term\TermController,
@@ -68,6 +69,9 @@ Route::group(
                 Route::get('headers/edit', [HeaderController::class, 'edit'])->name('headers.edit');
                 Route::post('headers/edit', [HeaderController::class, 'update'])->name('headers.update');
 
+
+                Route::get('privacy/edit', [PrivacyController::class, 'edit'])->name('privacy.edit');
+                Route::post('privacy/edit', [PrivacyController::class, 'update'])->name('privacy.update');
 
                 // Payment methods
                 Route::get('/payment-methods', [OrganizationPaymentMethodController::class, 'index'])->name('payment_methods.index');

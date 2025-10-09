@@ -1,13 +1,13 @@
 <?php
 
-namespace App\Modules\Organization\app\Http\Request\Term;
+namespace App\Modules\Organization\app\Http\Request\Privacy;
 
 use App\Modules\Admin\Enums\Feature\FeatureTypeEnum;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Validation\Rule;
 use Illuminate\Validation\Rules\Enum;
 
-class StoreTermRequest extends FormRequest
+class StorePrivacyRequest extends FormRequest
 {
     public function authorize(): bool
     {

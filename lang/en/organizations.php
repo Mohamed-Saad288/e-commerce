@@ -101,6 +101,9 @@ return [
     "home_sections" => "Home Sections",
     "add_home_section" => "Add Home Section",
     "edit_home_section" => "Edit Home Section",
+    'privacy' => "Privacy",
+    'edit_privacy' => "Edit Privacy",
+    'add_privacy' => "Add Privacy",
 
 
 ];
