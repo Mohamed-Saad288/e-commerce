@@ -2,10 +2,7 @@
 
 namespace App\Modules\Organization\app\Http\Request\Why;
 
-use App\Modules\Admin\Enums\Feature\FeatureTypeEnum;
 use Illuminate\Foundation\Http\FormRequest;
-use Illuminate\Validation\Rule;
-use Illuminate\Validation\Rules\Enum;
 
 class StoreWhyRequest extends FormRequest
 {

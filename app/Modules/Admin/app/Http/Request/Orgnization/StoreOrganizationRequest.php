@@ -2,9 +2,6 @@
 
 namespace App\Modules\Admin\app\Http\Request\Orgnization;
 
-
-
-
 use Illuminate\Foundation\Http\FormRequest;
 
 class StoreOrganizationRequest extends FormRequest
@@ -19,10 +16,9 @@ class StoreOrganizationRequest extends FormRequest
             'phone' => 'required|unique:organizations,phone',
             'email' => 'nullable|unique:organizations,email',
             'address' => 'nullable',
-            'website_link' => ["required", "unique:organizations,website_link"],
+            'website_link' => ['required', 'unique:organizations,website_link'],
         ];
     }
-
 
     /**
      * Determine if the user is authorized to make this request.

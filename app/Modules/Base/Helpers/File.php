@@ -1,11 +1,10 @@
 <?php
 
-use Illuminate\Support\Str;
+use Illuminate\Database\Eloquent\Model;
 use Illuminate\Http\UploadedFile;
 use Illuminate\Support\Facades\File;
-use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Storage;
-
+use Illuminate\Support\Str;
 
 function uploadImage($image, $folder = 'default', $disk = 'public')
 {
@@ -14,17 +13,23 @@ function uploadImage($image, $folder = 'default', $disk = 'public')
         // Convert base64 to UploadedFile
         $image = convertBase64ToUploadedFile($image);
     }
-    if (!$image) return null;
+    if (! $image) {
+        return null;
+    }
     $path = $image->store("uploads/{$folder}", [
-        'disk' => $disk
+        'disk' => $disk,
     ]);
+
     // dd($path);
     return $path;
 }
 
 function updateImage($file, string $folder, Model $model, string $fileName, $disk = 'public')
 {
-    if ($model && $model->$fileName) deleteFile($model->$fileName);
+    if ($model && $model->$fileName) {
+        deleteFile($model->$fileName);
+    }
+
     return uploadImage($file, $folder, $disk);
 }
 
@@ -35,13 +40,14 @@ function updateOrUploadImage($file, string $folder, Model $model, string $fileNa
         // dd($model->$fileName);
         deleteFile($model->$fileName);
     }
+
     return uploadImage($file, $folder, $disk);
 }
 
 // i want function to store multiple images for attachment table
 
-//function uploadImages($names, $title)
-//{
+// function uploadImages($names, $title)
+// {
 //    $paths = [];
 //
 //    // Ensure $files is always an array
@@ -53,10 +59,10 @@ function updateOrUploadImage($file, string $folder, Model $model, string $fileNa
 //
 //    foreach ($files as $file) {
 //        if ($file) { // Ensure the file is valid
-////            if (is_base64_string($file)) {
-////                // Convert base64 to UploadedFile
-////                $file = convertBase64ToUploadedFile($file);
-////            }
+// //            if (is_base64_string($file)) {
+// //                // Convert base64 to UploadedFile
+// //                $file = convertBase64ToUploadedFile($file);
+// //            }
 //            $path = $file->store($title, [
 //                'disk' => 'uploads'
 //            ]);
@@ -65,7 +71,7 @@ function updateOrUploadImage($file, string $folder, Model $model, string $fileNa
 //    }
 //
 //    return $paths;
-//}
+// }
 
 function uploadImages($names, $title)
 {
@@ -77,7 +83,7 @@ function uploadImages($names, $title)
     foreach ($files as $file) {
         if ($file instanceof \Illuminate\Http\UploadedFile) { // Check if it's an UploadedFile
             $path = $file->store($title, [
-                'disk' => 'uploads'
+                'disk' => 'uploads',
             ]);
             $paths[] = $path;
         } elseif (is_string($file)) {
@@ -94,7 +100,7 @@ function uploadImages($names, $title)
 
 function delete_image($path)
 {
-    if ($path != "uploads/default.jpg") {
+    if ($path != 'uploads/default.jpg') {
         File::delete(getImageLink($path));
     }
 }
@@ -119,8 +125,8 @@ function isFilePath($value): bool
 function convertStringToUploadedFile($filePath): UploadedFile
 {
     // Ensure the file exists
-    if (!File::exists($filePath)) {
-        throw new Exception("File not found: " . $filePath);
+    if (! File::exists($filePath)) {
+        throw new Exception('File not found: '.$filePath);
     }
 
     // Get file info (use File facade to handle file data)
@@ -171,7 +177,7 @@ function convertBase64ToUploadedFile($base64Str): UploadedFile
         'application/pdf' => 'pdf',
         'text/plain' => 'txt',
         'application/msword' => 'doc',
-        'application/vnd.openxmlformats-officedocument.wordprocessingml.document' => 'docx'
+        'application/vnd.openxmlformats-officedocument.wordprocessingml.document' => 'docx',
     ];
 
     // Check if the base64 string has a data URI prefix
@@ -190,14 +196,14 @@ function convertBase64ToUploadedFile($base64Str): UploadedFile
 
     // Handle potential decoding issues
     if ($decodedData === false) {
-        throw new \Exception("Invalid base64 string");
+        throw new \Exception('Invalid base64 string');
     }
 
     // Determine the file extension
     $extension = $mimeTypes[$mimeType] ?? 'bin'; // Default to 'bin' for unknown types
 
     // Create a temporary file in the system
-    $tempFilePath = sys_get_temp_dir() . '/' . Str::random(10) . '.' . $extension;
+    $tempFilePath = sys_get_temp_dir().'/'.Str::random(10).'.'.$extension;
 
     // Save the decoded data to the temporary file
     file_put_contents($tempFilePath, $decodedData);
@@ -205,7 +211,7 @@ function convertBase64ToUploadedFile($base64Str): UploadedFile
     // Convert the temporary file to an UploadedFile instance
     return new UploadedFile(
         $tempFilePath,
-        Str::random(10) . '.' . $extension,  // Random file name with extension
+        Str::random(10).'.'.$extension,  // Random file name with extension
         $mimeType,                          // MIME type
         null,                              // Error (null as we're creating it)
         true                               // Mark as test file
@@ -251,24 +257,21 @@ function upload_file_base64($image, $folder) // image-pdf-docx-excel
         $base64_string = substr($file, strpos($file, ',') + 1);
     }
 
-    $fileName = Str::random(10) . '_' . time() . '.' . $file_extension;
-
-
+    $fileName = Str::random(10).'_'.time().'.'.$file_extension;
 
     $upload_path = $folder;
-    $file_url = $upload_path . '/' . $fileName;
+    $file_url = $upload_path.'/'.$fileName;
 
-    if (!file_exists($upload_path)) {
+    if (! file_exists($upload_path)) {
         mkdir(public_path($upload_path), 0775, true);
     }
 
     file_put_contents(public_path($file_url), base64_decode($base64_string));
 
-
     return $file_url;
 }
-//function imageHandle($request, string $name, ?Model $model = null, string $folder = null): ?string
-//{
+// function imageHandle($request, string $name, ?Model $model = null, string $folder = null): ?string
+// {
 //    if (array_key_exists($name, $request)) {
 //        if ($request[$name] !== null) {
 //            if ($model && $model[$name]) {
@@ -279,21 +282,23 @@ function upload_file_base64($image, $folder) // image-pdf-docx-excel
 //    }
 //
 //    return optional($model)->$name;
-//}
+// }
 function uploadImageV2($request, string $name, string $folder)
 {
     if (array_key_exists($name, $request)) {
-        if (!$request[$name]) return;
+        if (! $request[$name]) {
+            return;
+        }
         $file = $request[$name];
-        $path = 'uploads/' . $file->store($folder, [
-                'disk' => 'uploads'
-            ]);
+        $path = 'uploads/'.$file->store($folder, [
+            'disk' => 'uploads',
+        ]);
     }
 
     return $path ?? null;
 }
-//function fileHandle($request, string $name, ?Model $model = null, string $folder)
-//{
+// function fileHandle($request, string $name, ?Model $model = null, string $folder)
+// {
 //    if (array_key_exists($name, $request)) {
 //        if ($request[$name] !== null) {
 //            if ($model && $model[$name]) {
@@ -304,27 +309,24 @@ function uploadImageV2($request, string $name, string $folder)
 //    }
 //
 //    return optional($model)->$name;
-//}
+// }
 function uploadFile($name, string $folder)
 {
 
     $pdf = $name;
-    $pdfName = time() . rand(1, 9999) . '.' . $pdf->getClientOriginalExtension();
+    $pdfName = time().rand(1, 9999).'.'.$pdf->getClientOriginalExtension();
     $path = $pdf->storeAs($folder, $pdfName, 'files');
 
-
-    return 'files/' . $path ?? null;
+    return 'files/'.$path ?? null;
 }
 function deleteImage($path)
 {
-    if ($path != "uploads/default.jpg") {
+    if ($path != 'uploads/default.jpg') {
         // dd(public_path($path));
         File::delete(public_path($path));
     }
     // dd($path);
 }
-
-
 
 function isPDF($file): bool
 {

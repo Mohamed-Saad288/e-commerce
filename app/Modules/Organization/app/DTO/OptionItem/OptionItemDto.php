@@ -8,9 +8,13 @@ use Illuminate\Foundation\Http\FormRequest;
 class OptionItemDto implements DTOInterface
 {
     public ?array $translations = [];
+
     public ?int $organization_id = null;
+
     public ?int $employee_id = null;
+
     public ?int $option_id = null;
+
     public function __construct(
         ?array $translations = [],
         ?int $organization_id = null,
@@ -29,7 +33,7 @@ class OptionItemDto implements DTOInterface
         $translations = [];
         foreach (config('translatable.locales') as $locale) {
             $translations[$locale] = [
-                'name'        => $arrayData[$locale]['name'] ?? null,
+                'name' => $arrayData[$locale]['name'] ?? null,
             ];
         }
 
@@ -46,9 +50,9 @@ class OptionItemDto implements DTOInterface
         return array_merge(
             $this->translations,
             [
-                'organization_id'         => $this->organization_id,
-                'employee_id'  => $this->employee_id,
-                'option_id' => $this->option_id
+                'organization_id' => $this->organization_id,
+                'employee_id' => $this->employee_id,
+                'option_id' => $this->option_id,
             ]
         );
     }

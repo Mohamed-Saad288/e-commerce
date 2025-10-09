@@ -12,7 +12,7 @@ class Plan extends BaseModel implements TranslatableContract
 {
     use Translatable;
 
-    public array $translatedAttributes = ['name','description'];
+    public array $translatedAttributes = ['name', 'description'];
 
     protected $table = 'plans';
 
@@ -27,13 +27,12 @@ class Plan extends BaseModel implements TranslatableContract
         'is_active',
     ];
 
-
     public function featurePlans()
     {
         return $this->hasMany(FeaturePlan::class);
     }
 
-    public function features() : BelongsToMany
+    public function features(): BelongsToMany
     {
         return $this->belongsToMany(Feature::class, 'feature_plans', 'plan_id', 'feature_id');
     }

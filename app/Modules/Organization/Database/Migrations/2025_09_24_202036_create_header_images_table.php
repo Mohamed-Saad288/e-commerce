@@ -13,10 +13,10 @@ return new class extends Migration
     {
         Schema::create('header_images', function (Blueprint $table) {
             $table->id();
-            $table->string("image")->nullable();
-            $table->foreignId("header_id")
+            $table->string('image')->nullable();
+            $table->foreignId('header_id')
                 ->nullable()
-                ->constrained("headers")
+                ->constrained('headers')
                 ->nullOnDelete()
                 ->cascadeOnUpdate();
             $table->timestamps();

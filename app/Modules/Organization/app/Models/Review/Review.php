@@ -9,18 +9,17 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 class Review extends BaseModel
 {
-
     protected $table = 'reviews';
-    protected $fillable = ['comment', 'rate', 'is_active', 'product_id', "user_id", "product_variation_id"];
+
+    protected $fillable = ['comment', 'rate', 'is_active', 'product_id', 'user_id', 'product_variation_id'];
 
     public function product(): BelongsTo
     {
-        return $this->belongsTo(Product::class, "product_id");
+        return $this->belongsTo(Product::class, 'product_id');
     }
 
     public function user(): BelongsTo
     {
-        return $this->belongsTo(User::class, "user_id");
+        return $this->belongsTo(User::class, 'user_id');
     }
-
 }

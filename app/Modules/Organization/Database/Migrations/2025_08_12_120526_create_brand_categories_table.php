@@ -4,7 +4,8 @@ use App\Modules\Base\Database\Migrations\BaseMigration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-return new class extends BaseMigration {
+return new class extends BaseMigration
+{
     /**
      * Run the migrations.
      */
@@ -12,8 +13,8 @@ return new class extends BaseMigration {
     {
         Schema::create('brand_categories', function (Blueprint $table) {
             $table->id();
-            $table->foreignId("brand_id")->nullable()->constrained('brands')->onDelete('cascade');
-            $table->foreignId("category_id")->nullable()->constrained('categories')->onDelete('cascade');
+            $table->foreignId('brand_id')->nullable()->constrained('brands')->onDelete('cascade');
+            $table->foreignId('category_id')->nullable()->constrained('categories')->onDelete('cascade');
             $this->addOrganizationFields($table);
             $this->addGeneralFields($table);
         });

@@ -4,7 +4,6 @@ namespace App\Exports;
 
 use Maatwebsite\Excel\Concerns\FromCollection;
 use Maatwebsite\Excel\Concerns\WithHeadings;
-use Maatwebsite\Excel\Concerns\WithMapping;
 use Maatwebsite\Excel\Concerns\WithStyles;
 use Maatwebsite\Excel\Concerns\WithTitle;
 use PhpOffice\PhpSpreadsheet\Style\Alignment;
@@ -12,10 +11,7 @@ use PhpOffice\PhpSpreadsheet\Style\Fill;
 
 class ProductsExport implements FromCollection, WithHeadings, WithStyles, WithTitle
 {
-
-    public function __construct(protected $products = null)
-    {
-    }
+    public function __construct(protected $products = null) {}
 
     public function collection()
     {
@@ -36,8 +32,7 @@ class ProductsExport implements FromCollection, WithHeadings, WithStyles, WithTi
         });
     }
 
-    public
-    function headings(): array
+    public function headings(): array
     {
         return [
             '#',
@@ -76,15 +71,12 @@ class ProductsExport implements FromCollection, WithHeadings, WithStyles, WithTi
         $sheet->getColumnDimension('M')->setWidth(50); // for workshop
         $sheet->getColumnDimension('N')->setWidth(20); // for employee id
 
-        $sheet->getStyle('A2:N' . (count($this->collection()) + 1))
+        $sheet->getStyle('A2:N'.(count($this->collection()) + 1))
             ->getAlignment()->setHorizontal(Alignment::HORIZONTAL_CENTER);
     }
 
-
     public function title(): string
     {
-        return "Products";
+        return 'Products';
     }
-
 }
-

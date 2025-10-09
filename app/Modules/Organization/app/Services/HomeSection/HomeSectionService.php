@@ -5,8 +5,6 @@ namespace App\Modules\Organization\app\Services\HomeSection;
 use App\Modules\Admin\app\Models\HomeSection\HomeSection;
 use App\Modules\Base\app\DTO\DTOInterface;
 use App\Modules\Base\app\Services\BaseService;
-use App\Modules\Organization\app\Models\Product\Product;
-use App\Modules\Organization\app\Models\ProductVariation\ProductVariation;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\DB;
 
@@ -35,14 +33,13 @@ class HomeSectionService extends BaseService
 
             $home_section = $this->model->query()->create($data);
 
-            if (!empty($dto->products)) {
+            if (! empty($dto->products)) {
                 $home_section->products()->attach($dto->products);
             }
 
             return $home_section;
         });
     }
-
 
     public function update(Model $model, DtoInterface $dto): Model
     {
@@ -64,12 +61,11 @@ class HomeSectionService extends BaseService
 
             $model->update($data);
 
-            if (!empty($dto->products)) {
+            if (! empty($dto->products)) {
                 $model->products()->sync($dto->products);
             }
 
             return $model;
         });
     }
-
 }

@@ -7,9 +7,13 @@ use App\Modules\Base\app\DTO\DTOInterface;
 class OrganizationDto implements DTOInterface
 {
     public ?string $name;
+
     public ?string $phone;
+
     public ?string $email;
+
     public ?string $address;
+
     public ?string $website_link;
 
     public function __construct(
@@ -40,11 +44,11 @@ class OrganizationDto implements DTOInterface
     public function toArray(): array
     {
         return [
-            'name'     => $this->name,
-            'phone'    => $this->phone,
-            'email'    => $this->email,
+            'name' => $this->name,
+            'phone' => $this->phone,
+            'email' => $this->email,
             'address' => $this->address,
-            'website_link' => $this->website_link
+            'website_link' => $this->website_link,
         ];
     }
 }

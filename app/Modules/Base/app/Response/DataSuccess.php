@@ -4,7 +4,6 @@ namespace App\Modules\Base\app\Response;
 
 class DataSuccess extends DataStatus
 {
-
     public function __construct($data = null, $resourceData = null, array $meta = [], bool $status = true, int $statusCode = 200, string $message = '')
     {
         parent::setData($data);

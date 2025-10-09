@@ -20,7 +20,7 @@ class PaymentMethod extends Model
 
     public array $translatedAttributes = [
         'name',
-        'description'
+        'description',
     ];
 
     protected $casts = [
@@ -42,6 +42,4 @@ class PaymentMethod extends Model
             ->withPivot(['is_active', 'credentials'])
             ->withTimestamps();
     }
-
-
 }

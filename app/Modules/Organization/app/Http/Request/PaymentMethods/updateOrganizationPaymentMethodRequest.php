@@ -16,7 +16,7 @@ class updateOrganizationPaymentMethodRequest extends FormRequest
     public function rules(): array
     {
         $rules = [
-            'is_active'   => 'nullable|boolean',
+            'is_active' => 'nullable|boolean',
             'credentials' => 'nullable|array',
             'credentials.*' => 'nullable|string|max:255',
         ];

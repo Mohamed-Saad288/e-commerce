@@ -10,29 +10,28 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 class Wishlist extends Model
 {
-
     protected $table = 'wishlists';
 
     protected $fillable = [
         'user_id',
         'product_id',
         'product_variation_id',
-        "organization_id",
-        "is_active",
+        'organization_id',
+        'is_active',
     ];
 
     public function product(): BelongsTo
     {
-        return $this->belongsTo(Product::class, "product_id");
+        return $this->belongsTo(Product::class, 'product_id');
     }
 
     public function productVariation(): BelongsTo
     {
-        return $this->belongsTo(ProductVariation::class, "product_variation_id");
+        return $this->belongsTo(ProductVariation::class, 'product_variation_id');
     }
 
     public function user(): BelongsTo
     {
-        return $this->belongsTo(User::class, "user_id");
+        return $this->belongsTo(User::class, 'user_id');
     }
 }

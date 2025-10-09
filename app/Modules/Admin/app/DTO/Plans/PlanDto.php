@@ -9,15 +9,25 @@ use Illuminate\Http\UploadedFile;
 class PlanDto implements DTOInterface
 {
     public ?array $translations = [];
+
     public ?bool $is_active = null;
+
     public ?string $slug = null;
+
     public ?int $billing_type = null;
+
     public ?int $added_by_id = null;
+
     public ?int $duration = null;
+
     public ?int $price = null;
+
     public ?int $trial_period = null;
+
     public ?int $sort_order = null;
+
     public ?array $features = [];
+
     /** @var UploadedFile[]|string[] */
     public array $image = [];
 
@@ -54,7 +64,7 @@ class PlanDto implements DTOInterface
         $translations = [];
         foreach (config('translatable.locales') as $locale) {
             $translations[$locale] = [
-                'name'        => $arrayData[$locale]['name'] ?? null,
+                'name' => $arrayData[$locale]['name'] ?? null,
                 'description' => $arrayData[$locale]['description'] ?? null,
             ];
         }
@@ -65,7 +75,7 @@ class PlanDto implements DTOInterface
                 $file = $data->file('image');
                 $images = is_array($file) ? $file : [$file];
             }
-        } elseif (!empty($arrayData['image'])) {
+        } elseif (! empty($arrayData['image'])) {
             $images = is_array($arrayData['image']) ? $arrayData['image'] : [$arrayData['image']];
         }
 
@@ -89,19 +99,19 @@ class PlanDto implements DTOInterface
         return array_merge(
             $this->translations,
             [
-                'is_active'    => $this->is_active,
-                'slug'         => $this->slug,
+                'is_active' => $this->is_active,
+                'slug' => $this->slug,
                 'billing_type' => $this->billing_type,
-                'added_by_id'  => $this->added_by_id,
-                'duration'     => $this->duration,
-                'price'        => $this->price,
+                'added_by_id' => $this->added_by_id,
+                'duration' => $this->duration,
+                'price' => $this->price,
                 'trial_period' => $this->trial_period,
-                'sort_order'   => $this->sort_order,
-                'features'     => $this->features,
-                'image'        => array_map(
-                    fn($img) => $img instanceof UploadedFile ? $img->getClientOriginalName() : (string) $img,
+                'sort_order' => $this->sort_order,
+                'features' => $this->features,
+                'image' => array_map(
+                    fn ($img) => $img instanceof UploadedFile ? $img->getClientOriginalName() : (string) $img,
                     $this->image
-                )
+                ),
             ]
         );
     }

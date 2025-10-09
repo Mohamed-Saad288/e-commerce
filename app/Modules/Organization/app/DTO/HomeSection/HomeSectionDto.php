@@ -8,13 +8,21 @@ use Illuminate\Foundation\Http\FormRequest;
 class HomeSectionDto implements DTOInterface
 {
     public ?array $translations = [];
+
     public ?int $organization_id = null;
+
     public ?int $employee_id = null;
+
     public $start_date;
+
     public $end_date;
+
     public $products;
+
     public $type;
+
     public $sort_order;
+
     public function __construct(
         ?array $translations = [],
         ?int $organization_id = null,
@@ -42,7 +50,7 @@ class HomeSectionDto implements DTOInterface
         $translations = [];
         foreach (config('translatable.locales') as $locale) {
             $translations[$locale] = [
-                'title'        => $arrayData[$locale]['title'] ?? null,
+                'title' => $arrayData[$locale]['title'] ?? null,
                 'description' => $arrayData[$locale]['description'] ?? null,
             ];
         }
@@ -64,8 +72,8 @@ class HomeSectionDto implements DTOInterface
         return array_merge(
             $this->translations,
             [
-                'organization_id'         => $this->organization_id,
-                'employee_id'  => $this->employee_id,
+                'organization_id' => $this->organization_id,
+                'employee_id' => $this->employee_id,
                 'products' => $this->products,
                 'type' => $this->type,
                 'sort_order' => $this->sort_order,

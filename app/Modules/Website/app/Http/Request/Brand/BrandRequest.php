@@ -7,7 +7,6 @@ use Illuminate\Validation\Rule;
 
 class BrandRequest extends FormRequest
 {
-
     public function authorize(): bool
     {
         return true;
@@ -16,7 +15,7 @@ class BrandRequest extends FormRequest
     public function rules(): array
     {
         return [
-            "category_id" => ["nullable", Rule::exists("categories", "id")->whereNull("deleted_at")],
+            'category_id' => ['nullable', Rule::exists('categories', 'id')->whereNull('deleted_at')],
         ];
     }
 }

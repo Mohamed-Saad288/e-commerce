@@ -2,10 +2,8 @@
 
 namespace App\Modules\Organization\app\Http\Request\HomeSection;
 
-use App\Modules\Admin\Enums\Feature\FeatureTypeEnum;
 use App\Modules\Organization\Enums\HomeSection\HomeSectionTypeEnum;
 use Illuminate\Foundation\Http\FormRequest;
-use Illuminate\Validation\Rule;
 use Illuminate\Validation\Rules\Enum;
 
 class StoreHomeSectionRequest extends FormRequest
@@ -19,7 +17,7 @@ class StoreHomeSectionRequest extends FormRequest
     {
         $rules = [
             'products' => 'required|array|exists:products,id',
-            'type' => ['required', new Enum(HomeSectionTypeEnum::class) ],
+            'type' => ['required', new Enum(HomeSectionTypeEnum::class)],
             'sort_order' => 'nullable|integer',
             'start_date' => 'nullable|date',
             'end_date' => 'nullable|date|after:start_date',

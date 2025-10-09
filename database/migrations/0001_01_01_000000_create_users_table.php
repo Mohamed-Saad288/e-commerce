@@ -4,7 +4,8 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-return new class extends Migration {
+return new class extends Migration
+{
     /**
      * Run the migrations.
      */
@@ -18,8 +19,8 @@ return new class extends Migration {
             $table->timestamp('email_verified_at')->nullable();
             $table->timestamp('phone_verified_at')->nullable();
             $table->string('password');
-            $table->boolean("is_active")->default(true);
-            $table->foreignId("organization_id")->nullable()->constrained("organizations")->onDelete("set null");
+            $table->boolean('is_active')->default(true);
+            $table->foreignId('organization_id')->nullable()->constrained('organizations')->onDelete('set null');
             $table->rememberToken();
             $table->softDeletes();
             $table->timestamps();
@@ -40,7 +41,6 @@ return new class extends Migration {
             $table->integer('last_activity')->index();
         });
 
-
         Schema::create('user_otps', function (Blueprint $table) {
             $table->id();
 
@@ -53,13 +53,13 @@ return new class extends Migration {
 
             $table->timestamp('expires_at');
 
-            $table->tinyInteger("type")->default(1)->comment("1: email, 2: phone");
+            $table->tinyInteger('type')->default(1)->comment('1: email, 2: phone');
 
-            $table->tinyInteger("purpose")->default(1)->comment(
-                "1: verification, 2: password reset, 3: login verification"
+            $table->tinyInteger('purpose')->default(1)->comment(
+                '1: verification, 2: password reset, 3: login verification'
             );
 
-            $table->tinyInteger("status")->default(1)->comment("1: pending, 0: used, -1: expired");
+            $table->tinyInteger('status')->default(1)->comment('1: pending, 0: used, -1: expired');
 
             $table->timestamp('used_at')->nullable();
 

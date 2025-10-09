@@ -16,12 +16,12 @@ return new class extends BaseMigration
             $this->addOrganizationFields($table);
             $this->addGeneralFields($table);
         });
-        Schema::create("term_translations", function (Blueprint $table) {
+        Schema::create('term_translations', function (Blueprint $table) {
             $table->id();
-            $table->string("locale")->index();
-            $table->longText("description")->nullable();
-            $table->unique(["term_id", "locale"]);
-            $table->foreignId("term_id")->constrained()->onDelete("cascade");
+            $table->string('locale')->index();
+            $table->longText('description')->nullable();
+            $table->unique(['term_id', 'locale']);
+            $table->foreignId('term_id')->constrained()->onDelete('cascade');
         });
     }
 

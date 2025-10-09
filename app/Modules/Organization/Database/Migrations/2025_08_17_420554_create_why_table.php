@@ -13,17 +13,18 @@ return new class extends BaseMigration
     {
         Schema::create('why', function (Blueprint $table) {
             $table->id();
+            $table->integer("sort_order")->default(0);
             $this->addOrganizationFields($table);
-            $table->string("image")->nullable();
+            $table->string('image')->nullable();
             $this->addGeneralFields($table);
         });
-        Schema::create("why_translations", function (Blueprint $table) {
+        Schema::create('why_translations', function (Blueprint $table) {
             $table->id();
-            $table->string("locale")->index();
-            $table->string("name")->nullable();
-            $table->longText("description")->nullable();
-            $table->unique(["why_id", "locale"]);
-            $table->foreignId("why_id")->constrained("why")->onDelete("cascade");
+            $table->string('locale')->index();
+            $table->string('name')->nullable();
+            $table->longText('description')->nullable();
+            $table->unique(['why_id', 'locale']);
+            $table->foreignId('why_id')->constrained('why')->onDelete('cascade');
         });
     }
 

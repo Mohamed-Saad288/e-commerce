@@ -8,24 +8,22 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 class FeaturePlan extends Model
 {
-
     protected $table = 'feature_plans';
 
     protected $fillable = [
         'feature_id',
         'plan_id',
         'feature_value',
-        'is_active'
+        'is_active',
     ];
 
-    public function feature() : BelongsTo
+    public function feature(): BelongsTo
     {
         return $this->belongsTo(Feature::class);
     }
 
-    public function plan() : BelongsTo
+    public function plan(): BelongsTo
     {
         return $this->belongsTo(Plan::class);
     }
-
 }

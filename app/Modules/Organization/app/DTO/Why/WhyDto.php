@@ -8,9 +8,13 @@ use Illuminate\Foundation\Http\FormRequest;
 class WhyDto implements DTOInterface
 {
     public ?array $translations = [];
+
     public ?int $organization_id = null;
+
     public ?int $employee_id = null;
-    public  $image;
+
+    public $image;
+
     public function __construct(
         ?array $translations = [],
         ?int $organization_id = null,
@@ -29,7 +33,7 @@ class WhyDto implements DTOInterface
         $translations = [];
         foreach (config('translatable.locales') as $locale) {
             $translations[$locale] = [
-                'name'        => $arrayData[$locale]['name'] ?? null,
+                'name' => $arrayData[$locale]['name'] ?? null,
                 'description' => $arrayData[$locale]['description'] ?? null,
             ];
         }
@@ -47,9 +51,9 @@ class WhyDto implements DTOInterface
         return array_merge(
             $this->translations,
             [
-                'organization_id'         => $this->organization_id,
-                'employee_id'  => $this->employee_id,
-                'image' => $this->image
+                'organization_id' => $this->organization_id,
+                'employee_id' => $this->employee_id,
+                'image' => $this->image,
             ]
         );
     }

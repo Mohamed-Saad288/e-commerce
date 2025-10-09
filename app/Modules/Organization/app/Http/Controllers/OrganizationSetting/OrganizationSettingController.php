@@ -10,11 +10,12 @@ use App\Modules\Organization\app\Services\OrganizationSetting\OrganizationSettin
 
 class OrganizationSettingController extends Controller
 {
-    public function __construct(protected OrganizationSettingService $service){}
+    public function __construct(protected OrganizationSettingService $service) {}
 
     public function edit()
     {
         $organization_setting = OrganizationSetting::where('organization_id', auth()->user()->organization_id)->first(); // أو by organization_id
+
         return view('organization::dashboard.organization_settings.single', compact('organization_setting'));
     }
 
@@ -25,8 +26,8 @@ class OrganizationSettingController extends Controller
         );
 
         return to_route('organization.organization_settings.edit')->with([
-            'message' => __("messages.updated"),
-            'alert-type' => 'success'
+            'message' => __('messages.updated'),
+            'alert-type' => 'success',
         ]);
     }
 }

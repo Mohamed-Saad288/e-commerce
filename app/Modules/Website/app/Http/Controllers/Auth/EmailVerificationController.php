@@ -15,7 +15,7 @@ class EmailVerificationController extends Controller
         if ($request->user()->hasVerifiedEmail()) {
             return response()->json([
                 'status' => false,
-                'message' => __('auth.already_verified')
+                'message' => __('auth.already_verified'),
             ]);
         }
 
@@ -23,7 +23,7 @@ class EmailVerificationController extends Controller
 
         return response()->json([
             'status' => true,
-            'message' => __('auth.verification_link_sent')
+            'message' => __('auth.verification_link_sent'),
         ]);
     }
 
@@ -34,21 +34,21 @@ class EmailVerificationController extends Controller
         if ($user->hasVerifiedEmail()) {
             return response()->json([
                 'status' => false,
-                'message' => __('auth.already_verified')
+                'message' => __('auth.already_verified'),
             ]);
         }
 
         if (! URL::hasValidSignature($request)) {
             return response()->json([
                 'status' => false,
-                'message' => __('auth.invalid_verification_link')
+                'message' => __('auth.invalid_verification_link'),
             ], 400);
         }
 
         if (! hash_equals((string) $hash, sha1($user->getEmailForVerification()))) {
             return response()->json([
                 'status' => false,
-                'message' => __('auth.invalid_verification_link')
+                'message' => __('auth.invalid_verification_link'),
             ], 400);
         }
 
@@ -56,7 +56,7 @@ class EmailVerificationController extends Controller
 
         return response()->json([
             'status' => true,
-            'message' => __('auth.verified_success')
+            'message' => __('auth.verified_success'),
         ]);
     }
 }

@@ -10,18 +10,18 @@ return new class extends BaseMigration
     {
         Schema::create('features', function (Blueprint $table) {
             $table->id();
-            $table->string("slug")->nullable();
-            $table->tinyInteger("type")->default(1)->comment("1=>limit , 2=>boolean , 3=>text");
+            $table->string('slug')->nullable();
+            $table->tinyInteger('type')->default(1)->comment('1=>limit , 2=>boolean , 3=>text');
             $this->addAddedByFields($table);
             $this->addGeneralFields($table);
         });
-        Schema::create("feature_translations", function (Blueprint $table) {
+        Schema::create('feature_translations', function (Blueprint $table) {
             $table->id();
-            $table->string("locale")->index();
-            $table->string("name");
-            $table->text("description")->nullable();
-            $table->unique(["feature_id", "locale"]);
-            $table->foreignId("feature_id")->constrained()->onDelete("cascade");
+            $table->string('locale')->index();
+            $table->string('name');
+            $table->text('description')->nullable();
+            $table->unique(['feature_id', 'locale']);
+            $table->foreignId('feature_id')->constrained()->onDelete('cascade');
         });
     }
 

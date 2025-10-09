@@ -10,18 +10,17 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 use Spatie\MediaLibrary\HasMedia;
 use Spatie\MediaLibrary\InteractsWithMedia;
 
-
 class BaseModel extends Model implements HasMedia
 {
-    use HasActivation, SoftDeletes, InteractsWithMedia;
+    use HasActivation, InteractsWithMedia, SoftDeletes;
 
     public function storeImages($media, $update = false, $collection = 'images'): void
     {
         $images = array_filter(convertToArray($media));
-        if ($update && !empty($images)) {
+        if ($update && ! empty($images)) {
             $this->deleteMedia(collection: $collection);
         }
-        if (!empty($images)) {
+        if (! empty($images)) {
             foreach ($images as $image) {
                 if ($image->isValid()) {
                     $this->addMedia($image)->toMediaCollection($collection);
@@ -41,7 +40,7 @@ class BaseModel extends Model implements HasMedia
     public function storeVideos($media, $update = false, $collection = 'videos'): void
     {
         $videos = array_filter(convertToArray($media));
-        if ($update && !empty($videos)) {
+        if ($update && ! empty($videos)) {
             $this->clearMediaCollection($collection);
         }
         if (count($videos) > 0) {
@@ -61,12 +60,12 @@ class BaseModel extends Model implements HasMedia
 
     public function getImages($collection = 'images'): array
     {
-        return $this->getMedia($collection)->map(fn($media) => $media->getUrl());
+        return $this->getMedia($collection)->map(fn ($media) => $media->getUrl());
     }
 
     public function getVideos($collection = 'videos'): array
     {
-        return $this->getMedia($collection)->map(fn($media) => $media->getUrl());
+        return $this->getMedia($collection)->map(fn ($media) => $media->getUrl());
     }
 
     public function getImage($collection = 'images'): ?string
@@ -81,13 +80,11 @@ class BaseModel extends Model implements HasMedia
 
     public function AddedBy(): BelongsTo
     {
-        return $this->belongsTo(User::class, "added_by_id");
+        return $this->belongsTo(User::class, 'added_by_id');
     }
-
 
     public function activeScope($query)
     {
-        return $query->where("is_active", 1);
+        return $query->where('is_active', 1);
     }
 }
-

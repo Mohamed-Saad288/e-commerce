@@ -16,7 +16,7 @@ class CategoryService extends BaseService
     public function filters($request = null): array
     {
         return [
-            CategoryIdFilter::class
+            CategoryIdFilter::class,
         ];
     }
 }

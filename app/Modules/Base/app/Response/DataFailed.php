@@ -4,13 +4,11 @@ namespace App\Modules\Base\app\Response;
 
 class DataFailed extends DataStatus
 {
-
-    public function __construct(array $errors = [],bool $status=false , int $statusCode=500,string $message='')
+    public function __construct(array $errors = [], bool $status = false, int $statusCode = 500, string $message = '')
     {
-       parent::setErrors($errors);
-       parent::setStatus($status);
-       parent::setStatusCode($statusCode);
-       parent::setMessage($message);
+        parent::setErrors($errors);
+        parent::setStatus($status);
+        parent::setStatusCode($statusCode);
+        parent::setMessage($message);
     }
-
 }

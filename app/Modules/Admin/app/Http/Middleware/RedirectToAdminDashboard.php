@@ -8,7 +8,6 @@ use Symfony\Component\HttpFoundation\Response;
 
 class RedirectToAdminDashboard
 {
-
     public function handle(Request $request, Closure $next): Response
     {
         if (auth()->guard('admin')->check()) {

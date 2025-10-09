@@ -4,7 +4,7 @@ use Illuminate\Database\Eloquent\Collection;
 use Mcamara\LaravelLocalization\Facades\LaravelLocalization;
 
 // function getLanguageRules($fieldPrefix1=null,$fieldPrefix2=null,$fieldPrefix3=null, $fieldType=null)
-//{
+// {
 //    $supportedLanguages = LaravelLocalization::getSupportedLocales();
 //    $rules = [];
 //
@@ -15,7 +15,7 @@ use Mcamara\LaravelLocalization\Facades\LaravelLocalization;
 //    }
 //
 //    return $rules;
-//}
+// }
 
 function getRulesForLanguage(array $prfixs, array $fildtypes)
 {
@@ -26,7 +26,7 @@ function getRulesForLanguage(array $prfixs, array $fildtypes)
     foreach ($supportedLanguages as $localeCode => $properties) {
         foreach ($prfixs as $prfix) {
             foreach ($fildtypes as $fildtype) {
-                $rules[$prfix . '_' . $localeCode] = 'required|' . $fildtype;
+                $rules[$prfix.'_'.$localeCode] = 'required|'.$fildtype;
             }
         }
     }
@@ -49,14 +49,14 @@ function getRulesForLanguageV2(array $prfixs, array $fildtypes)
             foreach ($prfixs as $prfix) {
                 foreach ($fildtypes as $fildtype) {
                     // Add the 'required' rule only for accepted languages
-                    $rules[$prfix . '_' . $localeCode] = 'nullable|' . $fildtype;
+                    $rules[$prfix.'_'.$localeCode] = 'nullable|'.$fildtype;
                 }
             }
         } else {
             foreach ($prfixs as $prfix) {
                 foreach ($fildtypes as $fildtype) {
                     // For non-accepted languages, you may choose to leave out the 'required' rule
-                    $rules[$prfix . '_' . $localeCode] = 'nullable|' . $fildtype;
+                    $rules[$prfix.'_'.$localeCode] = 'nullable|'.$fildtype;
                 }
             }
         }
@@ -65,9 +65,6 @@ function getRulesForLanguageV2(array $prfixs, array $fildtypes)
     return $rules;
 }
 
-
-
-
 function storeLanguage(array $prefixes, array $requestData)
 {
     $supportedLanguages = LaravelLocalization::getSupportedLocales();
@@ -75,7 +72,7 @@ function storeLanguage(array $prefixes, array $requestData)
 
     foreach ($supportedLanguages as $localeCode => $properties) {
         foreach ($prefixes as $prefix) {
-            $fieldName = $prefix . '_' . $localeCode;
+            $fieldName = $prefix.'_'.$localeCode;
 
             $data[$localeCode][$prefix] = $requestData[$fieldName] ?? null;
         }
@@ -83,7 +80,7 @@ function storeLanguage(array $prefixes, array $requestData)
 
     return $data;
 }
-function getTranslation(string $field, $language,  $model)
+function getTranslation(string $field, $language, $model)
 {
     if ($language == null) {
         $language = 'en';
@@ -98,6 +95,7 @@ function getTranslation(string $field, $language,  $model)
                 if ($fallbackTranslation) {
                     return $fallbackTranslation->$field;
                 }
+
                 return $model->translations->where('locale', 'en')->first()->$field ?? null;
             }
         }
@@ -110,8 +108,8 @@ function getTranslationAndLocale(Collection $translations, string $field): array
     $titles = [];
     foreach ($translations as $translation) {
         $titles[] = [
-            'locale' => $translation?->locale ?? "",
-            $field => $translation?->$field ?? "",
+            'locale' => $translation?->locale ?? '',
+            $field => $translation?->$field ?? '',
         ];
     }
 
@@ -123,7 +121,7 @@ function getLocalizedRules(array $columns): array
 
     foreach (LaravelLocalization::getSupportedLocales() as $localeCode => $properties) {
         foreach ($columns as $column) {
-            $rules["{$column}_{$localeCode}"] = "required";
+            $rules["{$column}_{$localeCode}"] = 'required';
         }
     }
 
@@ -143,7 +141,6 @@ function getLocalizedRules(array $columns): array
 //         return null;
 // }
 
-
 function getNewTranslation($field, $language, $model, $filteredKey)
 {
 
@@ -153,31 +150,33 @@ function getNewTranslation($field, $language, $model, $filteredKey)
     if (isset($model)) {
         if (isset($model->translation)) {
             $translation = $model->translation->where('locale', $language)->where($filteredKey, $model->id)->first();
+
             return $translation ? $translation->$field : null;
         }
     }
+
     return null;
 }
-
 
 function getFinalField($field, $language, $model, $filteredKey)
 {
     $locale_codes = config('translatable.locales');
     $translatedField = getNewTranslation(field: $field, language: $language, model: $model, filteredKey: $filteredKey);
     if ($translatedField == null) {
-        foreach ($locale_codes as  $locale) {
+        foreach ($locale_codes as $locale) {
             $translatedField = getNewTranslation(field: $field, language: $locale, model: $model, filteredKey: $filteredKey);
             if ($translatedField !== null) {
                 break;
             }
         }
     }
+
     return $translatedField ?? '';
 }
 
 function getAcceptedLanguages(): array|string
 {
-    return request()->header('Accept-Language') ?? "en";
+    return request()->header('Accept-Language') ?? 'en';
 
 }
 

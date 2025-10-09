@@ -2,9 +2,6 @@
 
 namespace App\Modules\Organization\app\Http\Request\Employee;
 
-
-
-
 use Illuminate\Foundation\Http\FormRequest;
 
 class StoreEmployeeRequest extends FormRequest
@@ -19,10 +16,9 @@ class StoreEmployeeRequest extends FormRequest
             'phone' => 'required|unique:admins,phone',
             'email' => 'nullable|unique:admins,email',
             'password' => 'required|string|min:6',
-            'is_master' => "nullable"
+            'is_master' => 'nullable',
         ];
     }
-
 
     /**
      * Determine if the user is authorized to make this request.

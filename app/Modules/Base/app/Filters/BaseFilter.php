@@ -8,7 +8,8 @@ use Illuminate\Http\Request;
 abstract class BaseFilter
 {
     protected Request $request;
-    public function __construct(Request $request = null)
+
+    public function __construct(?Request $request = null)
     {
         $this->request = $request;
     }

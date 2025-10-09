@@ -10,16 +10,15 @@ use App\Modules\Website\app\Http\Request\Brand\BrandRequest;
 
 class BrandController extends Controller
 {
-
-    public function __construct(protected BrandService $service){}
-
+    public function __construct(protected BrandService $service) {}
 
     public function list(BrandRequest $request)
     {
         $brands = $this->service->list();
+
         return (new DataSuccess(
             data: SimpleTitleResource::collection($brands), status: true,
-            message: __("website.brand_list")
+            message: __('website.brand_list')
         ))->response();
     }
 }

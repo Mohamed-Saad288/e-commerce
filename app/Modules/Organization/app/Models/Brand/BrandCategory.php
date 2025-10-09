@@ -8,7 +8,6 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 class BrandCategory extends Model
 {
-
     protected $table = 'brand_categories';
 
     protected $fillable = [

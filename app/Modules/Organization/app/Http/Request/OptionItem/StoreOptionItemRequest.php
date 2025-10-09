@@ -2,10 +2,8 @@
 
 namespace App\Modules\Organization\app\Http\Request\OptionItem;
 
-use App\Modules\Admin\Enums\Feature\FeatureTypeEnum;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Validation\Rule;
-use Illuminate\Validation\Rules\Enum;
 
 class StoreOptionItemRequest extends FormRequest
 {
@@ -17,7 +15,7 @@ class StoreOptionItemRequest extends FormRequest
     public function rules(): array
     {
         $rules = [
-            "option_id" => ["nullable", Rule::exists("options", "id")->whereNull("deleted_at")],
+            'option_id' => ['nullable', Rule::exists('options', 'id')->whereNull('deleted_at')],
         ];
         foreach (config('translatable.locales') as $locale) {
             $rules["$locale.name"] = 'required|string|max:255';

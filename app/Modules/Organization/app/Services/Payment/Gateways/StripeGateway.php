@@ -45,8 +45,8 @@ class StripeGateway implements PaymentGatewayInterface
     {
         return isset($settings['public_key']) &&
                isset($settings['secret_key']) &&
-               !empty($settings['public_key']) &&
-               !empty($settings['secret_key']);
+               ! empty($settings['public_key']) &&
+               ! empty($settings['secret_key']);
     }
 
     public function getRequiredSettings(): array

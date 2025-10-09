@@ -2,7 +2,7 @@
 
 namespace App\Modules\Admin\Enums\Plan;
 
-enum BillingTypeEnum : int
+enum BillingTypeEnum: int
 {
     case MONTHLY = 1;
     case YEARLY = 2;

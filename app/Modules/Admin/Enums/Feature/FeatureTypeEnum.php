@@ -2,12 +2,11 @@
 
 namespace App\Modules\Admin\Enums\Feature;
 
-enum FeatureTypeEnum : int
+enum FeatureTypeEnum: int
 {
     case LIMIT = 1;
     case BOOLEAN = 2;
     case TEXT = 3;
-
 
     public function label(): string
     {
@@ -17,5 +16,4 @@ enum FeatureTypeEnum : int
             self::TEXT => 'Text',
         };
     }
-
 }

@@ -15,8 +15,8 @@ class SimpleTitleResource extends JsonResource
     public function toArray(Request $request): array
     {
         return [
-            "id" => $this->id ?? null,
-            "name" => $this->name ?? $this->title ?? null
+            'id' => $this->id ?? null,
+            'name' => $this->name ?? $this->title ?? null,
         ];
     }
 }

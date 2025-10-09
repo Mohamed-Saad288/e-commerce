@@ -13,9 +13,9 @@ return new class extends Migration
     {
         Schema::create('home_section_products', function (Blueprint $table) {
             $table->id();
-            $table->foreignId("home_section_id")->constrained()->onDelete("cascade");
-            $table->foreignId("product_id")->constrained()->onDelete("cascade");
-            $table->integer("sort_order")->default(0);
+            $table->foreignId('home_section_id')->constrained()->onDelete('cascade');
+            $table->foreignId('product_id')->constrained()->onDelete('cascade');
+            $table->integer('sort_order')->default(0);
             $table->timestamps();
         });
     }

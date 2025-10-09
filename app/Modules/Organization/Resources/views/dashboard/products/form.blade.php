@@ -145,6 +145,69 @@
         #variationTemplate {
             display: none;
         }
+        /* Image Upload Styling */
+        .image-upload-container {
+            border: 2px dashed #dee2e6;
+            border-radius: 0.5rem;
+            padding: 1.5rem;
+            text-align: center;
+            background-color: #f8f9fa;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+        .image-upload-container:hover {
+            border-color: #0d6efd;
+            background-color: #e7f3ff;
+        }
+        .image-upload-container input[type="file"] {
+            display: none;
+        }
+        .image-preview-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
+            gap: 1rem;
+            margin-top: 1rem;
+        }
+        .image-preview-item {
+            position: relative;
+            border: 1px solid #dee2e6;
+            border-radius: 0.375rem;
+            overflow: hidden;
+            aspect-ratio: 1;
+        }
+        .image-preview-item img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        .image-preview-item .remove-image {
+            position: absolute;
+            top: 0.25rem;
+            right: 0.25rem;
+            background-color: rgba(220, 53, 69, 0.9);
+            color: white;
+            border: none;
+            border-radius: 50%;
+            width: 24px;
+            height: 24px;
+            font-size: 0.875rem;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 0;
+        }
+        .image-preview-item .remove-image:hover {
+            background-color: #dc3545;
+        }
+        .images-disabled-notice {
+            background-color: #fff3cd;
+            border: 1px solid #ffc107;
+            border-radius: 0.375rem;
+            padding: 1rem;
+            margin-bottom: 1rem;
+            color: #856404;
+        }
     </style>
     @if ($errors->any())
         <div class="alert alert-danger">
@@ -168,6 +231,12 @@
                 <button class="nav-link" id="translations-tab" data-bs-toggle="tab"
                         data-bs-target="#translations" type="button" role="tab" aria-controls="translations" aria-selected="false">
                     {{ __("organizations.translations") }}
+                </button>
+            </li>
+            <li class="nav-item" role="presentation">
+                <button class="nav-link" id="images-tab" data-bs-toggle="tab"
+                        data-bs-target="#images" type="button" role="tab" aria-controls="images" aria-selected="false">
+                    {{ __("organizations.images") }}
                 </button>
             </li>
             <li class="nav-item" role="presentation">
@@ -425,6 +494,52 @@
                                                 @endforeach
                                             </div>
                                         </div>
+                                        <div class="mb-3">
+                                            <label class="form-label">Variation Main Images</label>
+                                            <p class="text-muted small">Primary images for this variation</p>
+                                            <div class="image-upload-container variation-main-image-upload" data-variation-index="{{ $index }}">
+                                                <input type="file" name="variations[{{ $index }}][main_images][]" multiple accept="image/*" class="variation-main-image-input">
+                                                <div class="upload-text">
+                                                    <i class="fas fa-cloud-upload-alt fa-2x mb-2"></i>
+                                                    <p>Click to upload main images or drag and drop</p>
+                                                    <small class="text-muted">PNG, JPG, GIF up to 10MB (Multiple files allowed)</small>
+                                                </div>
+                                            </div>
+                                            <div class="image-preview-grid variation-main-image-preview" data-variation-index="{{ $index }}">
+                                                @if($variation->getMedia('main_images')->count() > 0)
+                                                    @foreach($variation->getMedia('main_images') as $media)
+                                                        <div class="image-preview-item" data-media-id="{{ $media->id }}">
+                                                            <img src="{{ $media->getUrl() }}" alt="Variation Main Image">
+                                                            <button type="button" class="remove-image" data-existing="true" data-media-id="{{ $media->id }}">×</button>
+                                                            <input type="hidden" name="variations[{{ $index }}][existing_main_images][]" value="{{ $media->id }}">
+                                                        </div>
+                                                    @endforeach
+                                                @endif
+                                            </div>
+                                        </div>
+                                        <div class="mb-3">
+                                            <label class="form-label">Variation Additional Images</label>
+                                            <p class="text-muted small">Gallery images for this variation</p>
+                                            <div class="image-upload-container variation-image-upload" data-variation-index="{{ $index }}">
+                                                <input type="file" name="variations[{{ $index }}][additional_images][]" multiple accept="image/*" class="variation-image-input">
+                                                <div class="upload-text">
+                                                    <i class="fas fa-cloud-upload-alt fa-2x mb-2"></i>
+                                                    <p>Click to upload additional images or drag and drop</p>
+                                                    <small class="text-muted">PNG, JPG, GIF up to 10MB (Multiple files allowed)</small>
+                                                </div>
+                                            </div>
+                                            <div class="image-preview-grid variation-image-preview" data-variation-index="{{ $index }}">
+                                                @if($variation->getMedia('additional_images')->count() > 0)
+                                                    @foreach($variation->getMedia('additional_images') as $media)
+                                                        <div class="image-preview-item" data-media-id="{{ $media->id }}">
+                                                            <img src="{{ $media->getUrl() }}" alt="Variation Additional Image">
+                                                            <button type="button" class="remove-image" data-existing="true" data-media-id="{{ $media->id }}">×</button>
+                                                            <input type="hidden" name="variations[{{ $index }}][existing_additional_images][]" value="{{ $media->id }}">
+                                                        </div>
+                                                    @endforeach
+                                                @endif
+                                            </div>
+                                        </div>
                                     </div>
                                 </div>
                             @endforeach
@@ -468,6 +583,64 @@
                         </div>
                     </div>
                 @endforeach
+            </div>
+            <!-- Images Tab -->
+            <div class="tab-pane" id="images">
+                <div id="mainImagesSection">
+                    <div id="imagesDisabledNotice" class="images-disabled-notice" style="display: none;">
+                        <strong>Note:</strong> Images are disabled because you have variations. Please add images to each variation instead.
+                    </div>
+
+                    <!-- Main Images -->
+                    <div class="mb-4" id="mainImagesContainer">
+                        <h5>Main Images</h5>
+                        <p class="text-muted">These are the primary images for your product</p>
+                        <div class="image-upload-container" id="mainImageUploadArea">
+                            <input type="file" name="main_images[]" id="mainImagesInput" multiple accept="image/*">
+                            <div class="upload-text">
+                                <i class="fas fa-cloud-upload-alt fa-2x mb-2"></i>
+                                <p>Click to upload main images or drag and drop</p>
+                                <small class="text-muted">PNG, JPG, GIF up to 10MB (Multiple files allowed)</small>
+                            </div>
+                        </div>
+                        <div class="image-preview-grid" id="mainImagesPreview">
+                            @if(isset($product) && $product->getMedia('main_images')->count() > 0)
+                                @foreach($product->getMedia('main_images') as $media)
+                                    <div class="image-preview-item" data-media-id="{{ $media->id }}">
+                                        <img src="{{ $media->getUrl() }}" alt="Main Image">
+                                        <button type="button" class="remove-image" data-existing="true" data-media-id="{{ $media->id }}">×</button>
+                                        <input type="hidden" name="existing_main_images[]" value="{{ $media->id }}" class="keep-image-input">
+                                    </div>
+                                @endforeach
+                            @endif
+                        </div>
+                    </div>
+
+                    <!-- Additional Images -->
+                    <div class="mb-4" id="additionalImagesContainer">
+                        <h5>Additional Images</h5>
+                        <p class="text-muted">Additional product images (gallery)</p>
+                        <div class="image-upload-container" id="additionalImageUploadArea">
+                            <input type="file" name="additional_images[]" id="additionalImagesInput" multiple accept="image/*">
+                            <div class="upload-text">
+                                <i class="fas fa-cloud-upload-alt fa-2x mb-2"></i>
+                                <p>Click to upload additional images or drag and drop</p>
+                                <small class="text-muted">PNG, JPG, GIF up to 10MB (Multiple files allowed)</small>
+                            </div>
+                        </div>
+                        <div class="image-preview-grid" id="additionalImagesPreview">
+                            @if(isset($product) && $product->getMedia('images')->count() > 0)
+                                @foreach($product->getMedia('images') as $media)
+                                    <div class="image-preview-item" data-media-id="{{ $media->id }}">
+                                        <img src="{{ $media->getUrl() }}" alt="Additional Image">
+                                        <button type="button" class="remove-image" data-existing="true" data-media-id="{{ $media->id }}">×</button>
+                                        <input type="hidden" name="existing_additional_images[]" value="{{ $media->id }}" class="keep-image-input">
+                                    </div>
+                                @endforeach
+                            @endif
+                        </div>
+                    </div>
+                </div>
             </div>
             <!-- Pricing & Tax -->
             <div class="tab-pane" id="pricing">
@@ -686,6 +859,34 @@
                     @endforeach
                 </div>
             </div>
+            <div class="mb-3">
+                <label class="form-label">Variation Main Images</label>
+                <p class="text-muted small">Primary images for this variation</p>
+                <div class="image-upload-container variation-main-image-upload" data-variation-index="INDEX">
+                    <input type="file" name="variations[INDEX][main_images][]" multiple accept="image/*" class="variation-main-image-input">
+                    <div class="upload-text">
+                        <i class="fas fa-cloud-upload-alt fa-2x mb-2"></i>
+                        <p>Click to upload main images or drag and drop</p>
+                        <small class="text-muted">PNG, JPG, GIF up to 10MB (Multiple files allowed)</small>
+                    </div>
+                </div>
+                <div class="image-preview-grid variation-main-image-preview" data-variation-index="INDEX">
+                </div>
+            </div>
+            <div class="mb-3">
+                <label class="form-label">Variation Additional Images</label>
+                <p class="text-muted small">Gallery images for this variation</p>
+                <div class="image-upload-container variation-image-upload" data-variation-index="INDEX">
+                    <input type="file" name="variations[INDEX][additional_images][]" multiple accept="image/*" class="variation-image-input">
+                    <div class="upload-text">
+                        <i class="fas fa-cloud-upload-alt fa-2x mb-2"></i>
+                        <p>Click to upload additional images or drag and drop</p>
+                        <small class="text-muted">PNG, JPG, GIF up to 10MB (Multiple files allowed)</small>
+                    </div>
+                </div>
+                <div class="image-preview-grid variation-image-preview" data-variation-index="INDEX">
+                </div>
+            </div>
         </div>
     </div>
 </div>
@@ -702,7 +903,182 @@
                 document.querySelector(tab.dataset.bsTarget).classList.add('active');
             });
         });
-        // Main Price Calculation
+
+        // ===========================================
+        // IMAGE UPLOAD FUNCTIONALITY
+        // ===========================================
+
+        // Handle Main Images Upload
+        function setupImageUpload(inputElement, previewContainer, uploadArea) {
+            if (!inputElement) return;
+
+            // Store files in a DataTransfer object for proper multiple file handling
+            let filesList = new DataTransfer();
+
+            // Click to upload
+            uploadArea?.addEventListener('click', (e) => {
+                if (e.target.classList.contains('remove-image')) return;
+                inputElement.click();
+            });
+
+            // File selection handler
+            inputElement.addEventListener('change', function(e) {
+                const newFiles = Array.from(this.files);
+                newFiles.forEach(file => {
+                    filesList.items.add(file);
+                });
+
+                // Update the input's files
+                inputElement.files = filesList.files;
+
+                handleFiles(newFiles, previewContainer, inputElement, filesList);
+            });
+
+            // Drag and drop
+            uploadArea?.addEventListener('dragover', (e) => {
+                e.preventDefault();
+                uploadArea.style.borderColor = '#0d6efd';
+            });
+
+            uploadArea?.addEventListener('dragleave', (e) => {
+                e.preventDefault();
+                uploadArea.style.borderColor = '#dee2e6';
+            });
+
+            uploadArea?.addEventListener('drop', (e) => {
+                e.preventDefault();
+                uploadArea.style.borderColor = '#dee2e6';
+                const newFiles = Array.from(e.dataTransfer.files);
+
+                newFiles.forEach(file => {
+                    filesList.items.add(file);
+                });
+
+                // Update the input's files
+                inputElement.files = filesList.files;
+
+                handleFiles(newFiles, previewContainer, inputElement, filesList);
+            });
+        }
+
+        // Handle file preview
+        function handleFiles(files, previewContainer, inputElement, filesList) {
+            if (!files || !previewContainer) return;
+
+            Array.from(files).forEach((file, index) => {
+                if (!file.type.startsWith('image/')) return;
+
+                const reader = new FileReader();
+                reader.onload = function(e) {
+                    const previewItem = document.createElement('div');
+                    previewItem.className = 'image-preview-item';
+                    previewItem.dataset.fileName = file.name;
+                    previewItem.innerHTML = `
+                        <img src="${e.target.result}" alt="Preview">
+                        <button type="button" class="remove-image" data-existing="false">×</button>
+                    `;
+
+                    previewContainer.appendChild(previewItem);
+
+                    // Remove image handler for new uploads
+                    previewItem.querySelector('.remove-image').addEventListener('click', function(e) {
+                        e.stopPropagation();
+                        const fileName = previewItem.dataset.fileName;
+
+                        // Remove from DataTransfer
+                        if (filesList) {
+                            const dt = new DataTransfer();
+                            const filesArray = Array.from(filesList.files);
+
+                            filesArray.forEach(f => {
+                                if (f.name !== fileName) {
+                                    dt.items.add(f);
+                                }
+                            });
+
+                            // Update input files
+                            inputElement.files = dt.files;
+
+                            // Update filesList reference
+                            filesList.items.clear();
+                            Array.from(dt.files).forEach(f => filesList.items.add(f));
+                        }
+
+                        previewItem.remove();
+                    });
+                };
+                reader.readAsDataURL(file);
+            });
+        }
+
+        // Remove existing images (mark for deletion)
+        document.addEventListener('click', function(e) {
+            if (e.target.classList.contains('remove-image') && e.target.dataset.existing === 'true') {
+                e.stopPropagation();
+                const previewItem = e.target.closest('.image-preview-item');
+                const mediaId = e.target.dataset.mediaId;
+
+                // Remove the hidden input that keeps the image
+                const keepInput = previewItem.querySelector('.keep-image-input');
+                if (keepInput) {
+                    keepInput.remove();
+                }
+
+                // Add a hidden input to mark for deletion
+                const deleteInput = document.createElement('input');
+                deleteInput.type = 'hidden';
+                deleteInput.name = 'delete_images[]';
+                deleteInput.value = mediaId;
+                previewItem.appendChild(deleteInput);
+
+                // Visually mark as deleted
+                previewItem.style.opacity = '0.3';
+                e.target.style.display = 'none';
+            }
+        });
+
+        // Setup main images upload
+        const mainImagesInput = document.getElementById('mainImagesInput');
+        const mainImagesPreview = document.getElementById('mainImagesPreview');
+        const mainImageUploadArea = document.getElementById('mainImageUploadArea');
+        setupImageUpload(mainImagesInput, mainImagesPreview, mainImageUploadArea);
+
+        // Setup additional images upload
+        const additionalImagesInput = document.getElementById('additionalImagesInput');
+        const additionalImagesPreview = document.getElementById('additionalImagesPreview');
+        const additionalImageUploadArea = document.getElementById('additionalImageUploadArea');
+        setupImageUpload(additionalImagesInput, additionalImagesPreview, additionalImageUploadArea);
+
+        // ===========================================
+        // VARIATION IMAGE UPLOADS
+        // ===========================================
+
+        function setupVariationImageUpload(variationElement) {
+            // Setup variation main images
+            const mainUploadArea = variationElement.querySelector('.variation-main-image-upload');
+            const mainInputElement = variationElement.querySelector('.variation-main-image-input');
+            const mainPreviewContainer = variationElement.querySelector('.variation-main-image-preview');
+
+            if (mainUploadArea && mainInputElement && mainPreviewContainer) {
+                setupImageUpload(mainInputElement, mainPreviewContainer, mainUploadArea);
+            }
+
+            // Setup variation additional images
+            const uploadArea = variationElement.querySelector('.variation-image-upload');
+            const inputElement = variationElement.querySelector('.variation-image-input');
+            const previewContainer = variationElement.querySelector('.variation-image-preview');
+
+            if (uploadArea && inputElement && previewContainer) {
+                setupImageUpload(inputElement, previewContainer, uploadArea);
+            }
+        }
+
+        // Setup image uploads for existing variations
+        document.querySelectorAll('.variation-item').forEach(setupVariationImageUpload);
+
+        // ===========================================
+        // MAIN PRICE CALCULATION
+        // ===========================================
         function calculateMainPrice() {
             const selling = parseFloat(document.getElementById('selling_price')?.value) || 0;
             const discount = parseFloat(document.getElementById('discount')?.value) || 0;
@@ -722,14 +1098,50 @@
                 el.addEventListener('input', calculateMainPrice);
             }
         });
-        // --- Dynamic Variations & Stock Sync ---
+
+        // ===========================================
+        // DYNAMIC VARIATIONS & IMAGE LOGIC
+        // ===========================================
         let variationCounter = @isset($product) {{ $product->variations->count() }} @else 0 @endisset;
         const addBtn = document.getElementById('addVariation');
         const container = document.getElementById('variationsContainer');
         const template = document.getElementById('variationTemplate');
         const stockInput = document.getElementById('stock_quantity');
-        // Reference to Pricing Tab
+
+        // Reference to tabs and sections
         const pricingTabLi = document.querySelector('button[data-bs-target="#pricing"]').closest('.nav-item');
+        const mainImagesContainer = document.getElementById('mainImagesContainer');
+        const additionalImagesContainer = document.getElementById('additionalImagesContainer');
+        const imagesDisabledNotice = document.getElementById('imagesDisabledNotice');
+
+        function toggleImageSections() {
+            const hasVariations = container.children.length > 0;
+
+            if (hasVariations) {
+                // Disable main product images
+                mainImagesContainer.style.opacity = '0.5';
+                additionalImagesContainer.style.opacity = '0.5';
+                mainImagesContainer.style.pointerEvents = 'none';
+                additionalImagesContainer.style.pointerEvents = 'none';
+                imagesDisabledNotice.style.display = 'block';
+
+                // Disable image inputs
+                if (mainImagesInput) mainImagesInput.disabled = true;
+                if (additionalImagesInput) additionalImagesInput.disabled = true;
+            } else {
+                // Enable main product images
+                mainImagesContainer.style.opacity = '1';
+                additionalImagesContainer.style.opacity = '1';
+                mainImagesContainer.style.pointerEvents = 'auto';
+                additionalImagesContainer.style.pointerEvents = 'auto';
+                imagesDisabledNotice.style.display = 'none';
+
+                // Enable image inputs
+                if (mainImagesInput) mainImagesInput.disabled = false;
+                if (additionalImagesInput) additionalImagesInput.disabled = false;
+            }
+        }
+
         function togglePricingTab() {
             const hasVariations = container.children.length > 0;
             if (hasVariations) {
@@ -742,7 +1154,9 @@
                 document.getElementById('selling_price')?.removeAttribute('disabled');
             }
             updateTotalStock();
+            toggleImageSections();
         }
+
         function updateTotalStock() {
             const hasVariations = container.children.length > 0;
             if (hasVariations) {
@@ -761,6 +1175,7 @@
                 }
             }
         }
+
         function reindexVariations() {
             Array.from(container.children).forEach((variation, index) => {
                 variation.querySelector('.variation-number').textContent = index + 1;
@@ -770,20 +1185,29 @@
                         input.name = input.name.replace(/\[variations\]\[\d+\]/, `[variations][${index}]`);
                     }
                 });
+
+                // Update variation image attributes
+                const imageUpload = variation.querySelector('.variation-image-upload');
+                const imagePreview = variation.querySelector('.variation-image-preview');
+                if (imageUpload) imageUpload.dataset.variationIndex = index;
+                if (imagePreview) imagePreview.dataset.variationIndex = index;
             });
             variationCounter = container.children.length;
             updateTotalStock();
         }
+
         addBtn?.addEventListener('click', () => {
             const clone = template.firstElementChild.cloneNode(true);
             clone.innerHTML = clone.innerHTML.replace(/INDEX/g, variationCounter);
             clone.querySelector('.variation-number').textContent = variationCounter + 1;
             container.appendChild(clone);
             setupVariationCalc(clone);
+            setupVariationImageUpload(clone);
             variationCounter++;
             togglePricingTab();
             updateTotalStock();
         });
+
         function setupVariationCalc(variation) {
             const stockInputVar = variation.querySelector('.variation-stock');
             const inputs = [
@@ -821,9 +1245,10 @@
                 reindexVariations();
             });
         }
+
         // Initialize existing variations
         document.querySelectorAll('.variation-item').forEach(setupVariationCalc);
-        reindexVariations(); // Initialize numbering and stock
-        togglePricingTab(); // Hide pricing tab if needed
+        reindexVariations();
+        togglePricingTab();
     });
 </script>

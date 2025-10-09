@@ -8,20 +8,21 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 class HomeSectionProduct extends Model
 {
-    protected $table = "home_section_products";
+    protected $table = 'home_section_products';
 
     protected $fillable = [
-        "home_section_id",
-        "product_id",
-        "sort_order",
+        'home_section_id',
+        'product_id',
+        'sort_order',
     ];
 
-    public function homeSection() : BelongsTo
+    public function homeSection(): BelongsTo
     {
-        return $this->belongsTo(HomeSection::class,"home_section_id");
+        return $this->belongsTo(HomeSection::class, 'home_section_id');
     }
-    public function product() : BelongsTo
+
+    public function product(): BelongsTo
     {
-        return $this->belongsTo(Product::class,"product_id");
+        return $this->belongsTo(Product::class, 'product_id');
     }
 }

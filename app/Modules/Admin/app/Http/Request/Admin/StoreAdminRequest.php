@@ -2,9 +2,6 @@
 
 namespace App\Modules\Admin\app\Http\Request\Admin;
 
-
-
-
 use Illuminate\Foundation\Http\FormRequest;
 
 class StoreAdminRequest extends FormRequest
@@ -21,7 +18,6 @@ class StoreAdminRequest extends FormRequest
             'password' => 'required|string|min:6',
         ];
     }
-
 
     /**
      * Determine if the user is authorized to make this request.

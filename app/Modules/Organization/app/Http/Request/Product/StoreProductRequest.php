@@ -15,92 +15,97 @@ class StoreProductRequest extends FormRequest
         return true;
     }
 
-
     public function rules(): array
     {
         $rules = [
-            "brand_id" => [
-                "required",
-                Rule::exists("brands", "id")->whereNull("deleted_at")
-                    ->where("organization_id", auth("organization_employee")->user()->organization_id)
+            'brand_id' => [
+                'nullable',
+                Rule::exists('brands', 'id')->whereNull('deleted_at')
+                    ->where('organization_id', auth('organization_employee')->user()->organization_id),
             ],
-            "category_id" => [
-                "required",
-                Rule::exists("categories", "id")->whereNull("deleted_at")
-                    ->where("organization_id", auth("organization_employee")->user()->organization_id)
+            'category_id' => [
+                'required',
+                Rule::exists('categories', 'id')->whereNull('deleted_at')
+                    ->where('organization_id', auth('organization_employee')->user()->organization_id),
             ],
-            "slug" => [
-                "nullable",
-                Rule::unique("products", "slug")->whereNull("deleted_at")->where(
-                    "organization_id",
-                    auth("organization_employee")->user()->organization_id
-                )
+            'slug' => [
+                'nullable',
+                Rule::unique('products', 'slug')->whereNull('deleted_at')->where(
+                    'organization_id',
+                    auth('organization_employee')->user()->organization_id
+                ),
             ],
-            "sku" => [
-                "nullable",
-                Rule::unique("products", "sku")->whereNull("deleted_at")->where(
-                    "organization_id",
-                    auth("organization_employee")->user()->organization_id
-                )
+            'sku' => [
+                'nullable',
+                Rule::unique('products', 'sku')->whereNull('deleted_at')->where(
+                    'organization_id',
+                    auth('organization_employee')->user()->organization_id
+                ),
             ],
-            "barcode" => [
-                "nullable",
-                Rule::unique("products", "barcode")->whereNull("deleted_at")->where(
-                    "organization_id",
-                    auth("organization_employee")->user()->organization_id
-                )
+            'barcode' => [
+                'nullable',
+                Rule::unique('products', 'barcode')->whereNull('deleted_at')->where(
+                    'organization_id',
+                    auth('organization_employee')->user()->organization_id
+                ),
             ],
-            "type" => ["required", new Enum(ProductTypeEnum::class)],
-            "stock_quantity" => ["required", "numeric"],
-            "low_stock_threshold" => ["required", "numeric"],
-            "requires_shipping" => ["nullable", "boolean"],
-            "is_featured" => ["nullable", "boolean"],
-            "is_taxable" => ["nullable", "boolean"],
-            "tax_type" => ["nullable", new Enum(TaxTypeEnum::class)],
-            "tax_amount" => ["nullable", "numeric"],
-            "discount" => ["nullable", "numeric"],
-            "cost_price" => [
-                Rule::requiredIf(fn() => empty($this->variations)),
-                "numeric",
-                "gt:0"
-            ],
-
-            "selling_price" => [
-                Rule::requiredIf(fn() => empty($this->variations)),
-                "numeric",
-                "gt:0"
-            ],
-            "sort_order" => ["required", "numeric"],
-            "featured_image" => ["nullable", "image", "mimes:jpeg,png,jpg,gif,svg", "max:2048"],
-            "images"   => ["nullable", "array"],
-            "images.*" => ["nullable", "image", "mimes:jpeg,png,jpg,gif,svg", "max:2048"],
-            "variations" => ["nullable", "array"],
-            "variations.*.sku" => [
-                "required",
-                Rule::unique("product_variations", "sku")->whereNull("deleted_at")->where(
-                    "organization_id",
-                    auth("organization_employee")->user()->organization_id
-                )
+            'type' => ['required', new Enum(ProductTypeEnum::class)],
+            'stock_quantity' => ['required', 'numeric'],
+            'low_stock_threshold' => ['required', 'numeric'],
+            'requires_shipping' => ['nullable', 'boolean'],
+            'is_featured' => ['nullable', 'boolean'],
+            'is_taxable' => ['nullable', 'boolean'],
+            'tax_type' => ['nullable', new Enum(TaxTypeEnum::class)],
+            'tax_amount' => ['nullable', 'numeric'],
+            'discount' => ['nullable', 'numeric'],
+            'cost_price' => [
+                Rule::requiredIf(fn () => empty($this->variations)),
+                'numeric',
+                'gt:0',
             ],
 
-            "variations.*.option_items" => ["required", "array"],
-            "variations.*.option_items.*" => [
-                "required",
-                Rule::exists("option_items", "id")->whereNull("deleted_at")->where(
-                    "organization_id",
-                    auth("organization_employee")->user()->organization_id
-                )
+            'selling_price' => [
+                Rule::requiredIf(fn () => empty($this->variations)),
+                'numeric',
+                'gt:0',
             ],
-            "variations.*.sort_order" => ["required", "numeric"],
-            "variations.*.stock_quantity" => ["required", "numeric"],
-            "variations.*.cost_price" => [Rule::requiredIf(fn() => !empty($this->variations)), "numeric", "gt:0"],
-            "variations.*.selling_price" => [Rule::requiredIf(fn() => !empty($this->variations)), "numeric", "gt:0"],
-            "variations.*.is_taxable" => ["nullable", "boolean"],
-            "variations.*.tax_type" => ["nullable", new Enum(TaxTypeEnum::class)],
-            "variations.*.tax_amount" => ["nullable", "numeric"],
-            "variations.*.discount" => ["nullable", "numeric"],
-            "variations.*.images" => ["nullable", "array"],
-            "variations.*.images.*" => ["nullable", "image", "mimes:jpeg,png,jpg,gif,svg", "max:2048"],
+            'sort_order' => ['required', 'numeric'],
+            'featured_image' => ['nullable', 'image', 'mimes:jpeg,png,jpg,gif,svg', 'max:2048'],
+            'main_images' => ['nullable', 'array'],
+            'main_images.*' => ['nullable', 'image', 'mimes:jpeg,png,jpg,gif,svg', 'max:2048'],
+
+            'additional_images' => ['nullable', 'array'],
+            'additional_images.*' => ['nullable', 'image', 'mimes:jpeg,png,jpg,gif,svg', 'max:2048'],
+            'variations' => ['nullable', 'array'],
+            'variations.*.sku' => [
+                'required',
+                Rule::unique('product_variations', 'sku')->whereNull('deleted_at')->where(
+                    'organization_id',
+                    auth('organization_employee')->user()->organization_id
+                ),
+            ],
+
+            'variations.*.option_items' => ['required', 'array'],
+            'variations.*.option_items.*' => [
+                'required',
+                Rule::exists('option_items', 'id')->whereNull('deleted_at')->where(
+                    'organization_id',
+                    auth('organization_employee')->user()->organization_id
+                ),
+            ],
+            'variations.*.sort_order' => ['required', 'numeric'],
+            'variations.*.stock_quantity' => ['required', 'numeric'],
+            'variations.*.cost_price' => [Rule::requiredIf(fn () => ! empty($this->variations)), 'numeric', 'gt:0'],
+            'variations.*.selling_price' => [Rule::requiredIf(fn () => ! empty($this->variations)), 'numeric', 'gt:0'],
+            'variations.*.is_taxable' => ['nullable', 'boolean'],
+            'variations.*.tax_type' => ['nullable', new Enum(TaxTypeEnum::class)],
+            'variations.*.tax_amount' => ['nullable', 'numeric'],
+            'variations.*.discount' => ['nullable', 'numeric'],
+            'variations.*.additional_images' => ['nullable', 'array'],
+            'variations.*.additional_images.*' => ['nullable', 'image', 'mimes:jpeg,png,jpg,gif,svg', 'max:2048'],
+
+            'variations.*.main_images' => ['nullable', 'array'],
+            'variations.*.main_images.*' => ['nullable', 'image', 'mimes:jpeg,png,jpg,gif,svg', 'max:2048'],
         ];
 
         foreach (config('translatable.locales') as $locale) {

@@ -10,7 +10,7 @@ use Mcamara\LaravelLocalization\Facades\LaravelLocalization;
 
 Route::group(
     [
-        'prefix' => LaravelLocalization::setLocale() . "/admins",
+        'prefix' => LaravelLocalization::setLocale().'/admins',
         'middleware' => [
             'localeSessionRedirect',
             'localizationRedirect',

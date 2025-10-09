@@ -14,16 +14,16 @@ return new class extends BaseMigration
         Schema::create('headers', function (Blueprint $table) {
             $table->id();
             $this->addOrganizationFields($table);
-            $table->string("image")->nullable();
+            $table->string('image')->nullable();
             $this->addGeneralFields($table);
         });
-        Schema::create("header_translations", function (Blueprint $table) {
+        Schema::create('header_translations', function (Blueprint $table) {
             $table->id();
-            $table->string("locale")->index();
-            $table->string("name")->nullable();
-            $table->longText("description")->nullable();
-            $table->unique(["header_id", "locale"]);
-            $table->foreignId("header_id")->constrained()->onDelete("cascade");
+            $table->string('locale')->index();
+            $table->string('name')->nullable();
+            $table->longText('description')->nullable();
+            $table->unique(['header_id', 'locale']);
+            $table->foreignId('header_id')->constrained()->onDelete('cascade');
         });
     }
 

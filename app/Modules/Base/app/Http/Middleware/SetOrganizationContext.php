@@ -10,7 +10,6 @@ use Symfony\Component\HttpFoundation\Response;
 
 class SetOrganizationContext
 {
-
     public function handle(Request $request, Closure $next): Response
     {
         $organizationId = null;
@@ -19,17 +18,17 @@ class SetOrganizationContext
             $organizationId = Auth::guard('organization_employee')->user()->organization_id;
         }
 
-        if (!$organizationId && $request->hasHeader('website-link')) {
+        if (! $organizationId && $request->hasHeader('website-link')) {
             $website_link = $request->header('website-link');
             $organizationId = Organization::query()
                 ->where('website_link', $website_link)
                 ->value('id');
         }
-        if (!$organizationId) {
+        if (! $organizationId) {
             abort(404, 'Organization not found');
         }
 
-        app()->singleton('organization_id', fn() => $organizationId);
+        app()->singleton('organization_id', fn () => $organizationId);
 
         return $next($request);
     }

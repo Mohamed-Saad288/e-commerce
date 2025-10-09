@@ -22,6 +22,7 @@ class HomeController extends Controller
             'categories' => Category::count(),
             'users' => User::count(),
         ];
+
         return view('organization::dashboard.index');
     }
 

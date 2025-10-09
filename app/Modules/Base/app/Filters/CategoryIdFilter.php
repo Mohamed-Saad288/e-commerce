@@ -6,9 +6,7 @@ use Closure;
 
 class CategoryIdFilter extends BaseFilter
 {
-
-
-    public function handle($builder, Closure $next, $column = "category_id")
+    public function handle($builder, Closure $next, $column = 'category_id')
     {
         if (filled($this->request) && $this->request->has($column)) {
             $value = $this->request->get($column);

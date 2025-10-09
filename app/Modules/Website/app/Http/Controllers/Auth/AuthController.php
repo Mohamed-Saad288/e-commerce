@@ -17,17 +17,16 @@ use Illuminate\Support\Facades\Password;
 
 class AuthController extends Controller
 {
-    public function __construct(protected AuthService $authService)
-    {
-    }
+    public function __construct(protected AuthService $authService) {}
 
     public function login(LoginRequest $request): JsonResponse
     {
         try {
             $result = $this->authService->login($request);
+
             return (new DataSuccess(
                 data: UserResource::make($result), status: true,
-                message: __("auth.Login_successfully")
+                message: __('auth.Login_successfully')
             ))->response();
         } catch (Exception $e) {
             return (new DataFailed(
@@ -40,9 +39,10 @@ class AuthController extends Controller
     public function register(RegisterRequest $request): JsonResponse
     {
         $result = $this->authService->register($request);
+
         return (new DataSuccess(
             data: UserResource::make($result), status: true,
-            message: __("auth.Register_successfully")
+            message: __('auth.Register_successfully')
         ))->response();
     }
 
@@ -51,16 +51,17 @@ class AuthController extends Controller
         $this->authService->logout();
 
         return (new DataSuccess(
-            message: __("auth.Logout_successfully")
+            message: __('auth.Logout_successfully')
         ))->response();
     }
 
     public function forgotPassword(ForgotPasswordRequest $request): JsonResponse
     {
         $result = $this->authService->forgotPassword($request->email);
+
         return (new DataSuccess(
             status: $result === Password::RESET_LINK_SENT,
-            message: __("auth.password_reset_link_sent")
+            message: __('auth.password_reset_link_sent')
         ))->response();
     }
 
@@ -70,7 +71,7 @@ class AuthController extends Controller
 
         return (new DataSuccess(
             status: $result === Password::PASSWORD_RESET,
-            message: __("auth.password_reset_successfully")
+            message: __('auth.password_reset_successfully')
         ))->response();
     }
 }

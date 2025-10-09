@@ -2,7 +2,6 @@
 
 namespace App\Modules\Organization\app\Models\City;
 
-
 use App\Modules\Base\app\Models\BaseModel;
 use App\Modules\Organization\app\Models\Country\Country;
 use Astrotomic\Translatable\Contracts\Translatable as TranslatableContract;

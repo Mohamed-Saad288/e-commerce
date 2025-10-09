@@ -12,10 +12,11 @@ class UpdateAdminRequest extends FormRequest
     public function rules(): array
     {
         $adminId = $this->route('admin')->id ?? $this->route('admin');
+
         return [
-            'name'     => 'nullable|string|max:255',
-            'phone'    => 'nullable|unique:admins,phone,' . $adminId,
-            'email'    => 'nullable|email|unique:admins,email,' . $adminId,
+            'name' => 'nullable|string|max:255',
+            'phone' => 'nullable|unique:admins,phone,'.$adminId,
+            'email' => 'nullable|email|unique:admins,email,'.$adminId,
         ];
     }
 

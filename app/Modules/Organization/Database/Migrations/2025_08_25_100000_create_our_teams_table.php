@@ -14,12 +14,12 @@ return new class extends BaseMigration
         Schema::create('our_teams', function (Blueprint $table) {
             $table->id();
             $this->addOrganizationFields($table);
-            $table->string("name")->nullable();
-            $table->string("image")->nullable();
-            $table->string("facebook_link")->nullable();
-            $table->string("instagram_link")->nullable();
-            $table->string("x_link")->nullable();
-            $table->string("tiktok_link")->nullable();
+            $table->string('name')->nullable();
+            $table->string('image')->nullable();
+            $table->string('facebook_link')->nullable();
+            $table->string('instagram_link')->nullable();
+            $table->string('x_link')->nullable();
+            $table->string('tiktok_link')->nullable();
             $this->addGeneralFields($table);
         });
     }

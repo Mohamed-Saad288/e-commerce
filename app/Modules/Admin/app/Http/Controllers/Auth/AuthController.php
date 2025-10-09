@@ -10,13 +10,9 @@ use Illuminate\View\View;
 
 class AuthController extends Controller
 {
+    public function __construct() {}
 
-    public function __construct()
-    {
-
-    }
-
-    public function getLogin() : View
+    public function getLogin(): View
     {
         return view('admin::dashboard.auth.login');
     }
@@ -28,6 +24,7 @@ class AuthController extends Controller
 
         if (Auth::guard('admin')->attempt($credentials)) {
             $request->session()->regenerate();
+
             return redirect()
                 ->intended(route('admin.dashboard'))
                 ->with('status', __('Welcome back!'));
@@ -43,6 +40,7 @@ class AuthController extends Controller
         Auth::guard('admin')->logout();
         $request->session()->invalidate();
         $request->session()->regenerateToken();
+
         return redirect(route('admin.login'));
     }
 }

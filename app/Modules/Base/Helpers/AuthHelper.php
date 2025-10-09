@@ -1,7 +1,6 @@
 <?php
 
-
-if (!function_exists('loginRouteFor')) {
+if (! function_exists('loginRouteFor')) {
     function loginRouteFor(?string $guard): string
     {
         return match ($guard) {
@@ -11,13 +10,13 @@ if (!function_exists('loginRouteFor')) {
     }
 }
 
-
-if (!function_exists('getLoginRoute')) {
+if (! function_exists('getLoginRoute')) {
     function getLoginRoute($request, $guard = null): string
     {
         if ($request->routeIs('admin.*') || $guard === 'admin') {
             return route('admin.login');
         }
+
         return route('organization.login');
     }
 }

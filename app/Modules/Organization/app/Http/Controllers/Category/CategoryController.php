@@ -12,55 +12,63 @@ use Exception;
 
 class CategoryController extends Controller
 {
-    public function __construct(protected CategoryService $service){}
+    public function __construct(protected CategoryService $service) {}
 
     public function index()
     {
         $categories = $this->service->index();
+
         return view('organization::dashboard.categories.index', get_defined_vars());
     }
+
     public function create()
     {
         $categories = Category::query()->get();
-        return view('organization::dashboard.categories.single',get_defined_vars());
+
+        return view('organization::dashboard.categories.single', get_defined_vars());
     }
+
     public function store(StoreCategoryRequest $request)
     {
-         $this->service->store(CategoryDto::fromArray($request));
-        return to_route('organization.categories.index')->with(array(
-            'message' => __("messages.success"),
-            'alert-type' => 'success'
-        ));
+        $this->service->store(CategoryDto::fromArray($request));
+
+        return to_route('organization.categories.index')->with([
+            'message' => __('messages.success'),
+            'alert-type' => 'success',
+        ]);
     }
+
     public function edit(Category $category)
     {
         $categories = Category::query()->where('id', '!=', $category->id)->get();
+
         return view('organization::dashboard.categories.single', get_defined_vars());
     }
-    public function update(UpdateCategoryRequest $request , Category $category)
+
+    public function update(UpdateCategoryRequest $request, Category $category)
     {
         $this->service->update(model: $category, dto: CategoryDto::fromArray($request));
 
-        return to_route('organization.categories.index')->with(array(
-            'message' => __("messages.updated"),
-            'alert-type' => 'success'
-        ));
+        return to_route('organization.categories.index')->with([
+            'message' => __('messages.updated'),
+            'alert-type' => 'success',
+        ]);
     }
+
     public function destroy(Category $category)
     {
         try {
             $this->service->delete(model: $category);
+
             return response()->json([
                 'success' => true,
-                'message' => __('messages.deleted')
+                'message' => __('messages.deleted'),
             ]);
         } catch (Exception $e) {
             return response()->json([
                 'success' => false,
-                'message' => __('messages.something_wrong')
+                'message' => __('messages.something_wrong'),
             ], 500);
         }
     }
-
-
 }

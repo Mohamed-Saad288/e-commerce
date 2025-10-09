@@ -1,28 +1,28 @@
 <?php
 
-use App\Modules\Organization\app\Http\Controllers\{About\AboutController,
-    Auth\AuthController,
-    Brand\BrandController,
-    Category\CategoryController,
-    Employee\EmployeeController,
-    Header\HeaderController,
-    Home\HomeController,
-    HomeSection\HomeSectionController,
-    Option\OptionController,
-    OptionItem\OptionItemController,
-    OrganizationSetting\OrganizationPaymentMethodController,
-    OrganizationSetting\OrganizationSettingController,
-    OurTeam\OurTeamController,
-    products\ProductController,
-    Question\QuestionController,
-    Term\TermController,
-    Why\WhyController};
+use App\Modules\Organization\app\Http\Controllers\About\AboutController;
+use App\Modules\Organization\app\Http\Controllers\Auth\AuthController;
+use App\Modules\Organization\app\Http\Controllers\Brand\BrandController;
+use App\Modules\Organization\app\Http\Controllers\Category\CategoryController;
+use App\Modules\Organization\app\Http\Controllers\Employee\EmployeeController;
+use App\Modules\Organization\app\Http\Controllers\Header\HeaderController;
+use App\Modules\Organization\app\Http\Controllers\Home\HomeController;
+use App\Modules\Organization\app\Http\Controllers\HomeSection\HomeSectionController;
+use App\Modules\Organization\app\Http\Controllers\Option\OptionController;
+use App\Modules\Organization\app\Http\Controllers\OptionItem\OptionItemController;
+use App\Modules\Organization\app\Http\Controllers\OrganizationSetting\OrganizationPaymentMethodController;
+use App\Modules\Organization\app\Http\Controllers\OrganizationSetting\OrganizationSettingController;
+use App\Modules\Organization\app\Http\Controllers\OurTeam\OurTeamController;
+use App\Modules\Organization\app\Http\Controllers\products\ProductController;
+use App\Modules\Organization\app\Http\Controllers\Question\QuestionController;
+use App\Modules\Organization\app\Http\Controllers\Term\TermController;
+use App\Modules\Organization\app\Http\Controllers\Why\WhyController;
 use Illuminate\Support\Facades\Route;
 use Mcamara\LaravelLocalization\Facades\LaravelLocalization;
 
 Route::group(
     [
-        'prefix' => LaravelLocalization::setLocale() . "/organizations",
+        'prefix' => LaravelLocalization::setLocale().'/organizations',
         'middleware' => [
             'localeSessionRedirect',
             'localizationRedirect',
@@ -55,7 +55,7 @@ Route::group(
                 Route::resource('options', OptionController::class);
                 Route::resource('option_items', OptionItemController::class);
                 Route::resource('products', ProductController::class);
-//                Route::resource('headers', HeaderController::class);
+                //                Route::resource('headers', HeaderController::class);
                 Route::resource('questions', QuestionController::class);
                 Route::resource('terms', TermController::class);
                 Route::resource('abouts', AboutController::class);
@@ -67,7 +67,6 @@ Route::group(
 
                 Route::get('headers/edit', [HeaderController::class, 'edit'])->name('headers.edit');
                 Route::post('headers/edit', [HeaderController::class, 'update'])->name('headers.update');
-
 
                 // Payment methods
                 Route::get('/payment-methods', [OrganizationPaymentMethodController::class, 'index'])->name('payment_methods.index');

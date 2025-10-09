@@ -2,7 +2,7 @@
 
 namespace App\Modules\Website\app\Enums;
 
-enum OtpStatusEnum : int
+enum OtpStatusEnum: int
 {
     case PENDING = 1;
     case USED = 0;

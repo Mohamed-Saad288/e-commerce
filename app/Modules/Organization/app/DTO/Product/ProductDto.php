@@ -9,29 +9,24 @@ use Illuminate\Foundation\Http\FormRequest;
 class ProductDto implements DTOInterface
 {
     public ?array $translations = [];
+
     public ?int $brand_id = null;
+
     public ?int $category_id = null;
+
     public ?int $organization_id = null;
+
     public ?int $employee_id = null;
+
     public ?string $slug = null;
-    public ?string $sku = null;
-    public ?int $sort_order = 0;
-    public ?string $barcode = null;
+
     public ?int $type = null;
-    public ?int $stock_quantity = 0;
+
     public ?int $low_stock_threshold = null;
+
     public ?bool $requires_shipping = true;
-    public ?bool $is_featured = false;
-    public ?bool $is_taxable = false;
-    public ?int $tax_type = null;
-    public ?float $tax_amount = 0;
-    public ?float $discount = 0;
-    public ?float $cost_price = 0;
-    public ?float $selling_price = 0;
-    public ?float $total_price = 0;
+
     public ?array $variations = [];
-    public ?array $images = [];
-    public ?string $featured_image = null;
 
     public function __construct(
         ?array $translations = [],
@@ -40,24 +35,11 @@ class ProductDto implements DTOInterface
         ?int $organization_id = null,
         ?int $employee_id = null,
         ?string $slug = null,
-        ?string $sku = null,
-        ?int $sort_order = null,
-        ?string $barcode = null,
         ?int $type = null,
-        ?int $stock_quantity = null,
         ?int $low_stock_threshold = null,
         ?bool $requires_shipping = null,
-        ?bool $is_featured = null,
-        ?bool $is_taxable = null,
-        ?int $tax_type = null,
-        ?float $tax_amount = null,
-        ?float $discount = null,
-        ?float $cost_price = null,
-        ?float $selling_price = null,
-        ?float $total_price = null,
-        ?array $variations = [],
-        ?array $images = [],
-        ?string $featured_image = null
+        ?array $variations = []
+
     ) {
         $this->translations = $translations;
         $this->brand_id = $brand_id;
@@ -65,47 +47,40 @@ class ProductDto implements DTOInterface
         $this->organization_id = $organization_id;
         $this->employee_id = $employee_id;
         $this->slug = $slug;
-        $this->sku = $sku;
-        $this->sort_order = $sort_order;
-        $this->barcode = $barcode;
         $this->type = $type;
-        $this->stock_quantity = $stock_quantity;
         $this->low_stock_threshold = $low_stock_threshold;
         $this->requires_shipping = $requires_shipping;
-        $this->is_featured = $is_featured;
-        $this->is_taxable = $is_taxable;
-        $this->tax_type = $tax_type;
-        $this->tax_amount = $tax_amount;
-        $this->discount = $discount;
-        $this->cost_price = $cost_price;
-        $this->selling_price = $selling_price;
-        $this->total_price = $total_price;
         $this->variations = $variations;
-        $this->images = $images;
-        $this->featured_image = $featured_image;
     }
 
     public static function fromArray(FormRequest|array $data): DTOInterface
     {
         $arrayData = $data instanceof FormRequest ? $data->validated() : $data;
+
+        // Generate default variation if no variations provided
+        $arrayData = self::generateDefaultVariation($arrayData);
+
+        // Prepare variations with translations
         $arrayData = self::prepareVariationTranslation($arrayData);
 
-
+        // Prepare translations for main product
         $translations = [];
         foreach (config('translatable.locales') as $locale) {
             $translations[$locale] = [
                 'name' => $arrayData[$locale]['name'] ?? null,
                 'description' => $arrayData[$locale]['description'] ?? null,
-                "short_description" => $arrayData[$locale]['short_description'] ?? null
+                'short_description' => $arrayData[$locale]['short_description'] ?? null,
             ];
         }
+
+        // Prepare variations
         $variations = [];
         if (array_key_exists('variations', $arrayData) && is_array($arrayData['variations']) && count($arrayData['variations']) > 0) {
             foreach ($arrayData['variations'] as $variant) {
                 $variations[] = VariationDto::fromArray($variant);
             }
         }
-        $total_price = calculateTotalPrice($arrayData);
+
         return new self(
             translations: $translations,
             brand_id: $arrayData['brand_id'],
@@ -113,24 +88,10 @@ class ProductDto implements DTOInterface
             organization_id: auth()->user()->organization_id ?? null,
             employee_id: auth()->user()->id,
             slug: $arrayData['slug'] ?? null,
-            sku: $arrayData['sku'] ?? null,
-            sort_order: $arrayData['sort_order'] ?? 0,
-            barcode: $arrayData['barcode'] ?? null,
             type: $arrayData['type'] ?? null,
-            stock_quantity: $arrayData['stock_quantity'] ?? 0,
             low_stock_threshold: $arrayData['low_stock_threshold'] ?? 0,
             requires_shipping: $arrayData['requires_shipping'] ?? true,
-            is_featured: $arrayData['is_featured'] ?? 0,
-            is_taxable: $arrayData['is_taxable'] ?? 0,
-            tax_type: $arrayData['tax_type'] ?? 1,
-            tax_amount: $arrayData['tax_amount'] ?? 0,
-            discount: $arrayData['discount'] ?? 0,
-            cost_price: $arrayData['cost_price'] ?? 0,
-            selling_price: $arrayData['selling_price'] ?? 0,
-            total_price: $total_price,
-            variations: $variations,
-            images: $data->hasFile('images') ? $data->file('images') : [],
-            featured_image: $data->hasFile('featured_image') ? $data->file('featured_image') : null
+            variations: $variations
         );
     }
 
@@ -144,66 +105,104 @@ class ProductDto implements DTOInterface
                 'organization_id' => $this->organization_id,
                 'employee_id' => $this->employee_id,
                 'slug' => $this->slug,
-                'sku' => $this->sku,
-                'sort_order' => $this->sort_order,
-                'barcode' => $this->barcode,
                 'type' => $this->type,
-                'stock_quantity' => $this->stock_quantity,
                 'low_stock_threshold' => $this->low_stock_threshold,
                 'requires_shipping' => $this->requires_shipping,
-                'is_featured' => $this->is_featured,
-                'is_taxable' => $this->is_taxable,
-                'tax_type' => $this->tax_type,
-                'tax_amount' => $this->tax_amount,
-                'discount' => $this->discount,
-                'cost_price' => $this->cost_price,
-                'selling_price' => $this->selling_price,
-                'total_price' => $this->total_price,
+                //                'variations' => array_map(fn($variant) => $variant->toArray(), $this->variations ?? []),
                 'variations' => $this->variations,
-                'images' => $this->images,
-                'featured_image' => $this->featured_image
             ]
         );
     }
 
     public static function prepareVariationTranslation(array $data): array
     {
-        if (!isset($data['variations']) || !is_array($data['variations'])) {
+        // If no variations, return as is
+        if (! isset($data['variations']) || ! is_array($data['variations']) || count($data['variations']) === 0) {
             return $data;
         }
-        $data["tax_amount"] = 0;
-        $data["discount"] = 0;
 
+        // Reset tax and discount for variations
+        $data['tax_amount'] = 0;
+        $data['discount'] = 0;
+
+        // Collect all option item IDs from variations
         $allOptionItemIds = collect($data['variations'])
             ->pluck('option_items')
             ->flatten()
+            ->filter()
             ->unique()
             ->toArray();
 
-        $optionItems = OptionItem::query()
-            ->whereIn('id', $allOptionItemIds)
-            ->get()
-            ->keyBy('id');
+        // Load option items if there are any
+        $optionItems = collect();
+        if (! empty($allOptionItemIds)) {
+            $optionItems = OptionItem::query()
+                ->whereIn('id', $allOptionItemIds)
+                ->get()
+                ->keyBy('id');
+        }
 
+        // Prepare variation names for each locale
         foreach (config('translatable.locales') as $locale) {
-            foreach ($data['variations'] as $key => $variant) {
-                if (!isset($variant['option_items'])) {
-                    continue;
-                }
+            $productName = $data[$locale]['name'] ?? '';
 
-                $optionNames = [];
-                foreach ($variant['option_items'] as $itemId) {
-                    if ($optionItems->has($itemId)) {
-                        $optionNames[] = $optionItems[$itemId]->getTranslation('name', $locale)["name"];
+            foreach ($data['variations'] as $key => $variant) {
+                $variationName = $productName;
+
+                // Append option item names to the variation name
+                if (is_array($variant['option_items']) && ! empty($variant['option_items'])) {
+                    $optionNames = [];
+                    foreach ($variant['option_items'] as $itemId) {
+                        if ($optionItems->has($itemId)) {
+                            $translatedName = $optionItems[$itemId]->getTranslation('name', $locale);
+                            if (isset($translatedName['name'])) {
+                                $optionNames[] = $translatedName['name'];
+                            }
+                        }
+                    }
+
+                    if (! empty($optionNames)) {
+                        $variationName .= ' - '.implode(' - ', $optionNames);
                     }
                 }
-                $suffix = $optionNames ? ' ' . implode('-', $optionNames) : '';
-                $data['variations'][$key][$locale]['name'] = $data[$locale]['name'] . $suffix;
+                $data['variations'][$key][$locale]['name'] = $variationName;
             }
         }
 
         return $data;
     }
 
+    private static function generateDefaultVariation(array $data): array
+    {
+        if (! isset($data['variations']) || ! is_array($data['variations']) || count($data['variations']) === 0) {
+            $defaultVariation = [
+                'sku' => $data['sku'] ?? null,
+                'barcode' => $data['barcode'] ?? null,
+                'sort_order' => 0,
+                'is_featured' => $data['is_featured'] ?? 0,
+                'cost_price' => $data['cost_price'] ?? 0,
+                'selling_price' => $data['selling_price'] ?? 0,
+                'total_price' => calculateTotalPrice($data),
+                'discount' => $data['discount'] ?? 0,
+                'tax_type' => $data['tax_type'] ?? 1,
+                'tax_amount' => $data['tax_amount'] ?? 0,
+                'stock_quantity' => $data['stock_quantity'] ?? 0,
+                'is_taxable' => $data['is_taxable'] ?? 0,
+                'option_items' => [],
+                'main_images' => $data['main_images'] ?? [],
+                'additional_images' => $data['additional_images'] ?? [],
+            ];
 
+            // Prepare translations for the default variation
+
+            foreach (config('translatable.locales') as $locale) {
+                $defaultVariation[$locale] = [
+                    'name' => $data[$locale]['name'] ?? null,
+                ];
+            }
+            $data['variations'] = [$defaultVariation];
+
+            return $data;
+        }
+    }
 }

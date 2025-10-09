@@ -37,17 +37,18 @@ trait HasActivation
     public function toggleActivation(?Model $model = null): void
     {
         if (isset($model)) {
-            $model->update(['is_active' => !$model->is_active]);
+            $model->update(['is_active' => ! $model->is_active]);
         } else {
-            $this->update(['is_active' => !$this->is_active]);
+            $this->update(['is_active' => ! $this->is_active]);
         }
     }
+
     public function toggleStatus(?Model $model = null): void
     {
         if (isset($model)) {
-            $model->update(['show' => !$model->show]);
+            $model->update(['show' => ! $model->show]);
         } else {
-            $this->update(['show' => !$this->show]);
+            $this->update(['show' => ! $this->show]);
         }
     }
 
@@ -63,5 +64,4 @@ trait HasActivation
     {
         return $query->where('is_active', false);
     }
-
 }
