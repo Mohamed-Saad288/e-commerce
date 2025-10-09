@@ -15,50 +15,24 @@ class TermController extends Controller
 {
     public function __construct(protected TermService $service){}
 
-    public function index()
+    public function edit()
     {
-        $terms = $this->service->index();
-        return view('organization::dashboard.terms.index', get_defined_vars());
-    }
-    public function create()
-    {
-        return view('organization::dashboard.terms.single',get_defined_vars());
-    }
-    public function store(StoreTermRequest $request)
-    {
-         $this->service->store(TermDto::fromArray($request));
-        return to_route('organization.terms.index')->with(array(
-            'message' => __("messages.success"),
-            'alert-type' => 'success'
-        ));
-    }
-    public function edit(Term $term)
-    {
+        $terms = Term::where('organization_id',auth()->user()->organization_id)->first();
         return view('organization::dashboard.terms.single', get_defined_vars());
     }
-    public function update(UpdateTermRequest $request , Term $term)
+    public function update(StoreTermRequest $request)
     {
-        $this->service->update(model: $term, dto: TermDto::fromArray($request));
+        $terms = Term::firstOrCreate(
+            ['organization_id' => auth()->user()->organization_id],
+            ['organization_id' => auth()->user()->organization_id] // قيم افتراضية
+        );
 
-        return to_route('organization.terms.index')->with(array(
+        $this->service->update(model: $terms, dto: TermDto::fromArray($request->validated()));
+
+        return to_route('organization.terms.edit')->with([
             'message' => __("messages.updated"),
             'alert-type' => 'success'
-        ));
-    }
-    public function destroy(Term $term)
-    {
-        try {
-            $this->service->delete(model: $term);
-            return response()->json([
-                'success' => true,
-                'message' => __('messages.deleted')
-            ]);
-        } catch (Exception $e) {
-            return response()->json([
-                'success' => false,
-                'message' => __('messages.something_wrong')
-            ], 500);
-        }
+        ]);
     }
 
 

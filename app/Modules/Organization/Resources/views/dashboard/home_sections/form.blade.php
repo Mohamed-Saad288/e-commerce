@@ -6,7 +6,6 @@
     @endif
 
     <div class="row">
-
         {{-- Type --}}
         <div class="col-md-6">
             <div class="form-group">
@@ -14,7 +13,11 @@
                 <select name="type" id="type" class="form-control @error('type') is-invalid @enderror" >
                     @foreach (\App\Modules\Organization\Enums\HomeSection\HomeSectionTypeEnum::cases() as $case)
                         <option value="{{ $case->value }}"
-                            {{ old('type', $home_section->type->value ?? '') == $case->value ? 'selected' : '' }}>
+                        @if(isset($home_section))
+                            @selected(old('type', $home_section->type?->value) == $case->value)
+                            @else
+                            @selected(old('type') == $case->value)
+                            @endif>
                             {{ __("messages." . $case->name) }}
                         </option>
                     @endforeach

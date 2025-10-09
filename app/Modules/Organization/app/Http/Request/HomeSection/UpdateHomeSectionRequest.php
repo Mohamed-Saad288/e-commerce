@@ -17,9 +17,18 @@ class UpdateHomeSectionRequest extends FormRequest
 
     public function rules(): array
     {
+        $home_section = $this->route("home_section");
+
         $rules = [
             'products' => 'nullable|array|exists:products,id',
-            'type' => ['nullable', new Enum(HomeSectionTypeEnum::class) ],
+            'type' => [
+                'required',
+                new Enum(HomeSectionTypeEnum::class),
+                Rule::unique('home_sections', 'type')
+                    ->where(fn ($query) => $query->where('organization_id', auth()->user()->organization_id))
+                    ->ignore($home_section->id)
+                    ->whereNull('deleted_at'), // إذا كنت تستخدم SoftDelete
+            ],
             'sort_order' => 'nullable|integer',
             'start_date' => 'nullable|date',
             'end_date' => 'nullable|date|after:start_date',

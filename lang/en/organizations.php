@@ -37,7 +37,7 @@ return [
     "add_message" => "Add Message",
     "edit_message" => "Edit Message",
     'terms' => "Terms and Condition",
-    'edit_term' => "Edit Term",
+    'edit_terms' => "Edit Term",
     'add_term' => "Add Term",
     "features" => "Features",
     "add_feature" => "Add Feature",
@@ -101,6 +101,9 @@ return [
     "home_sections" => "Home Sections",
     "add_home_section" => "Add Home Section",
     "edit_home_section" => "Edit Home Section",
+    'privacy' => "Privacy",
+    'edit_privacy' => "Edit Privacy",
+    'add_privacy' => "Add Privacy",
 
 
 ];

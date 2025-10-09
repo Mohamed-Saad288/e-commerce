@@ -148,4 +148,7 @@ return [
     'Top_Rated'          => 'Top Rated',
     'Featured_Products'  => 'Featured Products',
     'Custom'             => 'Custom',
+    "quick_actions" => "Quick Actions",
+    "pending_orders" => "Pending Orders",
+    "approved_orders" => "Approved Orders",
 ];

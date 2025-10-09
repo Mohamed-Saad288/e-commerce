@@ -20,7 +20,8 @@ class Brand extends BaseModel implements TranslatableContract
     protected $fillable = [
         'slug',
         "organization_id",
-        "employee_id"
+        "employee_id",
+        "image"
     ];
 
 

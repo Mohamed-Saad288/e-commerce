@@ -5,6 +5,11 @@ use App\Http\Controllers\Auth\RestPasswordController;
 use App\Modules\Website\app\Http\Controllers\Auth\AuthController;
 use App\Modules\Website\app\Http\Controllers\Brand\BrandController;
 use App\Modules\Website\app\Http\Controllers\Category\CategoryController;
+use App\Modules\Website\app\Http\Controllers\Faq\FaqController;
+use App\Modules\Website\app\Http\Controllers\Header\HeaderController;
+use App\Modules\Website\app\Http\Controllers\Privacy\PrivacyController;
+use App\Modules\Website\app\Http\Controllers\Term\TermController;
+use App\Modules\Website\app\Http\Controllers\WebStatus\WebStatusController;
 use Illuminate\Support\Facades\Route;
 
 Route::prefix('api/site')->middleware(["set.organization.context"])->group(function () {
@@ -40,6 +45,31 @@ Route::prefix('api/site')->middleware(["set.organization.context"])->group(funct
 
     Route::get('categories', [CategoryController::class, "list"]);
     Route::get("brands", [BrandController::class, "list"]);
+
+    /** Terms Endpoints */
+    Route::controller(TermController::class)->group(function (){
+       Route::post("fetch_terms","fetch_terms");
+    });
+
+    /** FAQ Endpoints */
+    Route::controller(FaqController::class)->group(function (){
+        Route::post("fetch_faqs","fetch_faqs");
+    });
+
+   /** Header Endpoints */
+    Route::controller(HeaderController::class)->group(function (){
+        Route::post("fetch_header","fetch_header");
+    });
+
+    /** WebStatus Endpoints */
+    Route::controller(WebStatusController::class)->group(function (){
+        Route::post("fetch_web_status","fetch_web_status");
+    });
+
+    /** Privacy Endpoints */
+    Route::controller(PrivacyController::class)->group(function (){
+        Route::post("fetch_privacy","fetch_privacy");
+    });
 });
 
 

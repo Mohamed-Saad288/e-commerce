@@ -124,7 +124,7 @@
                     </li>
                     <li class="nav-item">
                         <a class="nav-link {{ request()->routeIs('organization.home_sections.*') ? 'active' : '' }}" href="{{ route('organization.home_sections.index') }}">
-                            <i class="fe fe-help-circle fe-16"></i>
+                            <i class="fe fe-home fe-16"></i>
                             <span class="ml-3 item-text">{{ __('organizations.home_sections') }}</span>
                         </a>
                     </li>
@@ -134,31 +134,42 @@
                             <span class="ml-3 item-text">{{ __('organizations.questions') }}</span>
                         </a>
                     </li>
+
                     <li class="nav-item">
-                        <a class="nav-link {{ request()->routeIs('organization.terms.*') ? 'active' : '' }}" href="{{ route('organization.terms.index') }}">
-                            <i class="fe fe-file-text fe-16"></i>
-                            <span class="ml-3 item-text">{{ __('organizations.terms') }}</span>
-                        </a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link {{ request()->routeIs('organization.abouts.*') ? 'active' : '' }}" href="{{ route('organization.abouts.create') }}">
-                            <i class="fe fe-info fe-16"></i>
-                            <span class="ml-3 item-text">{{ __('organizations.abouts') }}</span>
-                        </a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link {{ request()->routeIs('organization.whys.*') ? 'active' : '' }}" href="{{ route('organization.whys.index') }}">
-                            <i class="fe fe-star fe-16"></i>
-                            <span class="ml-3 item-text">{{ __('organizations.whys') }}</span>
+                        <a class="nav-link {{ request()->routeIs('organization.privacy.*') ? 'active' : '' }}" href="{{ route('organization.privacy.edit') }}">
+                            <i class="fe fe-shield fe-16"></i>
+                            <span class="ml-3 item-text">{{ __('organizations.privacy') }}</span>
                         </a>
                     </li>
 
                     <li class="nav-item">
-                        <a class="nav-link {{ request()->routeIs('organization.our_teams.*') ? 'active' : '' }}" href="{{ route('organization.our_teams.index') }}">
-                            <i class="fe fe-user-check fe-16"></i>
-                            <span class="ml-3 item-text">{{ __('organizations.our_teams') }}</span>
+                        <a class="nav-link {{ request()->routeIs('organization.terms.*') ? 'active' : '' }}" href="{{ route('organization.terms.edit') }}">
+                            <i class="fe fe-file-text fe-16"></i>
+                            <span class="ml-3 item-text">{{ __('organizations.terms') }}</span>
                         </a>
                     </li>
+
+
+
+{{--                    <li class="nav-item">--}}
+{{--                        <a class="nav-link {{ request()->routeIs('organization.abouts.*') ? 'active' : '' }}" href="{{ route('organization.abouts.create') }}">--}}
+{{--                            <i class="fe fe-info fe-16"></i>--}}
+{{--                            <span class="ml-3 item-text">{{ __('organizations.abouts') }}</span>--}}
+{{--                        </a>--}}
+{{--                    </li>--}}
+{{--                    <li class="nav-item">--}}
+{{--                        <a class="nav-link {{ request()->routeIs('organization.whys.*') ? 'active' : '' }}" href="{{ route('organization.whys.index') }}">--}}
+{{--                            <i class="fe fe-star fe-16"></i>--}}
+{{--                            <span class="ml-3 item-text">{{ __('organizations.whys') }}</span>--}}
+{{--                        </a>--}}
+{{--                    </li>--}}
+
+{{--                    <li class="nav-item">--}}
+{{--                        <a class="nav-link {{ request()->routeIs('organization.our_teams.*') ? 'active' : '' }}" href="{{ route('organization.our_teams.index') }}">--}}
+{{--                            <i class="fe fe-user-check fe-16"></i>--}}
+{{--                            <span class="ml-3 item-text">{{ __('organizations.our_teams') }}</span>--}}
+{{--                        </a>--}}
+{{--                    </li>--}}
 
                     <li class="nav-item">
                         <a class="nav-link {{ request()->routeIs('organization.organization_settings.edit.*') ? 'active' : '' }}" href="{{ route('organization.organization_settings.edit') }}">
