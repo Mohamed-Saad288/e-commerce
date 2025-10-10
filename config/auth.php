@@ -47,7 +47,12 @@ return [
         "organization_employee" => [
             "driver" => "session",
             "provider" => "employees",
-        ]
+        ],
+        "user" => [
+            "driver" => "sanctum",
+            "provider" => "users",
+        ],
+
     ],
 
     /*
