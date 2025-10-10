@@ -25,6 +25,7 @@ class HomeSection extends Model
         "end_date",
         "type",
         "sort_order",
+        'template_type'
     ];
 
     public function organization() : BelongsTo

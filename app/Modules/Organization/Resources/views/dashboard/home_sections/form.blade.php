@@ -10,11 +10,11 @@
         <div class="col-md-6">
             <div class="form-group">
                 <label for="type" class="font-weight-bold">{{ __('messages.type') }}</label>
-                <select name="type" id="type" class="form-control @error('type') is-invalid @enderror" >
+                <select name="type" id="type" class="form-control @error('type') is-invalid @enderror">
                     @foreach (\App\Modules\Organization\Enums\HomeSection\HomeSectionTypeEnum::cases() as $case)
                         <option value="{{ $case->value }}"
                         @if(isset($home_section))
-                            @selected(old('type', $home_section->type?->value) == $case->value)
+                            @selected(old('type', $home_section->type) == $case->value)
                             @else
                             @selected(old('type') == $case->value)
                             @endif>
@@ -27,7 +27,30 @@
                 @enderror
             </div>
         </div>
+
+        {{-- Template Type --}}
+        <div class="col-md-6">
+            <div class="form-group" id="template_type">
+                <label for="template_type" class="font-weight-bold">{{ __('messages.template_type') }}</label>
+                <select name="template_type" id="template_type_row" class="form-control @error('template_type') is-invalid @enderror">
+                    @foreach (\App\Modules\Organization\Enums\HomeSection\HomeSectionTemplateTypeEnum::cases() as $case)
+                        <option value="{{ $case->value }}"
+                        @if(isset($home_section))
+                            @selected(old('template_type', $home_section->template_type) == $case->value)
+                            @else
+                            @selected(old('template_type') == $case->value)
+                            @endif>
+                            {{ __("messages." . $case->name) }}
+                        </option>
+                    @endforeach
+                </select>
+                @error('template_type')
+                <small class="text-danger">{{ $message }}</small>
+                @enderror
+            </div>
+        </div>
     </div>
+
 
     {{-- Name & Description (only if Custom) --}}
     <div id="custom-fields" style="display: none;">

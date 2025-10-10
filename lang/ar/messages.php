@@ -164,6 +164,7 @@ return [
     "pending_orders" => "طلبات قيد الانتظار",
     "approved_orders" => "طلبات ناجحة",
     'total_orders' => "جميع الطلبات",
+    'template_type' => "نوع عرض السكشن",
 
 ];
 
