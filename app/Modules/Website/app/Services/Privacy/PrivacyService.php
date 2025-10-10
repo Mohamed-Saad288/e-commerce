@@ -16,7 +16,6 @@ class PrivacyService
         $organization = $this->getOrganization();
 
         $privacy = Privacy::where('organization_id', $organization->id)->first();
-
         if (!$privacy) {
             return new DataSuccess(
                 data: null,
