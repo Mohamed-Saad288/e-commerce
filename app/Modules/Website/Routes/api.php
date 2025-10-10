@@ -7,6 +7,7 @@ use App\Modules\Website\app\Http\Controllers\Brand\BrandController;
 use App\Modules\Website\app\Http\Controllers\Category\CategoryController;
 use App\Modules\Website\app\Http\Controllers\Faq\FaqController;
 use App\Modules\Website\app\Http\Controllers\Header\HeaderController;
+use App\Modules\Website\app\Http\Controllers\HomeSection\HomeSectionController;
 use App\Modules\Website\app\Http\Controllers\Privacy\PrivacyController;
 use App\Modules\Website\app\Http\Controllers\Term\TermController;
 use App\Modules\Website\app\Http\Controllers\WebStatus\WebStatusController;
@@ -69,6 +70,12 @@ Route::prefix('api/site')->middleware(["set.organization.context"])->group(funct
     /** Privacy Endpoints */
     Route::controller(PrivacyController::class)->group(function (){
         Route::post("fetch_privacy","fetch_privacy");
+    });
+
+    /** HomeSection Endpoints */
+    Route::controller(HomeSectionController::class)->group(function (){
+        Route::post("fetch_home_sections","fetch_home_sections");
+        Route::post("fetch_section_products","fetch_section_products");
     });
 });
 

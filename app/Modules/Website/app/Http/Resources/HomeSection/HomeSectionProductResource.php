@@ -17,9 +17,8 @@ class HomeSectionProductResource extends JsonResource
     {
        return [
            'id' => $this->id ?? null ,
-            "name" => $this->name ?? null,
+           "name" => $this->name ?? null,
            'slug' => $this->slug ?? null,
-           ''
        ];
     }
 }
