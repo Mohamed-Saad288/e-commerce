@@ -151,5 +151,6 @@ return [
     "quick_actions" => "Quick Actions",
     "pending_orders" => "Pending Orders",
     "approved_orders" => "Approved Orders",
-    "template_type" => "Template Type"
+    "template_type" => "Template Type",
+    "total_orders" => "Total Orders"
 ];
