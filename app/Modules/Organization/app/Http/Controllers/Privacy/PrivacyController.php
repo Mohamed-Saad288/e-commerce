@@ -7,19 +7,18 @@ use App\Modules\Organization\app\DTO\Privacy\PrivacyDto;
 use App\Modules\Organization\app\Http\Request\Privacy\StorePrivacyRequest;
 use App\Modules\Organization\app\Models\Privacy\Privacy;
 use App\Modules\Organization\app\Services\Privacy\PrivacyService;
-use Exception;
-use Illuminate\Support\Facades\Storage;
 
 class PrivacyController extends Controller
 {
-    public function __construct(protected PrivacyService $service){}
-
+    public function __construct(protected PrivacyService $service) {}
 
     public function edit()
     {
-        $privacy = Privacy::where('organization_id',auth()->user()->organization_id)->first();
+        $privacy = Privacy::where('organization_id', auth()->user()->organization_id)->first();
+
         return view('organization::dashboard.privacy.single', get_defined_vars());
     }
+
     public function update(StorePrivacyRequest $request)
     {
         $privacy = Privacy::firstOrCreate(
@@ -30,11 +29,8 @@ class PrivacyController extends Controller
         $this->service->update(model: $privacy, dto: PrivacyDto::fromArray($request->validated()));
 
         return to_route('organization.privacy.edit')->with([
-            'message' => __("messages.updated"),
-            'alert-type' => 'success'
+            'message' => __('messages.updated'),
+            'alert-type' => 'success',
         ]);
     }
-
-
-
 }

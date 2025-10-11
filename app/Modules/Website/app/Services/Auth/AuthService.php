@@ -13,6 +13,7 @@ use Illuminate\Validation\ValidationException;
 class AuthService
 {
     use WebsiteLinkTrait;
+
     public function login($request)
     {
         $credentials = $request->validated();

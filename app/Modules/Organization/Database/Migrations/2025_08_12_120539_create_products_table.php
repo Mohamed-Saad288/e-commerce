@@ -19,7 +19,7 @@ return new class extends BaseMigration
             $table->tinyInteger('type')->default(1)->comment('1=>physical , 2=>digital , 3=>service');
             $table->integer('low_stock_threshold')->default(5);
             $table->boolean('requires_shipping')->default(true);
-            $table->integer("stock_quantity")->default(0);
+            $table->integer('stock_quantity')->default(0);
 
             $this->addOrganizationFields($table);
             $this->addGeneralFields($table);

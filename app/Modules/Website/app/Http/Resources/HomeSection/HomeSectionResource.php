@@ -28,7 +28,7 @@ class HomeSectionResource extends JsonResource
         ];
 
         if ($this->type == HomeSectionTypeEnum::Custom->value) {
-            $data['title'] = $this->title ?? null ;
+            $data['title'] = $this->title ?? null;
             $data['description'] = $this->description ?? null;
             $data['template_type'] = $this->template_type ?? null;
         }

@@ -18,7 +18,7 @@ class Why extends BaseModel implements TranslatableContract
         'image',
         'organization_id',
         'employee_id',
-        "sort_order",
-        'is_active'
+        'sort_order',
+        'is_active',
     ];
 }

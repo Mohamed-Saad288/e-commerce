@@ -24,6 +24,7 @@ class HomeSectionDto implements DTOInterface
     public $sort_order;
 
     public $template_type;
+
     public function __construct(
         ?array $translations = [],
         ?int $organization_id = null,
@@ -83,7 +84,7 @@ class HomeSectionDto implements DTOInterface
                 'sort_order' => $this->sort_order,
                 'start_date' => $this->start_date,
                 'end_date' => $this->end_date,
-                'template_type' => $this->template_type
+                'template_type' => $this->template_type,
             ]
         );
     }

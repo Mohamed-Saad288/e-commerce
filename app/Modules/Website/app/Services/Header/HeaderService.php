@@ -10,17 +10,19 @@ use App\Modules\Website\app\Traits\WebsiteLink\WebsiteLinkTrait;
 class HeaderService
 {
     use WebsiteLinkTrait;
+
     public function fetch_headers()
     {
         $organization = $this->getOrganization();
-        $headers = Header::where("organization_id",$organization->id)->first();
-        if (!$headers) {
+        $headers = Header::where('organization_id', $organization->id)->first();
+        if (! $headers) {
             return new DataSuccess(
                 data: null,
                 status: true,
                 message: 'Headers not stored yet.'
             );
         }
+
         return new DataSuccess(
             data: new HeaderResource($headers),
             status: true,

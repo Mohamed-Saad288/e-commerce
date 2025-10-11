@@ -2,7 +2,6 @@
 
 namespace App\Modules\Organization\app\Http\Request\HomeSection;
 
-use App\Modules\Admin\Enums\Feature\FeatureTypeEnum;
 use App\Modules\Organization\Enums\HomeSection\HomeSectionTemplateTypeEnum;
 use App\Modules\Organization\Enums\HomeSection\HomeSectionTypeEnum;
 use Illuminate\Foundation\Http\FormRequest;
@@ -18,7 +17,7 @@ class UpdateHomeSectionRequest extends FormRequest
 
     public function rules(): array
     {
-        $home_section = $this->route("home_section");
+        $home_section = $this->route('home_section');
 
         $rules = [
             'products' => 'nullable|array|exists:products,id',
@@ -34,10 +33,10 @@ class UpdateHomeSectionRequest extends FormRequest
             'start_date' => 'nullable|date',
             'end_date' => 'nullable|date|after:start_date',
             'template_type' => [
-                Rule::requiredIf(fn() => $this->type === HomeSectionTypeEnum::Custom->value),
+                Rule::requiredIf(fn () => $this->type === HomeSectionTypeEnum::Custom->value),
                 new Enum(HomeSectionTemplateTypeEnum::class),
             ],
-            ];
+        ];
 
         foreach (config('translatable.locales') as $locale) {
             $rules["$locale.title"] = 'nullable|string|max:255';

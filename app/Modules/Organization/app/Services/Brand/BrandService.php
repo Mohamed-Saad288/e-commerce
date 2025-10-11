@@ -21,7 +21,7 @@ class BrandService extends BaseService
     {
         return DB::transaction(function () use ($dto) {
             $data = $dto->toArray();
-            if (!empty($dto->image)) {
+            if (! empty($dto->image)) {
                 $data['image'] = $dto->image->store('brands', 'public');
             }
             $model = $this->model->query()->create($data);
@@ -45,8 +45,8 @@ class BrandService extends BaseService
             if (! empty($dto->image)) {
                 $model->storeImages(media: $dto->image, update: true);
             }
-            if (!empty($dto->image)) {
-                if (!empty($model->image) && Storage::disk('public')->exists($model->image)) {
+            if (! empty($dto->image)) {
+                if (! empty($model->image) && Storage::disk('public')->exists($model->image)) {
                     Storage::disk('public')->delete($model->image);
                 }
 
@@ -55,14 +55,13 @@ class BrandService extends BaseService
 
             $model->update($data);
 
-            if (!empty($dto->categories)) {
+            if (! empty($dto->categories)) {
                 $model->categories()->sync($dto->categories);
             }
 
             return $model;
         });
     }
-
 
     public function filters($request = null): array
     {

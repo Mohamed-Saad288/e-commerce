@@ -15,11 +15,11 @@ class HeaderResource extends JsonResource
      */
     public function toArray(Request $request): array
     {
-       return [
-           "id" => $this->id ?? null,
-           "name" => $this->name ?? null,
-           "description" => $this->description ?? null,
-            "images" => ImageResource::collection($this->images ?? [])
-       ];
+        return [
+            'id' => $this->id ?? null,
+            'name' => $this->name ?? null,
+            'description' => $this->description ?? null,
+            'images' => ImageResource::collection($this->images ?? []),
+        ];
     }
 }

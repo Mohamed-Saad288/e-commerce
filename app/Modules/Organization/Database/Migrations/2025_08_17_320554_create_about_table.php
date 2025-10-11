@@ -13,7 +13,7 @@ return new class extends BaseMigration
     {
         Schema::create('about', function (Blueprint $table) {
             $table->id();
-            $table->integer("sort_order")->default(0);
+            $table->integer('sort_order')->default(0);
             $this->addOrganizationFields($table);
             $table->string('image')->nullable();
             $this->addGeneralFields($table);

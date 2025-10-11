@@ -16,17 +16,17 @@ class HomeController extends Controller
     {
         $organization_id = auth()->user()->organization_id;
         $data = [
-            'pendingOrders' => Order::where("organization_id",$organization_id)->count(),
-            'approvedOrders' => Order::where("organization_id",$organization_id)->count(),
-            'totalOrders' => Order::where("organization_id",$organization_id)->count(),
-            'products' => Product::where("organization_id",$organization_id)->count(),
-            'brands' => Brand::where("organization_id",$organization_id)->count(),
-            'categories' => Category::where("organization_id",$organization_id)->count(),
-            'employees' => Employee::where("organization_id",$organization_id)->count(),
+            'pendingOrders' => Order::where('organization_id', $organization_id)->count(),
+            'approvedOrders' => Order::where('organization_id', $organization_id)->count(),
+            'totalOrders' => Order::where('organization_id', $organization_id)->count(),
+            'products' => Product::where('organization_id', $organization_id)->count(),
+            'brands' => Brand::where('organization_id', $organization_id)->count(),
+            'categories' => Category::where('organization_id', $organization_id)->count(),
+            'employees' => Employee::where('organization_id', $organization_id)->count(),
             'users' => User::count(),
         ];
 
-        return view('organization::dashboard.index',compact('data'));
+        return view('organization::dashboard.index', compact('data'));
     }
 
     public function profile()
