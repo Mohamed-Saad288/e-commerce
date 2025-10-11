@@ -46,38 +46,38 @@ Route::prefix('api/site')->middleware(['set.organization.context'])->group(funct
 
     Route::get('categories', [CategoryController::class, 'list']);
     Route::get('brands', [BrandController::class, 'list']);
-    Route::get('categories', [CategoryController::class, "list"]);
-    Route::get("brands", [BrandController::class, "list"]);
+    Route::get('categories', [CategoryController::class, 'list']);
+    Route::get('brands', [BrandController::class, 'list']);
 
     /** Terms Endpoints */
     Route::controller(TermController::class)->group(function () {
-        Route::post("fetch_terms", "fetch_terms");
+        Route::post('fetch_terms', 'fetch_terms');
     });
 
     /** FAQ Endpoints */
     Route::controller(FaqController::class)->group(function () {
-        Route::post("fetch_faqs", "fetch_faqs");
+        Route::post('fetch_faqs', 'fetch_faqs');
     });
 
     /** Header Endpoints */
     Route::controller(HeaderController::class)->group(function () {
-        Route::post("fetch_header", "fetch_header");
+        Route::post('fetch_header', 'fetch_header');
     });
 
     /** WebStatus Endpoints */
     Route::controller(WebStatusController::class)->group(function () {
-        Route::post("fetch_web_status", "fetch_web_status");
+        Route::post('fetch_web_status', 'fetch_web_status');
     });
 
     /** Privacy Endpoints */
     Route::controller(PrivacyController::class)->group(function () {
-        Route::post("fetch_privacy", "fetch_privacy");
+        Route::post('fetch_privacy', 'fetch_privacy');
     });
 
     /** HomeSection Endpoints */
     Route::controller(HomeSectionController::class)->group(function () {
-        Route::post("fetch_home_sections", "fetch_home_sections");
-        Route::post("fetch_section_products", "fetch_section_products");
+        Route::post('fetch_home_sections', 'fetch_home_sections');
+        Route::post('fetch_section_products', 'fetch_section_products');
     });
 
 });

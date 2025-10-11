@@ -66,7 +66,7 @@ class HomeSectionService extends BaseService
                 $this->reorderOrganizationSections($dto->organization_id);
             }
 
-            if (!empty($dto->products)) {
+            if (! empty($dto->products)) {
                 $model->products()->sync($dto->products);
             }
 
@@ -86,5 +86,4 @@ class HomeSectionService extends BaseService
             $section->updateQuietly(['sort_order' => $counter++]);
         }
     }
-
 }

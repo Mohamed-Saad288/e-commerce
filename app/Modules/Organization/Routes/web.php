@@ -1,8 +1,7 @@
 <?php
 
-use Illuminate\Support\Facades\Route;
-use Mcamara\LaravelLocalization\Facades\LaravelLocalization;
-
+use App\Modules\Organization\app\Http\Controllers\About\AboutController;
+use App\Modules\Organization\app\Http\Controllers\Auth\AuthController;
 /**
  * --------------------------------------------------------------
  *  Organization Module Routes
@@ -12,34 +11,32 @@ use Mcamara\LaravelLocalization\Facades\LaravelLocalization;
  * --------------------------------------------------------------
  */
 
-//#region Import Controllers (cleaned & grouped)
-use App\Modules\Organization\app\Http\Controllers\{
-    About\AboutController,
-    Auth\AuthController,
-    Brand\BrandController,
-    Category\CategoryController,
-    Employee\EmployeeController,
-    Header\HeaderController,
-    Home\HomeController,
-    HomeSection\HomeSectionController,
-    Option\OptionController,
-    OptionItem\OptionItemController,
-    OrganizationSetting\OrganizationPaymentMethodController,
-    OrganizationSetting\OrganizationSettingController,
-    OurTeam\OurTeamController,
-    Privacy\PrivacyController,
-    products\ProductController,
-    Question\QuestionController,
-    Term\TermController,
-    Why\WhyController
-};
+// #region Import Controllers (cleaned & grouped)
+use App\Modules\Organization\app\Http\Controllers\Brand\BrandController;
+use App\Modules\Organization\app\Http\Controllers\Category\CategoryController;
+use App\Modules\Organization\app\Http\Controllers\Employee\EmployeeController;
+use App\Modules\Organization\app\Http\Controllers\Header\HeaderController;
+use App\Modules\Organization\app\Http\Controllers\Home\HomeController;
+use App\Modules\Organization\app\Http\Controllers\HomeSection\HomeSectionController;
+use App\Modules\Organization\app\Http\Controllers\Option\OptionController;
+use App\Modules\Organization\app\Http\Controllers\OptionItem\OptionItemController;
+use App\Modules\Organization\app\Http\Controllers\OrganizationSetting\OrganizationPaymentMethodController;
+use App\Modules\Organization\app\Http\Controllers\OrganizationSetting\OrganizationSettingController;
+use App\Modules\Organization\app\Http\Controllers\OurTeam\OurTeamController;
+use App\Modules\Organization\app\Http\Controllers\Privacy\PrivacyController;
+use App\Modules\Organization\app\Http\Controllers\products\ProductController;
+use App\Modules\Organization\app\Http\Controllers\Question\QuestionController;
+use App\Modules\Organization\app\Http\Controllers\Term\TermController;
+use App\Modules\Organization\app\Http\Controllers\Why\WhyController;
+use Illuminate\Support\Facades\Route;
+use Mcamara\LaravelLocalization\Facades\LaravelLocalization;
 
-//#endregion
+// #endregion
 
 Route::group(
     [
         // Localized prefix, e.g. /en/organizations or /ar/organizations
-        'prefix' => LaravelLocalization::setLocale() . '/organizations',
+        'prefix' => LaravelLocalization::setLocale().'/organizations',
 
         // Localization middlewares for translated views & URLs
         'middleware' => [
@@ -80,14 +77,14 @@ Route::group(
             ->as('organization.') // All routes under this group will be prefixed with "organization."
             ->group(function () {
 
-                //#region Dashboard & Profile
+                // #region Dashboard & Profile
                 Route::get('/', [HomeController::class, 'home'])->name('home');
                 Route::post('logout', [AuthController::class, 'logout'])->name('logout');
                 Route::get('profile', [HomeController::class, 'profile'])->name('profile');
                 Route::get('user_profile', [HomeController::class, 'user_profile'])->name('user_profile');
-                //#endregion
+                // #endregion
 
-                //#region CRUD Resources
+                // #region CRUD Resources
                 Route::resources([
                     'categories' => CategoryController::class,
                     'brands' => BrandController::class,
@@ -101,9 +98,9 @@ Route::group(
                     'our_teams' => OurTeamController::class,
                     'home_sections' => HomeSectionController::class,
                 ]);
-                //#endregion
+                // #endregion
 
-                //#region Settings Pages (single edit/update routes)
+                // #region Settings Pages (single edit/update routes)
                 Route::controller(OrganizationSettingController::class)
                     ->prefix('organization_settings')
                     ->name('organization_settings.')
@@ -135,9 +132,9 @@ Route::group(
                         Route::get('edit', 'edit')->name('edit');
                         Route::post('edit', 'update')->name('update');
                     });
-                //#endregion
+                // #endregion
 
-                //#region Payment Methods
+                // #region Payment Methods
                 Route::controller(OrganizationPaymentMethodController::class)
                     ->prefix('payment-methods')
                     ->name('payment_methods.')
@@ -145,14 +142,14 @@ Route::group(
                         Route::get('/', 'index')->name('index');
                         Route::put('/{id}', 'update')->name('update');
                     });
-                //#endregion
+                // #endregion
 
-                //#region Status Change Routes
+                // #region Status Change Routes
                 Route::prefix('change_status')->group(function () {
                     Route::post('products/{product}', [ProductController::class, 'changeStatus'])
                         ->name('products.change_status');
                 });
-                //#endregion
+                // #endregion
             });
     }
 );

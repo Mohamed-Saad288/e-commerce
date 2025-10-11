@@ -12,7 +12,7 @@ return new class extends Migration
     public function up(): void
     {
         Schema::table('home_sections', function (Blueprint $table) {
-            $table->tinyInteger("template_type")->after("type")->nullable();
+            $table->tinyInteger('template_type')->after('type')->nullable();
         });
     }
 
@@ -22,7 +22,7 @@ return new class extends Migration
     public function down(): void
     {
         Schema::table('home_sections', function (Blueprint $table) {
-            $table->dropColumn("template_type");
+            $table->dropColumn('template_type');
         });
     }
 };

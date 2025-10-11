@@ -38,7 +38,8 @@ class TermController extends Controller
 
     public function edit(Term $term)
     {
-        $terms = Term::where('organization_id',auth()->user()->organization_id)->first();
+        $terms = Term::where('organization_id', auth()->user()->organization_id)->first();
+
         return view('organization::dashboard.terms.single', get_defined_vars());
     }
 
@@ -73,8 +74,8 @@ class TermController extends Controller
         $this->service->update(model: $terms, dto: TermDto::fromArray($request->validated()));
 
         return to_route('organization.terms.edit')->with([
-            'message' => __("messages.updated"),
-            'alert-type' => 'success'
+            'message' => __('messages.updated'),
+            'alert-type' => 'success',
         ]);
     }
 }

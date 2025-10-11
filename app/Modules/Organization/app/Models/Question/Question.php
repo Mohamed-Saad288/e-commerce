@@ -17,7 +17,7 @@ class Question extends BaseModel implements TranslatableContract
     protected $fillable = [
         'organization_id',
         'employee_id',
-        "sort_order",
-        'is_active'
+        'sort_order',
+        'is_active',
     ];
 }

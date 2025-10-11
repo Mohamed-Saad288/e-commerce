@@ -18,7 +18,7 @@ class HomeSectionService
         $organization = $this->getOrganization();
         $now = Carbon::now();
         $home_sections = HomeSection::query()
-            ->where("organization_id",$organization->id)
+            ->where('organization_id', $organization->id)
             ->where(function ($query) use ($now) {
                 $query->where(function ($q) use ($now) {
                     $q->where('start_date', '<=', $now)
@@ -27,27 +27,27 @@ class HomeSectionService
                     ->orWhereNull('start_date')
                     ->orWhereNull('end_date');
             })
-            ->orderBy("sort_order",'asc')
+            ->orderBy('sort_order', 'asc')
             ->get();
 
-        return new DataSuccess
-        (
+        return new DataSuccess(
             data: HomeSectionResource::collection($home_sections),
             status: true,
-            message: "Home Section Fetched Successfully"
+            message: 'Home Section Fetched Successfully'
         );
     }
+
     public function fetch_sections_products($data)
     {
         $organization = $this->getOrganization();
 
-        $home_section = HomeSection::where("id", $data['home_section_id'])
-            ->where("organization_id", $organization->id)
+        $home_section = HomeSection::where('id', $data['home_section_id'])
+            ->where('organization_id', $organization->id)
             ->first();
 
         $productsQuery = $home_section->products()->latest();
 
-        if (!empty($data['with_pagination']) && $data['with_pagination'] == 1) {
+        if (! empty($data['with_pagination']) && $data['with_pagination'] == 1) {
             $perPage = $data['per_page'] ?? 10;
 
             $paginated = $productsQuery->paginate($perPage);
@@ -62,7 +62,7 @@ class HomeSectionService
         return new DataSuccess(
             data: $resource,
             status: true,
-            message: "Home Section Fetched Successfully"
+            message: 'Home Section Fetched Successfully'
         );
     }
 }

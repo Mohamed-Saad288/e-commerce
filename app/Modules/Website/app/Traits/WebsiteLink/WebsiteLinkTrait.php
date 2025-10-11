@@ -18,7 +18,7 @@ trait WebsiteLinkTrait
 
         $organization = Organization::where('website_link', $websiteLink)->first();
 
-        if (!$organization) {
+        if (! $organization) {
             throw new NotFoundHttpException('Organization not found for the provided website link.');
         }
 

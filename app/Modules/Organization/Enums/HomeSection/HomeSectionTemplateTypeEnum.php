@@ -2,7 +2,7 @@
 
 namespace App\Modules\Organization\Enums\HomeSection;
 
-enum HomeSectionTemplateTypeEnum : int
+enum HomeSectionTemplateTypeEnum: int
 {
     case Best_Sellers = 1;
     case Trending = 2;
