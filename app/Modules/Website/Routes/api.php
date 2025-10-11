@@ -14,7 +14,6 @@ use App\Modules\Website\app\Http\Controllers\WebStatus\WebStatusController;
 use Illuminate\Support\Facades\Route;
 
 Route::prefix('api/site')->middleware(['set.organization.context'])->group(function () {
-Route::prefix('website')->middleware(["set.organization.context"])->group(function () {
 
     // Auth Routes
     Route::post('login', [AuthController::class, 'login']);
@@ -81,5 +80,4 @@ Route::prefix('website')->middleware(["set.organization.context"])->group(functi
         Route::post("fetch_section_products", "fetch_section_products");
     });
 
-});
 });
