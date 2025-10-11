@@ -14,11 +14,13 @@ class TermService extends BaseService
     {
         parent::__construct(model: resolve(Term::class));
     }
+
     public function update(Model $model, DtoInterface $dto): Model
     {
         return DB::transaction(function () use ($model, $dto) {
             $data = $dto->toArray();
             $model->update($data);
+
             return $model;
         });
     }

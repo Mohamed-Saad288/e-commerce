@@ -27,4 +27,3 @@ class PrivacySeeder extends Seeder
         ]);
     }
 }
-

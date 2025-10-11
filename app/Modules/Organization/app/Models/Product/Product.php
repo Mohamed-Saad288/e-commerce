@@ -3,7 +3,6 @@
 namespace App\Modules\Organization\app\Models\Product;
 
 use App\Modules\Base\app\Models\BaseModel;
-use App\Modules\Base\app\Scopes\TenantScope;
 use App\Modules\Organization\app\Models\Brand\Brand;
 use App\Modules\Organization\app\Models\Category\Category;
 use App\Modules\Organization\app\Models\ProductVariation\ProductVariation;
@@ -31,10 +30,8 @@ class Product extends BaseModel implements TranslatableContract
         'organization_id',
         'employee_id',
         'is_active',
-        "stock_quantity"
+        'stock_quantity',
     ];
-
-
 
     public function variations(): HasMany
     {

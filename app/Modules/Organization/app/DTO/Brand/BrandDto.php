@@ -20,6 +20,7 @@ class BrandDto implements DTOInterface
     public array $categories = [];
 
     public $image = null;
+
     public function __construct(
         ?array $translations = [],
         ?bool $is_active = null,
@@ -65,12 +66,12 @@ class BrandDto implements DTOInterface
         return array_merge(
             $this->translations,
             [
-                'is_active'    => $this->is_active,
-                'slug'         => $this->slug,
-                'organization_id'         => $this->organization_id,
-                'employee_id'  => $this->employee_id,
-                'categories'   => $this->categories,
-                'image' => $this->image
+                'is_active' => $this->is_active,
+                'slug' => $this->slug,
+                'organization_id' => $this->organization_id,
+                'employee_id' => $this->employee_id,
+                'categories' => $this->categories,
+                'image' => $this->image,
             ]
         );
     }

@@ -8,8 +8,11 @@ use Illuminate\Foundation\Http\FormRequest;
 class PrivacyDto implements DTOInterface
 {
     public ?array $translations = [];
+
     public ?int $organization_id = null;
+
     public ?int $employee_id = null;
+
     public function __construct(
         ?array $translations = [],
         ?int $organization_id = null,
@@ -42,8 +45,8 @@ class PrivacyDto implements DTOInterface
         return array_merge(
             $this->translations,
             [
-                'organization_id'         => $this->organization_id,
-                'employee_id'  => $this->employee_id,
+                'organization_id' => $this->organization_id,
+                'employee_id' => $this->employee_id,
             ]
         );
     }
