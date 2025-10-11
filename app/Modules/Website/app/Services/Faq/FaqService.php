@@ -8,13 +8,13 @@ use App\Modules\Organization\app\Models\Term\Term;
 use App\Modules\Website\app\Http\Resources\Faq\FaqResource;
 use App\Modules\Website\app\Http\Resources\Term\TermResource;
 use App\Modules\Website\app\Traits\WebsiteLink\WebsiteLinkTrait;
+use Illuminate\Http\Request;
 
 class FaqService
 {
-    public function fetchFaqs(): DataSuccess
+    public function fetchFaqs(Request $request = null): DataSuccess
     {
-
-        $faqs = Question::query()->limit(7)->get();
+        $faqs = Question::query()->limit($request->limit ?? 7)->get();
         if (!$faqs || $faqs->isEmpty()) {
             return new DataSuccess(
                 data: null,

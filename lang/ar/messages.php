@@ -161,6 +161,11 @@ return [
     'Featured_Products'  => 'منتجات مميزة',
     'Custom'             => 'مخصص',
     'quick_actions' => "روابط سريعة",
+
+
+
+
+
     "pending_orders" => "طلبات قيد الانتظار",
     "approved_orders" => "طلبات ناجحة",
     'total_orders' => "جميع الطلبات",
