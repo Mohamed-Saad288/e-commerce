@@ -13,55 +13,63 @@ use Exception;
 
 class OptionItemController extends Controller
 {
-    public function __construct(protected OptionItemService $service){}
+    public function __construct(protected OptionItemService $service) {}
 
     public function index()
     {
         $option_items = $this->service->index();
+
         return view('organization::dashboard.option_items.index', get_defined_vars());
     }
+
     public function create()
     {
         $options = Option::whereOrganizationId(auth()->user()->organization_id)->get();
-        return view('organization::dashboard.option_items.single',get_defined_vars());
+
+        return view('organization::dashboard.option_items.single', get_defined_vars());
     }
+
     public function store(StoreOptionItemRequest $request)
     {
-         $this->service->store(OptionItemDto::fromArray($request));
-        return to_route('organization.option_items.index')->with(array(
-            'message' => __("messages.success"),
-            'alert-type' => 'success'
-        ));
+        $this->service->store(OptionItemDto::fromArray($request));
+
+        return to_route('organization.option_items.index')->with([
+            'message' => __('messages.success'),
+            'alert-type' => 'success',
+        ]);
     }
+
     public function edit(OptionItem $option_item)
     {
         $options = Option::whereOrganizationId(auth()->user()->organization_id)->get();
+
         return view('organization::dashboard.option_items.single', get_defined_vars());
     }
-    public function update(UpdateOptionItemRequest $request , OptionItem $option_item)
+
+    public function update(UpdateOptionItemRequest $request, OptionItem $option_item)
     {
         $this->service->update(model: $option_item, dto: OptionItemDto::fromArray($request));
 
-        return to_route('organization.option_items.index')->with(array(
-            'message' => __("messages.updated"),
-            'alert-type' => 'success'
-        ));
+        return to_route('organization.option_items.index')->with([
+            'message' => __('messages.updated'),
+            'alert-type' => 'success',
+        ]);
     }
+
     public function destroy(OptionItem $option_item)
     {
         try {
             $this->service->delete(model: $option_item);
+
             return response()->json([
                 'success' => true,
-                'message' => __('messages.deleted')
+                'message' => __('messages.deleted'),
             ]);
         } catch (Exception $e) {
             return response()->json([
                 'success' => false,
-                'message' => __('messages.something_wrong')
+                'message' => __('messages.something_wrong'),
             ], 500);
         }
     }
-
-
 }

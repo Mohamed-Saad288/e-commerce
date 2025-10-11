@@ -7,37 +7,43 @@ use App\Modules\Organization\app\DTO\Header\HeaderDto;
 use App\Modules\Organization\app\Http\Request\Header\StoreHeaderRequest;
 use App\Modules\Organization\app\Http\Request\Header\UpdateHeaderRequest;
 use App\Modules\Organization\app\Models\Header\Header;
-use App\Modules\Organization\app\Models\Category\Category;
 use App\Modules\Organization\app\Services\Header\HeaderService;
 use Exception;
 use Illuminate\Support\Facades\Storage;
 
 class HeaderController extends Controller
 {
-    public function __construct(protected HeaderService $service){}
+    public function __construct(protected HeaderService $service) {}
 
     public function index()
     {
         $headers = $this->service->index();
+
         return view('organization::dashboard.headers.index', get_defined_vars());
     }
+
     public function create()
     {
-        return view('organization::dashboard.headers.single',get_defined_vars());
-    }
-    public function store(StoreHeaderRequest $request)
-    {
-         $this->service->store(HeaderDto::fromArray($request));
-        return to_route('organization.headers.index')->with(array(
-            'message' => __("messages.success"),
-            'alert-type' => 'success'
-        ));
-    }
-    public function edit()
-    {
-        $header = Header::where('organization_id',auth()->user()->organization_id)->first();
         return view('organization::dashboard.headers.single', get_defined_vars());
     }
+
+    public function store(StoreHeaderRequest $request)
+    {
+        $this->service->store(HeaderDto::fromArray($request));
+
+        return to_route('organization.headers.index')->with([
+            'message' => __('messages.success'),
+            'alert-type' => 'success',
+        ]);
+    }
+
+    public function edit()
+    {
+        $header = Header::where('organization_id', auth()->user()->organization_id)->first();
+
+        return view('organization::dashboard.headers.single', get_defined_vars());
+    }
+
     public function update(UpdateHeaderRequest $request)
     {
         $header = Header::firstOrCreate(
@@ -48,8 +54,8 @@ class HeaderController extends Controller
         $this->service->update(model: $header, dto: HeaderDto::fromArray($request->validated()));
 
         return to_route('organization.headers.edit')->with([
-            'message' => __("messages.updated"),
-            'alert-type' => 'success'
+            'message' => __('messages.updated'),
+            'alert-type' => 'success',
         ]);
     }
 
@@ -60,17 +66,16 @@ class HeaderController extends Controller
                 Storage::disk('public')->delete($header->image);
             }
             $this->service->delete(model: $header);
+
             return response()->json([
                 'success' => true,
-                'message' => __('messages.deleted')
+                'message' => __('messages.deleted'),
             ]);
         } catch (Exception $e) {
             return response()->json([
                 'success' => false,
-                'message' => __('messages.something_wrong')
+                'message' => __('messages.something_wrong'),
             ], 500);
         }
     }
-
-
 }

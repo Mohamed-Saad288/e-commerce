@@ -25,6 +25,7 @@ class HomeController extends Controller
             'employees' => Employee::where("organization_id",$organization_id)->count(),
             'users' => User::count(),
         ];
+
         return view('organization::dashboard.index',compact('data'));
     }
 

@@ -8,9 +8,13 @@ use Illuminate\Foundation\Http\FormRequest;
 class FeatureDto implements DTOInterface
 {
     public ?array $translations = [];
+
     public ?bool $is_active = null;
+
     public ?string $slug = null;
+
     public ?int $type = null;
+
     public ?int $added_by_id = null;
 
     public function __construct(
@@ -33,7 +37,7 @@ class FeatureDto implements DTOInterface
         $translations = [];
         foreach (config('translatable.locales') as $locale) {
             $translations[$locale] = [
-                'name'        => $arrayData[$locale]['name'] ?? null,
+                'name' => $arrayData[$locale]['name'] ?? null,
                 'description' => $arrayData[$locale]['description'] ?? null,
             ];
         }
@@ -52,10 +56,10 @@ class FeatureDto implements DTOInterface
         return array_merge(
             $this->translations,
             [
-                'is_active'    => $this->is_active,
-                'slug'         => $this->slug,
-                'type'         => $this->type,
-                'added_by_id'  => $this->added_by_id,
+                'is_active' => $this->is_active,
+                'slug' => $this->slug,
+                'type' => $this->type,
+                'added_by_id' => $this->added_by_id,
             ]
         );
     }

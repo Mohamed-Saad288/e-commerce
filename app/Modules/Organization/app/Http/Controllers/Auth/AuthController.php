@@ -8,7 +8,6 @@ use Illuminate\Support\Facades\Auth;
 
 class AuthController extends Controller
 {
-
     public function getLogin()
     {
         return view('organization::dashboard.auth.login');
@@ -22,6 +21,7 @@ class AuthController extends Controller
 
         if (Auth::guard('organization_employee')->attempt($credentials)) {
             $request->session()->regenerate();
+
             return redirect()
                 ->intended(route('organization.home'))
                 ->with('status', __('Welcome back!'));
@@ -35,6 +35,7 @@ class AuthController extends Controller
     public function logout()
     {
         Auth::guard('organization_employee')->logout();
+
         return redirect()->route('organization.login');
     }
 }

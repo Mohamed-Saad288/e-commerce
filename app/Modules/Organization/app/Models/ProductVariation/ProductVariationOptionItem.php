@@ -17,17 +17,17 @@ class ProductVariationOptionItem extends BaseModel implements TranslatableContra
     protected $fillable = [
         'product_variation_id',
         'option_item_id',
-        "organization_id",
-        "employee_id"
+        'organization_id',
+        'employee_id',
     ];
 
-    public function optionItem() : BelongsTo
+    public function optionItem(): BelongsTo
     {
-        return $this->belongsTo(OptionItem::class,"option_item_id");
+        return $this->belongsTo(OptionItem::class, 'option_item_id');
     }
 
-    public function productVariation() : BelongsTo
+    public function productVariation(): BelongsTo
     {
-        return $this->belongsTo(ProductVariation::class,"product_variation_id");
+        return $this->belongsTo(ProductVariation::class, 'product_variation_id');
     }
 }

@@ -43,7 +43,7 @@ class CitySeeder extends Seeder
                     ],
                     'ar' => [
                         'name' => $cityData['ar'],
-                    ]
+                    ],
                 ]);
             }
         }

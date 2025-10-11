@@ -16,23 +16,23 @@ class Product extends BaseModel implements TranslatableContract
 {
     use Translatable;
 
-    public array $translatedAttributes = ['name', 'description', "short_description"];
+    public array $translatedAttributes = ['name', 'description', 'short_description'];
 
     protected $table = 'products';
 
     protected $fillable = [
-        "slug",
-        "brand_id",
-        "category_id",
-        "type",
-        "low_stock_threshold",
-        "requires_shipping",
-        "added_by_id",
-        "organization_id",
-        "employee_id",
-        "is_active"
+        'slug',
+        'brand_id',
+        'category_id',
+        'type',
+        'low_stock_threshold',
+        'requires_shipping',
+        'added_by_id',
+        'organization_id',
+        'employee_id',
+        'is_active',
+        "stock_quantity"
     ];
-
 
     protected static function booted(): void
     {
@@ -41,18 +41,16 @@ class Product extends BaseModel implements TranslatableContract
 
     public function variations(): HasMany
     {
-        return $this->hasMany(ProductVariation::class, "product_id");
+        return $this->hasMany(ProductVariation::class, 'product_id');
     }
 
     public function brand(): BelongsTo
     {
-        return $this->belongsTo(Brand::class, "brand_id");
+        return $this->belongsTo(Brand::class, 'brand_id');
     }
 
     public function category(): BelongsTo
     {
-        return $this->belongsTo(Category::class, "category_id");
+        return $this->belongsTo(Category::class, 'category_id');
     }
-
-
 }

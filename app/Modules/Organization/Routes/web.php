@@ -1,6 +1,20 @@
 <?php
 
-use App\Modules\Organization\app\Http\Controllers\{About\AboutController,
+use Illuminate\Support\Facades\Route;
+use Mcamara\LaravelLocalization\Facades\LaravelLocalization;
+
+/**
+ * --------------------------------------------------------------
+ *  Organization Module Routes
+ * --------------------------------------------------------------
+ * These routes handle the organization dashboard for authenticated
+ * organization employees and also provide guest routes for login.
+ * --------------------------------------------------------------
+ */
+
+//#region Import Controllers (cleaned & grouped)
+use App\Modules\Organization\app\Http\Controllers\{
+    About\AboutController,
     Auth\AuthController,
     Brand\BrandController,
     Category\CategoryController,
@@ -17,13 +31,17 @@ use App\Modules\Organization\app\Http\Controllers\{About\AboutController,
     products\ProductController,
     Question\QuestionController,
     Term\TermController,
-    Why\WhyController};
-use Illuminate\Support\Facades\Route;
-use Mcamara\LaravelLocalization\Facades\LaravelLocalization;
+    Why\WhyController
+};
+
+//#endregion
 
 Route::group(
     [
-        'prefix' => LaravelLocalization::setLocale() . "/organizations",
+        // Localized prefix, e.g. /en/organizations or /ar/organizations
+        'prefix' => LaravelLocalization::setLocale() . '/organizations',
+
+        // Localization middlewares for translated views & URLs
         'middleware' => [
             'localeSessionRedirect',
             'localizationRedirect',
@@ -32,59 +50,109 @@ Route::group(
         ],
     ],
     function () {
-        // Guest routes (not logged in)
+
+        /**
+         * --------------------------------------------------------------
+         * Guest Routes (accessible only when not logged in)
+         * --------------------------------------------------------------
+         */
         Route::middleware('guest:organization_employee')->group(function () {
             Route::get('login', [AuthController::class, 'getLogin'])->name('organization.login');
             Route::post('login', [AuthController::class, 'login'])->name('organization.login.submit');
         });
 
-        /************************** Exports Routes ********************/
-        Route::get('products/export', [ProductController::class, 'export'])->name('organization.products.export');
-        /************************** Exports Routes ********************/
+        /**
+         * --------------------------------------------------------------
+         * Export Routes
+         * --------------------------------------------------------------
+         * Handles data exports for products and other resources.
+         */
+        Route::get('products/export', [ProductController::class, 'export'])
+            ->name('organization.products.export');
 
-        // Authenticated routes
+        /**
+         * --------------------------------------------------------------
+         * Authenticated Organization Routes
+         * --------------------------------------------------------------
+         * Only accessible for logged-in organization employees.
+         */
         Route::middleware(['auth:organization_employee', 'set.organization.context'])
-            ->as('organization.')
+            ->as('organization.') // All routes under this group will be prefixed with "organization."
             ->group(function () {
+
+                //#region Dashboard & Profile
                 Route::get('/', [HomeController::class, 'home'])->name('home');
                 Route::post('logout', [AuthController::class, 'logout'])->name('logout');
                 Route::get('profile', [HomeController::class, 'profile'])->name('profile');
                 Route::get('user_profile', [HomeController::class, 'user_profile'])->name('user_profile');
-                Route::resource('categories', CategoryController::class);
-                Route::resource('brands', BrandController::class);
-                Route::resource('employees', EmployeeController::class);
-                Route::resource('options', OptionController::class);
-                Route::resource('option_items', OptionItemController::class);
-                Route::resource('products', ProductController::class);
-//                Route::resource('headers', HeaderController::class);
-                Route::resource('questions', QuestionController::class);
-//                Route::resource('terms', TermController::class);
-                Route::resource('abouts', AboutController::class);
-                Route::resource('whys', WhyController::class);
-                Route::resource('our_teams', OurTeamController::class);
-                Route::resource('home_sections', HomeSectionController::class);
-                Route::get('organization_settings/edit', [OrganizationSettingController::class, 'edit'])->name('organization_settings.edit');
-                Route::post('organization_settings/edit', [OrganizationSettingController::class, 'update'])->name('organization_settings.update');
+                //#endregion
 
-                Route::get('headers/edit', [HeaderController::class, 'edit'])->name('headers.edit');
-                Route::post('headers/edit', [HeaderController::class, 'update'])->name('headers.update');
+                //#region CRUD Resources
+                Route::resources([
+                    'categories' => CategoryController::class,
+                    'brands' => BrandController::class,
+                    'employees' => EmployeeController::class,
+                    'options' => OptionController::class,
+                    'option_items' => OptionItemController::class,
+                    'products' => ProductController::class,
+                    'questions' => QuestionController::class,
+                    'abouts' => AboutController::class,
+                    'whys' => WhyController::class,
+                    'our_teams' => OurTeamController::class,
+                    'home_sections' => HomeSectionController::class,
+                ]);
+                //#endregion
 
+                //#region Settings Pages (single edit/update routes)
+                Route::controller(OrganizationSettingController::class)
+                    ->prefix('organization_settings')
+                    ->name('organization_settings.')
+                    ->group(function () {
+                        Route::get('edit', 'edit')->name('edit');
+                        Route::post('edit', 'update')->name('update');
+                    });
 
-                Route::get('privacy/edit', [PrivacyController::class, 'edit'])->name('privacy.edit');
-                Route::post('privacy/edit', [PrivacyController::class, 'update'])->name('privacy.update');
+                Route::controller(HeaderController::class)
+                    ->prefix('headers')
+                    ->name('headers.')
+                    ->group(function () {
+                        Route::get('edit', 'edit')->name('edit');
+                        Route::post('edit', 'update')->name('update');
+                    });
 
+                Route::controller(PrivacyController::class)
+                    ->prefix('privacy')
+                    ->name('privacy.')
+                    ->group(function () {
+                        Route::get('edit', 'edit')->name('edit');
+                        Route::post('edit', 'update')->name('update');
+                    });
 
-                Route::get('terms/edit', [TermController::class, 'edit'])->name('terms.edit');
-                Route::post('terms/edit', [TermController::class, 'update'])->name('terms.update');
+                Route::controller(TermController::class)
+                    ->prefix('terms')
+                    ->name('terms.')
+                    ->group(function () {
+                        Route::get('edit', 'edit')->name('edit');
+                        Route::post('edit', 'update')->name('update');
+                    });
+                //#endregion
 
-                // Payment methods
-                Route::get('/payment-methods', [OrganizationPaymentMethodController::class, 'index'])->name('payment_methods.index');
-                Route::PUT('/payment-methods/{id}', [OrganizationPaymentMethodController::class, 'update'])->name('payment_methods.update');
-                /************************** Change status Routes ********************/
+                //#region Payment Methods
+                Route::controller(OrganizationPaymentMethodController::class)
+                    ->prefix('payment-methods')
+                    ->name('payment_methods.')
+                    ->group(function () {
+                        Route::get('/', 'index')->name('index');
+                        Route::put('/{id}', 'update')->name('update');
+                    });
+                //#endregion
+
+                //#region Status Change Routes
                 Route::prefix('change_status')->group(function () {
-                    Route::post('products/{product}', [ProductController::class, 'changeStatus'])->name('products.change_status');
+                    Route::post('products/{product}', [ProductController::class, 'changeStatus'])
+                        ->name('products.change_status');
                 });
-                /********************************************************************/
+                //#endregion
             });
     }
 );

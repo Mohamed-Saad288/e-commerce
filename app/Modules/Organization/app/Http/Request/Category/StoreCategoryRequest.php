@@ -2,10 +2,8 @@
 
 namespace App\Modules\Organization\app\Http\Request\Category;
 
-use App\Modules\Admin\Enums\Feature\FeatureTypeEnum;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Validation\Rule;
-use Illuminate\Validation\Rules\Enum;
 
 class StoreCategoryRequest extends FormRequest
 {
@@ -17,8 +15,8 @@ class StoreCategoryRequest extends FormRequest
     public function rules(): array
     {
         $rules = [
-            "slug" => ["nullable", Rule::unique("brands", "slug")->whereNull("deleted_at")],
-            "parent_id" => ["nullable", Rule::exists("categories", "id")->whereNull("deleted_at")],
+            'slug' => ['nullable', Rule::unique('brands', 'slug')->whereNull('deleted_at')],
+            'parent_id' => ['nullable', Rule::exists('categories', 'id')->whereNull('deleted_at')],
             'sort_order' => 'nullable|numeric',
         ];
 

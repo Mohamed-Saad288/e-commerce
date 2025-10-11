@@ -19,11 +19,12 @@ class Brand extends BaseModel implements TranslatableContract
 
     protected $fillable = [
         'slug',
+        'organization_id',
+        'employee_id',
         "organization_id",
         "employee_id",
         "image"
     ];
-
 
     protected static function booted(): void
     {
@@ -32,6 +33,6 @@ class Brand extends BaseModel implements TranslatableContract
 
     public function categories(): BelongsToMany
     {
-        return $this->BelongsToMany(Category::class,"brand_categories","brand_id","category_id");
+        return $this->BelongsToMany(Category::class, 'brand_categories', 'brand_id', 'category_id');
     }
 }

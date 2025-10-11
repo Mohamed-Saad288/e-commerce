@@ -1,6 +1,6 @@
 <?php
 
 return [
-    "category_list" => "Category List",
-    "brand_list" => "Brand List",
+    'category_list' => 'Category List',
+    'brand_list' => 'Brand List',
 ];

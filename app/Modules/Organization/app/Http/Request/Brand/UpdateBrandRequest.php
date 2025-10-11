@@ -2,10 +2,8 @@
 
 namespace App\Modules\Organization\app\Http\Request\Brand;
 
-use App\Modules\Admin\Enums\Feature\FeatureTypeEnum;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Validation\Rule;
-use Illuminate\Validation\Rules\Enum;
 
 class UpdateBrandRequest extends FormRequest
 {
@@ -22,6 +20,7 @@ class UpdateBrandRequest extends FormRequest
             : $brandParam;
 
         $rules = [
+
             "slug" => ["nullable", 'unique:brands,slug,' . $brand_id],
             "categories" => "nullable|array",
             "categories.*" => ["required", Rule::exists("categories", "id")->whereNull("deleted_at")],

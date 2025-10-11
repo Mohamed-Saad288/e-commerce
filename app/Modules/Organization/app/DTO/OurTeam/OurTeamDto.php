@@ -7,11 +7,17 @@ use App\Modules\Base\app\DTO\DTOInterface;
 class OurTeamDto implements DTOInterface
 {
     public ?string $name;
+
     public ?string $facebook_link;
+
     public ?string $instagram_link;
+
     public ?string $tiktok_link;
+
     public ?string $x_link;
+
     public $image;
+
     public ?int $organization_id;
 
     public function __construct(
@@ -27,7 +33,7 @@ class OurTeamDto implements DTOInterface
         $this->facebook_link = $facebook_link;
         $this->instagram_link = $instagram_link;
         $this->tiktok_link = $tiktok_link;
-        $this->x_link = $x_link ;
+        $this->x_link = $x_link;
         $this->organization_id = $organization_id;
         $this->image = $image;
     }
@@ -48,13 +54,13 @@ class OurTeamDto implements DTOInterface
     public function toArray(): array
     {
         return [
-            'name'     => $this->name,
-            'facebook_link'    => $this->facebook_link,
-            'instagram_link'    => $this->instagram_link,
+            'name' => $this->name,
+            'facebook_link' => $this->facebook_link,
+            'instagram_link' => $this->instagram_link,
             'tiktok_link' => $this->tiktok_link,
             'x_link' => $this->x_link,
-            "organization_id" => $this->organization_id,
-            'image' => $this->image
+            'organization_id' => $this->organization_id,
+            'image' => $this->image,
         ];
     }
 }

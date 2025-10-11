@@ -7,8 +7,11 @@ use App\Modules\Base\app\DTO\DTOInterface;
 class AdminDto implements DTOInterface
 {
     public ?string $name;
+
     public ?string $phone;
+
     public ?string $email;
+
     public ?string $password;
 
     public function __construct(
@@ -36,9 +39,9 @@ class AdminDto implements DTOInterface
     public function toArray(): array
     {
         return [
-            'name'     => $this->name,
-            'phone'    => $this->phone,
-            'email'    => $this->email,
+            'name' => $this->name,
+            'phone' => $this->phone,
+            'email' => $this->email,
             'password' => $this->password,
         ];
     }

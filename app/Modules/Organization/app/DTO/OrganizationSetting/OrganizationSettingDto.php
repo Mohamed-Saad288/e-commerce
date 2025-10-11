@@ -8,24 +8,37 @@ use Illuminate\Foundation\Http\FormRequest;
 class OrganizationSettingDto implements DTOInterface
 {
     public ?int $organization_id = null;
+
     public ?int $employee_id = null;
-    public  $logo = null;
+
+    public $logo = null;
+
     public ?string $primary_color = null;
+
     public ?string $secondary_color = null;
+
     public ?string $facebook_link = null;
+
     public ?string $instagram_link = null;
+
     public ?string $phone = null;
+
     public ?string $email = null;
+
     public ?string $address = null;
+
     public ?string $lat = null;
+
     public ?string $lng = null;
+
     public ?string $x_link = null;
+
     public ?string $tiktok_link = null;
 
     public function __construct(
         ?int $organization_id = null,
         ?int $employee_id = null,
-         $logo = null,
+        $logo = null,
         ?string $primary_color = null,
         ?string $secondary_color = null,
         ?string $facebook_link = null,
@@ -80,20 +93,19 @@ class OrganizationSettingDto implements DTOInterface
     {
         return [
             'organization_id' => $this->organization_id,
-            'employee_id'     => $this->employee_id,
-            'logo'            => $this->logo,
-            'primary_color'   => $this->primary_color,
+            'employee_id' => $this->employee_id,
+            'logo' => $this->logo,
+            'primary_color' => $this->primary_color,
             'secondary_color' => $this->secondary_color,
-            'facebook_link'   => $this->facebook_link,
-            'instagram_link'  => $this->instagram_link,
-            'phone'           => $this->phone,
-            'email'           => $this->email,
-            'address'         => $this->address,
-            'lat'             => $this->lat,
-            'lng'             => $this->lng,
-            'x_link'          => $this->x_link,
-            'tiktok_link'     => $this->tiktok_link,
+            'facebook_link' => $this->facebook_link,
+            'instagram_link' => $this->instagram_link,
+            'phone' => $this->phone,
+            'email' => $this->email,
+            'address' => $this->address,
+            'lat' => $this->lat,
+            'lng' => $this->lng,
+            'x_link' => $this->x_link,
+            'tiktok_link' => $this->tiktok_link,
         ];
     }
 }
-

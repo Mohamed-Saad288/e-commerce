@@ -14,18 +14,18 @@ return new class extends BaseMigration
         Schema::create('organization_settings', function (Blueprint $table) {
             $table->id();
             $this->addOrganizationFields($table);
-            $table->string("logo")->nullable();
-            $table->string("primary_color")->nullable();
-            $table->string("secondary_color")->nullable();
-            $table->string("facebook_link")->nullable();
-            $table->string("instagram_link")->nullable();
-            $table->string("phone")->nullable();
-            $table->string("email")->nullable();
-            $table->string("address")->nullable();
-            $table->string("lat")->nullable();
-            $table->string("lng")->nullable();
-            $table->string("x_link")->nullable();
-            $table->string("tiktok_link")->nullable();
+            $table->string('logo')->nullable();
+            $table->string('primary_color')->nullable();
+            $table->string('secondary_color')->nullable();
+            $table->string('facebook_link')->nullable();
+            $table->string('instagram_link')->nullable();
+            $table->string('phone')->nullable();
+            $table->string('email')->nullable();
+            $table->string('address')->nullable();
+            $table->string('lat')->nullable();
+            $table->string('lng')->nullable();
+            $table->string('x_link')->nullable();
+            $table->string('tiktok_link')->nullable();
         });
     }
 

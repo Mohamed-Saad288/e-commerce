@@ -2,7 +2,7 @@
 
 use Carbon\Carbon;
 
-function getSiteName() : string
+function getSiteName(): string
 {
     return config('app.name');
 }
@@ -14,6 +14,5 @@ function convertCreatedAt($createdAt = null): ?string
 
 function convertToArray($data): array
 {
-    return is_array($data) && !empty($data) ? $data : [$data] ?? [];
+    return is_array($data) && ! empty($data) ? $data : [$data] ?? [];
 }
-

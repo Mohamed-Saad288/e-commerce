@@ -8,11 +8,17 @@ use Illuminate\Foundation\Http\FormRequest;
 class BrandDto implements DTOInterface
 {
     public ?array $translations = [];
+
     public ?bool $is_active = null;
+
     public ?string $slug = null;
+
     public ?int $organization_id = null;
+
     public ?int $employee_id = null;
+
     public array $categories = [];
+
     public $image = null;
     public function __construct(
         ?array $translations = [],
@@ -38,7 +44,7 @@ class BrandDto implements DTOInterface
         $translations = [];
         foreach (config('translatable.locales') as $locale) {
             $translations[$locale] = [
-                'name'        => $arrayData[$locale]['name'] ?? null,
+                'name' => $arrayData[$locale]['name'] ?? null,
                 'description' => $arrayData[$locale]['description'] ?? null,
             ];
         }

@@ -12,12 +12,15 @@ use Exception;
 
 class OrganizationController extends Controller
 {
-    public function __construct(protected OrganizationService $service){}
+    public function __construct(protected OrganizationService $service) {}
+
     public function index()
     {
         $organizations = $this->service->getOrganizations();
+
         return view('admin::dashboard.organizations.index', get_defined_vars());
     }
+
     public function create()
     {
         $fields = [
@@ -26,17 +29,21 @@ class OrganizationController extends Controller
             'phone' => 'text',
             'address' => 'text',
             'website_link' => 'text',
-            ];
-        return view('admin::dashboard.organizations.single',get_defined_vars());
+        ];
+
+        return view('admin::dashboard.organizations.single', get_defined_vars());
     }
+
     public function store(StoreOrganizationRequest $request)
     {
         $this->service->storeOrganization(OrganizationDto::fromArray($request));
-        return to_route('admin.organizations.index')->with(array(
-            'message' => __("messages.success"),
-            'alert-type' => 'success'
-        ));
+
+        return to_route('admin.organizations.index')->with([
+            'message' => __('messages.success'),
+            'alert-type' => 'success',
+        ]);
     }
+
     public function edit($id)
     {
         $admin = $this->service->getOrganization($id);
@@ -46,32 +53,36 @@ class OrganizationController extends Controller
             'phone' => 'text',
             'address' => 'text',
             'website_link' => 'text',
-            ];
+        ];
+
         return view('admin::dashboard.organizations.single', get_defined_vars());
 
     }
+
     public function update(Organization $organization, UpdateOrganizationRequest $request)
     {
         $this->service->updateOrganization($organization, OrganizationDto::fromArray($request->validated()));
+
         return to_route('admin.organizations.index')->with([
-            'message' => __("messages.success"),
-            'alert-type' => 'success'
+            'message' => __('messages.success'),
+            'alert-type' => 'success',
         ]);
     }
+
     public function destroy(Organization $organization)
     {
         try {
             $this->service->deleteOrganization(organization: $organization);
+
             return response()->json([
                 'success' => true,
-                'message' => __('messages.admin_deleted_successfully')
+                'message' => __('messages.admin_deleted_successfully'),
             ]);
         } catch (Exception $e) {
             return response()->json([
                 'success' => false,
-                'message' => __('messages.something_wrong')
+                'message' => __('messages.something_wrong'),
             ], 500);
         }
     }
-
 }

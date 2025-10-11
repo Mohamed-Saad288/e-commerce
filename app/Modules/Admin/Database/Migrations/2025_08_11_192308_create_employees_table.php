@@ -16,12 +16,12 @@ return new class extends Migration
             $table->string('name')->nullable();
             $table->string('phone')->nullable();
             $table->string('email')->nullable();
-            $table->string("password")->nullable();
-            $table->boolean("is_master")
+            $table->string('password')->nullable();
+            $table->boolean('is_master')
                 ->default(0);
-            $table->boolean("is_admin")
+            $table->boolean('is_admin')
                 ->default(0);
-            $table->foreignId("organization_id")->nullable()
+            $table->foreignId('organization_id')->nullable()
                 ->constrained('organizations')
                 ->nullOnDelete()
                 ->cascadeOnUpdate();

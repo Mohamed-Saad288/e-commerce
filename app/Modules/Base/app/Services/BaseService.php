@@ -2,20 +2,16 @@
 
 namespace App\Modules\Base\app\Services;
 
-use App\Modules\Admin\app\Models\Admin\Admin;
-use App\Modules\Admin\app\Models\Employee\Employee;
 use App\Modules\Base\app\DTO\DTOInterface;
-use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Collection;
+use Illuminate\Database\Eloquent\Model;
 use Illuminate\Pagination\LengthAwarePaginator;
-use Illuminate\Support\Facades\DB;
 use Illuminate\Pipeline\Pipeline;
+use Illuminate\Support\Facades\DB;
 
 class BaseService
 {
-    public function __construct(protected Model $model)
-    {
-    }
+    public function __construct(protected Model $model) {}
 
     /**
      * Store new record with transaction and media handling
@@ -26,7 +22,7 @@ class BaseService
             $data = $dto->toArray();
             $model = $this->model->query()->create($data);
 
-            if (!empty($dto->image)) {
+            if (! empty($dto->image)) {
                 $model->storeImages(media: $dto->image);
             }
 
@@ -43,7 +39,7 @@ class BaseService
             $data = $dto->toArray();
             $model->update($data);
 
-            if (!empty($dto->image)) {
+            if (! empty($dto->image)) {
                 $model->storeImages(media: $dto->image, update: true);
             }
 
@@ -88,9 +84,10 @@ class BaseService
     public function list(): Collection
     {
         $query = app(Pipeline::class)
-            ->send($this->model::query()->where("is_active", 1)->latest())
+            ->send($this->model::query()->where('is_active', 1)->latest())
             ->through($this->filters())
             ->thenReturn();
+
         return $query->get();
     }
 

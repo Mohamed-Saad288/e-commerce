@@ -6,6 +6,7 @@ use Illuminate\Foundation\Http\FormRequest;
 
 interface DTOInterface
 {
-    public static function fromArray(FormRequest|array $data) : self;
+    public static function fromArray(FormRequest|array $data): self;
+
     public function toArray(): array;
 }

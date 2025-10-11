@@ -13,8 +13,8 @@ return new class extends BaseMigration
     {
         Schema::create('product_variation_option_items', function (Blueprint $table) {
             $table->id();
-            $table->foreignId("product_variation_id")->nullable()->constrained('product_variations')->onDelete('cascade');
-            $table->foreignId("option_item_id")->nullable()->constrained('option_items')->onDelete('cascade');
+            $table->foreignId('product_variation_id')->nullable()->constrained('product_variations')->onDelete('cascade');
+            $table->foreignId('option_item_id')->nullable()->constrained('option_items')->onDelete('cascade');
             $table->timestamps();
         });
     }

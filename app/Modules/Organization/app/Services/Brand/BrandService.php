@@ -16,6 +16,7 @@ class BrandService extends BaseService
     {
         parent::__construct(resolve(Brand::class));
     }
+
     public function store(DtoInterface $dto): Model
     {
         return DB::transaction(function () use ($dto) {
@@ -25,19 +26,25 @@ class BrandService extends BaseService
             }
             $model = $this->model->query()->create($data);
 
-
-            if (!empty($dto->categories)) {
+            if (! empty($dto->image)) {
+                $model->storeImages(media: $dto->image);
+            }
+            if (! empty($dto->categories)) {
                 $model->categories()->sync($dto->categories);
             }
 
             return $model;
         });
     }
+
     public function update(Model $model, DtoInterface $dto): Model
     {
         return DB::transaction(function () use ($model, $dto) {
             $data = $dto->toArray();
 
+            if (! empty($dto->image)) {
+                $model->storeImages(media: $dto->image, update: true);
+            }
             if (!empty($dto->image)) {
                 if (!empty($model->image) && Storage::disk('public')->exists($model->image)) {
                     Storage::disk('public')->delete($model->image);
@@ -60,7 +67,7 @@ class BrandService extends BaseService
     public function filters($request = null): array
     {
         return [
-            CategoryIdFilter::class
+            CategoryIdFilter::class,
         ];
     }
 }

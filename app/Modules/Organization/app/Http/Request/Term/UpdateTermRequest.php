@@ -2,10 +2,7 @@
 
 namespace App\Modules\Organization\app\Http\Request\Term;
 
-use App\Modules\Admin\Enums\Feature\FeatureTypeEnum;
 use Illuminate\Foundation\Http\FormRequest;
-use Illuminate\Validation\Rule;
-use Illuminate\Validation\Rules\Enum;
 
 class UpdateTermRequest extends FormRequest
 {

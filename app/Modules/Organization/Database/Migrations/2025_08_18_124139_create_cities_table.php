@@ -4,13 +4,13 @@ use App\Modules\Base\Database\Migrations\BaseMigration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-return new class extends BaseMigration {
-
+return new class extends BaseMigration
+{
     public function up(): void
     {
         Schema::create('cities', function (Blueprint $table) {
             $table->id();
-            $table->foreignId("country_id")->constrained("countries")->onDelete("cascade");
+            $table->foreignId('country_id')->constrained('countries')->onDelete('cascade');
             $this->addOrganizationFields($table);
             $this->addGeneralFields($table);
         });

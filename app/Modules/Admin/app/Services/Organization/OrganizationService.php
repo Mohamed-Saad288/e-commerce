@@ -17,25 +17,28 @@ class OrganizationService
             'password' => $organization->phone ?? null,
             'phone' => $organization->phone ?? null,
             'organization_id' => $organization->id,
-            'is_master' => true
+            'is_master' => true,
         ]);
 
         return $organization;
     }
+
     public function updateOrganization($organization, DTOInterface $dto)
     {
         $organization->update($dto->toArray());
+
         return $organization;
     }
+
     public function getOrganization($id)
     {
         return Organization::find($id);
     }
+
     public function deleteOrganization($organization)
     {
         return $organization->delete();
     }
-
 
     public function getOrganizations()
     {

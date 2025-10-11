@@ -17,7 +17,6 @@ class OrganizationServiceProvider extends ServiceProvider
     /**
      * Bootstrap services.
      */
-
     public function boot(): void
     {
         // load migrations
@@ -31,7 +30,7 @@ class OrganizationServiceProvider extends ServiceProvider
         $this->loadViewsFrom(app_path('Modules/Organization/Resources/views'), 'organization');
 
         // load helpers
-        foreach (glob(app_path('Modules/Organization/Helpers') . '/*.php') as $filename) {
+        foreach (glob(app_path('Modules/Organization/Helpers').'/*.php') as $filename) {
             require_once $filename;
         }
 
@@ -42,5 +41,4 @@ class OrganizationServiceProvider extends ServiceProvider
             $this->mergeConfigFrom($file, "organization.$name");
         }
     }
-
 }

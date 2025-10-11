@@ -2,9 +2,9 @@
 
 namespace App\Modules\Organization\app\Models;
 
+use App\Modules\Admin\app\Models\Organization\Organization;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
-use App\Modules\Admin\app\Models\Organization\Organization;
 
 class OrganizationPaymentMethod extends Model
 {

@@ -6,8 +6,8 @@ use Illuminate\Database\Eloquent\Model;
 
 class FeatureTranslation extends Model
 {
-
     protected $table = 'feature_translations';
+
     public $timestamps = false;
 
     protected $fillable = [
@@ -16,6 +16,4 @@ class FeatureTranslation extends Model
         'name',
         'description',
     ];
-
-
 }

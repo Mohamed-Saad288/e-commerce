@@ -1,13 +1,11 @@
 <?php
 
 use App\Modules\Base\Database\Migrations\BaseMigration;
-use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-return new class extends BaseMigration {
-
-
+return new class extends BaseMigration
+{
     public function up(): void
     {
         Schema::create('countries', function (Blueprint $table) {

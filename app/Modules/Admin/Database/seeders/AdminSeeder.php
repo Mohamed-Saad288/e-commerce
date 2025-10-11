@@ -7,14 +7,13 @@ use Illuminate\Database\Seeder;
 
 class AdminSeeder extends Seeder
 {
-
     public function run()
     {
         Admin::query()->create([
             'name' => 'Admin',
-            "phone" => "01029869611",
+            'phone' => '01029869611',
             'email' => 'admin@example',
-            'password' => "password",
+            'password' => 'password',
         ]);
     }
 }

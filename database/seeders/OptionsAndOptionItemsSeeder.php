@@ -17,29 +17,29 @@ class OptionsAndOptionItemsSeeder extends Seeder
                 'name' => 'Color',
                 'translations' => [
                     'en' => 'Color',
-                    'ar' => 'اللون'
-                ]
+                    'ar' => 'اللون',
+                ],
             ],
             [
                 'name' => 'Size',
                 'translations' => [
                     'en' => 'Size',
-                    'ar' => 'الحجم'
-                ]
+                    'ar' => 'الحجم',
+                ],
             ],
             [
                 'name' => 'Material',
                 'translations' => [
                     'en' => 'Material',
-                    'ar' => 'المواد'
-                ]
+                    'ar' => 'المواد',
+                ],
             ],
             [
                 'name' => 'Brand',
                 'translations' => [
                     'en' => 'Brand',
-                    'ar' => 'العلامة التجارية'
-                ]
+                    'ar' => 'العلامة التجارية',
+                ],
             ],
         ];
 
@@ -78,36 +78,36 @@ class OptionsAndOptionItemsSeeder extends Seeder
                         'name' => 'Red',
                         'translations' => [
                             'en' => 'Red',
-                            'ar' => 'أحمر'
-                        ]
+                            'ar' => 'أحمر',
+                        ],
                     ],
                     [
                         'name' => 'Blue',
                         'translations' => [
                             'en' => 'Blue',
-                            'ar' => 'أزرق'
-                        ]
+                            'ar' => 'أزرق',
+                        ],
                     ],
                     [
                         'name' => 'Green',
                         'translations' => [
                             'en' => 'Green',
-                            'ar' => 'أخضر'
-                        ]
+                            'ar' => 'أخضر',
+                        ],
                     ],
                     [
                         'name' => 'Black',
                         'translations' => [
                             'en' => 'Black',
-                            'ar' => 'أسود'
-                        ]
+                            'ar' => 'أسود',
+                        ],
                     ],
                     [
                         'name' => 'White',
                         'translations' => [
                             'en' => 'White',
-                            'ar' => 'أبيض'
-                        ]
+                            'ar' => 'أبيض',
+                        ],
                     ],
                 ];
                 break;
@@ -118,29 +118,29 @@ class OptionsAndOptionItemsSeeder extends Seeder
                         'name' => 'Small',
                         'translations' => [
                             'en' => 'Small',
-                            'ar' => 'صغير'
-                        ]
+                            'ar' => 'صغير',
+                        ],
                     ],
                     [
                         'name' => 'Medium',
                         'translations' => [
                             'en' => 'Medium',
-                            'ar' => 'متوسط'
-                        ]
+                            'ar' => 'متوسط',
+                        ],
                     ],
                     [
                         'name' => 'Large',
                         'translations' => [
                             'en' => 'Large',
-                            'ar' => 'كبير'
-                        ]
+                            'ar' => 'كبير',
+                        ],
                     ],
                     [
                         'name' => 'Extra Large',
                         'translations' => [
                             'en' => 'Extra Large',
-                            'ar' => 'كبير جداً'
-                        ]
+                            'ar' => 'كبير جداً',
+                        ],
                     ],
                 ];
                 break;
@@ -151,29 +151,29 @@ class OptionsAndOptionItemsSeeder extends Seeder
                         'name' => 'Cotton',
                         'translations' => [
                             'en' => 'Cotton',
-                            'ar' => 'قطن'
-                        ]
+                            'ar' => 'قطن',
+                        ],
                     ],
                     [
                         'name' => 'Silk',
                         'translations' => [
                             'en' => 'Silk',
-                            'ar' => 'حرير'
-                        ]
+                            'ar' => 'حرير',
+                        ],
                     ],
                     [
                         'name' => 'Wool',
                         'translations' => [
                             'en' => 'Wool',
-                            'ar' => 'صوف'
-                        ]
+                            'ar' => 'صوف',
+                        ],
                     ],
                     [
                         'name' => 'Leather',
                         'translations' => [
                             'en' => 'Leather',
-                            'ar' => 'جلد'
-                        ]
+                            'ar' => 'جلد',
+                        ],
                     ],
                 ];
                 break;
@@ -184,29 +184,29 @@ class OptionsAndOptionItemsSeeder extends Seeder
                         'name' => 'Nike',
                         'translations' => [
                             'en' => 'Nike',
-                            'ar' => 'نايك'
-                        ]
+                            'ar' => 'نايك',
+                        ],
                     ],
                     [
                         'name' => 'Adidas',
                         'translations' => [
                             'en' => 'Adidas',
-                            'ar' => 'أديداس'
-                        ]
+                            'ar' => 'أديداس',
+                        ],
                     ],
                     [
                         'name' => 'Apple',
                         'translations' => [
                             'en' => 'Apple',
-                            'ar' => 'أبل'
-                        ]
+                            'ar' => 'أبل',
+                        ],
                     ],
                     [
                         'name' => 'Samsung',
                         'translations' => [
                             'en' => 'Samsung',
-                            'ar' => 'سامسونج'
-                        ]
+                            'ar' => 'سامسونج',
+                        ],
                     ],
                 ];
                 break;
@@ -218,15 +218,15 @@ class OptionsAndOptionItemsSeeder extends Seeder
                         'name' => 'Option 1',
                         'translations' => [
                             'en' => 'Option 1',
-                            'ar' => 'الخيار 1'
-                        ]
+                            'ar' => 'الخيار 1',
+                        ],
                     ],
                     [
                         'name' => 'Option 2',
                         'translations' => [
                             'en' => 'Option 2',
-                            'ar' => 'الخيار 2'
-                        ]
+                            'ar' => 'الخيار 2',
+                        ],
                     ],
                 ];
                 break;

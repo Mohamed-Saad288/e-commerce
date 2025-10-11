@@ -12,11 +12,12 @@ class UpdateEmployeeRequest extends FormRequest
     public function rules(): array
     {
         $employeeId = $this->route('employee')->id ?? $this->route('employee');
+
         return [
-            'name'     => 'nullable|string|max:255',
-            'phone'    => 'nullable|unique:admins,phone,' . $employeeId,
-            'email'    => 'nullable|email|unique:admins,email,' . $employeeId,
-            'is_master' => "nullable"
+            'name' => 'nullable|string|max:255',
+            'phone' => 'nullable|unique:admins,phone,'.$employeeId,
+            'email' => 'nullable|email|unique:admins,email,'.$employeeId,
+            'is_master' => 'nullable',
         ];
     }
 

@@ -26,7 +26,7 @@ class Employee extends Authenticatable
         'phone',
         'is_master',
         'is_admin',
-        'organization_id'
+        'organization_id',
     ];
 
     /**
@@ -51,8 +51,9 @@ class Employee extends Authenticatable
             'password' => 'hashed',
         ];
     }
-    public function organization() : BelongsTo
+
+    public function organization(): BelongsTo
     {
-        return $this->belongsTo(Organization::class,'organization_id');
+        return $this->belongsTo(Organization::class, 'organization_id');
     }
 }

@@ -22,7 +22,7 @@ class PlanService extends BaseService
             $plan = parent::store($dto);
 
             $features = $dto->toArray()['features'] ?? [];
-            if (!empty($features)) {
+            if (! empty($features)) {
                 $plan->features()->sync($features);
             }
 
@@ -50,6 +50,7 @@ class PlanService extends BaseService
     {
         /** @var Plan $model */
         $model->features()->detach();
+
         return parent::delete($model);
     }
 }

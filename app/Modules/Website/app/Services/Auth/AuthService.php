@@ -18,9 +18,9 @@ class AuthService
         $credentials = $request->validated();
         $user = User::query()->where('email', $credentials['email'])->first();
 
-        if (!$user || !Hash::check($credentials['password'], $user->password)) {
+        if (! $user || ! Hash::check($credentials['password'], $user->password)) {
             throw ValidationException::withMessages([
-                'email' => __("auth.failed"),
+                'email' => __('auth.failed'),
             ]);
         }
         $device = $request->userAgent();
@@ -34,7 +34,7 @@ class AuthService
     public function register($request)
     {
         $data = $request->validated();
-        $data["role"] = 2; // Regular user role
+        $data['role'] = 2; // Regular user role
         $data['organization_id'] = $this->getOrganization()->id;
         $user = User::query()->create($data);
 
@@ -42,6 +42,7 @@ class AuthService
         $expiresAt = Carbon::now()->addDays(7);
         $token = $user->createToken($device, ['app:all'], $expiresAt)->plainTextToken;
         $user->token = $token;
+
         return $user;
     }
 
@@ -54,7 +55,7 @@ class AuthService
     {
         $user = User::query()->where('email', $email)->first();
 
-        if (!$user) {
+        if (! $user) {
             throw new ValidationException(
                 __('auth.email_not_found')
             );

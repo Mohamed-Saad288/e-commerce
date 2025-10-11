@@ -9,10 +9,7 @@ use App\Modules\Organization\app\Services\Category\CategoryService;
 
 class CategoryController extends Controller
 {
-
-    public function __construct(protected CategoryService $service)
-    {
-    }
+    public function __construct(protected CategoryService $service) {}
 
     public function list()
     {
@@ -20,7 +17,7 @@ class CategoryController extends Controller
 
         return (new DataSuccess(
             data: SimpleTitleResource::collection($categories), status: true,
-            message: __("website.category_list")
+            message: __('website.category_list')
         ))->response();
     }
 }

@@ -12,14 +12,22 @@ use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 class HomeSection extends Model
 {
     use Translatable;
-    protected $table = "home_sections";
-    public array $translatedAttributes = ['title','description'];
+
+    protected $table = 'home_sections';
+
+    public array $translatedAttributes = ['title', 'description'];
+
     protected $casts = [
         'start_date' => 'datetime',
-        'end_date'   => 'datetime',
+        'end_date' => 'datetime',
     ];
 
     protected $fillable = [
+        'organization_id',
+        'start_date',
+        'end_date',
+        'type',
+        'sort_order',
         "organization_id",
         "start_date",
         "end_date",
@@ -28,12 +36,13 @@ class HomeSection extends Model
         'template_type'
     ];
 
-    public function organization() : BelongsTo
+    public function organization(): BelongsTo
     {
-        return $this->belongsTo(Organization::class,"organization_id");
+        return $this->belongsTo(Organization::class, 'organization_id');
     }
-    public function products() : BelongsToMany
+
+    public function products(): BelongsToMany
     {
-        return $this->belongsToMany(Product::class,"home_section_products","home_section_id","product_id");
+        return $this->belongsToMany(Product::class, 'home_section_products', 'home_section_id', 'product_id');
     }
 }

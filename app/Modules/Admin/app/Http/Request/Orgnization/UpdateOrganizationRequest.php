@@ -12,12 +12,13 @@ class UpdateOrganizationRequest extends FormRequest
     public function rules(): array
     {
         $organizationId = $this->route('organization')->id ?? $this->route('organization');
+
         return [
-            'name'     => 'nullable|string|max:255',
-            'phone'    => 'nullable|unique:organizations,phone,' . $organizationId,
-            'email'    => 'nullable|email|unique:organizations,email,' . $organizationId,
-            'address'  => 'nullable',
-            'website_link' => ["required", "unique:organizations,website_link," . $organizationId],
+            'name' => 'nullable|string|max:255',
+            'phone' => 'nullable|unique:organizations,phone,'.$organizationId,
+            'email' => 'nullable|email|unique:organizations,email,'.$organizationId,
+            'address' => 'nullable',
+            'website_link' => ['required', 'unique:organizations,website_link,'.$organizationId],
         ];
     }
 

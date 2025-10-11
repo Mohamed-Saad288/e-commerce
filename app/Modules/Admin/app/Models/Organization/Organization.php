@@ -49,8 +49,6 @@ class Organization extends Authenticatable
         ];
     }
 
-
-
     public function paymentMethods()
     {
         return $this->belongsToMany(PaymentMethod::class, 'organization_payment_methods')

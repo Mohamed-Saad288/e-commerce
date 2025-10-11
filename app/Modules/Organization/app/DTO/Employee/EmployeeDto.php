@@ -7,10 +7,15 @@ use App\Modules\Base\app\DTO\DTOInterface;
 class EmployeeDto implements DTOInterface
 {
     public ?string $name;
+
     public ?string $phone;
+
     public ?string $email;
+
     public ?string $password;
+
     public ?bool $is_master;
+
     public ?int $organization_id;
 
     public function __construct(
@@ -25,7 +30,7 @@ class EmployeeDto implements DTOInterface
         $this->phone = $phone;
         $this->email = $email;
         $this->password = $password;
-        $this->is_master = $is_master ;
+        $this->is_master = $is_master;
         $this->organization_id = $organization_id;
     }
 
@@ -44,12 +49,12 @@ class EmployeeDto implements DTOInterface
     public function toArray(): array
     {
         return [
-            'name'     => $this->name,
-            'phone'    => $this->phone,
-            'email'    => $this->email,
+            'name' => $this->name,
+            'phone' => $this->phone,
+            'email' => $this->email,
             'password' => $this->password,
             'is_master' => $this->is_master,
-            "organization_id" => $this->organization_id
+            'organization_id' => $this->organization_id,
         ];
     }
 }

@@ -15,6 +15,7 @@ class RegisterRequest extends FormRequest
     public function rules(): array
     {
         $countryId = $this->input('country_id');
+
         return [
             'name' => ['required', 'string', 'max:255'],
             'email' => ['required', 'email', 'unique:users,email'],

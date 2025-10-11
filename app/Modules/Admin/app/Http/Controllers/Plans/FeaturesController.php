@@ -13,53 +13,62 @@ use Exception;
 
 class FeaturesController extends Controller
 {
-    public function __construct(protected FeatureService $service){}
+    public function __construct(protected FeatureService $service) {}
 
     public function index()
     {
         $features = $this->service->index();
+
         return view('admin::dashboard.features.index', get_defined_vars());
     }
+
     public function create()
     {
         $types = FeatureTypeEnum::cases();
-        return view('admin::dashboard.features.single',get_defined_vars());
+
+        return view('admin::dashboard.features.single', get_defined_vars());
     }
+
     public function store(StoreFeatureRequest $request)
     {
-         $this->service->store(FeatureDto::fromArray($request));
-        return to_route('admin.features.index')->with(array(
-            'message' => __("messages.success"),
-            'alert-type' => 'success'
-        ));
+        $this->service->store(FeatureDto::fromArray($request));
+
+        return to_route('admin.features.index')->with([
+            'message' => __('messages.success'),
+            'alert-type' => 'success',
+        ]);
     }
+
     public function edit(Feature $feature)
     {
         $types = FeatureTypeEnum::cases();
 
         return view('admin::dashboard.features.single', get_defined_vars());
     }
-    public function update(UpdateFeatureRequest $request , Feature $feature)
+
+    public function update(UpdateFeatureRequest $request, Feature $feature)
     {
         $this->service->update(model: $feature, dto: FeatureDto::fromArray($request));
 
-        return to_route('admin.features.index')->with(array(
-            'message' => __("messages.updated"),
-            'alert-type' => 'success'
-        ));
+        return to_route('admin.features.index')->with([
+            'message' => __('messages.updated'),
+            'alert-type' => 'success',
+        ]);
     }
+
     public function destroy(Feature $feature)
     {
         try {
             $this->service->delete(model: $feature);
+
             return response()->json([
                 'success' => true,
-                'message' => __('keys.deleted')
+                'message' => __('keys.deleted'),
             ]);
         } catch (Exception $e) {
             return response()->json([
                 'success' => false,
-                'message' => __('keys.something_wrong')
+                'message' => __('keys.something_wrong'),
             ], 500);
         }
     }
@@ -70,9 +79,7 @@ class FeaturesController extends Controller
 
         return response()->json([
             'success' => true,
-            'message' => __('messages.status_updated')
+            'message' => __('messages.status_updated'),
         ]);
     }
-
-
 }

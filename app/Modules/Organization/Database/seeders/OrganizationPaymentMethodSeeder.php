@@ -11,19 +11,19 @@ class OrganizationPaymentMethodSeeder extends Seeder
 {
     public function run(): void
     {
-        $organizations   = Organization::all();
-        $paymentMethods  = PaymentMethod::all();
+        $organizations = Organization::all();
+        $paymentMethods = PaymentMethod::all();
 
         foreach ($organizations as $organization) {
             foreach ($paymentMethods as $paymentMethod) {
                 OrganizationPaymentMethod::updateOrCreate(
                     [
-                        'organization_id'   => $organization->id,
+                        'organization_id' => $organization->id,
                         'payment_method_id' => $paymentMethod->id,
                     ],
                     [
-                        'is_active'   => false,
-                        'sort_order'  => 0,
+                        'is_active' => false,
+                        'sort_order' => 0,
                         'credentials' => json_encode([]),
                     ]
                 );

@@ -13,55 +13,63 @@ use Exception;
 
 class BrandController extends Controller
 {
-    public function __construct(protected BrandService $service){}
+    public function __construct(protected BrandService $service) {}
 
     public function index()
     {
         $brands = $this->service->index();
+
         return view('organization::dashboard.brands.index', get_defined_vars());
     }
+
     public function create()
     {
         $categories = Category::whereOrganizationId(auth()->user()->organization_id)->get();
-        return view('organization::dashboard.brands.single',get_defined_vars());
+
+        return view('organization::dashboard.brands.single', get_defined_vars());
     }
+
     public function store(StoreBrandRequest $request)
     {
-         $this->service->store(BrandDto::fromArray($request));
-        return to_route('organization.brands.index')->with(array(
-            'message' => __("messages.success"),
-            'alert-type' => 'success'
-        ));
+        $this->service->store(BrandDto::fromArray($request));
+
+        return to_route('organization.brands.index')->with([
+            'message' => __('messages.success'),
+            'alert-type' => 'success',
+        ]);
     }
+
     public function edit(Brand $brand)
     {
         $categories = Category::whereOrganizationId(auth()->user()->organization_id)->get();
+
         return view('organization::dashboard.brands.single', get_defined_vars());
     }
-    public function update(UpdateBrandRequest $request , Brand $brand)
+
+    public function update(UpdateBrandRequest $request, Brand $brand)
     {
         $this->service->update(model: $brand, dto: BrandDto::fromArray($request));
 
-        return to_route('organization.brands.index')->with(array(
-            'message' => __("messages.updated"),
-            'alert-type' => 'success'
-        ));
+        return to_route('organization.brands.index')->with([
+            'message' => __('messages.updated'),
+            'alert-type' => 'success',
+        ]);
     }
+
     public function destroy(Brand $brand)
     {
         try {
             $this->service->delete(model: $brand);
+
             return response()->json([
                 'success' => true,
-                'message' => __('messages.deleted')
+                'message' => __('messages.deleted'),
             ]);
         } catch (Exception $e) {
             return response()->json([
                 'success' => false,
-                'message' => __('messages.something_wrong')
+                'message' => __('messages.something_wrong'),
             ], 500);
         }
     }
-
-
 }

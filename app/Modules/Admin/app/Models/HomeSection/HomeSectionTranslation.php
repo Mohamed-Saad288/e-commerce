@@ -6,13 +6,15 @@ use Illuminate\Database\Eloquent\Model;
 
 class HomeSectionTranslation extends Model
 {
-    protected $table = "home_section_translations";
+    protected $table = 'home_section_translations';
+
     public $timestamps = false;
+
     protected $fillable = [
-        "home_section_id",
-        "locale",
-        "title",
-        "description",
-        "button_text",
+        'home_section_id',
+        'locale',
+        'title',
+        'description',
+        'button_text',
     ];
 }
