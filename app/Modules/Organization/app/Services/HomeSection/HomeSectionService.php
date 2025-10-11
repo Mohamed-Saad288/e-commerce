@@ -36,6 +36,7 @@ class HomeSectionService extends BaseService
             if (! empty($dto->products)) {
                 $home_section->products()->attach($dto->products);
             }
+            $this->reorderOrganizationSections($dto->organization_id);
 
             return $home_section;
         });
@@ -62,10 +63,28 @@ class HomeSectionService extends BaseService
             $model->update($data);
 
             if (! empty($dto->products)) {
+                $this->reorderOrganizationSections($dto->organization_id);
+            }
+
+            if (!empty($dto->products)) {
                 $model->products()->sync($dto->products);
             }
 
             return $model;
         });
     }
+
+    protected function reorderOrganizationSections($organizationId): void
+    {
+        $sections = $this->model->query()
+            ->where('organization_id', $organizationId)
+            ->orderBy('sort_order')
+            ->get();
+
+        $counter = 1;
+        foreach ($sections as $section) {
+            $section->updateQuietly(['sort_order' => $counter++]);
+        }
+    }
+
 }

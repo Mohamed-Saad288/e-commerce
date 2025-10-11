@@ -20,9 +20,11 @@ class UpdateBrandRequest extends FormRequest
             : $brandParam;
 
         $rules = [
-            'slug' => ['nullable', 'unique:brands,slug,'.$brand_id],
-            'categories' => 'nullable|array',
-            'categories.*' => ['required', Rule::exists('categories', 'id')->whereNull('deleted_at')],
+
+            "slug" => ["nullable", 'unique:brands,slug,' . $brand_id],
+            "categories" => "nullable|array",
+            "categories.*" => ["required", Rule::exists("categories", "id")->whereNull("deleted_at")],
+            "image" => "nullable|image"
         ];
 
         foreach (config('translatable.locales') as $locale) {

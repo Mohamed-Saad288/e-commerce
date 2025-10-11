@@ -23,6 +23,7 @@ class HomeSectionDto implements DTOInterface
 
     public $sort_order;
 
+    public $template_type;
     public function __construct(
         ?array $translations = [],
         ?int $organization_id = null,
@@ -32,6 +33,7 @@ class HomeSectionDto implements DTOInterface
         $sort_order = null,
         $start_date = null,
         $end_date = null,
+        $template_type = null
 
     ) {
         $this->translations = $translations;
@@ -42,6 +44,7 @@ class HomeSectionDto implements DTOInterface
         $this->sort_order = $sort_order;
         $this->start_date = $start_date;
         $this->end_date = $end_date;
+        $this->template_type = $template_type;
     }
 
     public static function fromArray(FormRequest|array $data): DTOInterface
@@ -64,6 +67,7 @@ class HomeSectionDto implements DTOInterface
             sort_order: $arrayData['sort_order'] ?? null,
             start_date: $arrayData['start_date'] ?? null,
             end_date: $arrayData['end_date'] ?? null,
+            template_type: $arrayData['template_type'] ?? null
         );
     }
 
@@ -79,6 +83,7 @@ class HomeSectionDto implements DTOInterface
                 'sort_order' => $this->sort_order,
                 'start_date' => $this->start_date,
                 'end_date' => $this->end_date,
+                'template_type' => $this->template_type
             ]
         );
     }

@@ -3,6 +3,7 @@
 namespace App\Modules\Website\app\Services\Auth;
 
 use App\Models\User;
+use App\Modules\Website\app\Traits\WebsiteLink\WebsiteLinkTrait;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
@@ -11,6 +12,7 @@ use Illuminate\Validation\ValidationException;
 
 class AuthService
 {
+    use WebsiteLinkTrait;
     public function login($request)
     {
         $credentials = $request->validated();
@@ -33,6 +35,7 @@ class AuthService
     {
         $data = $request->validated();
         $data['role'] = 2; // Regular user role
+        $data['organization_id'] = $this->getOrganization()->id;
         $user = User::query()->create($data);
 
         $device = $request->userAgent();

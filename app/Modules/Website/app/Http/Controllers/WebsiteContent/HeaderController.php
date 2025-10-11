@@ -3,7 +3,7 @@
 namespace App\Modules\Website\app\Http\Controllers\WebsiteContent;
 
 use App\Http\Controllers\Controller;
-use App\Modules\Base\Application\Response\DataSuccess;
+use App\Modules\Base\app\Response\DataSuccess;
 use App\Modules\Organization\app\Services\Header\HeaderService;
 use App\Modules\Website\app\Http\Resources\WebsiteContent\HeaderResource;
 

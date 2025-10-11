@@ -16,7 +16,7 @@ class StoreTermRequest extends FormRequest
         $rules = [];
 
         foreach (config('translatable.locales') as $locale) {
-            $rules["$locale.description"] = 'required|string|max:255';
+            $rules["$locale.description"] = 'required|string';
         }
 
         return $rules;

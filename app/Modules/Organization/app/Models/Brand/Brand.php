@@ -21,6 +21,9 @@ class Brand extends BaseModel implements TranslatableContract
         'slug',
         'organization_id',
         'employee_id',
+        "organization_id",
+        "employee_id",
+        "image"
     ];
 
     protected static function booted(): void

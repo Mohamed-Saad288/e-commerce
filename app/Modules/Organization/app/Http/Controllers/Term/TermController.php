@@ -38,12 +38,16 @@ class TermController extends Controller
 
     public function edit(Term $term)
     {
+        $terms = Term::where('organization_id',auth()->user()->organization_id)->first();
         return view('organization::dashboard.terms.single', get_defined_vars());
     }
 
     public function update(UpdateTermRequest $request, Term $term)
     {
-        $this->service->update(model: $term, dto: TermDto::fromArray($request));
+        $terms = Term::firstOrCreate(
+            ['organization_id' => auth()->user()->organization_id],
+            ['organization_id' => auth()->user()->organization_id] // قيم افتراضية
+        );
 
         return to_route('organization.terms.index')->with([
             'message' => __('messages.updated'),
@@ -66,5 +70,11 @@ class TermController extends Controller
                 'message' => __('messages.something_wrong'),
             ], 500);
         }
+        $this->service->update(model: $terms, dto: TermDto::fromArray($request->validated()));
+
+        return to_route('organization.terms.edit')->with([
+            'message' => __("messages.updated"),
+            'alert-type' => 'success'
+        ]);
     }
 }

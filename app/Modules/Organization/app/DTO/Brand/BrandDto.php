@@ -19,13 +19,15 @@ class BrandDto implements DTOInterface
 
     public array $categories = [];
 
+    public $image = null;
     public function __construct(
         ?array $translations = [],
         ?bool $is_active = null,
         ?string $slug = null,
         ?int $organization_id = null,
         ?int $employee_id = null,
-        ?array $categories = []
+        ?array $categories = [],
+        $image = null
     ) {
         $this->translations = $translations;
         $this->is_active = $is_active;
@@ -33,6 +35,7 @@ class BrandDto implements DTOInterface
         $this->organization_id = $organization_id;
         $this->employee_id = $employee_id;
         $this->categories = $categories;
+        $this->image = $image;
     }
 
     public static function fromArray(FormRequest|array $data): DTOInterface
@@ -52,7 +55,8 @@ class BrandDto implements DTOInterface
             slug: $arrayData['slug'] ?? null,
             organization_id: auth()->user()->organization_id ?? null,
             employee_id: auth()->user()->id,
-            categories: $arrayData['categories']
+            categories: $arrayData['categories'],
+            image: $arrayData['image']
         );
     }
 
@@ -61,11 +65,12 @@ class BrandDto implements DTOInterface
         return array_merge(
             $this->translations,
             [
-                'is_active' => $this->is_active,
-                'slug' => $this->slug,
-                'organization_id' => $this->organization_id,
-                'employee_id' => $this->employee_id,
-                'categories' => $this->categories,
+                'is_active'    => $this->is_active,
+                'slug'         => $this->slug,
+                'organization_id'         => $this->organization_id,
+                'employee_id'  => $this->employee_id,
+                'categories'   => $this->categories,
+                'image' => $this->image
             ]
         );
     }

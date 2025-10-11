@@ -8,6 +8,7 @@ use App\Modules\Base\app\Services\BaseService;
 use App\Modules\Organization\app\Models\Brand\Brand;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Storage;
 
 class BrandService extends BaseService
 {
@@ -20,6 +21,9 @@ class BrandService extends BaseService
     {
         return DB::transaction(function () use ($dto) {
             $data = $dto->toArray();
+            if (!empty($dto->image)) {
+                $data['image'] = $dto->image->store('brands', 'public');
+            }
             $model = $this->model->query()->create($data);
 
             if (! empty($dto->image)) {
@@ -37,18 +41,28 @@ class BrandService extends BaseService
     {
         return DB::transaction(function () use ($model, $dto) {
             $data = $dto->toArray();
-            $model->update($data);
 
             if (! empty($dto->image)) {
                 $model->storeImages(media: $dto->image, update: true);
             }
-            if (! empty($dto->categories)) {
+            if (!empty($dto->image)) {
+                if (!empty($model->image) && Storage::disk('public')->exists($model->image)) {
+                    Storage::disk('public')->delete($model->image);
+                }
+
+                $data['image'] = $dto->image->store('brands', 'public');
+            }
+
+            $model->update($data);
+
+            if (!empty($dto->categories)) {
                 $model->categories()->sync($dto->categories);
             }
 
             return $model;
         });
     }
+
 
     public function filters($request = null): array
     {

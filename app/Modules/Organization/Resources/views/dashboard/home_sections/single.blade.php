@@ -28,10 +28,13 @@
         function toggleCustomFields() {
             let type = document.getElementById('type').value;
             let customFields = document.getElementById('custom-fields');
+            let templateType = document.getElementById('template_type');
             if (type == {{ \App\Modules\Organization\Enums\HomeSection\HomeSectionTypeEnum::Custom->value }}) {
                 customFields.style.display = 'block';
+                templateType.style.display = 'block';
             } else {
                 customFields.style.display = 'none';
+                templateType.style.display = 'none';
             }
         }
 
