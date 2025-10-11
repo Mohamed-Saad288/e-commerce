@@ -9,26 +9,24 @@ use App\Modules\Website\app\Traits\WebsiteLink\WebsiteLinkTrait;
 
 class TermService
 {
-    use WebsiteLinkTrait;
 
     public function fetchTerms(): DataSuccess
     {
-        $organization = $this->getOrganization();
 
-        $term = Term::where('organization_id', $organization->id)->first();
+        $term = Term::query()->first();
 
         if (!$term) {
             return new DataSuccess(
                 data: null,
                 status: true,
-                message: 'Terms not stored yet.'
+                message: __("messages.no_data_found")
             );
         }
 
         return new DataSuccess(
             data: new TermResource($term),
             status: true,
-            message: 'Terms fetched successfully.'
+            message: __("messages.data_retrieved_successfully")
         );
     }
 }

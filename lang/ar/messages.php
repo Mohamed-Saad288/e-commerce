@@ -165,5 +165,7 @@ return [
     "approved_orders" => "طلبات ناجحة",
     'total_orders' => "جميع الطلبات",
     'template_type' => "نوع عرض السكشن",
+    "no_data_found" => "لا توجد بيانات",
+    "data_retrieved_successfully" => "تم جلب البيانات بنجاح",
 
 ];

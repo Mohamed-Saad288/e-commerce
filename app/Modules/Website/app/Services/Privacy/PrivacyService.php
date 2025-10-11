@@ -9,25 +9,21 @@ use App\Modules\Website\app\Traits\WebsiteLink\WebsiteLinkTrait;
 
 class PrivacyService
 {
-    use WebsiteLinkTrait;
-
     public function fetchPrivacy(): DataSuccess
     {
-        $organization = $this->getOrganization();
-
-        $privacy = Privacy::where('organization_id', $organization->id)->first();
+        $privacy = Privacy::query()->first();
         if (!$privacy) {
             return new DataSuccess(
                 data: null,
                 status: true,
-                message: 'Privacy not stored yet.'
+                message: __("messages.no_data_found")
             );
         }
 
         return new DataSuccess(
             data: new PrivacyResource($privacy),
             status: true,
-            message: 'Privacy fetched successfully.'
+            message: __("messages.data_retrieved_successfully")
         );
     }
 }

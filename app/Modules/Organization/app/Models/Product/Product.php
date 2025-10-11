@@ -34,10 +34,7 @@ class Product extends BaseModel implements TranslatableContract
         "stock_quantity"
     ];
 
-    protected static function booted(): void
-    {
-        static::addGlobalScope(new TenantScope);
-    }
+
 
     public function variations(): HasMany
     {

@@ -23,11 +23,6 @@ class OptionItem extends BaseModel implements TranslatableContract
 
     protected $table = 'option_items';
 
-    protected static function booted(): void
-    {
-        static::addGlobalScope(new TenantScope);
-    }
-
     public function option(): BelongsTo
     {
         return $this->belongsTo(Option::class);

@@ -26,11 +26,6 @@ class Brand extends BaseModel implements TranslatableContract
         "image"
     ];
 
-    protected static function booted(): void
-    {
-        static::addGlobalScope(new TenantScope);
-    }
-
     public function categories(): BelongsToMany
     {
         return $this->BelongsToMany(Category::class, 'brand_categories', 'brand_id', 'category_id');
