@@ -5,11 +5,16 @@ namespace App\Modules\Website\app\Services\Faq;
 use App\Modules\Base\app\Response\DataSuccess;
 use App\Modules\Organization\app\Models\Question\Question;
 use App\Modules\Website\app\Http\Resources\Faq\FaqResource;
+use App\Modules\Website\app\Http\Resources\Term\TermResource;
+use App\Modules\Website\app\Traits\WebsiteLink\WebsiteLinkTrait;
+use Illuminate\Http\Request;
 
 class FaqService
 {
-    public function fetchFaqs(): DataSuccess
+    public function fetchFaqs(Request $request = null): DataSuccess
     {
+        $faqs = Question::query()->limit($request->limit ?? 7)->get();
+        if (!$faqs || $faqs->isEmpty()) {
 
         $faqs = Question::query()->limit(7)->get();
         if (! $faqs || $faqs->isEmpty()) {
