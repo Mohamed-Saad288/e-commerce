@@ -14,9 +14,6 @@ class FaqService
     public function fetchFaqs(Request $request = null): DataSuccess
     {
         $faqs = Question::query()->limit($request->limit ?? 7)->get();
-        if (!$faqs || $faqs->isEmpty()) {
-
-        $faqs = Question::query()->limit(7)->get();
         if (! $faqs || $faqs->isEmpty()) {
             return new DataSuccess(
                 data: null,
