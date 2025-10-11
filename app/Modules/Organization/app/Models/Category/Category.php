@@ -26,11 +26,6 @@ class Category extends BaseModel implements TranslatableContract
         'employee_id',
     ];
 
-    protected static function booted(): void
-    {
-        static::addGlobalScope(new TenantScope);
-    }
-
     public function parent(): BelongsTo
     {
         return $this->belongsTo(Category::class, 'parent_id');

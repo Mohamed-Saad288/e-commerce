@@ -19,11 +19,6 @@ class Option extends BaseModel implements TranslatableContract
 
     protected $fillable = ['organization_id', 'employee_id'];
 
-    protected static function booted(): void
-    {
-        static::addGlobalScope(new TenantScope);
-    }
-
     public function items(): HasMany
     {
         return $this->hasMany(OptionItem::class);

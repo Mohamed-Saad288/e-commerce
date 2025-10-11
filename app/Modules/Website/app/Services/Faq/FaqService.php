@@ -11,16 +11,21 @@ use App\Modules\Website\app\Traits\WebsiteLink\WebsiteLinkTrait;
 
 class FaqService
 {
-    use WebsiteLinkTrait;
     public function fetchFaqs(): DataSuccess
     {
-        $organization = $this->getOrganization();
 
-        $faqs = Question::where('organization_id', $organization->id)->limit(7)->get();
+        $faqs = Question::query()->limit(7)->get();
+        if (!$faqs || $faqs->isEmpty()) {
+            return new DataSuccess(
+                data: null,
+                status: true,
+                message: __("messages.no_data_found")
+            );
+        }
         return new DataSuccess(
             data:  FaqResource::collection($faqs),
             status: true,
-            message: 'Terms fetched successfully.'
+            message: __("messages.data_retrieved_successfully")
         );
     }
 }

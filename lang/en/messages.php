@@ -153,5 +153,7 @@ return [
     "pending_orders" => "Pending Orders",
     "approved_orders" => "Approved Orders",
     "template_type" => "Template Type",
-    "total_orders" => "Total Orders"
+    "total_orders" => "Total Orders",
+    "no_data_found" => "No Data Found",
+    "data_retrieved_successfully" => "Data Retrieved Successfully",
 ];

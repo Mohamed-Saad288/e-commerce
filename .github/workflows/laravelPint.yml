@@ -1,0 +1,33 @@
+name: laravelPint
+on:
+  push:
+    branches: [ main ]
+permissions:
+  contents: write
+jobs:
+    print-hello-world:
+        runs-on: ubuntu-latest
+        steps:
+            - name: Checkout code
+              uses: actions/checkout@v4.2.2
+              with:
+                persistent-credentials: true
+
+            - name: install dependencies
+              run: composer install
+
+            - name: install laravel pint
+              run: composer require laravel/pint --dev
+
+            - name: run laravel pint
+              run: ./vendor/bin/pint
+
+            - name: commit changes
+              run: |
+                  git config --local user.email "github-actions[bot]@users.noreply.github.com"
+                  git config --local user.name "github-actions[bot]"
+                  git add .
+                  git commit -m "Run Pint for Laravel updated" || exit 0
+
+            - name: push changes
+              run: git push

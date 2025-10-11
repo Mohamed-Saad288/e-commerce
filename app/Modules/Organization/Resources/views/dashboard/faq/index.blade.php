@@ -1,4 +1,4 @@
-@extends('dashboard.master')
+@extends('organization::dashboard.master')
 @section('title', __('keys.faqs'))
 
 @section('content')

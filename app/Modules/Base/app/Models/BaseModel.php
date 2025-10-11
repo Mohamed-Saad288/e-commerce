@@ -3,6 +3,7 @@
 namespace App\Modules\Base\app\Models;
 
 use App\Models\User;
+use App\Modules\Base\app\Scopes\TenantScope;
 use App\Modules\Base\Traits\HasActivation;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
@@ -86,5 +87,10 @@ class BaseModel extends Model implements HasMedia
     public function activeScope($query)
     {
         return $query->where('is_active', 1);
+    }
+
+    protected static function booted(): void
+    {
+        static::addGlobalScope(new TenantScope);
     }
 }
