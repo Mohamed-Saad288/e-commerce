@@ -17,15 +17,15 @@ class CategoryResource extends JsonResource
     public function toArray(Request $request): array
     {
         return [
-            "id" => $this->id,
-            "name" => $this->name,
-            "slug" => $this->slug,
-            "description" => $this->description,
-            "image" => $this->getImage() ?? null,
-            "parent_name" => $this->parent?->name ?? null,
-            "is_active" => $this->is_active ?? ActiveEnum::INACTIVE->value,
-            "created_at" => $this->created_at ?? null,
-            "brands" => BrandResource::collection($this->whenLoaded('brands') ?? []) ?? [],
+            'id' => $this->id,
+            'name' => $this->name,
+            'slug' => $this->slug,
+            'description' => $this->description,
+            'image' => $this->getImage() ?? null,
+            'parent_name' => $this->parent?->name ?? null,
+            'is_active' => $this->is_active ?? ActiveEnum::INACTIVE->value,
+            'created_at' => $this->created_at ?? null,
+            'brands' => BrandResource::collection($this->whenLoaded('brands') ?? []) ?? [],
         ];
     }
 }

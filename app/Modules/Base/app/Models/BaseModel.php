@@ -18,8 +18,9 @@ class BaseModel extends Model implements HasMedia
 
     public function getCreatedAtAttribute($value): ?string
     {
-        return $value ? Carbon::parse($value)->format('Y-m-d h:i A'): null;
+        return $value ? Carbon::parse($value)->format('Y-m-d h:i A') : null;
     }
+
     protected function casts(): array
     {
         return [
@@ -27,6 +28,7 @@ class BaseModel extends Model implements HasMedia
             'added_by_id' => 'integer',
         ];
     }
+
     public function storeImages($media, $update = false, $collection = 'images'): void
     {
         $images = array_filter(convertToArray($media));
