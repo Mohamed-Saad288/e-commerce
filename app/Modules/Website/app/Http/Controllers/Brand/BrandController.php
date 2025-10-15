@@ -32,4 +32,13 @@ class BrandController extends Controller
             message: __('messages.data_retrieved_successfully')
         ))->response();
     }
+
+    public function show($id)
+    {
+        $brand = $this->service->find($id);
+        return (new DataSuccess(
+            data: new BrandResource($brand), status: true,
+            message: __('messages.data_retrieved_successfully')
+        ))->response();
+    }
 }

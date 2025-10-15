@@ -68,7 +68,7 @@ class BaseService
      */
     public function find(int $id): ?Model
     {
-        return $this->model->query()->find($id);
+        return $this->model->query()->with($this->withRelations())->find($id);
     }
 
     /**
