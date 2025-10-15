@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Modules\Base\app\Http\Resources\SimpleTitleResource;
 use App\Modules\Base\app\Response\DataSuccess;
 use App\Modules\Organization\app\Services\Category\CategoryService;
+use App\Modules\Website\app\Http\Resources\Category\CategoryResource;
 
 class CategoryController extends Controller
 {
@@ -17,7 +18,17 @@ class CategoryController extends Controller
 
         return (new DataSuccess(
             data: SimpleTitleResource::collection($categories), status: true,
-            message: __('website.category_list')
+            message: __('messages.data_retrieved_successfully')
+        ))->response();
+    }
+
+    public function index()
+    {
+        $categories = $this->service->index();
+
+        return (new DataSuccess(
+            data: CategoryResource::collection($categories), status: true,
+            message: __('messages.data_retrieved_successfully')
         ))->response();
     }
 }

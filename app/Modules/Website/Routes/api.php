@@ -44,10 +44,15 @@ Route::prefix('api/site')->middleware(['set.organization.context'])->group(funct
             ->name('verification.verify');
     });
 
-    Route::get('categories', [CategoryController::class, 'list']);
-    Route::get('brands', [BrandController::class, 'list']);
-    Route::get('categories', [CategoryController::class, 'list']);
-    Route::get('brands', [BrandController::class, 'list']);
+    /** Category & Brand Endpoints */
+    Route::controller(CategoryController::class)->group(function () {
+        Route::post("fetch_categories", 'index');
+        Route::post('list_categories', 'list');
+    });
+    Route::controller(BrandController::class)->group(function () {
+        Route::post("fetch_brands", 'index');
+        Route::post('list_brands', 'list');
+    });
 
     /** Terms Endpoints */
     Route::controller(TermController::class)->group(function () {
