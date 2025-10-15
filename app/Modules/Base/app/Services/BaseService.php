@@ -3,6 +3,7 @@
 namespace App\Modules\Base\app\Services;
 
 use App\Modules\Base\app\DTO\DTOInterface;
+use App\Modules\Base\Enums\ActiveEnum;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Pagination\LengthAwarePaginator;
@@ -73,6 +74,10 @@ class BaseService
             ->through($this->filters())
             ->thenReturn();
 
+        if (!$this->isDashboardRequest()) {
+            $query->where('is_active', ActiveEnum::ACTIVE->value);
+        }
+
         return $paginate
             ? $query->paginate($request->per_page ?? 10)
             : $query->get();
@@ -108,4 +113,11 @@ class BaseService
     {
         return []; // Example: [\App\Filters\NameFilter::class, \App\Filters\StatusFilter::class]
     }
+
+    protected function isDashboardRequest(): bool
+    {
+        return request()->is('admin/*') || request()->routeIs('organization.*');
+    }
+
+
 }
