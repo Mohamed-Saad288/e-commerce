@@ -5,6 +5,7 @@ namespace App\Modules\Base\app\Models;
 use App\Models\User;
 use App\Modules\Base\app\Scopes\TenantScope;
 use App\Modules\Base\Traits\HasActivation;
+use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\SoftDeletes;
@@ -15,6 +16,17 @@ class BaseModel extends Model implements HasMedia
 {
     use HasActivation, InteractsWithMedia, SoftDeletes;
 
+    public function getCreatedAtAttribute($value): ?string
+    {
+        return $value ? Carbon::parse($value)->format('Y-m-d h:i A'): null;
+    }
+    protected function casts(): array
+    {
+        return [
+            'is_active' => 'boolean',
+            'added_by_id' => 'integer',
+        ];
+    }
     public function storeImages($media, $update = false, $collection = 'images'): void
     {
         $images = array_filter(convertToArray($media));
