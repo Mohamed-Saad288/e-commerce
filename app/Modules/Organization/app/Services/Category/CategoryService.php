@@ -15,13 +15,13 @@ class CategoryService extends BaseService
 
     public function withRelations(): array
     {
-        return ["subCategories" , "parent" , "brands" , "allSubCategories" ];
+        return ['subCategories', 'parent', 'brands', 'allSubCategories'];
     }
 
     public function filters($request = null): array
     {
         return [
-            (new SearchFilter($request))->setSearchable(['name','description','slug']),
+            (new SearchFilter($request))->setSearchable(['name', 'description', 'slug']),
         ];
     }
 }

@@ -14,13 +14,14 @@ class SimpleTitleResource extends JsonResource
      */
     public function toArray(Request $request): array
     {
-        $data =  [
+        $data = [
             'id' => $this->id ?? null,
             'name' => $this->name ?? $this->title ?? null,
         ];
         if ($this->getImage()) {
             $data['image'] = $this->getImage();
         }
+
         return $data;
     }
 }

@@ -53,7 +53,7 @@ class Category extends BaseModel implements TranslatableContract
         return $this->load('allSubCategories');
     }
 
-    public function products():HasMany
+    public function products(): HasMany
     {
         return $this->hasMany(Product::class, 'category_id');
     }
