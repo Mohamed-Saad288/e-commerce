@@ -46,11 +46,11 @@ Route::prefix('api/site')->middleware(['set.organization.context'])->group(funct
 
     /** Category & Brand Endpoints */
     Route::controller(CategoryController::class)->group(function () {
-        Route::post("fetch_categories", 'index');
+        Route::post('fetch_categories', 'index');
         Route::post('list_categories', 'list');
     });
     Route::controller(BrandController::class)->group(function () {
-        Route::post("fetch_brands", 'index');
+        Route::post('fetch_brands', 'index');
         Route::post('list_brands', 'list');
     });
 

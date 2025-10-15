@@ -8,7 +8,6 @@ use App\Modules\Base\app\Response\DataSuccess;
 use App\Modules\Organization\app\Services\Brand\BrandService;
 use App\Modules\Website\app\Http\Request\Brand\BrandRequest;
 use App\Modules\Website\app\Http\Resources\Brand\BrandResource;
-use App\Modules\Website\app\Http\Resources\Category\CategoryResource;
 
 class BrandController extends Controller
 {

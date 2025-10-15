@@ -74,7 +74,7 @@ class BaseService
             ->through($this->filters())
             ->thenReturn();
 
-        if (!$this->isDashboardRequest()) {
+        if (! $this->isDashboardRequest()) {
             $query->where('is_active', ActiveEnum::ACTIVE->value);
         }
 
@@ -118,6 +118,4 @@ class BaseService
     {
         return request()->is('admin/*') || request()->routeIs('organization.*');
     }
-
-
 }
