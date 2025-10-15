@@ -12,11 +12,4 @@ class CategoryService extends BaseService
     {
         parent::__construct(resolve(Category::class));
     }
-
-    public function filters($request = null): array
-    {
-        return [
-            CategoryIdFilter::class,
-        ];
-    }
 }
