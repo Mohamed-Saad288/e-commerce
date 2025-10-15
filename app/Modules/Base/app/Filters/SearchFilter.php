@@ -20,7 +20,7 @@ class SearchFilter extends BaseFilter
     public function filter(Builder $builder): Builder
     {
         $globalSearch = $this->get($this->searchParam);
-        if ($globalSearch && ! empty($this->searchable)) {
+        if ($globalSearch && !empty($this->searchable)) {
             $builder->where(function (Builder $query) use ($globalSearch, $builder) {
                 foreach ($this->searchable as $column) {
                     if ($this->isTranslatable($builder->getModel(), $column)) {
@@ -59,7 +59,7 @@ class SearchFilter extends BaseFilter
 
             if (Str::contains($key, '.')) {
                 [$relation, $column] = explode('.', $key);
-                if (! isset($this->relations[$relation]) || ! in_array($column, $this->relations[$relation])) {
+                if (!isset($this->relations[$relation]) || !in_array($column, $this->relations[$relation])) {
                     continue;
                 }
 
@@ -110,9 +110,5 @@ class SearchFilter extends BaseFilter
         };
     }
 
-    protected function isTranslatable(Model $model, string $column): bool
-    {
-        return in_array(Translatable::class, class_uses_recursive($model)) &&
-            in_array($column, $model->translatedAttributes ?? []);
-    }
+
 }

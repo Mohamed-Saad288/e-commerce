@@ -3,8 +3,10 @@
 namespace App\Modules\Base\app\Filters;
 
 use App\Modules\Base\app\Contracts\FilterContract;
+use Astrotomic\Translatable\Translatable;
 use Closure;
 use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Database\Eloquent\Model;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 
@@ -118,5 +120,11 @@ abstract class BaseFilter implements FilterContract
     protected function sanitize(string $value): string
     {
         return trim(strip_tags($value));
+    }
+
+    protected function isTranslatable(Model $model, string $column): bool
+    {
+        return in_array(Translatable::class, class_uses_recursive($model)) &&
+            in_array($column, $model->translatedAttributes ?? []);
     }
 }
