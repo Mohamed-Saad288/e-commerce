@@ -4,15 +4,18 @@ namespace App\Modules\Base\app\Filters;
 
 use App\Modules\Base\app\Contracts\FilterContract;
 use Closure;
-use Illuminate\Http\Request;
 use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 
 abstract class BaseFilter implements FilterContract
 {
     protected Request $request;
+
     protected string $filterName;
+
     protected array $rules = []; // قواعد التحقق (Validation Rules)
+
     protected bool $applyByDefault = false;
 
     public function __construct(?Request $request = null)
@@ -55,10 +58,9 @@ abstract class BaseFilter implements FilterContract
         return $this->filterName;
     }
 
-
     protected function validate(): void
     {
-        if (!empty($this->rules)) {
+        if (! empty($this->rules)) {
             Validator::make($this->request->all(), $this->rules)->validate();
         }
     }
@@ -94,6 +96,7 @@ abstract class BaseFilter implements FilterContract
     protected function getArray(string $key, array $default = []): array
     {
         $value = $this->get($key, $default);
+
         return is_array($value) ? array_filter($value) : ($value ? [$value] : $default);
     }
 

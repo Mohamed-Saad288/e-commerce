@@ -3,7 +3,6 @@
 namespace App\Modules\Organization\app\Services\Brand;
 
 use App\Modules\Base\app\DTO\DTOInterface;
-use App\Modules\Base\app\Filters\CategoryIdFilter;
 use App\Modules\Base\app\Filters\SearchFilter;
 use App\Modules\Base\app\Services\BaseService;
 use App\Modules\Organization\app\Models\Brand\Brand;
@@ -67,7 +66,7 @@ class BrandService extends BaseService
     public function filters($request = null): array
     {
         return [
-            (new SearchFilter($request))->setSearchable(['name', 'description' , "slug"]),
+            (new SearchFilter($request))->setSearchable(['name', 'description', 'slug']),
         ];
     }
 }

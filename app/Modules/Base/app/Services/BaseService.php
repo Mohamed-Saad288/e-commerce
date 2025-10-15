@@ -8,20 +8,18 @@ use App\Modules\Base\Traits\Filterable;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Pagination\LengthAwarePaginator;
-use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Cache;
-
+use Illuminate\Support\Facades\DB;
 
 class BaseService
 {
     use Filterable;
 
     protected bool $cacheEnabled = false;
+
     protected string $cacheKeyPrefix = '';
 
-    public function __construct(protected Model $model)
-    {
-    }
+    public function __construct(protected Model $model) {}
 
     /**
      * Store new record with transaction and media handling
@@ -32,7 +30,7 @@ class BaseService
             $data = $dto->toArray();
             $model = $this->model->query()->create($data);
 
-            if (!empty($dto->image)) {
+            if (! empty($dto->image)) {
                 $model->storeImages(media: $dto->image);
             }
 
@@ -49,7 +47,7 @@ class BaseService
             $data = $dto->toArray();
             $model->update($data);
 
-            if (!empty($dto->image)) {
+            if (! empty($dto->image)) {
                 $model->storeImages(media: $dto->image, update: true);
             }
 
@@ -78,7 +76,7 @@ class BaseService
      */
     public function index($request = null, bool $paginate = true): Collection|LengthAwarePaginator
     {
-        $cacheKey = $this->cacheKeyPrefix . 'index:' . md5(json_encode($request?->all()));
+        $cacheKey = $this->cacheKeyPrefix.'index:'.md5(json_encode($request?->all()));
 
         if ($this->cacheEnabled && Cache::has($cacheKey)) {
             return Cache::get($cacheKey);
@@ -87,7 +85,7 @@ class BaseService
 
         $query = $this->applyFilters($query, $this->filters($request));
 
-        if (!$this->isDashboardRequest()) {
+        if (! $this->isDashboardRequest()) {
             $query->where('is_active', ActiveEnum::ACTIVE->value);
         }
 
@@ -134,7 +132,6 @@ class BaseService
     {
         return []; // Example: [\App\Filters\NameFilter::class, \App\Filters\StatusFilter::class]
     }
-
 
     /**
      * تحديد العلاقات اللي يتم تحميلها مع الـ Query

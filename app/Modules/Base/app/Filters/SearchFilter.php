@@ -2,30 +2,32 @@
 
 namespace App\Modules\Base\app\Filters;
 
+use Astrotomic\Translatable\Translatable;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Str;
-use Astrotomic\Translatable\Translatable;
-
 
 class SearchFilter extends BaseFilter
 {
-
     protected array $searchable = [];
+
     protected array $relations = [];
+
     protected string $searchParam = 'search';
+
     protected string $mode = 'like'; // like | exact | starts_with | ends_with
 
     public function filter(Builder $builder): Builder
     {
         $globalSearch = $this->get($this->searchParam);
-        if ($globalSearch && !empty($this->searchable)) {
-            $builder->where(function (Builder $query) use ($globalSearch , $builder) {
+        if ($globalSearch && ! empty($this->searchable)) {
+            $builder->where(function (Builder $query) use ($globalSearch, $builder) {
                 foreach ($this->searchable as $column) {
                     if ($this->isTranslatable($builder->getModel(), $column)) {
                         $query->orWhereHas('translations', function (Builder $transQuery) use ($column, $globalSearch) {
                             $transQuery->where($column, $this->getOperator(), $this->formatSearchTerm($globalSearch));
                         });
+
                         continue;
                     }
                     $query->orWhere($column, $this->getOperator(), $this->formatSearchTerm($globalSearch));
@@ -40,6 +42,7 @@ class SearchFilter extends BaseFilter
                                 $relQuery->orWhereHas('translations', function (Builder $transQuery) use ($column, $globalSearch) {
                                     $transQuery->where($column, $this->getOperator(), $this->formatSearchTerm($globalSearch));
                                 });
+
                                 continue;
                             }
                             $relQuery->orWhere($column, $this->getOperator(), $this->formatSearchTerm($globalSearch));
@@ -56,7 +59,7 @@ class SearchFilter extends BaseFilter
 
             if (Str::contains($key, '.')) {
                 [$relation, $column] = explode('.', $key);
-                if (!isset($this->relations[$relation]) || !in_array($column, $this->relations[$relation])) {
+                if (! isset($this->relations[$relation]) || ! in_array($column, $this->relations[$relation])) {
                     continue;
                 }
 
@@ -74,18 +77,21 @@ class SearchFilter extends BaseFilter
     public function setSearchable(array $columns): static
     {
         $this->searchable = $columns;
+
         return $this;
     }
 
     public function setRelations(array $relations): static
     {
         $this->relations = $relations;
+
         return $this;
     }
 
     public function setSearchMode(string $mode): static
     {
         $this->mode = $mode;
+
         return $this;
     }
 
@@ -103,7 +109,6 @@ class SearchFilter extends BaseFilter
             default => "%{$term}%",
         };
     }
-
 
     protected function isTranslatable(Model $model, string $column): bool
     {

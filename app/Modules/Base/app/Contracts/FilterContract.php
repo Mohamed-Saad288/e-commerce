@@ -2,7 +2,6 @@
 
 namespace App\Modules\Base\app\Contracts;
 
-
 use Closure;
 use Illuminate\Database\Eloquent\Builder;
 
