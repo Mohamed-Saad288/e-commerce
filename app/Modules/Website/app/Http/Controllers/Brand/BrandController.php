@@ -15,7 +15,7 @@ class BrandController extends Controller
 
     public function list(BrandRequest $request)
     {
-        $brands = $this->service->list();
+        $brands = $this->service->list($request);
 
         return (new DataSuccess(
             data: SimpleTitleResource::collection($brands), status: true,
@@ -25,7 +25,7 @@ class BrandController extends Controller
 
     public function index(BrandRequest $request)
     {
-        $brands = $this->service->index();
+        $brands = $this->service->index($request);
 
         return (new DataSuccess(
             data: BrandResource::collection($brands), status: true,

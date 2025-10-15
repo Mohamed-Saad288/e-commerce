@@ -4,6 +4,7 @@ namespace App\Modules\Organization\app\Services\Brand;
 
 use App\Modules\Base\app\DTO\DTOInterface;
 use App\Modules\Base\app\Filters\CategoryIdFilter;
+use App\Modules\Base\app\Filters\SearchFilter;
 use App\Modules\Base\app\Services\BaseService;
 use App\Modules\Organization\app\Models\Brand\Brand;
 use Illuminate\Database\Eloquent\Model;
@@ -66,7 +67,7 @@ class BrandService extends BaseService
     public function filters($request = null): array
     {
         return [
-            CategoryIdFilter::class,
+            (new SearchFilter($request))->setSearchable(['name', 'description' , "slug"]),
         ];
     }
 }

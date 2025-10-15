@@ -4,15 +4,24 @@ namespace App\Modules\Base\app\Services;
 
 use App\Modules\Base\app\DTO\DTOInterface;
 use App\Modules\Base\Enums\ActiveEnum;
+use App\Modules\Base\Traits\Filterable;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Pagination\LengthAwarePaginator;
-use Illuminate\Pipeline\Pipeline;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Cache;
+
 
 class BaseService
 {
-    public function __construct(protected Model $model) {}
+    use Filterable;
+
+    protected bool $cacheEnabled = false;
+    protected string $cacheKeyPrefix = '';
+
+    public function __construct(protected Model $model)
+    {
+    }
 
     /**
      * Store new record with transaction and media handling
@@ -23,7 +32,7 @@ class BaseService
             $data = $dto->toArray();
             $model = $this->model->query()->create($data);
 
-            if (! empty($dto->image)) {
+            if (!empty($dto->image)) {
                 $model->storeImages(media: $dto->image);
             }
 
@@ -40,7 +49,7 @@ class BaseService
             $data = $dto->toArray();
             $model->update($data);
 
-            if (! empty($dto->image)) {
+            if (!empty($dto->image)) {
                 $model->storeImages(media: $dto->image, update: true);
             }
 
@@ -69,18 +78,28 @@ class BaseService
      */
     public function index($request = null, bool $paginate = true): Collection|LengthAwarePaginator
     {
-        $query = app(Pipeline::class)
-            ->send($this->model::query()->latest())
-            ->through($this->filters())
-            ->thenReturn();
+        $cacheKey = $this->cacheKeyPrefix . 'index:' . md5(json_encode($request?->all()));
 
-        if (! $this->isDashboardRequest()) {
+        if ($this->cacheEnabled && Cache::has($cacheKey)) {
+            return Cache::get($cacheKey);
+        }
+        $query = $this->model::query()->latest()->with($this->withRelations());
+
+        $query = $this->applyFilters($query, $this->filters($request));
+
+        if (!$this->isDashboardRequest()) {
             $query->where('is_active', ActiveEnum::ACTIVE->value);
         }
 
-        return $paginate
+        $result = $paginate
             ? $query->paginate($request->per_page ?? 10)
             : $query->get();
+
+        if ($this->cacheEnabled) {
+            Cache::put($cacheKey, $result, now()->addMinutes(10));
+        }
+
+        return $result;
     }
 
     /**
@@ -88,10 +107,12 @@ class BaseService
      */
     public function list(): Collection
     {
-        $query = app(Pipeline::class)
-            ->send($this->model::query()->where('is_active', 1)->latest())
-            ->through($this->filters())
-            ->thenReturn();
+        $query = $this->model::query()
+            ->where('is_active', ActiveEnum::ACTIVE->value)
+            ->latest()
+            ->with($this->withRelations());
+
+        $query = $this->applyFilters($query, $this->filters());
 
         return $query->get();
     }
@@ -112,6 +133,15 @@ class BaseService
     protected function filters($request = null): array
     {
         return []; // Example: [\App\Filters\NameFilter::class, \App\Filters\StatusFilter::class]
+    }
+
+
+    /**
+     * تحديد العلاقات اللي يتم تحميلها مع الـ Query
+     */
+    protected function withRelations(): array
+    {
+        return [];
     }
 
     protected function isDashboardRequest(): bool
