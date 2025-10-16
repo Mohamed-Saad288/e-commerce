@@ -4,6 +4,8 @@ namespace App\Modules\Organization\app\Models\Brand;
 
 use App\Modules\Base\app\Models\BaseModel;
 use App\Modules\Organization\app\Models\Category\Category;
+use App\Modules\Organization\app\Models\Product\Product;
+use App\Modules\Organization\app\Models\ProductVariation\ProductVariation;
 use Astrotomic\Translatable\Contracts\Translatable as TranslatableContract;
 use Astrotomic\Translatable\Translatable;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
@@ -31,5 +33,7 @@ class Brand extends BaseModel implements TranslatableContract
         return $this->BelongsToMany(Category::class, 'brand_categories', 'brand_id', 'category_id');
     }
 
-    public function productVariations(): hasManyThrough {}
+    public function productVariations(): hasManyThrough {
+        return $this->hasManyThrough(ProductVariation::class, Product::class, 'brand_id', 'product_id');
+    }
 }
