@@ -53,7 +53,7 @@ Route::prefix('api/site')->middleware(['set.organization.context'])->group(funct
     Route::controller(BrandController::class)->group(function () {
         Route::post('fetch_brands', 'index');
         Route::post('list_brands', 'list');
-        Route::get('show_brand/{brand}', 'show');
+        Route::get('show_brand/{id}', 'show');
     });
 
     /** Terms Endpoints */
