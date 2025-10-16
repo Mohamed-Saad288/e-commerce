@@ -33,7 +33,8 @@ class Brand extends BaseModel implements TranslatableContract
         return $this->BelongsToMany(Category::class, 'brand_categories', 'brand_id', 'category_id');
     }
 
-    public function productVariations(): hasManyThrough {
+    public function productVariations(): hasManyThrough
+    {
         return $this->hasManyThrough(ProductVariation::class, Product::class, 'brand_id', 'product_id');
     }
 }
