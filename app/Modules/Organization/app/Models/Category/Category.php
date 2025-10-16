@@ -5,11 +5,13 @@ namespace App\Modules\Organization\app\Models\Category;
 use App\Modules\Base\app\Models\BaseModel;
 use App\Modules\Organization\app\Models\Brand\Brand;
 use App\Modules\Organization\app\Models\Product\Product;
+use App\Modules\Organization\app\Models\ProductVariation\ProductVariation;
 use Astrotomic\Translatable\Contracts\Translatable as TranslatableContract;
 use Astrotomic\Translatable\Translatable;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\Relations\HasManyThrough;
 
 class Category extends BaseModel implements TranslatableContract
 {
@@ -56,5 +58,10 @@ class Category extends BaseModel implements TranslatableContract
     public function products(): HasMany
     {
         return $this->hasMany(Product::class, 'category_id');
+    }
+
+    public function productVariations(): hasManyThrough
+    {
+        return $this->hasManyThrough(ProductVariation::class, Product::class, 'category_id', 'product_id');
     }
 }

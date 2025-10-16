@@ -31,8 +31,8 @@ class ProductService extends BaseService
 
                     $productVariation = $product->variations()->create($variation);
 
-                    $productVariation->storeImages(media: $variation['main_images']);
-                    $productVariation->storeImages(media: $variation['additional_images']);
+                    $productVariation->storeImages(media: $variation['main_images'] , collection: 'main_images');
+                    $productVariation->storeImages(media: $variation['additional_images'] , collection: 'additional_images');
 
                     $productVariation->option_items()->syncWithPivotValues(
                         $variation['option_items'],
