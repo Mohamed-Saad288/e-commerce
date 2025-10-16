@@ -33,6 +33,8 @@ class Product extends BaseModel implements TranslatableContract
         'stock_quantity',
     ];
 
+    protected $with = ['translations', 'variations'];
+
     public function variations(): HasMany
     {
         return $this->hasMany(ProductVariation::class, 'product_id');

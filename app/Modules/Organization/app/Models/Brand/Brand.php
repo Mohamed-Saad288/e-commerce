@@ -7,6 +7,7 @@ use App\Modules\Organization\app\Models\Category\Category;
 use Astrotomic\Translatable\Contracts\Translatable as TranslatableContract;
 use Astrotomic\Translatable\Translatable;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
+use Illuminate\Database\Eloquent\Relations\HasManyThrough;
 
 class Brand extends BaseModel implements TranslatableContract
 {
@@ -28,5 +29,10 @@ class Brand extends BaseModel implements TranslatableContract
     public function categories(): BelongsToMany
     {
         return $this->BelongsToMany(Category::class, 'brand_categories', 'brand_id', 'category_id');
+    }
+
+    public function productVariations() : hasManyThrough
+    {
+
     }
 }
