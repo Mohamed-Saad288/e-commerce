@@ -28,7 +28,7 @@ class CategoryResource extends JsonResource
             'sub_categories' => CategoryResource::collection($this->whenLoaded('allSubCategories') ?? []) ?? [],
             'created_at' => $this->created_at ?? null,
             'brands' => BrandResource::collection($this->whenLoaded('brands') ?? []) ?? [],
-            "products" => ProductResource::collection($this->whenLoaded('productVariations') ?? []) ?? [],
+            'products' => ProductResource::collection($this->whenLoaded('productVariations') ?? []) ?? [],
         ];
     }
 }
