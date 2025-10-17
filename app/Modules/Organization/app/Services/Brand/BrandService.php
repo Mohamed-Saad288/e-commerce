@@ -3,6 +3,7 @@
 namespace App\Modules\Organization\app\Services\Brand;
 
 use App\Modules\Base\app\DTO\DTOInterface;
+use App\Modules\Base\app\Filters\RelationFilter;
 use App\Modules\Base\app\Filters\SearchFilter;
 use App\Modules\Base\app\Services\BaseService;
 use App\Modules\Organization\app\Models\Brand\Brand;
@@ -73,6 +74,7 @@ class BrandService extends BaseService
     {
         return [
             (new SearchFilter($request))->setSearchable(['name', 'description', 'slug']),
+            (new RelationFilter($request))->setRelations(['categories'=> ['key' => 'category_id', 'column' => 'categories.id', 'operator' => '=']]),
         ];
     }
 }
