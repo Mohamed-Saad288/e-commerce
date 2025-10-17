@@ -9,6 +9,7 @@ use App\Modules\Website\app\Http\Controllers\Faq\FaqController;
 use App\Modules\Website\app\Http\Controllers\Header\HeaderController;
 use App\Modules\Website\app\Http\Controllers\HomeSection\HomeSectionController;
 use App\Modules\Website\app\Http\Controllers\Privacy\PrivacyController;
+use App\Modules\Website\app\Http\Controllers\Products\ProductVariationController;
 use App\Modules\Website\app\Http\Controllers\Term\TermController;
 use App\Modules\Website\app\Http\Controllers\WebStatus\WebStatusController;
 use Illuminate\Support\Facades\Route;
@@ -54,6 +55,13 @@ Route::prefix('api/site')->middleware(['set.organization.context'])->group(funct
         Route::post('fetch_brands', 'index');
         Route::post('list_brands', 'list');
         Route::get('show_brand/{id}', 'show');
+    });
+
+    /** Product Variation */
+
+    Route::controller(ProductVariationController::class)->group(function () {
+        Route::post('fetch_products', 'index');
+        Route::get('show_products/{id}', 'show');
     });
 
     /** Terms Endpoints */

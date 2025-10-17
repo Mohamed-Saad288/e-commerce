@@ -25,7 +25,6 @@ class SearchFilter extends BaseFilter
                         $query->orWhereHas('translations', function (Builder $transQuery) use ($column, $globalSearch) {
                             $transQuery->where($column, $this->getOperator(), $this->formatSearchTerm($globalSearch));
                         });
-
                         continue;
                     }
                     $query->orWhere($column, $this->getOperator(), $this->formatSearchTerm($globalSearch));
@@ -35,16 +34,17 @@ class SearchFilter extends BaseFilter
                     $query->orWhereHas($relation, function (Builder $relQuery) use ($columns, $globalSearch) {
                         $relatedModel = $relQuery->getModel();
 
-                        foreach ($columns as $column) {
-                            if ($this->isTranslatable($relatedModel, $column)) {
-                                $relQuery->orWhereHas('translations', function (Builder $transQuery) use ($column, $globalSearch) {
-                                    $transQuery->where($column, $this->getOperator(), $this->formatSearchTerm($globalSearch));
-                                });
-
-                                continue;
+                        $relQuery->where(function (Builder $subQuery) use ($columns, $globalSearch, $relatedModel) {
+                            foreach ($columns as $column) {
+                                if ($this->isTranslatable($relatedModel, $column)) {
+                                    $subQuery->orWhereHas('translations', function (Builder $transQuery) use ($column, $globalSearch) {
+                                        $transQuery->where($column, $this->getOperator(), $this->formatSearchTerm($globalSearch));
+                                    });
+                                    continue;
+                                }
+                                $subQuery->orWhere($column, $this->getOperator(), $this->formatSearchTerm($globalSearch));
                             }
-                            $relQuery->orWhere($column, $this->getOperator(), $this->formatSearchTerm($globalSearch));
-                        }
+                        });
                     });
                 }
             });
@@ -75,21 +75,18 @@ class SearchFilter extends BaseFilter
     public function setSearchable(array $columns): static
     {
         $this->searchable = $columns;
-
         return $this;
     }
 
     public function setRelations(array $relations): static
     {
         $this->relations = $relations;
-
         return $this;
     }
 
     public function setSearchMode(string $mode): static
     {
         $this->mode = $mode;
-
         return $this;
     }
 
