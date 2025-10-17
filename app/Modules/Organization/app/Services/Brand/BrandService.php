@@ -73,7 +73,7 @@ class BrandService extends BaseService
     {
         return [
             (new SearchFilter($request))->setSearchable(['name', 'description', 'slug']),
-            (new RelationFilter($request))->setRelations(['categories'=> ['key' => 'category_id', 'column' => 'categories.id', 'operator' => '=']]),
+            (new RelationFilter($request))->setRelations(['categories' => ['key' => 'category_id', 'column' => 'categories.id', 'operator' => '=']]),
         ];
     }
 }

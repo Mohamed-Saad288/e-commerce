@@ -8,7 +8,6 @@ use App\Modules\Organization\app\Models\ProductVariation\ProductVariation;
 
 class ProductVariationService extends BaseService
 {
-
     public function __construct()
     {
         parent::__construct(resolve(ProductVariation::class));
@@ -17,7 +16,7 @@ class ProductVariationService extends BaseService
     public function filters($request = null): array
     {
         return [
-            (new SearchFilter($request))->setSearchable(["name"])->setRelations(["product" => ["description" , "short_description"]]),
+            (new SearchFilter($request))->setSearchable(['name'])->setRelations(['product' => ['description', 'short_description']]),
         ];
     }
 }

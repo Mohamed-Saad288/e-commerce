@@ -25,6 +25,7 @@ class SearchFilter extends BaseFilter
                         $query->orWhereHas('translations', function (Builder $transQuery) use ($column, $globalSearch) {
                             $transQuery->where($column, $this->getOperator(), $this->formatSearchTerm($globalSearch));
                         });
+
                         continue;
                     }
                     $query->orWhere($column, $this->getOperator(), $this->formatSearchTerm($globalSearch));
@@ -40,6 +41,7 @@ class SearchFilter extends BaseFilter
                                     $subQuery->orWhereHas('translations', function (Builder $transQuery) use ($column, $globalSearch) {
                                         $transQuery->where($column, $this->getOperator(), $this->formatSearchTerm($globalSearch));
                                     });
+
                                     continue;
                                 }
                                 $subQuery->orWhere($column, $this->getOperator(), $this->formatSearchTerm($globalSearch));
@@ -75,18 +77,21 @@ class SearchFilter extends BaseFilter
     public function setSearchable(array $columns): static
     {
         $this->searchable = $columns;
+
         return $this;
     }
 
     public function setRelations(array $relations): static
     {
         $this->relations = $relations;
+
         return $this;
     }
 
     public function setSearchMode(string $mode): static
     {
         $this->mode = $mode;
+
         return $this;
     }
 
