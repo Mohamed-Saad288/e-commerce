@@ -10,7 +10,9 @@ use App\Modules\Website\app\Http\Resources\Category\CategoryResource;
 
 class CategoryController extends Controller
 {
-    public function __construct(protected CategoryService $service) {}
+    public function __construct(protected CategoryService $service)
+    {
+    }
 
     public function list()
     {
