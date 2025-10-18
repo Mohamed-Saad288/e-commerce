@@ -11,9 +11,7 @@ use Illuminate\Http\Request;
 
 class CategoryController extends Controller
 {
-    public function __construct(protected CategoryService $service)
-    {
-    }
+    public function __construct(protected CategoryService $service) {}
 
     public function list(Request $request)
     {
