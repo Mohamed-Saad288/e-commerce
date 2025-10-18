@@ -12,18 +12,17 @@ class BooleanFilter extends BaseFilter
     public function setFilters(array $filters): static
     {
         $this->filters = $filters;
-
         return $this;
     }
 
     public function filter(Builder $builder): Builder
     {
-        if (! filled($this->request) || empty($this->filters)) {
+        if (!filled($this->request) || empty($this->filters)) {
             return $builder;
         }
 
         foreach ($this->filters as $key => $config) {
-            if (! $this->request->has($key) || empty($config['column'])) {
+            if (!$this->request->has($key) || empty($config['column'])) {
                 continue;
             }
 

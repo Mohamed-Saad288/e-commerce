@@ -12,7 +12,6 @@ class ArithmeticFilter extends BaseFilter
     public function setFilters(array $filters): static
     {
         $this->filters = $filters;
-
         return $this;
     }
 
@@ -23,7 +22,7 @@ class ArithmeticFilter extends BaseFilter
         foreach ($this->filters as $key => $options) {
             $requestKey = $options['key'] ?? $key;
 
-            if (! isset($data[$requestKey])) {
+            if (!isset($data[$requestKey])) {
                 continue;
             }
 
