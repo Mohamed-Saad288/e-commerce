@@ -14,9 +14,9 @@ return new class extends BaseMigration
         // Create payment methods table
         Schema::create('favourite_products', function (Blueprint $table) {
             $table->id();
-            $table->foreignId("user_id")->constrained("users")->onDelete("cascade");
-            $table->foreignId("product_variation_id")->constrained("product_variations")->onDelete("cascade");
-            $table->foreignId("organization_id")->constrained("organizations")->onDelete("cascade");
+            $table->foreignId('user_id')->constrained('users')->onDelete('cascade');
+            $table->foreignId('product_variation_id')->constrained('product_variations')->onDelete('cascade');
+            $table->foreignId('organization_id')->constrained('organizations')->onDelete('cascade');
             $table->timestamps();
         });
     }

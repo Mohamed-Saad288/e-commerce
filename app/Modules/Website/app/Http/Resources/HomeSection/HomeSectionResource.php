@@ -22,8 +22,8 @@ class HomeSectionResource extends JsonResource
         $data = [
             'id' => $this->id ?? null,
             'type' => $this->type ?? null,
-            'start_date' => $this->start_date->format("Y-m-d") ?? null,
-            'end_date' => $this->end_date->format("Y-m-d") ?? null,
+            'start_date' => $this->start_date->format('Y-m-d') ?? null,
+            'end_date' => $this->end_date->format('Y-m-d') ?? null,
             'products' => HomeSectionProductResource::collection($products),
         ];
 
