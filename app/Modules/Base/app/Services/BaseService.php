@@ -103,12 +103,15 @@ class BaseService
     /**
      * List only active records
      */
-    public function list(): Collection
+    public function list($request = null): Collection
     {
         $query = $this->model::query()
             ->where('is_active', ActiveEnum::ACTIVE->value)
             ->latest()
             ->with($this->withRelations());
+        if (filled($request->limit)) {
+            $query->limit($request->limit);
+        }
 
         $query = $this->applyFilters($query, $this->filters());
 
