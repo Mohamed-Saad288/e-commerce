@@ -198,5 +198,7 @@ return [
     'template_type' => 'نوع عرض السكشن',
     'no_data_found' => 'لا توجد بيانات',
     'data_retrieved_successfully' => 'تم جلب البيانات بنجاح',
-
+    'removed_from_favourites' => "المنتج حذف من المفضلة بنجاح",
+    'added_to_favourites' => "تم الاضافة في المفضلة بنجاح",
+    'no_favourites_found' => "لا توجد منتجات في المفضلة"
 ];

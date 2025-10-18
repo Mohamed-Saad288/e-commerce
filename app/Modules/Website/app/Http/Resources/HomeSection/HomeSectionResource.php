@@ -14,16 +14,16 @@ class HomeSectionResource extends JsonResource
     public function toArray(Request $request): array
     {
         $products = $this->whenLoaded('products', function () {
-            return $this->products->take(10);
+            return $this->productVariations->take(10);
         }, function () {
-            return $this->products()->take(10)->get();
+            return $this->productVariations()->take(10)->get();
         });
 
         $data = [
             'id' => $this->id ?? null,
             'type' => $this->type ?? null,
-            'start_date' => $this->start_date ?? null,
-            'end_date' => $this->end_date ?? null,
+            'start_date' => $this->start_date->format("Y-m-d") ?? null,
+            'end_date' => $this->end_date->format("Y-m-d") ?? null,
             'products' => HomeSectionProductResource::collection($products),
         ];
 

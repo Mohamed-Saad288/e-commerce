@@ -156,4 +156,7 @@ return [
     'total_orders' => 'Total Orders',
     'no_data_found' => 'No Data Found',
     'data_retrieved_successfully' => 'Data Retrieved Successfully',
+    'removed_from_favourites' => "removed from favourites",
+    'added_to_favourites' => "added to favourites",
+    "no_favourites_found" => "no favourites found"
 ];
