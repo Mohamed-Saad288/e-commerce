@@ -17,7 +17,6 @@ return new class extends Migration
             $table->foreignId('product_variation_id')->constrained("product_variations")->onDelete('cascade');
             $table->integer('sort_order')->default(0);
             $table->timestamps();
-
         });
     }
 
