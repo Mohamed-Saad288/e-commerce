@@ -30,6 +30,7 @@ class ProductVariationResource extends JsonResource
             'stock_quantity' => $this->stock_quantity ?? null,
             'in_stock' => $this->in_stock ?? null,
             'is_active' => $this->is_active ?? null,
+            "is_featured" => $this->is_featured ?? null,
             'main_image' => $this->getImages('main_images') ?? null,
             'additional_images' => $this->getImages('additional_images') ?? [],
             'category' => $this->product?->category?->name ?? null,
