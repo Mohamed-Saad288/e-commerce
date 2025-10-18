@@ -13,10 +13,10 @@ return new class extends Migration
     {
         Schema::table('home_section_products', function (Blueprint $table) {
 
-            $table->foreignId("product_variation_id")
-                ->after("home_section_id")
+            $table->foreignId('product_variation_id')
+                ->after('home_section_id')
                 ->nullable()
-                ->constrained("product_variations")
+                ->constrained('product_variations')
                 ->nullOnDelete()
                 ->cascadeOnUpdate();
         });
@@ -28,8 +28,8 @@ return new class extends Migration
     public function down(): void
     {
         Schema::table('home_section_products', function (Blueprint $table) {
-            $table->dropForeign("product_variation_id");
-            $table->dropColumn("product_variation_id");
+            $table->dropForeign('product_variation_id');
+            $table->dropColumn('product_variation_id');
         });
     }
 };
