@@ -54,12 +54,12 @@ class ProductVariation extends BaseModel implements TranslatableContract
         return $this->belongsTo(Product::class, 'product_id');
     }
 
-    public function category(): hasOneThrough
+    public function category() : hasOneThrough
     {
         return $this->hasOneThrough(Category::class, Product::class, 'id', 'id', 'product_id', 'category_id');
     }
 
-    public function brand(): hasOneThrough
+    public function brand():hasOneThrough
     {
         return $this->hasOneThrough(Brand::class, Product::class, 'id', 'id', 'product_id', 'brand_id');
     }

@@ -7,15 +7,14 @@ use App\Modules\Base\app\Http\Resources\SimpleTitleResource;
 use App\Modules\Base\app\Response\DataSuccess;
 use App\Modules\Organization\app\Services\Category\CategoryService;
 use App\Modules\Website\app\Http\Resources\Category\CategoryResource;
-use Illuminate\Http\Request;
 
 class CategoryController extends Controller
 {
     public function __construct(protected CategoryService $service) {}
 
-    public function list(Request $request)
+    public function list()
     {
-        $categories = $this->service->list($request);
+        $categories = $this->service->list();
 
         return (new DataSuccess(
             data: SimpleTitleResource::collection($categories), status: true,
