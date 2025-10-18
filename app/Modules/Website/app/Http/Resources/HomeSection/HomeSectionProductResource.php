@@ -6,11 +6,11 @@ use App\Modules\Organization\app\Models\FavouriteProduct\FavouriteProduct;
 use App\Modules\Website\app\Traits\WebsiteLink\WebsiteLinkTrait;
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
-use function Symfony\Component\String\b;
 
 class HomeSectionProductResource extends JsonResource
 {
     use WebsiteLinkTrait;
+
     /**
      * Transform the resource into an array.
      *
@@ -22,7 +22,8 @@ class HomeSectionProductResource extends JsonResource
         $organization = $this->getOrganization();
         $favouriteVariation = FavouriteProduct::where('user_id', $user->id)
             ->where('organization_id', $organization->id)
-            ->where("product_variation_id",$this->id)->exists();
+            ->where('product_variation_id', $this->id)->exists();
+
         return [
             'name' => $this->name ?? null,
             'slug' => $this->slug ?? null,

@@ -5,9 +5,7 @@ namespace App\Modules\Website\app\Http\Controllers\FavouriteProduct;
 use App\Http\Controllers\Controller;
 use App\Modules\Website\app\Http\Controllers\HomeSection\FetchFavouriteRequest;
 use App\Modules\Website\app\Http\Request\FavouriteProduct\FavouriteProductRequest;
-use App\Modules\Website\app\Http\Request\HomeSection\FetchHomeSectionDetailsRequest;
 use App\Modules\Website\app\Services\FavouriteProduct\FavouriteProductService;
-use App\Modules\Website\app\Services\HomeSection\HomeSectionService;
 
 class FavouriteProductController extends Controller
 {

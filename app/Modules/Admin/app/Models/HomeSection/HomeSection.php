@@ -34,7 +34,7 @@ class HomeSection extends Model
         'type',
         'sort_order',
         'template_type',
-        'product_variation_id'
+        'product_variation_id',
     ];
 
     public function organization(): BelongsTo
@@ -46,7 +46,8 @@ class HomeSection extends Model
     {
         return $this->belongsToMany(Product::class, 'home_section_products', 'home_section_id', 'product_id');
     }
-    public function productVariations() : BelongsToMany
+
+    public function productVariations(): BelongsToMany
     {
         return $this->belongsToMany(Product::class, 'home_section_products', 'home_section_id', 'product_variation_id');
     }

@@ -7,7 +7,6 @@ use App\Modules\Admin\app\Models\HomeSection\HomeSection;
 use App\Modules\Organization\app\DTO\HomeSection\HomeSectionDto;
 use App\Modules\Organization\app\Http\Request\HomeSection\StoreHomeSectionRequest;
 use App\Modules\Organization\app\Http\Request\HomeSection\UpdateHomeSectionRequest;
-use App\Modules\Organization\app\Models\Product\Product;
 use App\Modules\Organization\app\Models\ProductVariation\ProductVariation;
 use App\Modules\Organization\app\Services\HomeSection\HomeSectionService;
 use Exception;

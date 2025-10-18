@@ -11,6 +11,7 @@ use App\Modules\Website\app\Traits\WebsiteLink\WebsiteLinkTrait;
 class FavouriteProductService
 {
     use WebsiteLinkTrait;
+
     public function toggleFavouriteProduct($data)
     {
         $organization = $this->getOrganization();
@@ -24,7 +25,8 @@ class FavouriteProductService
 
         if ($favourite) {
             $favourite->delete();
-            return new DataSuccess(status: true, message: __("messages.removed_from_favourites"));
+
+            return new DataSuccess(status: true, message: __('messages.removed_from_favourites'));
         }
 
         FavouriteProduct::create([
@@ -33,8 +35,9 @@ class FavouriteProductService
             'organization_id' => $organization->id,
         ]);
 
-        return new DataSuccess(status: true, message: __("messages.added_to_favourites"));
+        return new DataSuccess(status: true, message: __('messages.added_to_favourites'));
     }
+
     public function fetchMyFavourite($data)
     {
         $user = auth('sanctum')->user();
@@ -57,7 +60,7 @@ class FavouriteProductService
         $query = ProductVariation::whereIn('id', $favouriteVariationIds);
 
         // Check if pagination is required
-        if (!empty($data['with_pagination']) && $data['with_pagination'] == 1) {
+        if (! empty($data['with_pagination']) && $data['with_pagination'] == 1) {
             $perPage = $data['per_page'] ?? 10;
             $paginated = $query->paginate($perPage);
 

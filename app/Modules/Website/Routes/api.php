@@ -95,11 +95,10 @@ Route::prefix('api/site')->middleware(['set.organization.context'])->group(funct
         Route::post('fetch_section_products', 'fetch_section_products');
     });
 
-
     Route::middleware('auth:sanctum')->group(function () {
 
         /** FavouriteProduct Endpoints */
-        Route::controller(FavouriteProductController::class)->group(function (){
+        Route::controller(FavouriteProductController::class)->group(function () {
             Route::post('toggle_favourite', 'toggle_favourite');
             Route::post('fetch_my_favourites', 'fetch_my_favourites');
         });
