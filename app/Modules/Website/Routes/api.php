@@ -6,6 +6,7 @@ use App\Modules\Website\app\Http\Controllers\Auth\AuthController;
 use App\Modules\Website\app\Http\Controllers\Brand\BrandController;
 use App\Modules\Website\app\Http\Controllers\Category\CategoryController;
 use App\Modules\Website\app\Http\Controllers\Faq\FaqController;
+use App\Modules\Website\app\Http\Controllers\FavouriteProduct\FavouriteProductController;
 use App\Modules\Website\app\Http\Controllers\Header\HeaderController;
 use App\Modules\Website\app\Http\Controllers\HomeSection\HomeSectionController;
 use App\Modules\Website\app\Http\Controllers\Privacy\PrivacyController;
@@ -92,6 +93,17 @@ Route::prefix('api/site')->middleware(['set.organization.context'])->group(funct
     Route::controller(HomeSectionController::class)->group(function () {
         Route::post('fetch_home_sections', 'fetch_home_sections');
         Route::post('fetch_section_products', 'fetch_section_products');
+    });
+
+
+    Route::middleware('auth:sanctum')->group(function () {
+
+        /** FavouriteProduct Endpoints */
+        Route::controller(FavouriteProductController::class)->group(function (){
+            Route::post('toggle_favourite', 'toggle_favourite');
+            Route::post('fetch_my_favourites', 'fetch_my_favourites');
+        });
+
     });
 
 });

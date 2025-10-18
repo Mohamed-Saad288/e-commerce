@@ -2,11 +2,15 @@
 
 namespace App\Modules\Website\app\Http\Resources\HomeSection;
 
+use App\Modules\Organization\app\Models\FavouriteProduct\FavouriteProduct;
+use App\Modules\Website\app\Traits\WebsiteLink\WebsiteLinkTrait;
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
+use function Symfony\Component\String\b;
 
 class HomeSectionProductResource extends JsonResource
 {
+    use WebsiteLinkTrait;
     /**
      * Transform the resource into an array.
      *
@@ -14,6 +18,11 @@ class HomeSectionProductResource extends JsonResource
      */
     public function toArray(Request $request): array
     {
+        $user = auth('sanctum')->user();
+        $organization = $this->getOrganization();
+        $favouriteVariation = FavouriteProduct::where('user_id', $user->id)
+            ->where('organization_id', $organization->id)
+            ->where("product_variation_id",$this->id)->exists();
         return [
             'name' => $this->name ?? null,
             'slug' => $this->slug ?? null,
@@ -28,6 +37,7 @@ class HomeSectionProductResource extends JsonResource
             'tax_type' => $this->tax_type ?? null,
             'tax_amount' => $this->tax_amount ?? null,
             'discount' => $this->discount ?? null,
+            'is_favourite' => (bool) $favouriteVariation ?? false,
             'main_image' => $this->getImages('main_images') ?? null,
         ];
     }
