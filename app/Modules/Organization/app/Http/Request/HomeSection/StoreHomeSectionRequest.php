@@ -18,7 +18,7 @@ class StoreHomeSectionRequest extends FormRequest
     public function rules(): array
     {
         $rules = [
-            'products' => 'required|array|exists:products,id',
+            'products' => 'required|array|exists:product_variations,id',
             'type' => [
                 'required',
                 new Enum(HomeSectionTypeEnum::class),

@@ -20,7 +20,7 @@ class UpdateHomeSectionRequest extends FormRequest
         $home_section = $this->route('home_section');
 
         $rules = [
-            'products' => 'nullable|array|exists:products,id',
+            'products' => 'nullable|array|exists:product_variations,id',
             'type' => [
                 'required',
                 new Enum(HomeSectionTypeEnum::class),

@@ -34,7 +34,7 @@ class HomeSectionService extends BaseService
             $home_section = $this->model->query()->create($data);
 
             if (! empty($dto->products)) {
-                $home_section->products()->attach($dto->products);
+                $home_section->productVariations()->attach($dto->products);
             }
             $this->reorderOrganizationSections($dto->organization_id);
 
@@ -67,7 +67,7 @@ class HomeSectionService extends BaseService
             }
 
             if (! empty($dto->products)) {
-                $model->products()->sync($dto->products);
+                $model->productVariations()->sync($dto->products);
             }
 
             return $model;

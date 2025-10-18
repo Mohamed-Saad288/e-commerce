@@ -8,6 +8,7 @@ use App\Modules\Organization\app\DTO\HomeSection\HomeSectionDto;
 use App\Modules\Organization\app\Http\Request\HomeSection\StoreHomeSectionRequest;
 use App\Modules\Organization\app\Http\Request\HomeSection\UpdateHomeSectionRequest;
 use App\Modules\Organization\app\Models\Product\Product;
+use App\Modules\Organization\app\Models\ProductVariation\ProductVariation;
 use App\Modules\Organization\app\Services\HomeSection\HomeSectionService;
 use Exception;
 
@@ -24,7 +25,7 @@ class HomeSectionController extends Controller
 
     public function create()
     {
-        $products = Product::whereOrganizationId(auth()->user()->organization_id)->get();
+        $products = ProductVariation::whereOrganizationId(auth()->user()->organization_id)->get();
 
         return view('organization::dashboard.home_sections.single', get_defined_vars());
     }
@@ -41,7 +42,7 @@ class HomeSectionController extends Controller
 
     public function edit(HomeSection $home_section)
     {
-        $products = Product::whereOrganizationId(auth()->user()->organization_id)->get();
+        $products = ProductVariation::whereOrganizationId(auth()->user()->organization_id)->get();
 
         return view('organization::dashboard.home_sections.single', get_defined_vars());
     }

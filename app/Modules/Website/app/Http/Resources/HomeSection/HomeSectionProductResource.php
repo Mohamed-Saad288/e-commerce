@@ -15,9 +15,20 @@ class HomeSectionProductResource extends JsonResource
     public function toArray(Request $request): array
     {
         return [
-            'id' => $this->id ?? null,
             'name' => $this->name ?? null,
             'slug' => $this->slug ?? null,
+            'description' => $this->product?->description ?? null,
+            'short_description' => $this->product?->short_description ?? null,
+            'sku' => $this->sku ?? null,
+            'barcode' => $this->barcode ?? null,
+            'type' => $this->product?->type ?? null,
+            'cost_price' => $this->cost_price ?? null,
+            'selling_price' => $this->selling_price ?? null,
+            'total_price' => $this->total_price ?? null,
+            'tax_type' => $this->tax_type ?? null,
+            'tax_amount' => $this->tax_amount ?? null,
+            'discount' => $this->discount ?? null,
+            'main_image' => $this->getImages('main_images') ?? null,
         ];
     }
 }
