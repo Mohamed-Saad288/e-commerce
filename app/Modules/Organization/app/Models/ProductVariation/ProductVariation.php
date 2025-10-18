@@ -3,6 +3,7 @@
 namespace App\Modules\Organization\app\Models\ProductVariation;
 
 use App\Modules\Base\app\Models\BaseModel;
+use App\Modules\Organization\app\Models\Brand\Brand;
 use App\Modules\Organization\app\Models\Category\Category;
 use App\Modules\Organization\app\Models\OptionItem\OptionItem;
 use App\Modules\Organization\app\Models\Product\Product;
@@ -56,5 +57,10 @@ class ProductVariation extends BaseModel implements TranslatableContract
     public function category() : hasOneThrough
     {
         return $this->hasOneThrough(Category::class, Product::class, 'id', 'id', 'product_id', 'category_id');
+    }
+
+    public function brand():hasOneThrough
+    {
+        return $this->hasOneThrough(Brand::class, Product::class, 'id', 'id', 'product_id', 'brand_id');
     }
 }
