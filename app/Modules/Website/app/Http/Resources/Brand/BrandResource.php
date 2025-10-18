@@ -22,7 +22,7 @@ class BrandResource extends JsonResource
             'description' => $this->description ?? null,
             'image' => $this->getImage() ?? null,
             'is_active' => $this->is_active ?? null,
-            "products" => ProductVariationResource::collection($this->whenLoaded('products') ?? []) ?? [],
+            'products' => ProductVariationResource::collection($this->whenLoaded('products') ?? []) ?? [],
             'created_at' => $this->created_at,
         ];
     }

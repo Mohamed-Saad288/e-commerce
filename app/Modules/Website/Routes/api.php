@@ -58,7 +58,6 @@ Route::prefix('api/site')->middleware(['set.organization.context'])->group(funct
     });
 
     /** Product Variation */
-
     Route::controller(ProductVariationController::class)->group(function () {
         Route::post('fetch_products', 'index');
         Route::get('show_products/{id}', 'show');

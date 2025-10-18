@@ -11,7 +11,6 @@ use App\Modules\Organization\app\Models\ProductVariation\ProductVariation;
 
 class ProductVariationService extends BaseService
 {
-
     public function __construct()
     {
         parent::__construct(resolve(ProductVariation::class));

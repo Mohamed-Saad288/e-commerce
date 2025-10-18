@@ -15,7 +15,7 @@ class CategoryService extends BaseService
 
     public function withRelations(): array
     {
-        return ['subCategories', 'parent', 'brands', 'allSubCategories', 'productVariations',];
+        return ['subCategories', 'parent', 'brands', 'allSubCategories', 'productVariations'];
     }
 
     public function filters($request = null): array
