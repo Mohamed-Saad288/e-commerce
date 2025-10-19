@@ -7,6 +7,7 @@ use App\Modules\Base\app\DTO\DTOInterface;
 class AdminDto implements DTOInterface
 {
     public ?string $name;
+
     public ?string $phone;
 
     public ?string $email;
