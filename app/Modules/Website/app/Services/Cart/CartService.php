@@ -2,8 +2,8 @@
 
 namespace App\Modules\Website\app\Services\Cart;
 
-use App\Modules\Base\app\Response\DataSuccess;
 use App\Modules\Base\app\Response\DataFailed;
+use App\Modules\Base\app\Response\DataSuccess;
 use App\Modules\Organization\app\Models\Cart\Cart;
 use App\Modules\Organization\app\Models\ProductVariation\ProductVariation;
 use App\Modules\Website\app\Http\Resources\Cart\CartResource;
@@ -19,7 +19,7 @@ class CartService
         $user = auth('sanctum')->user();
 
         $productVariation = ProductVariation::find($data['product_id']);
-        if (!$productVariation) {
+        if (! $productVariation) {
             return new DataFailed(status: false, message: 'Invalid product');
         }
 
@@ -59,13 +59,13 @@ class CartService
     public function update_cart($data)
     {
         $cart = Cart::find($data['cart_id']);
-        if (!$cart) {
+        if (! $cart) {
             return new DataFailed(status: false, message: 'Cart not found');
         }
 
         if (isset($data['product_id'])) {
             $productVariation = ProductVariation::find($data['product_id']);
-            if (!$productVariation) {
+            if (! $productVariation) {
                 return new DataFailed(status: false, message: 'Invalid product');
             }
 
@@ -91,7 +91,7 @@ class CartService
     public function show_cart($data)
     {
         $cart = Cart::find($data['cart_id']);
-        if (!$cart) {
+        if (! $cart) {
             return new DataFailed(status: false, message: 'Cart not found');
         }
 
@@ -105,7 +105,7 @@ class CartService
     public function delete_cart($data)
     {
         $cart = Cart::find($data['cart_id']);
-        if (!$cart) {
+        if (! $cart) {
             return new DataFailed(status: false, message: 'Cart not found');
         }
 

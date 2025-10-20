@@ -34,5 +34,4 @@ class Cart extends BaseModel
     {
         return $this->belongsTo(Organization::class, 'organization_id');
     }
-
 }
