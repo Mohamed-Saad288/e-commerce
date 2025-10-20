@@ -4,6 +4,7 @@ use App\Http\Controllers\Auth\EmailVerificationController;
 use App\Http\Controllers\Auth\RestPasswordController;
 use App\Modules\Website\app\Http\Controllers\Auth\AuthController;
 use App\Modules\Website\app\Http\Controllers\Brand\BrandController;
+use App\Modules\Website\app\Http\Controllers\Cart\CartController;
 use App\Modules\Website\app\Http\Controllers\Category\CategoryController;
 use App\Modules\Website\app\Http\Controllers\Faq\FaqController;
 use App\Modules\Website\app\Http\Controllers\FavouriteProduct\FavouriteProductController;
@@ -101,6 +102,16 @@ Route::prefix('api/site')->middleware(['set.organization.context'])->group(funct
         Route::controller(FavouriteProductController::class)->group(function () {
             Route::post('toggle_favourite', 'toggle_favourite');
             Route::post('fetch_my_favourites', 'fetch_my_favourites');
+        });
+
+        /** Cart Endpoints */
+        Route::controller(CartController::class)->group(function () {
+            Route::post('store_cart', 'store_cart');
+            Route::post('update_cart', 'update_cart');
+            Route::post('delete_cart', 'delete_cart');
+            Route::post('show_cart', 'show_cart');
+            Route::post('clear_cart', 'clear_cart');
+            Route::post('get_my_cart', 'get_my_cart');
         });
 
     });
