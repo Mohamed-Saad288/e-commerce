@@ -206,4 +206,6 @@ return [
     'fixed_amount' => 'مبلغ ثابت',
     'percentage' => 'نسبة مئوية',
     'free_shipping' => 'شحن مجاني',
+    'coupon_activated' => 'تم تفعيل الكوبون بنجاح',
+    'coupon_deactivated' => 'تم إلغاء تفعيل الكوبون',
 ];

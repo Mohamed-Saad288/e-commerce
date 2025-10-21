@@ -9,6 +9,7 @@ use App\Modules\Organization\app\Http\Request\Category\UpdateCategoryRequest;
 use App\Modules\Organization\app\Models\Category\Category;
 use App\Modules\Organization\app\Services\Category\CategoryService;
 use Exception;
+use Illuminate\Http\Request;
 
 class CategoryController extends Controller
 {
@@ -16,16 +17,31 @@ class CategoryController extends Controller
 
     public function index()
     {
-        $categories = $this->service->index();
-
+        $categories = Category::whereNull('parent_id')
+            ->where('organization_id', auth('organization_employee')->user()->organization_id)
+            ->latest()
+            ->paginate(10);
         return view('organization::dashboard.categories.index', get_defined_vars());
     }
 
-    public function create()
+    public function create(Request $request)
     {
-        $categories = Category::query()->get();
 
-        return view('organization::dashboard.categories.single', get_defined_vars());
+
+        $parent_id = $request->get('parent_id');
+        if (isset($parent_id))
+        {
+            $parents = Category::whereNull('parent_id')
+                ->where('organization_id', auth('organization_employee')->user()->organization_id)
+                ->get();
+        }else{
+            $parents = Category::whereNull('parent_id')
+                ->where('organization_id', auth('organization_employee')->user()->organization_id)
+                ->get();
+        }
+
+
+        return view('organization::dashboard.categories.single', compact('parents', 'parent_id'));
     }
 
     public function store(StoreCategoryRequest $request)
@@ -40,8 +56,9 @@ class CategoryController extends Controller
 
     public function edit(Category $category)
     {
-        $categories = Category::query()->where('id', '!=', $category->id)->get();
-
+        $parents = Category::where('organization_id', auth('organization_employee')->user()->organization_id)
+            ->where('id', '!=', $category->id)->get();
+        $parent_id = $category->parent_id;
         return view('organization::dashboard.categories.single', get_defined_vars());
     }
 
@@ -71,4 +88,13 @@ class CategoryController extends Controller
             ], 500);
         }
     }
+    public function showSubCategories($id)
+    {
+        $parent = Category::with('translations')->findOrFail($id);
+
+        $subCategories = $parent->subCategories()->with('translations')->get();
+
+        return view('organization::dashboard.categories.subcategories', compact('parent', 'subCategories'));
+    }
+
 }

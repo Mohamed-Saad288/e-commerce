@@ -21,28 +21,32 @@ class OrganizationSettingService extends BaseService
         return DB::transaction(function () use ($dto) {
             $data = $dto->toArray();
 
-            if (! empty($dto->logo)) {
-                if (! empty($dto->organization_id)) {
-                    $existing = $this->model->where('organization_id', $dto->organization_id)->first();
+            // نجيب السجل الحالي مرة واحدة
+            $existing = $this->model->where('organization_id', $dto->organization_id)->first();
 
-                    if ($existing && $existing->logo && Storage::disk('public')->exists($existing->logo)) {
-                        Storage::disk('public')->delete($existing->logo);
-                    }
+            // ===== LOGO =====
+            if (!empty($dto->logo)) {
+                // نحذف القديم فقط لو فيه جديد
+                if ($existing && $existing->logo && Storage::disk('public')->exists($existing->logo)) {
+                    Storage::disk('public')->delete($existing->logo);
                 }
 
                 $data['logo'] = uploadImage($dto->logo, 'settings');
+            } else {
+                // نحافظ على القديم لو مفيش جديد
+                unset($data['logo']);
             }
 
-            if (! empty($dto->breadcrumb_image)) {
-                if (! empty($dto->organization_id)) {
-                    $existing = $this->model->where('organization_id', $dto->organization_id)->first();
-
-                    if ($existing && $existing->breadcrumb_image && Storage::disk('public')->exists($existing->breadcrumb_image)) {
-                        Storage::disk('public')->delete($existing->breadcrumb_image);
-                    }
+            // ===== BREADCRUMB IMAGE =====
+            if (!empty($dto->breadcrumb_image)) {
+                if ($existing && $existing->breadcrumb_image && Storage::disk('public')->exists($existing->breadcrumb_image)) {
+                    Storage::disk('public')->delete($existing->breadcrumb_image);
                 }
 
                 $data['breadcrumb_image'] = uploadImage($dto->breadcrumb_image, 'settings');
+            } else {
+                // نحافظ على القديم لو مفيش جديد
+                unset($data['breadcrumb_image']);
             }
 
             return $this->model->updateOrCreate(
@@ -51,4 +55,6 @@ class OrganizationSettingService extends BaseService
             );
         });
     }
+
+
 }

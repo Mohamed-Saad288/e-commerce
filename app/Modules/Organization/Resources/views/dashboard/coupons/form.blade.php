@@ -23,7 +23,7 @@
                 @foreach(\App\Modules\Organization\Enums\Coupon\CouponTypeEnum::cases() as $type)
                     <option value="{{ $type->value }}"
                         {{ old('type', $coupon->type ?? '') == $type->value ? 'selected' : '' }}>
-                        {{ __('organizations.coupon_type_' . $type->value) }}
+                        {{ __('organizations.coupon_type_' . $type->name) }}
                     </option>
                 @endforeach
             </select>

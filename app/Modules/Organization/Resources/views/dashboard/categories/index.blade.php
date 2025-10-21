@@ -29,17 +29,30 @@
                                         <tr>
                                             <td>{{ $loop->iteration }}</td>
                                             <td>{{ $category->translate(app()->getLocale())->name }}</td>
-                                            <td>
-                                                    <a href="{{ route('organization.categories.edit', $category->id) }}"
-                                                       class="btn btn-sm btn-success">
-                                                        <i class='fe fe-edit fa-2x'></i>
-                                                    </a>
+                                            <td class="d-flex gap-2">
+                                                {{-- زر التعديل --}}
+                                                <a href="{{ route('organization.categories.edit', $category->id) }}"
+                                                   class="btn btn-sm btn-success">
+                                                    <i class='fe fe-edit fa-2x'></i>
+                                                </a>
 
-                                                    <button class="btn btn-sm btn-danger delete-category"
-                                                            data-id="{{ $category->id }}">
-                                                        <i class="fe fe-trash-2 fa-2x"></i>
-                                                    </button>
+                                                {{-- زر عرض الأبناء لو عنده subcategories --}}
+                                                @if($category->subCategories->count() > 0)
+                                                    <a href="{{ route('organization.categories.subcategories', $category->id) }}"
+                                                       class="btn btn-sm btn-info">
+                                                        <i class="fe fe-eye fa-2x"></i>
+                                                    </a>
+                                                @endif
+
+                                                {{-- زر الحذف --}}
+                                                <button class="btn btn-sm btn-danger delete-category"
+                                                        data-id="{{ $category->id }}">
+                                                    <i class="fe fe-trash-2 fa-2x"></i>
+                                                </button>
                                             </td>
+
+
+
                                         </tr>
                                     @endforeach
                                 @else
