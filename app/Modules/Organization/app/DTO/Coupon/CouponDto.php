@@ -8,14 +8,23 @@ use Illuminate\Foundation\Http\FormRequest;
 class CouponDto implements DTOInterface
 {
     public ?int $organization_id = null;
+
     public ?string $code = null;
+
     public ?string $type = null;
+
     public ?float $value = null;
+
     public ?float $min_order_amount = null;
+
     public ?string $start_date = null;
+
     public ?string $end_date = null;
+
     public ?int $usage_limit = null;
+
     public ?int $used_count = null;
+
     public bool $is_active = true;
 
     public function __construct(
@@ -45,7 +54,7 @@ class CouponDto implements DTOInterface
     public static function fromArray(FormRequest|array $data): DTOInterface
     {
         $arrayData = $data instanceof FormRequest ? $data->validated() : $data;
-        $organizationId = auth("organization_employee")->user()->organization_id ?? null;
+        $organizationId = auth('organization_employee')->user()->organization_id ?? null;
 
         return new self(
             organization_id: $organizationId,
