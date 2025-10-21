@@ -14,8 +14,8 @@ class UpdateOrganizationSettingRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'logo' => ['nullable','image'],
-            'breadcrumb_image' => ['nullable','image'],
+            'logo' => ['nullable', 'image'],
+            'breadcrumb_image' => ['nullable', 'image'],
             'primary_color' => ['nullable', 'string'],
             'secondary_color' => ['nullable', 'string'],
             'facebook_link' => ['nullable', 'string'],
