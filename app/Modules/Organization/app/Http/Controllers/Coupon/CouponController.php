@@ -29,6 +29,7 @@ class CouponController extends Controller
     public function store(StoreCouponRequest $request)
     {
         $this->service->store(CouponDto::fromArray($request));
+
         return to_route('organization.coupons.index')->with([
             'message' => __('messages.success'),
             'alert-type' => 'success',

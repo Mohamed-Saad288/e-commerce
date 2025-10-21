@@ -16,7 +16,8 @@ class StoreCouponRequest extends FormRequest
 
     public function rules(): array
     {
-        $organizationId = auth("organization_employee")->user()->organization_id;
+        $organizationId = auth('organization_employee')->user()->organization_id;
+
         return [
             'code' => [
                 'required',

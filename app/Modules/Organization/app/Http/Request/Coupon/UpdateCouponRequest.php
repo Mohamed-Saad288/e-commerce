@@ -16,7 +16,7 @@ class UpdateCouponRequest extends FormRequest
 
     public function rules(): array
     {
-        $organizationId = auth("organization_employee")->user()->organization_id;
+        $organizationId = auth('organization_employee')->user()->organization_id;
         $couponId = $this->route('coupon') ?? $this->route('id');
 
         return [
