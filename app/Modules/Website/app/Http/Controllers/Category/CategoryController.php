@@ -7,6 +7,7 @@ use App\Modules\Base\app\Http\Resources\SimpleTitleResource;
 use App\Modules\Base\app\Response\DataSuccess;
 use App\Modules\Organization\app\Services\Category\CategoryService;
 use App\Modules\Website\app\Http\Resources\Category\CategoryResource;
+use App\Modules\Website\app\Http\Resources\Category\ShowCategoryResource;
 use Illuminate\Http\Request;
 
 class CategoryController extends Controller
@@ -38,7 +39,7 @@ class CategoryController extends Controller
         $category = $this->service->find($id);
 
         return (new DataSuccess(
-            data: new CategoryResource($category), status: true,
+            data: new ShowCategoryResource($category), status: true,
             message: __('messages.data_retrieved_successfully')
         ))->response();
     }
