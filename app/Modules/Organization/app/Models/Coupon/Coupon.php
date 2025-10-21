@@ -28,7 +28,8 @@ class Coupon extends BaseModel
     {
         return $this->belongsTo(Organization::class, 'organization_id');
     }
-    public function usages() : HasMany
+
+    public function usages(): HasMany
     {
         return $this->hasMany(CouponUsage::class, 'coupon_id');
     }

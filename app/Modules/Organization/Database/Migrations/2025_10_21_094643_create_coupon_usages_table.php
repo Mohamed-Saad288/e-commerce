@@ -24,7 +24,7 @@ return new class extends Migration
                 ->cascadeOnUpdate()
                 ->nullOnDelete();
             $table->dateTime('used_at')->nullable();
-            $table->foreignId("organization_id")->nullable()->constrained("organizations")
+            $table->foreignId('organization_id')->nullable()->constrained('organizations')
                 ->nullOnDelete()
                 ->cascadeOnUpdate();
             $table->timestamps();
