@@ -181,4 +181,33 @@
     </div>
 </div>
 
+
+{{-- breadcrumb_image في الآخر --}}
+<div class="row">
+    <div class="col-md-6">
+        <div class="form-group">
+            <div class="custom-file">
+                <input type="file"
+                       name="breadcrumb_image"
+                       class="custom-file-input @error('breadcrumb_image') is-invalid @enderror"
+                       id="breadcrumb_image"
+                       accept="image/*">
+                <label class="custom-file-label" for="logo">{{ __('messages.upload_breadcrumb_image') }}</label>
+                @error('breadcrumb_image')
+                <small class="text-danger">{{ $message }}</small>
+                @enderror
+            </div>
+
+            @if(isset($organization_setting) && $organization_setting->breadcrumb_image)
+                <div class="mb-3">
+                    <img src="{{ asset("storage/$organization_setting->breadcrumb_image") }}"
+                         alt="Organization breadcrumb_image" class="img-thumbnail" width="150">
+                </div>
+            @endif
+
+            <div id="logo-preview" class="mt-2"></div>
+        </div>
+    </div>
+</div>
+
 <button type="submit" class="btn btn-primary">{{ __('messages.submit') }}</button>

@@ -33,6 +33,18 @@ class OrganizationSettingService extends BaseService
                 $data['logo'] = uploadImage($dto->logo, 'settings');
             }
 
+            if (! empty($dto->breadcrumb_image)) {
+                if (! empty($dto->organization_id)) {
+                    $existing = $this->model->where('organization_id', $dto->organization_id)->first();
+
+                    if ($existing && $existing->breadcrumb_image && Storage::disk('public')->exists($existing->breadcrumb_image)) {
+                        Storage::disk('public')->delete($existing->breadcrumb_image);
+                    }
+                }
+
+                $data['breadcrumb_image'] = uploadImage($dto->breadcrumb_image, 'settings');
+            }
+
             return $this->model->updateOrCreate(
                 ['organization_id' => $dto->organization_id],
                 $data

@@ -10,10 +10,10 @@
                         <strong class="card-title">{{ __('organizations.edit_organization_setting') }}</strong>
                     </div>
                     <div class="card-body">
-                        <<form action="{{ route('organization.organization_settings.update') }}"
-                               method="POST" enctype="multipart/form-data">
+                        <form action="{{ route('organization.organization_settings.update') }}"
+                              method="POST" enctype="multipart/form-data">
                             @csrf
-                            @method('POST') {{-- بما إنك مستخدم POST مش PUT --}}
+                            @method('POST')
                             @include('organization::dashboard.organization_settings.form')
                         </form>
                     </div>
@@ -24,17 +24,14 @@
 
     <script>
         document.addEventListener('DOMContentLoaded', function () {
-            const input = document.getElementById('logo');
-            const preview = document.getElementById('logo-preview');
-            const oldImageContainer = document.querySelector('.mb-3');
+            // ===== Logo Preview =====
+            const logoInput = document.getElementById('logo');
+            const logoPreview = document.getElementById('logo-preview');
+            const oldLogoContainer = document.querySelector('.mb-3 img[alt="Organization Logo"]')?.parentElement;
 
-            input.addEventListener('change', function () {
-                if (oldImageContainer) {
-                    oldImageContainer.style.display = 'none';
-                }
-
-                preview.innerHTML = '';
-
+            logoInput?.addEventListener('change', function () {
+                if (oldLogoContainer) oldLogoContainer.style.display = 'none';
+                logoPreview.innerHTML = '';
                 if (this.files && this.files[0]) {
                     const reader = new FileReader();
                     reader.onload = function (e) {
@@ -42,7 +39,31 @@
                         img.src = e.target.result;
                         img.className = 'img-thumbnail mt-2';
                         img.width = 150;
-                        preview.appendChild(img);
+                        logoPreview.appendChild(img);
+                    };
+                    reader.readAsDataURL(this.files[0]);
+                }
+            });
+
+            // ===== Breadcrumb Image Preview =====
+            const breadcrumbInput = document.getElementById('breadcrumb_image');
+            const breadcrumbPreview = document.createElement('div');
+            breadcrumbPreview.id = 'breadcrumb-preview';
+            breadcrumbInput.closest('.form-group').appendChild(breadcrumbPreview);
+
+            const oldBreadcrumbContainer = document.querySelector('.mb-3 img[alt="Organization breadcrumb_image"]')?.parentElement;
+
+            breadcrumbInput?.addEventListener('change', function () {
+                if (oldBreadcrumbContainer) oldBreadcrumbContainer.style.display = 'none';
+                breadcrumbPreview.innerHTML = '';
+                if (this.files && this.files[0]) {
+                    const reader = new FileReader();
+                    reader.onload = function (e) {
+                        const img = document.createElement('img');
+                        img.src = e.target.result;
+                        img.className = 'img-thumbnail mt-2';
+                        img.width = 150;
+                        breadcrumbPreview.appendChild(img);
                     };
                     reader.readAsDataURL(this.files[0]);
                 }
