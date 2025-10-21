@@ -102,7 +102,6 @@ Route::group(
                 ]);
                 // #endregion
 
-
                 // #region Settings Pages (single edit/update routes)
                 Route::controller(OrganizationSettingController::class)
                     ->prefix('organization_settings')
@@ -156,7 +155,6 @@ Route::group(
 
                 Route::post('coupons/{id}/toggle-status', [CouponController::class, 'toggleStatus'])
                     ->name('coupons.toggleStatus');
-
 
                 Route::get('categories/{id}/subcategories', [CategoryController::class, 'showSubCategories'])
                     ->name('categories.subcategories');

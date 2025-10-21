@@ -68,10 +68,11 @@ class CouponController extends Controller
             ], 500);
         }
     }
+
     public function toggleStatus($id)
     {
         $coupon = Coupon::findOrFail($id);
-        $coupon->is_active = !$coupon->is_active;
+        $coupon->is_active = ! $coupon->is_active;
         $coupon->save();
 
         return response()->json([
@@ -79,8 +80,7 @@ class CouponController extends Controller
             'status' => $coupon->is_active,
             'message' => $coupon->is_active
                 ? __('messages.coupon_activated')
-                : __('messages.coupon_deactivated')
+                : __('messages.coupon_deactivated'),
         ]);
     }
-
 }

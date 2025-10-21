@@ -25,7 +25,7 @@ class OrganizationSettingService extends BaseService
             $existing = $this->model->where('organization_id', $dto->organization_id)->first();
 
             // ===== LOGO =====
-            if (!empty($dto->logo)) {
+            if (! empty($dto->logo)) {
                 // نحذف القديم فقط لو فيه جديد
                 if ($existing && $existing->logo && Storage::disk('public')->exists($existing->logo)) {
                     Storage::disk('public')->delete($existing->logo);
@@ -38,7 +38,7 @@ class OrganizationSettingService extends BaseService
             }
 
             // ===== BREADCRUMB IMAGE =====
-            if (!empty($dto->breadcrumb_image)) {
+            if (! empty($dto->breadcrumb_image)) {
                 if ($existing && $existing->breadcrumb_image && Storage::disk('public')->exists($existing->breadcrumb_image)) {
                     Storage::disk('public')->delete($existing->breadcrumb_image);
                 }
@@ -55,6 +55,4 @@ class OrganizationSettingService extends BaseService
             );
         });
     }
-
-
 }

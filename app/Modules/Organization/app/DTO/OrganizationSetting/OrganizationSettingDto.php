@@ -34,6 +34,7 @@ class OrganizationSettingDto implements DTOInterface
     public ?string $x_link = null;
 
     public ?string $tiktok_link = null;
+
     public $breadcrumb_image = null;
 
     public function __construct(
@@ -110,7 +111,7 @@ class OrganizationSettingDto implements DTOInterface
             'lng' => $this->lng,
             'x_link' => $this->x_link,
             'tiktok_link' => $this->tiktok_link,
-            'breadcrumb_image' => $this->breadcrumb_image
+            'breadcrumb_image' => $this->breadcrumb_image,
         ];
     }
 }

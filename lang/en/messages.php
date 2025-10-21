@@ -165,6 +165,6 @@ return [
     'percentage' => 'Percentage',
     'free_shipping' => 'Free Shipping',
     'coupons' => 'Coupons',
-    'coupon_activated' => "Coupon Activated",
-    'coupon_deactivated' => 'Coupon Deactivated'
+    'coupon_activated' => 'Coupon Activated',
+    'coupon_deactivated' => 'Coupon Deactivated',
 ];

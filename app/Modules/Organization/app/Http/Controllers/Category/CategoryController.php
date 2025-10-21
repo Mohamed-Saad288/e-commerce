@@ -21,25 +21,23 @@ class CategoryController extends Controller
             ->where('organization_id', auth('organization_employee')->user()->organization_id)
             ->latest()
             ->paginate(10);
+
         return view('organization::dashboard.categories.index', get_defined_vars());
     }
 
     public function create(Request $request)
     {
 
-
         $parent_id = $request->get('parent_id');
-        if (isset($parent_id))
-        {
+        if (isset($parent_id)) {
             $parents = Category::whereNull('parent_id')
                 ->where('organization_id', auth('organization_employee')->user()->organization_id)
                 ->get();
-        }else{
+        } else {
             $parents = Category::whereNull('parent_id')
                 ->where('organization_id', auth('organization_employee')->user()->organization_id)
                 ->get();
         }
-
 
         return view('organization::dashboard.categories.single', compact('parents', 'parent_id'));
     }
@@ -59,6 +57,7 @@ class CategoryController extends Controller
         $parents = Category::where('organization_id', auth('organization_employee')->user()->organization_id)
             ->where('id', '!=', $category->id)->get();
         $parent_id = $category->parent_id;
+
         return view('organization::dashboard.categories.single', get_defined_vars());
     }
 
@@ -88,6 +87,7 @@ class CategoryController extends Controller
             ], 500);
         }
     }
+
     public function showSubCategories($id)
     {
         $parent = Category::with('translations')->findOrFail($id);
@@ -96,5 +96,4 @@ class CategoryController extends Controller
 
         return view('organization::dashboard.categories.subcategories', compact('parent', 'subCategories'));
     }
-
 }

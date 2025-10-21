@@ -180,5 +180,5 @@ return [
     'coupon_type_FREE_SHIPPING' => 'Free Shipping',
     'subcategories_for' => 'Subcategories For',
     'add_subcategory' => 'Add Subcategory',
-    'main_category' => "Main Category"
+    'main_category' => 'Main Category',
 ];
