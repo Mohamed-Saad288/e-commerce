@@ -34,6 +34,7 @@ class OrganizationSettingDto implements DTOInterface
     public ?string $x_link = null;
 
     public ?string $tiktok_link = null;
+    public $breadcrumb_image = null;
 
     public function __construct(
         ?int $organization_id = null,
@@ -49,7 +50,8 @@ class OrganizationSettingDto implements DTOInterface
         ?string $lat = null,
         ?string $lng = null,
         ?string $x_link = null,
-        ?string $tiktok_link = null
+        ?string $tiktok_link = null,
+        $breadcrumb_image = null
     ) {
         $this->organization_id = $organization_id;
         $this->employee_id = $employee_id;
@@ -65,6 +67,7 @@ class OrganizationSettingDto implements DTOInterface
         $this->lng = $lng;
         $this->x_link = $x_link;
         $this->tiktok_link = $tiktok_link;
+        $this->breadcrumb_image = $breadcrumb_image;
     }
 
     public static function fromArray(FormRequest|array $data): DTOInterface
@@ -86,6 +89,7 @@ class OrganizationSettingDto implements DTOInterface
             lng: $arrayData['lng'] ?? null,
             x_link: $arrayData['x_link'] ?? null,
             tiktok_link: $arrayData['tiktok_link'] ?? null,
+            breadcrumb_image: $arrayData['breadcrumb_image'] ?? null
         );
     }
 
@@ -106,6 +110,7 @@ class OrganizationSettingDto implements DTOInterface
             'lng' => $this->lng,
             'x_link' => $this->x_link,
             'tiktok_link' => $this->tiktok_link,
+            'breadcrumb_image' => $this->breadcrumb_image
         ];
     }
 }

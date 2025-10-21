@@ -52,22 +52,24 @@
             </div>
         </div>
 
+        @if(isset($parent_id))
+            <input type="hidden" name="parent_id" value="{{ $parent_id }}">
+        @endif
+
         {{-- Parent Category --}}
         <div class="col-md-6">
-            <div class="form-group">
-                <label for="parent_id" class="font-weight-bold">{{ __('organizations.parent') }}</label>
-                <select name="parent_id" id="parent_id" class="form-control @error('parent_id') is-invalid @enderror">
-                    <option value="">{{ __('messages.none') }}</option>
-                    @foreach ($categories as $parentCategory)
-                        <option value="{{ $parentCategory->id }}"
-                            {{ old('parent_id', $category->parent_id ?? '') == $parentCategory->id ? 'selected' : '' }}>
-                            {{ $parentCategory->name }}
+            <div class="form-group mb-3">
+                <label for="parent_id">{{ __('organizations.parent_category') }}</label>
+                <select name="parent_id" id="parent_id" class="form-control" {{ isset($parent_id) ? 'disabled' : '' }}>
+                    <option value="">{{ __('organizations.main_category') }}</option>
+                    @foreach($parents as $parent)
+                        <option value="{{ $parent->id }}"
+                            {{ (isset($parent_id) && $parent_id == $parent->id) ? 'selected' : '' }}>
+                            {{ $parent->translate(app()->getLocale())->name }}
                         </option>
                     @endforeach
                 </select>
-                @error('parent_id')
-                <small class="text-danger">{{ $message }}</small>
-                @enderror
+
             </div>
         </div>
     </div>

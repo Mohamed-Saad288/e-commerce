@@ -9,7 +9,7 @@
                     <div class="card-header d-flex justify-content-between align-items-center">
                         <h4 class="card-title">{{ __('organizations.coupons') }}</h4>
                             <a href="{{ route('organization.coupons.create') }}" class="btn btn-primary">
-                                {{ __('organizations.add_supervisor') }}
+                                {{ __('organizations.add_coupon') }}
                             </a>
                     </div>
                     <div class="card-body">
@@ -40,8 +40,12 @@
                                                 <td>{{ __('messages.free_shipping') }}</td>
                                             @endif
                                             <td>{{ $coupon->value }}</td>
-                                            <td>{{ $coupon->is_active ? __('messages.active') : __('messages.inactive') }}</td>
                                             <td>
+                                                <button class="btn btn-sm toggle-status {{ $coupon->is_active ? 'btn-success' : 'btn-secondary' }}"
+                                                        data-id="{{ $coupon->id }}">
+                                                    {{ $coupon->is_active ? __('messages.active') : __('messages.inactive') }}
+                                                </button>
+                                            </td>                                            <td>
                                                 <a href="{{ route('organization.coupons.edit', $coupon->id) }}"
                                                    class="btn btn-sm btn-success">
                                                     <i class='fe fe-edit fa-2x'></i>
@@ -125,6 +129,48 @@
                     }
                 });
         });
+
+            $(document).on('click', '.toggle-status', function (e) {
+                e.preventDefault();
+                let button = $(this);
+                let couponId = button.data('id');
+                let url = "{{ route('organization.coupons.toggleStatus', ':id') }}".replace(':id', couponId);
+
+                $.ajax({
+                    url: url,
+                    type: "POST",
+                    data: {
+                        _token: "{{ csrf_token() }}"
+                    },
+                    success: function (response) {
+                        if (response.success) {
+                            if (response.status) {
+                                button.removeClass('btn-secondary').addClass('btn-success')
+                                    .text("{{ __('messages.active') }}");
+                            } else {
+                                button.removeClass('btn-success').addClass('btn-secondary')
+                                    .text("{{ __('messages.inactive') }}");
+                            }
+
+                            Swal.fire({
+                                icon: 'success',
+                                title: response.message,
+                                showConfirmButton: false,
+                                timer: 1000
+                            });
+                        }
+                    },
+                    error: function () {
+                        Swal.fire({
+                            icon: 'error',
+                            title: "{{ __('messages.error_occurred') }}",
+                            showConfirmButton: false,
+                            timer: 1500
+                        });
+                    }
+                });
+            });
+
     </script>
 
 @endsection
