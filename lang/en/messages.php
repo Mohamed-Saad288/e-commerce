@@ -159,4 +159,10 @@ return [
     'removed_from_favourites' => 'removed from favourites',
     'added_to_favourites' => 'added to favourites',
     'no_favourites_found' => 'no favourites found',
+    'upload_breadcrumb_image' => 'Upload Breadcrumb Image',
+    'code' => 'Code' ,
+    'fixed_amount' => 'Fixed Amount' ,
+    'percentage' => 'Percentage',
+    'free_shipping' => 'Free Shipping',
+    'coupons' => 'Coupons',
 ];

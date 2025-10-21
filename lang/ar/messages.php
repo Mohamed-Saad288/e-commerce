@@ -201,4 +201,9 @@ return [
     'removed_from_favourites' => 'المنتج حذف من المفضلة بنجاح',
     'added_to_favourites' => 'تم الاضافة في المفضلة بنجاح',
     'no_favourites_found' => 'لا توجد منتجات في المفضلة',
+    'upload_breadcrumb_image' => 'رفع صورة التنقل',
+    'code' => 'الكود',
+    'fixed_amount' => 'مبلغ ثابت',
+    'percentage' => 'نسبة مئوية',
+    'free_shipping' => 'شحن مجاني',
 ];

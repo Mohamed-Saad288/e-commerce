@@ -14,6 +14,7 @@ use App\Modules\Organization\app\Http\Controllers\Auth\AuthController;
 // #region Import Controllers (cleaned & grouped)
 use App\Modules\Organization\app\Http\Controllers\Brand\BrandController;
 use App\Modules\Organization\app\Http\Controllers\Category\CategoryController;
+use App\Modules\Organization\app\Http\Controllers\Coupon\CouponController;
 use App\Modules\Organization\app\Http\Controllers\Employee\EmployeeController;
 use App\Modules\Organization\app\Http\Controllers\Header\HeaderController;
 use App\Modules\Organization\app\Http\Controllers\Home\HomeController;
@@ -97,6 +98,7 @@ Route::group(
                     'whys' => WhyController::class,
                     'our_teams' => OurTeamController::class,
                     'home_sections' => HomeSectionController::class,
+                    'coupons' => CouponController::class,
                 ]);
                 // #endregion
 
