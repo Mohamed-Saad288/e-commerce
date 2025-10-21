@@ -28,7 +28,7 @@ class OrganizationSetting extends Model
         'lng',
         'x_link',
         'tiktok_link',
-        'breadcrumb_image'
+        'breadcrumb_image',
     ];
 
     /**
