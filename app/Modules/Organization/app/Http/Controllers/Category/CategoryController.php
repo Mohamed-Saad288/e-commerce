@@ -23,7 +23,7 @@ class CategoryController extends Controller
 
     public function create()
     {
-        $categories = Category::whereNull('parent_id')->query()->get();
+        $categories = Category::query()->get();
 
         return view('organization::dashboard.categories.single', get_defined_vars());
     }
@@ -40,7 +40,7 @@ class CategoryController extends Controller
 
     public function edit(Category $category)
     {
-        $categories = Category::query()->whereNull('parent_id')->where('id', '!=', $category->id)->get();
+        $categories = Category::query()->where('id', '!=', $category->id)->get();
 
         return view('organization::dashboard.categories.single', get_defined_vars());
     }
