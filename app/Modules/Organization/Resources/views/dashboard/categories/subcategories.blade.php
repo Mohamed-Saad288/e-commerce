@@ -32,22 +32,29 @@
                                             <td>{{ $loop->iteration }}</td>
                                             <td>{{ $sub->translate(app()->getLocale())->name }}</td>
                                             <td>
-                                                <a href="{{ route('organization.categories.edit', $sub->id) }}"
-                                                   class="btn btn-sm btn-success">
-                                                    <i class='fe fe-edit fa-2x'></i>
-                                                </a>
-
-                                                @if($sub->subCategories->count() > 0)
-                                                    <a href="{{ route('organization.categories.subcategories', $sub->id) }}"
-                                                       class="btn btn-sm btn-info">
-                                                        <i class="fe fe-eye fa-2x"></i>
+                                                <div class="btn-group" role="group">
+                                                    <a href="{{ route('organization.categories.edit', $sub->id) }}"
+                                                       class="btn btn-sm btn-success" title="{{ __('messages.edit') }}">
+                                                        <i class='fe fe-edit'></i>
                                                     </a>
-                                                @endif
 
-                                                <button class="btn btn-sm btn-danger delete-category"
-                                                        data-id="{{ $sub->id }}">
-                                                    <i class="fe fe-trash-2 fa-2x"></i>
-                                                </button>
+                                                    @if($sub->subCategories->count() > 0)
+                                                        <a href="{{ route('organization.categories.subcategories', $sub->id) }}"
+                                                           class="btn btn-sm btn-info" title="{{ __('messages.view') }}">
+                                                            <i class="fe fe-eye"></i>
+                                                        </a>
+                                                    @endif
+
+                                                    <button class="btn btn-sm btn-danger delete-category"
+                                                            data-id="{{ $sub->id }}" title="{{ __('messages.delete') }}">
+                                                        <i class="fe fe-trash-2"></i>
+                                                    </button>
+
+                                                    <a href="{{ route('organization.categories.create', ['parent_id' => $sub->id]) }}"
+                                                       class="btn btn-sm btn-primary" title="{{ __('organizations.add_subcategory') }}">
+                                                        <i class="fe fe-plus"></i>
+                                                    </a>
+                                                </div>
                                             </td>
                                         </tr>
                                     @endforeach

@@ -30,8 +30,7 @@ class CategoryController extends Controller
 
         $parent_id = $request->get('parent_id');
         if (isset($parent_id)) {
-            $parents = Category::whereNull('parent_id')
-                ->where('organization_id', auth('organization_employee')->user()->organization_id)
+            $parents = Category::where('organization_id', auth('organization_employee')->user()->organization_id)
                 ->get();
         } else {
             $parents = Category::whereNull('parent_id')
