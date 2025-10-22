@@ -2,9 +2,12 @@
 
 namespace App\Modules\Organization\app\Services\Category;
 
+use App\Modules\Base\app\Filters\RelationFilter;
 use App\Modules\Base\app\Filters\SearchFilter;
 use App\Modules\Base\app\Services\BaseService;
 use App\Modules\Organization\app\Models\Category\Category;
+use Illuminate\Database\Eloquent\Collection;
+use Illuminate\Pagination\LengthAwarePaginator;
 
 class CategoryService extends BaseService
 {
@@ -18,10 +21,12 @@ class CategoryService extends BaseService
         return ['subCategories', 'parent', 'brands', 'allSubCategories', 'productVariations'];
     }
 
+
     public function filters($request = null): array
     {
         return [
             (new SearchFilter($request))->setSearchable(['name', 'description', 'slug']),
+            (new RelationFilter($request))->setRelations(['parent' => ['key' => 'parent_id', 'column' => 'categories.parent_id', 'operator' => '=']]),
         ];
     }
 }

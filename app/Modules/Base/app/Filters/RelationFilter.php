@@ -21,6 +21,7 @@ class RelationFilter extends BaseFilter
                 continue;
             }
             $value = $this->request->get($key);
+
             $builder->whereHas($relation, function ($query) use ($column, $operator, $value) {
                 switch ($operator) {
                     case 'in':
