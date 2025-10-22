@@ -167,4 +167,5 @@ return [
     'coupons' => 'Coupons',
     'coupon_activated' => 'Coupon Activated',
     'coupon_deactivated' => 'Coupon Deactivated',
+    'choose_products' => 'Choose Products'
 ];
