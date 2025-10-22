@@ -6,8 +6,6 @@ use App\Modules\Base\app\Filters\RelationFilter;
 use App\Modules\Base\app\Filters\SearchFilter;
 use App\Modules\Base\app\Services\BaseService;
 use App\Modules\Organization\app\Models\Category\Category;
-use Illuminate\Database\Eloquent\Collection;
-use Illuminate\Pagination\LengthAwarePaginator;
 
 class CategoryService extends BaseService
 {
@@ -20,7 +18,6 @@ class CategoryService extends BaseService
     {
         return ['subCategories', 'parent', 'brands', 'allSubCategories', 'productVariations'];
     }
-
 
     public function filters($request = null): array
     {

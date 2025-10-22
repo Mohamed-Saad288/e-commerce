@@ -95,7 +95,7 @@ class Category extends BaseModel implements TranslatableContract
         return $this->subCategories()->pluck('id')->toArray();
     }
 
-    public function getFinalProducts(int $limit = null)
+    public function getFinalProducts(?int $limit = null)
     {
         $ownVariationsQuery = $this->productVariations();
 
@@ -119,5 +119,4 @@ class Category extends BaseModel implements TranslatableContract
             ? $query->limit($limit)->get()
             : $query->get();
     }
-
 }

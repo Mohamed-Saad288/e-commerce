@@ -2,9 +2,6 @@
 
 namespace App\Modules\Website\app\Http\Resources\Category;
 
-use App\Modules\Base\Enums\ActiveEnum;
-use App\Modules\Website\app\Http\Resources\Brand\BrandResource;
-use App\Modules\Website\app\Http\Resources\Product\ProductVariationResource;
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
 
