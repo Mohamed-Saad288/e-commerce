@@ -137,8 +137,8 @@
     <div class="row">
         <div class="col-md-12">
             <div class="form-group">
-                <label for="products" class="font-weight-bold">{{ __('messages.products') }}</label>
-                <select name="products[]" id="products" class="form-control select2 @error('products') is-invalid @enderror" multiple >
+                <label for="products" class="font-weight-bold">{{ __('messages.choose_products') }}</label>
+                <select class="form-control select2" name="products[]" multiple>
                     @foreach ($products as $product)
                         <option value="{{ $product->id }}"
                             {{ in_array($product->id, old('products', isset($home_section) ? $home_section->products->pluck('id')->toArray() : [])) ? 'selected' : '' }}>

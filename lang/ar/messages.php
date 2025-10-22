@@ -208,4 +208,5 @@ return [
     'free_shipping' => 'شحن مجاني',
     'coupon_activated' => 'تم تفعيل الكوبون بنجاح',
     'coupon_deactivated' => 'تم إلغاء تفعيل الكوبون',
+    'choose_products'  => "اختر المنتجات",
 ];

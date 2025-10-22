@@ -44,11 +44,18 @@
                                                     </a>
                                                 @endif
 
+                                                <a href="{{ route('organization.categories.create', ['parent_id' => $category->id]) }}"
+                                                   class="btn btn-sm btn-primary" title="{{ __('organizations.add_subcategory') }}">
+                                                    <i class="fe fe-plus"></i>
+                                                </a>
+                                                @if($category->subCategories->count() == 0)
+
                                                 {{-- زر الحذف --}}
                                                 <button class="btn btn-sm btn-danger delete-category"
                                                         data-id="{{ $category->id }}">
                                                     <i class="fe fe-trash-2 fa-2x"></i>
                                                 </button>
+                                                @endif
                                             </td>
 
 
