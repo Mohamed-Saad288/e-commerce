@@ -9,16 +9,27 @@ use App\Modules\Organization\app\Http\Request\Option\UpdateOptionRequest;
 use App\Modules\Organization\app\Models\Option\Option;
 use App\Modules\Organization\app\Services\Option\OptionService;
 use Exception;
+use Illuminate\Http\Request;
 
 class OptionController extends Controller
 {
     public function __construct(protected OptionService $service) {}
 
-    public function index()
+    public function index(Request $request)
     {
-        $options = $this->service->index();
+        $query = Option::whereOrganizationId(auth('organization_employee')->user()->organization_id);
 
-        return view('organization::dashboard.options.index', get_defined_vars());
+        if ($request->ajax()) {
+            if ($request->filled('search')) {
+                $query->whereTranslationLike('name', '%' . $request->search . '%');
+            }
+
+            $options = $query->latest()->paginate(10);
+            return view('organization::dashboard.options.partials._table', compact('options'))->render();
+        }
+
+        $options = $query->latest()->paginate(10);
+        return view('organization::dashboard.options.index', compact('options'));
     }
 
     public function create()
