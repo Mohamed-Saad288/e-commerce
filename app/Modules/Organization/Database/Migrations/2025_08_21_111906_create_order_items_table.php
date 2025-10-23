@@ -21,7 +21,7 @@ return new class extends BaseMigration
             $table->decimal('sub_total', 10, 2)->default(0); // this is the price of the product * quantity
             $table->tinyInteger('tax_type')->default(1)->comment('1=>amount , 2=>percentage');
             $table->decimal('tax_amount', 10, 2)->default(0);
-            $table->decimal('discount', 10, 2)->default(0);
+            $table->decimal('discount_amount', 10, 2)->default(0);
             $table->decimal('total_amount', 10, 2)->default(
                 0
             ); // this is the price of the product after discount and tax

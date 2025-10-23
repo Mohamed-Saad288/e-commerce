@@ -18,7 +18,8 @@ return new class extends BaseMigration
             $table->string('address2')->nullable();
             $table->foreignId('country_id')->constrained('countries')->onDelete('cascade');
             $table->foreignId('city_id')->constrained('cities')->onDelete('cascade');
-            $table->string('Postcode')->nullable();
+            $table->string('postcode')->nullable();
+            $table->string("phone")->nullable();
             $table->tinyInteger('type')->default(1)->comment('1=Shipping, 2=Billing');
             $table->boolean('is_default')->default(false);
             $table->timestamps();

@@ -10,6 +10,7 @@ use App\Modules\Website\app\Http\Controllers\Faq\FaqController;
 use App\Modules\Website\app\Http\Controllers\FavouriteProduct\FavouriteProductController;
 use App\Modules\Website\app\Http\Controllers\Header\HeaderController;
 use App\Modules\Website\app\Http\Controllers\HomeSection\HomeSectionController;
+use App\Modules\Website\app\Http\Controllers\Order\OrderController;
 use App\Modules\Website\app\Http\Controllers\Privacy\PrivacyController;
 use App\Modules\Website\app\Http\Controllers\Products\ProductVariationController;
 use App\Modules\Website\app\Http\Controllers\Term\TermController;
@@ -112,6 +113,15 @@ Route::prefix('api/site')->middleware(['set.organization.context'])->group(funct
             Route::post('show_cart', 'show_cart');
             Route::post('clear_cart', 'clear_cart');
             Route::post('get_my_cart', 'get_my_cart');
+        });
+
+        /** Order Endpoints */
+        Route::controller(OrderController::class)->group(function () {
+            Route::post('store_order', 'store');
+            Route::post('fetch_my_orders', 'fetch_my_orders');
+            Route::post('show_order', 'show_order');
+            Route::post('update_order', 'update_order');
+            Route::post('delete_order', 'delete_order');
         });
 
     });
