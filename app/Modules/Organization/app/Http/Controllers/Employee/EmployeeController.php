@@ -87,6 +87,7 @@ class EmployeeController extends Controller
         $search = $request->get('search');
 
         $employees = Employee::query()
+            ->where('organization_id', auth("organization_employee")->user()->organization_id)
             ->when($search, function ($query, $search) {
                 $query->where(function ($sub) use ($search) {
                     $sub->where('name', 'like', "%{$search}%")
