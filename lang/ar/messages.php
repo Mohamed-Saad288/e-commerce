@@ -221,5 +221,5 @@ return [
     'confirm_new_password' => 'تأكيد كلمة المرور الجديدة',
     'update_password' => 'تحديث كلمة المرور',
     'confirm_password' => 'تأكيد كلمة المرور',
-    'for_user' => 'للمستخدم'
+    'for_user' => 'للمستخدم',
 ];

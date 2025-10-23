@@ -34,6 +34,7 @@ class HomeController extends Controller
     public function profile()
     {
         $auth = auth('organization_employee')->user();
+
         return view('organization::auth.user-profile', compact('auth'));
     }
 
@@ -41,11 +42,14 @@ class HomeController extends Controller
     {
         return view('organization::auth.user-management');
     }
+
     public function create_change_password()
     {
         $auth = auth('organization_employee')->user();
+
         return view('organization::auth.change-password', compact('auth'));
     }
+
     public function store_change_password(Request $request)
     {
 
