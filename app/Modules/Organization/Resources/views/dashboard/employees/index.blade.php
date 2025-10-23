@@ -52,10 +52,10 @@
                                         <td>{{ $employee->phone ?? '-' }}</td>
                                         <td class="text-center">
                                             <a href="{{ route('organization.employees.edit', $employee->id) }}"
-                                               class="btn btn-sm btn-success me-1" title="{{ __('messages.edit') }}">
+                                               class="btn btn-outline-success btn-sm" title="{{ __('messages.edit') }}">
                                                 <i class="fe fe-edit"></i>
                                             </a>
-                                            <button class="btn btn-sm btn-danger delete-employee"
+                                            <button class="btn btn-outline-danger btn-sm delete-employee"
                                                     data-id="{{ $employee->id }}"
                                                     title="{{ __('messages.delete') }}">
                                                 <i class="fe fe-trash-2"></i>
