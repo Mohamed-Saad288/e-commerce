@@ -13,64 +13,24 @@
                             </a>
                     </div>
                     <div class="card-body">
-                        <div class="table-responsive">
-
-                            <table class="table datatables" id="dataTable-1">
-                                <thead>
-                                <tr>
-                                    <th>#</th>
-                                    <th>{{ __('messages.code') }}</th>
-                                    <th>{{ __('messages.type') }}</th>
-                                    <th>{{ __('messages.value') }}</th>
-                                    <th>{{ __('messages.is_active') }}</th>
-                                    <th>{{ __('messages.actions') }}</th>
-                                </tr>
-                                </thead>
-                                <tbody>
-                                @if (count($coupons) > 0)
-                                    @foreach ($coupons as $coupon)
-                                        <tr>
-                                            <td>{{ $loop->iteration }}</td>
-                                            <td>{{ $coupon->code }}</td>
-                                        @if($coupon->type == \App\Modules\Organization\Enums\Coupon\CouponTypeEnum::FIXED_AMOUNT->value)
-                                                <td>{{ __('messages.fixed_amount') }}</td>
-                                            @elseif($coupon->type == \App\Modules\Organization\Enums\Coupon\CouponTypeEnum::PERCENTAGE->value)
-                                                <td>{{ __('messages.percentage') }}</td>
-                                            @else
-                                                <td>{{ __('messages.free_shipping') }}</td>
-                                            @endif
-                                            <td>{{ $coupon->value }}</td>
-                                            <td>
-                                                <button class="btn btn-sm toggle-status {{ $coupon->is_active ? 'btn-success' : 'btn-secondary' }}"
-                                                        data-id="{{ $coupon->id }}">
-                                                    {{ $coupon->is_active ? __('messages.active') : __('messages.inactive') }}
-                                                </button>
-                                            </td>                                            <td>
-                                                <a href="{{ route('organization.coupons.edit', $coupon->id) }}"
-                                                   class="btn btn-sm btn-success">
-                                                    <i class='fe fe-edit fa-2x'></i>
-                                                </a>
-                                                <button class="btn btn-sm btn-danger delete-coupon"
-                                                        data-id="{{ $coupon->id }}">
-                                                    <i class="fe fe-trash-2 fa-2x"></i>
-                                                </button>
-                                            </td>
-                                        </tr>
-                                    @endforeach
-                                @else
-                                    <tr>
-                                        <td colspan="100%">
-                                            <div class="no-data">
-                                                <img src="{{ asset('no-data.png') }}" alt="No Data Found">
-                                                <p>{{ __('messages.no_data') }}</p>
-                                            </div>
-                                        </td>
-                                    </tr>
-                                @endif
-                                </tbody>
-                            </table>
+                        <!-- 🔍 البحث -->
+                        <div class="row mb-4">
+                            <div class="col-md-6">
+                                <div class="input-group">
+                                    <span class="input-group-text bg-white"><i class="fe fe-search"></i></span>
+                                    <input type="text" class="form-control" id="search-input"
+                                           placeholder="{{ __('messages.search') }}...">
+                                    <button class="btn btn-outline-secondary" type="button" id="clear-search">
+                                        <i class="fe fe-x"></i>
+                                    </button>
+                                </div>
+                            </div>
                         </div>
 
+                        <!-- 📋 الجدول -->
+                        <div id="coupons-table-container">
+                            @include('organization::dashboard.coupons.partials._table')
+                        </div>
                     </div>
                 </div>
             </div>
@@ -170,7 +130,52 @@
                     }
                 });
             });
+            $(document).ready(function () {
+                let searchTimeout;
 
+                // 🔎 Live Search
+                $('#search-input').on('keyup', function () {
+                    clearTimeout(searchTimeout);
+                    let query = $(this).val();
+                    searchTimeout = setTimeout(() => searchCoupons(query), 400);
+                });
+
+                // ❌ Clear Search
+                $('#clear-search').on('click', function () {
+                    $('#search-input').val('');
+                    searchCoupons('');
+                });
+
+                // 📡 Ajax Search + Pagination
+                function searchCoupons(query, pageUrl = "{{ route('organization.coupons.index') }}") {
+                    $.ajax({
+                        url: pageUrl,
+                        type: "GET",
+                        data: { search: query },
+                        beforeSend: function () {
+                            $('#coupons-table-container').html(`
+                    <div class="text-center py-4">
+                        <div class="spinner-border text-primary" role="status"></div>
+                    </div>
+                `);
+                        },
+                        success: function (response) {
+                            $('#coupons-table-container').html(response);
+                        },
+                        error: function () {
+                            Swal.fire("{{ __('messages.error') }}", "{{ __('messages.error_occurred') }}", "error");
+                        }
+                    });
+                }
+
+                // 📄 Handle pagination
+                $(document).on('click', '.pagination a', function (e) {
+                    e.preventDefault();
+                    let pageUrl = $(this).attr('href');
+                    let query = $('#search-input').val();
+                    searchCoupons(query, pageUrl);
+                });
+            });
     </script>
 
 @endsection

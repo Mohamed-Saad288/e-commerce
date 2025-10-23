@@ -9,16 +9,27 @@ use App\Modules\Organization\app\Http\Request\Coupon\UpdateCouponRequest;
 use App\Modules\Organization\app\Models\Coupon\Coupon;
 use App\Modules\Organization\app\Services\Coupon\CouponService;
 use Exception;
+use Illuminate\Http\Request;
 
 class CouponController extends Controller
 {
     public function __construct(protected CouponService $service) {}
 
-    public function index()
+    public function index(Request $request)
     {
-        $coupons = $this->service->index();
+        $query = Coupon::where('organization_id', auth()->user()->organization_id)->latest();
+        if ($request->filled('search')) {
+            $search = $request->search;
+            $query->where('code', 'like', "%{$search}%");
+        }
 
-        return view('organization::dashboard.coupons.index', get_defined_vars());
+        $coupons = $query->paginate(10);
+
+        if ($request->ajax()) {
+            return view('organization::dashboard.coupons.partials._table', compact('coupons'))->render();
+        }
+
+        return view('organization::dashboard.coupons.index', compact('coupons'));
     }
 
     public function create()
