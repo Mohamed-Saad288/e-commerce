@@ -13,9 +13,10 @@ class OrderService extends BaseService
     {
         parent::__construct(resolve(Order::class));
     }
+
     public function store(DtoInterface $dto): Model
     {
-        $order = Parent::store($dto);
+        $order = parent::store($dto);
         $order->orderItems()->createMany($dto->orderItems);
 
     }

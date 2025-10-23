@@ -2,9 +2,7 @@
 
 namespace App\Modules\Website\app\DTO\Order;
 
-use App\Modules\Base\app\DTO\DTOInterface;
 use App\Modules\Organization\app\Models\ProductVariation\ProductVariation;
-use Illuminate\Foundation\Http\FormRequest;
 
 class OrderItemsDto
 {
@@ -20,8 +18,7 @@ class OrderItemsDto
         public ?float $total_amount = 0.0,
         public ?int $organization_id = null,
         public ?int $order_id = null
-    ) {
-    }
+    ) {}
 
     public static function fromArray(array $item): OrderItemsDto
     {
@@ -39,7 +36,6 @@ class OrderItemsDto
             order_id: $item['order_id'] ?? null
         );
     }
-
 
     private static function getProduct(int $variant_id): ?int
     {

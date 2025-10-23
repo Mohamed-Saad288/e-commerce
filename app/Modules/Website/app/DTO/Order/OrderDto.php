@@ -52,9 +52,9 @@ class OrderDto implements DTOInterface
             shipping_address: self::shippingAddress($arrayData),
             billing_address: self::billingAddress($arrayData),
             orderItems: isset($arrayData['product_variations'])
-                ? array_map(fn($item) => OrderItemsDto::fromArray($item), $arrayData['product_variations'])
-                : [] ,
-            order_number: 'ORD-' . now()->format('Ymd') . '-' . random_int(1000, 9999),
+                ? array_map(fn ($item) => OrderItemsDto::fromArray($item), $arrayData['product_variations'])
+                : [],
+            order_number: 'ORD-'.now()->format('Ymd').'-'.random_int(1000, 9999),
         );
     }
 
@@ -78,7 +78,7 @@ class OrderDto implements DTOInterface
             ],
             'shipping_address' => $this->shipping_address?->toArray(),
             'billing_address' => $this->billing_address?->toArray(),
-            'order_items' => array_map(fn($item) => $item->toArray(), $this->orderItems),
+            'order_items' => array_map(fn ($item) => $item->toArray(), $this->orderItems),
         ];
     }
 
@@ -87,7 +87,7 @@ class OrderDto implements DTOInterface
      */
     private static function getProducts(array $data): array
     {
-        if (!empty($data['cart_id']) && empty($data['product_variations'])) {
+        if (! empty($data['cart_id']) && empty($data['product_variations'])) {
             // Fetch items from Cart if products are not passed directly
         }
 
@@ -102,12 +102,12 @@ class OrderDto implements DTOInterface
         if (isset($data['shipping_address'])) {
             return AddressDto::fromArray([
                 ...$data['shipping_address'],
-                "type" => AddressEnum::SHIPPING->value,
-                "user_id" => $data["user_id"]
+                'type' => AddressEnum::SHIPPING->value,
+                'user_id' => $data['user_id'],
             ]);
         }
 
-        return new AddressDto();
+        return new AddressDto;
     }
 
     /**
@@ -115,17 +115,18 @@ class OrderDto implements DTOInterface
      */
     private static function billingAddress(array $data): AddressDto
     {
-        if (!empty($data['billing_same_as_shipping']) && $data['billing_same_as_shipping']) {
+        if (! empty($data['billing_same_as_shipping']) && $data['billing_same_as_shipping']) {
             if (isset($data['shipping_address'])) {
                 return AddressDto::fromArray([
                     ...$data['shipping_address'],
                     'type' => AddressEnum::BILLING->value,
-                    "user_id" => $data["user_id"]
+                    'user_id' => $data['user_id'],
                 ]);
             }
-            return new AddressDto();
+
+            return new AddressDto;
         }
 
-        return new AddressDto();
+        return new AddressDto;
     }
 }

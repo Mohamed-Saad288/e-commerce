@@ -2,7 +2,7 @@
 
 namespace App\Modules\Organization\Enums\Address;
 
-enum AddressEnum : int
+enum AddressEnum: int
 {
     case SHIPPING = 1;
     case BILLING = 2;
