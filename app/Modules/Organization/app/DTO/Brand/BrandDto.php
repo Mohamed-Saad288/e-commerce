@@ -51,13 +51,13 @@ class BrandDto implements DTOInterface
         }
 
         return new self(
-            translations: $translations,
+            translations: $translations ?? [],
             is_active: $arrayData['is_active'] ?? null,
             slug: $arrayData['slug'] ?? null,
             organization_id: auth()->user()->organization_id ?? null,
             employee_id: auth()->user()->id,
             categories: $arrayData['categories'] ?? [],
-            image: $arrayData['image']
+            image: $arrayData['image'] ?? null
         );
     }
 

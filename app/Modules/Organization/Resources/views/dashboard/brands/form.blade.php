@@ -93,6 +93,7 @@
                     @enderror
                 </div>
                 @if(isset($brand) &&  $brand->image )
+{{--                    @dd($brand->image);--}}
                     <div class="mb-3">
                         <img src="{{ asset("storage/$brand->image") }}"
                              alt="Header Image" class="img-thumbnail" width="150">

@@ -27,9 +27,6 @@ class BrandService extends BaseService
             }
             $model = $this->model->query()->create($data);
 
-            if (! empty($dto->image)) {
-                $model->storeImages(media: $dto->image);
-            }
             if (! empty($dto->categories)) {
                 $model->categories()->sync($dto->categories);
             }
@@ -44,13 +41,6 @@ class BrandService extends BaseService
             $data = $dto->toArray();
 
             if (! empty($dto->image)) {
-                $model->storeImages(media: $dto->image, update: true);
-            }
-            if (! empty($dto->image)) {
-                if (! empty($model->image) && Storage::disk('public')->exists($model->image)) {
-                    Storage::disk('public')->delete($model->image);
-                }
-
                 $data['image'] = $dto->image->store('brands', 'public');
             }
 
