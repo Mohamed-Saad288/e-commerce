@@ -21,14 +21,16 @@ class OptionController extends Controller
 
         if ($request->ajax()) {
             if ($request->filled('search')) {
-                $query->whereTranslationLike('name', '%' . $request->search . '%');
+                $query->whereTranslationLike('name', '%'.$request->search.'%');
             }
 
             $options = $query->latest()->paginate(10);
+
             return view('organization::dashboard.options.partials._table', compact('options'))->render();
         }
 
         $options = $query->latest()->paginate(10);
+
         return view('organization::dashboard.options.index', compact('options'));
     }
 
