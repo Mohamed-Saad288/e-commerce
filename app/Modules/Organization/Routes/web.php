@@ -86,6 +86,17 @@ Route::group(
                 // #endregion
 
                 // #region CRUD Resources
+
+
+                /** Search Route */
+
+                Route::get('employees/search', [EmployeeController::class, 'search'])
+                    ->name('employees.search');
+
+
+                /** End Search Route */
+
+
                 Route::resources([
                     'categories' => CategoryController::class,
                     'brands' => BrandController::class,
@@ -158,6 +169,9 @@ Route::group(
 
                 Route::get('categories/{id}/subcategories', [CategoryController::class, 'showSubCategories'])
                     ->name('categories.subcategories');
+
+
+
 
             });
     }

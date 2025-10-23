@@ -33,4 +33,15 @@ class EmployeeService
     {
         return Employee::where('organization_id', auth()->user()->organization_id)->latest()->paginate(10);
     }
+    public function searchEmployees(?string $search = null)
+    {
+        return Employee::query()
+            ->when($search, function ($query, $search) {
+                $query->where(function ($subQuery) use ($search) {
+                    $subQuery->where('name', 'like', "%{$search}%")
+                        ->orWhere('email', 'like', "%{$search}%")
+                        ->orWhere('phone', 'like', "%{$search}%");
+                });
+            });
+    }
 }

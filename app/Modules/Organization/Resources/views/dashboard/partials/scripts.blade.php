@@ -67,10 +67,6 @@
     });
 </script>
 
-<style>
-
-
-
-
-
 @yield('after_script')
+
+

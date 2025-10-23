@@ -21,8 +21,6 @@
                                     <th>#</th>
                                     <th>{{ __('messages.question') }}</th>
                                     <th>{{ __('messages.answer') }}</th>
-                                    {{--                                    <th>{{ __('messages.role') }}</th>--}}
-                                    {{--                                    <th>{{ __('messages.status') }}</th>--}}
                                     <th>{{ __('messages.actions') }}</th>
                                 </tr>
                                 </thead>
@@ -31,8 +29,8 @@
                                     @foreach ($questions as $question)
                                         <tr>
                                             <td>{{ $loop->iteration }}</td>
-                                            <td>{{ $question->question ?? '-' }}</td>>
-                                            <td>{{ $question->answer ?? '-' }}</td>>
+                                            <td>{{ $question->question ?? '-' }}</td>
+                                            <td>{{ $question->answer ?? '-' }}</td>
                                             <td>
                                                 <a href="{{ route('organization.questions.edit', $question->id) }}"
                                                    class="btn btn-sm btn-success">
@@ -64,6 +62,7 @@
             </div>
         </div>
     </div>
+
 @endSection
 
 @section('after_script')
