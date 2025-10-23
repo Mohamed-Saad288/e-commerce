@@ -83,6 +83,8 @@ Route::group(
                 Route::post('logout', [AuthController::class, 'logout'])->name('logout');
                 Route::get('profile', [HomeController::class, 'profile'])->name('profile');
                 Route::get('user_profile', [HomeController::class, 'user_profile'])->name('user_profile');
+                Route::get('change_password', [HomeController::class, 'create_change_password'])->name('password.change');
+                Route::post('store_change_password', [HomeController::class, 'store_change_password'])->name('password.store');
                 // #endregion
 
                 // #region CRUD Resources

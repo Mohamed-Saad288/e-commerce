@@ -215,4 +215,11 @@ return [
     'all' => 'الكل',
     'filter_by_status' => 'تصفية حسب الحالة',
     'clear' => 'مسح',
+    'change_password' => 'تغيير كلمة المرور',
+    'enter_new_password' => 'اخل كلمة المرور الجديدة',
+    'new_password' => 'كلمة المرور الجديدة',
+    'confirm_new_password' => 'تأكيد كلمة المرور الجديدة',
+    'update_password' => 'تحديث كلمة المرور',
+    'confirm_password' => 'تأكيد كلمة المرور',
+    'for_user' => 'للمستخدم'
 ];

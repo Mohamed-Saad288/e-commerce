@@ -173,4 +173,9 @@ return [
     'all' => 'All',
     'filter_by_status' => 'Filter by Status',
     'clear' => 'Clear',
+    'change_password' => 'Change Password',
+    'enter_new_password' => 'New Password',
+    'confirm_new_password' => 'Confirm New Password',
+    'update_password' => 'Update Password',
+    'confirm_password' => 'Confirm Password',
 ];

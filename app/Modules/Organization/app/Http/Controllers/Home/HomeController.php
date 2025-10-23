@@ -9,6 +9,8 @@ use App\Modules\Organization\app\Models\Brand\Brand;
 use App\Modules\Organization\app\Models\Category\Category;
 use App\Modules\Organization\app\Models\Order\Order;
 use App\Modules\Organization\app\Models\Product\Product;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Hash;
 
 class HomeController extends Controller
 {
@@ -31,11 +33,30 @@ class HomeController extends Controller
 
     public function profile()
     {
-        return view('organization::auth.user-profile');
+        $auth = auth('organization_employee')->user();
+        return view('organization::auth.user-profile', compact('auth'));
     }
 
     public function user_profile()
     {
         return view('organization::auth.user-management');
+    }
+    public function create_change_password()
+    {
+        $auth = auth('organization_employee')->user();
+        return view('organization::auth.change-password', compact('auth'));
+    }
+    public function store_change_password(Request $request)
+    {
+
+        $request->validate([
+            'password' => ['required', 'string', 'min:6', 'confirmed'],
+        ]);
+
+        $user = auth('organization_employee')->user();
+        $user->password = Hash::make($request->password);
+        $user->save();
+
+        return redirect()->route('organization.profile')->with('success', __('messages.password_updated'));
     }
 }
