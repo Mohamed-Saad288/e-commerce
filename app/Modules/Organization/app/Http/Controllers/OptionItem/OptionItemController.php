@@ -10,16 +10,33 @@ use App\Modules\Organization\app\Models\Option\Option;
 use App\Modules\Organization\app\Models\OptionItem\OptionItem;
 use App\Modules\Organization\app\Services\OptionItem\OptionItemService;
 use Exception;
+use Illuminate\Http\Request;
 
 class OptionItemController extends Controller
 {
     public function __construct(protected OptionItemService $service) {}
 
-    public function index()
+    public function index(Request $request)
     {
-        $option_items = $this->service->index();
+        $query = OptionItem::whereOrganizationId(auth('organization_employee')->user()->organization_id);
 
-        return view('organization::dashboard.option_items.index', get_defined_vars());
+        if ($request->filled('search')) {
+            $query->whereTranslationLike('name', '%' . $request->search . '%');
+        }
+
+        if ($request->filled('option_id')) {
+            $query->where('option_id', $request->option_id);
+        }
+
+        $option_items = $query->latest()->paginate(10);
+
+        $options = Option::whereOrganizationId(auth('organization_employee')->user()->organization_id)->get();
+
+        if ($request->ajax()) {
+            return view('organization::dashboard.option_items.partials._table', compact('option_items'))->render();
+        }
+
+        return view('organization::dashboard.option_items.index', compact('option_items', 'options'));
     }
 
     public function create()
