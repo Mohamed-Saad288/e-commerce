@@ -33,6 +33,7 @@ class EmployeeService
     {
         return Employee::where('organization_id', auth()->user()->organization_id)->latest()->paginate(10);
     }
+
     public function searchEmployees(?string $search = null)
     {
         return Employee::query()

@@ -10,6 +10,7 @@ use App\Modules\Organization\app\Http\Request\Employee\UpdateEmployeeRequest;
 use App\Modules\Organization\app\Services\Employee\EmployeeService;
 use Exception;
 use Illuminate\Http\Request;
+
 class EmployeeController extends Controller
 {
     public function __construct(protected EmployeeService $service) {}
@@ -82,12 +83,13 @@ class EmployeeController extends Controller
             ], 500);
         }
     }
+
     public function search(Request $request)
     {
         $search = $request->get('search');
 
         $employees = Employee::query()
-            ->where('organization_id', auth("organization_employee")->user()->organization_id)
+            ->where('organization_id', auth('organization_employee')->user()->organization_id)
             ->when($search, function ($query, $search) {
                 $query->where(function ($sub) use ($search) {
                     $sub->where('name', 'like', "%{$search}%")
@@ -101,5 +103,4 @@ class EmployeeController extends Controller
 
         return response()->json(['html' => $html]);
     }
-
 }
