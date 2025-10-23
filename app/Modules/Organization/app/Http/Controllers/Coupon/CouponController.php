@@ -31,7 +31,6 @@ class CouponController extends Controller
         }
         $coupons = $query->paginate(10);
 
-
         if ($request->ajax()) {
             return view('organization::dashboard.coupons.partials._table', compact('coupons'))->render();
         }
