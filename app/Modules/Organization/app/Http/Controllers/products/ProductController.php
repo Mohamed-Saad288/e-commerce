@@ -23,39 +23,47 @@ class ProductController extends Controller
 
     public function index(Request $request)
     {
-        $products = Product::with(['category', 'brand'])
-            ->when($request->category, function ($query) use ($request) {
-                return $query->where('category_id', $request->category);
-            })
-            ->when($request->brand, function ($query) use ($request) {
-                return $query->where('brand_id', $request->brand);
-            })
-            ->when($request->status !== null, function ($query) use ($request) {
-                return $query->where('is_active', $request->status);
-            })
-            ->when($request->stock_status, function ($query) use ($request) {
-                if ($request->stock_status == 'in_stock') {
-                    return $query->where('stock_quantity', '>', 10);
-                } elseif ($request->stock_status == 'low_stock') {
-                    return $query->whereBetween('stock_quantity', [1, 10]);
-                } elseif ($request->stock_status == 'out_of_stock') {
-                    return $query->where('stock_quantity', '<=', 0);
-                }
-            })
-            ->latest()
-            ->paginate(10);
+        $query = Product::whereOrganizationId(auth('organization_employee')->user()->organization_id);
 
-        if ($request->ajax()) {
-            return response()->json([
-                'products_rows' => view('organization::dashboard.products.products_rows', compact('products'))->render(),
-                'pagination' => $products->appends(request()->query())->links()->toHtml(),
-            ]);
+        if ($request->filled('search')) {
+            $query->whereTranslationLike('name', '%'.$request->search.'%');
         }
 
-        $categories = Category::query()->get();
-        $brands = Brand::query()->get();
+        if ($request->filled('category')) {
+            $query->where('category_id', $request->category);
+        }
 
-        return view('organization::dashboard.products.index', get_defined_vars());
+        if ($request->filled('brand')) {
+            $query->where('brand_id', $request->brand);
+        }
+
+        if ($request->filled('stock_status')) {
+            if ($request->stock_status == 'in_stock') {
+                $query->where('stock_quantity', '>', 0);
+            } elseif ($request->stock_status == 'out_of_stock') {
+                $query->where('stock_quantity', 0);
+            } elseif ($request->stock_status == 'low_stock') {
+                $query->where('stock_quantity', '>=', 1)->where('stock_quantity', '<=', 10); // مثال للمخزون المنخفض
+            }
+        }
+
+        if ($request->filled('status')) {
+            $query->where('is_active', $request->status);
+        }
+
+        if ($request->ajax()) {
+            $products = $query->latest()->paginate(10);
+            return [
+                'products_rows' => view('organization::dashboard.products.products_rows', compact('products'))->render(),
+                'pagination' => $products->appends($request->query())->links()->toHtml(),
+            ];
+        }
+
+        $categories = Category::whereOrganizationId(auth('organization_employee')->user()->organization_id)->get();
+        $brands = Brand::whereOrganizationId(auth('organization_employee')->user()->organization_id)->get();
+        $products = $query->latest()->paginate(10);
+
+        return view('organization::dashboard.products.index', compact('products', 'categories', 'brands'));
     }
 
     public function create()

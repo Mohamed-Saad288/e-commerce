@@ -3,8 +3,8 @@
         <tr>
             <td>{{ $loop->iteration }}</td>
             <td>{{ $product->name ?? '-' }}</td>
-            <td>{{\Illuminate\Support\Str::limit($product->description ?? '-', 50)}}</td>
-            <td>{{\Illuminate\Support\Str::limit($product->short_description ?? '-', 20)}}</td>
+{{--            <td>{{\Illuminate\Support\Str::limit($product->description ?? '-', 50)}}</td>--}}
+{{--            <td>{{\Illuminate\Support\Str::limit($product->short_description ?? '-', 20)}}</td>--}}
             <td>{{ $product->slug ?? '-' }}</td>
             <td>{{ $product->sku ?? '-' }}</td>
             <td>{{ $product->category?->name ?? '-' }}</td>
@@ -33,14 +33,14 @@
             </td>
             <td>
                 <a href="{{ route('organization.products.show', $product->id) }}"
-                   class="btn btn-sm btn-info">
+                   class="btn btn-sm btn-outline-info">
                     <i class='fe fe-eye fa-2x'></i>
                 </a>
                 <a href="{{ route('organization.products.edit', $product->id) }}"
-                   class="btn btn-sm btn-success">
+                   class="btn btn-outline-success btn-sm">
                     <i class='fe fe-edit'></i>
                 </a>
-                <button class="btn btn-sm btn-danger delete-faq"
+                <button class="btn btn-outline-danger btn-sm delete-faq"
                         data-id="{{ $product->id }}">
                     <i class="fe fe-trash-2"></i>
                 </button>
