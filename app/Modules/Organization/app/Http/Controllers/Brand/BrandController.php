@@ -14,15 +14,13 @@ use Illuminate\Http\Request;
 
 class BrandController extends Controller
 {
-    public function __construct(protected BrandService $service)
-    {
-    }
+    public function __construct(protected BrandService $service) {}
 
     public function index(Request $request)
     {
-        $query = Brand::whereOrganizationId(auth("organization_employee")->user()->organization_id);
+        $query = Brand::whereOrganizationId(auth('organization_employee')->user()->organization_id);
         if ($request->filled('search')) {
-            $query->whereTranslationLike('name', '%' . $request->search . '%');
+            $query->whereTranslationLike('name', '%'.$request->search.'%');
         }
 
         $brands = $query->latest()->paginate(10);
