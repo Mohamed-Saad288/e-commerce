@@ -22,7 +22,7 @@ class CategoryController extends Controller
             ->where('organization_id', auth('organization_employee')->user()->organization_id);
 
         if ($request->filled('search')) {
-            $query->whereTranslationLike('name',  '%' . $request->search . '%');
+            $query->whereTranslationLike('name', '%'.$request->search.'%');
         }
 
         $categories = $query->latest()->paginate(10);
@@ -104,7 +104,7 @@ class CategoryController extends Controller
             ->where('organization_id', auth('organization_employee')->user()->organization_id)
             ->with('translations');
 
-        if ($request->has('search') && !empty($request->search)) {
+        if ($request->has('search') && ! empty($request->search)) {
             $search = $request->search;
             $query->whereTranslationLike('name', "%{$search}%");
         }
