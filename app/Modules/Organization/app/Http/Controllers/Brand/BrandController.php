@@ -10,16 +10,28 @@ use App\Modules\Organization\app\Models\Brand\Brand;
 use App\Modules\Organization\app\Models\Category\Category;
 use App\Modules\Organization\app\Services\Brand\BrandService;
 use Exception;
+use Illuminate\Http\Request;
 
 class BrandController extends Controller
 {
-    public function __construct(protected BrandService $service) {}
-
-    public function index()
+    public function __construct(protected BrandService $service)
     {
-        $brands = $this->service->index();
+    }
 
-        return view('organization::dashboard.brands.index', get_defined_vars());
+    public function index(Request $request)
+    {
+        $query = Brand::whereOrganizationId(auth("organization_employee")->user()->organization_id);
+        if ($request->filled('search')) {
+            $query->whereTranslationLike('name', '%' . $request->search . '%');
+        }
+
+        $brands = $query->latest()->paginate(10);
+
+        if ($request->ajax()) {
+            return view('organization::dashboard.brands.partials.table', compact('brands'))->render();
+        }
+
+        return view('organization::dashboard.brands.index', compact('brands'));
     }
 
     public function create()
