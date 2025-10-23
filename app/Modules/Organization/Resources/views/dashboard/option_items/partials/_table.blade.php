@@ -15,10 +15,10 @@
                 <td>{{ $option_item->translate(app()->getLocale())->name ?? '-' }}</td>
                 <td>{{ $option_item->option?->translate(app()->getLocale())->name ?? '-' }}</td>
                 <td class="text-nowrap">
-                    <a href="{{ route('organization.option_items.edit', $option_item->id) }}" class="btn btn-sm btn-success">
+                    <a href="{{ route('organization.option_items.edit', $option_item->id) }}" class="btn btn-outline-success btn-sm">
                         <i class="fe fe-edit"></i>
                     </a>
-                    <button class="btn btn-sm btn-danger delete-option_item" data-id="{{ $option_item->id }}">
+                    <button class="btn btn-outline-danger btn-sm delete-option_item" data-id="{{ $option_item->id }}">
                         <i class="fe fe-trash-2"></i>
                     </button>
                 </td>
