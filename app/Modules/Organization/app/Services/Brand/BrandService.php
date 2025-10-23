@@ -9,7 +9,6 @@ use App\Modules\Base\app\Services\BaseService;
 use App\Modules\Organization\app\Models\Brand\Brand;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\DB;
-use Illuminate\Support\Facades\Storage;
 
 class BrandService extends BaseService
 {
