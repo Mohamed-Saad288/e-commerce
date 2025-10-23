@@ -27,7 +27,7 @@
                                         <i class="fe fe-search text-muted"></i>
                                     </span>
                                     <input type="text" class="form-control border-start-0 ps-0" id="search-input"
-                                           placeholder="{{ __('messages.search_by_code_or_discount') }}...">
+                                           placeholder="{{ __('messages.search') }}...">
                                     <button class="btn btn-outline-secondary" type="button" id="clear-search" title="{{ __('messages.clear') }}">
                                         <i class="fe fe-x"></i>
                                     </button>
@@ -263,7 +263,6 @@
 
     {{-- 🎨 Custom CSS للتحسينات --}}
     <style>
-        <style>
             /* تحسين شكل الـ input group */
         .input-group-text {
             background-color: #f8f9fa;
