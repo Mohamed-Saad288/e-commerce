@@ -27,6 +27,8 @@ class OrganizationModuleSeeder extends Seeder
             WhySeeder::class,
             TermSeeder::class,
             OurTeamSeeder::class,
+            CountrySeeder::class,
+            CitySeeder::class,
             //            OrganizationSettingSeeder::class,
         ]);
     }

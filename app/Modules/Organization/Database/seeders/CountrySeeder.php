@@ -1,6 +1,6 @@
 <?php
 
-namespace Database\Seeders;
+namespace App\Modules\Organization\Database\seeders;
 
 use App\Modules\Organization\app\Models\City\City;
 use App\Modules\Organization\app\Models\Country\Country;
