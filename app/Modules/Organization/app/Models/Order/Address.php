@@ -21,7 +21,7 @@ class Address extends BaseModel
         'type',
         'user_id',
         'is_default',
-        "phone"
+        'phone',
     ];
 
     public function orderShipping(): \Illuminate\Database\Eloquent\Relations\HasOne|Address
@@ -47,18 +47,18 @@ class Address extends BaseModel
         return implode(', ', array_filter($components));
     }
 
-    public function country() : BelongsTo
+    public function country(): BelongsTo
     {
         return $this->belongsTo(Country::class, 'country_id');
     }
 
-    public function city() : BelongsTo
+    public function city(): BelongsTo
     {
-        return $this->belongsTo(City::class , "city_id");
+        return $this->belongsTo(City::class, 'city_id');
     }
 
-    public function user() : BelongsTo
+    public function user(): BelongsTo
     {
-        return $this->belongsTo(User::class , "user_id");
+        return $this->belongsTo(User::class, 'user_id');
     }
 }

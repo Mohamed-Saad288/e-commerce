@@ -2,7 +2,7 @@
 
 namespace App\Modules\Organization\Enums\Order;
 
-enum OrderStatusEnum :int
+enum OrderStatusEnum: int
 {
     case PENDING = 1;
     case PROCESSING = 2;

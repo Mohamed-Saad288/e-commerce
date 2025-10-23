@@ -15,6 +15,7 @@ class OrderController extends Controller
     {
         $dto = OrderDto::fromArray([...$request->validated(), 'user_id' => auth()->id()]);
         $order = $this->service->store($dto);
+
         return response()->json(['data' => $order], 201);
     }
 }

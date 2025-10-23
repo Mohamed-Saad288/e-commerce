@@ -80,7 +80,7 @@ class OrderService extends BaseService
             $addressUpdates['billing_address_id'] = $billingAddress->id;
         }
 
-        if (!empty($addressUpdates)) {
+        if (! empty($addressUpdates)) {
             $order->update($addressUpdates);
         }
     }
@@ -104,9 +104,6 @@ class OrderService extends BaseService
     /**
      * Update an existing order
      *
-     * @param Model $model
-     * @param DTOInterface $dto
-     * @return Model
      * @throws Throwable
      */
     public function update(Model $model, DTOInterface $dto): Model
@@ -116,7 +113,7 @@ class OrderService extends BaseService
             $order = parent::update($model, $dto);
 
             // Update order items if provided
-            if (!empty($dto->orderItems)) {
+            if (! empty($dto->orderItems)) {
                 $this->updateOrderItems($order, $dto);
             }
 

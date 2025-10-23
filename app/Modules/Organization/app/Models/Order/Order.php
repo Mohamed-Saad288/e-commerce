@@ -26,9 +26,9 @@ class Order extends BaseModel
         'shipping_amount',
         'total_amount',
         'notes',
-        "order_number",
-        "organization_id",
-        "employee_id"
+        'order_number',
+        'organization_id',
+        'employee_id',
     ];
 
     //    =====================================================================================================>Relations

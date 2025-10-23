@@ -73,13 +73,13 @@ class OrderDto implements DTOInterface
             'status' => $this->status,
             'tracking_number' => $this->tracking_number,
             'notes' => $this->notes,
-//            'totals' => [
-                'total_amount' => $this->total_amount,
-                'discount_amount' => $this->discount_amount,
-                'tax_amount' => $this->tax_amount,
-                'shipping_amount' => $this->shipping_amount,
-                'sub_total' => $this->sub_total,
-//            ],
+            //            'totals' => [
+            'total_amount' => $this->total_amount,
+            'discount_amount' => $this->discount_amount,
+            'tax_amount' => $this->tax_amount,
+            'shipping_amount' => $this->shipping_amount,
+            'sub_total' => $this->sub_total,
+            //            ],
             'shipping_address' => $this->shipping_address?->toArray(),
             'billing_address' => $this->billing_address?->toArray(),
             'order_items' => array_map(fn ($item) => $item->toArray(), $this->orderItems),
@@ -122,7 +122,7 @@ class OrderDto implements DTOInterface
         $shippingAmount = $data['shipping_amount'] ?? 0;
 
         // Apply coupon discount if provided
-        if (!empty($data['coupon_id'])) {
+        if (! empty($data['coupon_id'])) {
             // You can add coupon calculation logic here
             // $couponDiscount = self::calculateCouponDiscount($data['coupon_id'], $subTotal);
             // $totalDiscount += $couponDiscount;
@@ -144,7 +144,7 @@ class OrderDto implements DTOInterface
      */
     private static function getProducts(array $data): array
     {
-        if (!empty($data['cart_id']) && empty($data['product_variations'])) {
+        if (! empty($data['cart_id']) && empty($data['product_variations'])) {
             // Fetch items from Cart if products are not passed directly
             // You would implement cart item fetching logic here
             // return CartService::getCartItems($data['cart_id']);
@@ -174,7 +174,7 @@ class OrderDto implements DTOInterface
      */
     private static function billingAddress(array $data): AddressDto
     {
-        if (!empty($data['billing_same_as_shipping']) && $data['billing_same_as_shipping']) {
+        if (! empty($data['billing_same_as_shipping']) && $data['billing_same_as_shipping']) {
             if (isset($data['shipping_address'])) {
                 return AddressDto::fromArray([
                     ...$data['shipping_address'],
