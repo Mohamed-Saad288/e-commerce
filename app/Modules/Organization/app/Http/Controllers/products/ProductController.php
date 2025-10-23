@@ -53,6 +53,7 @@ class ProductController extends Controller
 
         if ($request->ajax()) {
             $products = $query->latest()->paginate(10);
+
             return [
                 'products_rows' => view('organization::dashboard.products.products_rows', compact('products'))->render(),
                 'pagination' => $products->appends($request->query())->links()->toHtml(),
