@@ -21,7 +21,7 @@ class OptionItemController extends Controller
         $query = OptionItem::whereOrganizationId(auth('organization_employee')->user()->organization_id);
 
         if ($request->filled('search')) {
-            $query->whereTranslationLike('name', '%' . $request->search . '%');
+            $query->whereTranslationLike('name', '%'.$request->search.'%');
         }
 
         if ($request->filled('option_id')) {
