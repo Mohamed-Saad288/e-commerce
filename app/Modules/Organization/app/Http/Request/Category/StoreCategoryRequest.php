@@ -18,6 +18,7 @@ class StoreCategoryRequest extends FormRequest
             'slug' => ['nullable', Rule::unique('brands', 'slug')->whereNull('deleted_at')],
             'parent_id' => ['nullable', Rule::exists('categories', 'id')->whereNull('deleted_at')],
             'sort_order' => 'nullable|numeric',
+            'image' => 'nullable|image',
         ];
 
         foreach (config('translatable.locales') as $locale) {

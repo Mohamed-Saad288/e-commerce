@@ -20,6 +20,7 @@ class CategoryDto implements DTOInterface
     public ?int $parent_id = null;
 
     public ?int $sort_order = null;
+    public $image = null;
 
     public function __construct(
         ?array $translations = [],
@@ -28,7 +29,8 @@ class CategoryDto implements DTOInterface
         ?int $organization_id = null,
         ?int $employee_id = null,
         ?int $parent_id = null,
-        ?int $sort_order = null
+        ?int $sort_order = null,
+        $image = null
     ) {
         $this->translations = $translations;
         $this->is_active = $is_active;
@@ -37,6 +39,7 @@ class CategoryDto implements DTOInterface
         $this->employee_id = $employee_id;
         $this->parent_id = $parent_id;
         $this->sort_order = $sort_order;
+        $this->image = $image;
     }
 
     public static function fromArray(FormRequest|array $data): DTOInterface
@@ -57,7 +60,8 @@ class CategoryDto implements DTOInterface
             organization_id: auth()->user()->organization_id ?? null,
             employee_id: auth()->user()->id,
             parent_id: $arrayData['parent_id'] ?? null,
-            sort_order: 1 ?? null
+            sort_order: 1 ?? null,
+            image: $arrayData['image'] ?? null,
         );
     }
 
@@ -72,6 +76,7 @@ class CategoryDto implements DTOInterface
                 'employee_id' => $this->employee_id,
                 'parent_id' => $this->parent_id,
                 'sort_order' => $this->sort_order,
+                'image' => $this->image,
             ]
         );
     }

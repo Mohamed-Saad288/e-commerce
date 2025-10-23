@@ -59,7 +59,7 @@ class BrandController extends Controller
     public function update(UpdateBrandRequest $request, Brand $brand)
     {
         $dto = BrandDto::fromArray($request);
-        $brand =  $this->service->update(model: $brand, dto: $dto);
+        $this->service->update(model: $brand, dto: $dto);
 
         return to_route('organization.brands.index')->with([
             'message' => __('messages.updated'),

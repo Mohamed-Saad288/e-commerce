@@ -74,6 +74,38 @@
         </div>
     </div>
 
+    <div class="row">
+        {{-- Image Upload Section --}}
+        <div class="col-md-6">
+            <div class="form-group">
+                {{-- Show old image if editing --}}
+
+
+                {{-- Upload new image --}}
+                <div class="custom-file">
+                    <input type="file"
+                           name="image"
+                           class="custom-file-input @error('image') is-invalid @enderror"
+                           id="image"
+                           accept="image/*">
+                    <label class="custom-file-label" for="image">{{ __('messages.upload_image') }}</label>
+                    @error('image')
+                    <small class="text-danger">{{ $message }}</small>
+                    @enderror
+                </div>
+                @if(isset($category) &&  $category->image )
+                    {{--                    @dd($category->image);--}}
+                    <div class="mb-3">
+                        <img src="{{ asset("storage/$category->image") }}"
+                             alt="Header Image" class="img-thumbnail" width="150">
+                    </div>
+                @endif
+                {{-- Preview for new selected image --}}
+                <div id="image-preview" class="mt-2"></div>
+            </div>
+        </div>
+    </div>
+
     <br><br>
     <button type="submit" class="btn btn-primary">{{ __('messages.submit') }}</button>
 </form>
