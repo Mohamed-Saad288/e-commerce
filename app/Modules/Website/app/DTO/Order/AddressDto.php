@@ -21,7 +21,7 @@ class AddressDto implements DTOInterface
 
     protected ?int $user_id = null;
 
-    protected ?bool $is_default = null;
+    protected ?bool $is_default = true;
 
     protected ?int $type = null;
 
@@ -54,7 +54,7 @@ class AddressDto implements DTOInterface
             postal_code: $arrayData['postal_code'] ?? null,
             phone: $arrayData['phone'] ?? null,
             user_id: $arrayData['user_id'] ?? null,
-            is_default: $arrayData['is_default'] ?? null,
+            is_default: $arrayData['is_default'] ?? true,
             type: $arrayData['type'] ?? null,
             organization_id: $arrayData['organization_id'] ?? null,
         );

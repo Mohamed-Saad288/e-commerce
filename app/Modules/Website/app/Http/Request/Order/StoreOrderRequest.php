@@ -39,7 +39,7 @@ class StoreOrderRequest extends FormRequest
             'coupon_id' => [
                 'nullable',
                 'integer',
-                Rule::exists('coupons', 'id')->whereNull('deleted_at')->where('organization_id', auth()->user()->organization_id)->where('is_active', ActiveEnum::ACTIVE->value),
+                Rule::exists('coupons', 'id')->where('organization_id', auth()->user()->organization_id)->where('is_active', ActiveEnum::ACTIVE->value),
             ],
 
             'notes' => ['nullable', 'string'],
