@@ -210,4 +210,8 @@ return [
     'coupon_deactivated' => 'تم إلغاء تفعيل الكوبون',
     'choose_products' => 'اختر المنتجات',
     'search' => 'بحث',
+    'all_statuses' => 'جميع الحالات',
+    'results' => 'نتائج',
+    'all' => 'الكل',
+    'filter_by_status' => 'تصفية حسب الحالة',
 ];

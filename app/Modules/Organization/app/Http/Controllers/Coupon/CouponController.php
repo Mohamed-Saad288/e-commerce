@@ -22,8 +22,15 @@ class CouponController extends Controller
             $search = $request->search;
             $query->where('code', 'like', "%{$search}%");
         }
-
+        if ($request->filled('status')) {
+            if ($request->status === 'active') {
+                $query->where('is_active', true);
+            } elseif ($request->status === 'inactive') {
+                $query->where('is_active', false);
+            }
+        }
         $coupons = $query->paginate(10);
+
 
         if ($request->ajax()) {
             return view('organization::dashboard.coupons.partials._table', compact('coupons'))->render();

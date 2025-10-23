@@ -168,4 +168,8 @@ return [
     'coupon_activated' => 'Coupon Activated',
     'coupon_deactivated' => 'Coupon Deactivated',
     'choose_products' => 'Choose Products',
+    'all_statuses' => 'All Statuses',
+    'results' => 'results',
+    'all' => 'All',
+    'filter_by_status' => 'Filter by Status',
 ];
