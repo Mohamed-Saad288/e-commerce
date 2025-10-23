@@ -162,7 +162,7 @@ Route::group(
                 Route::post('coupons/{id}/toggle-status', [CouponController::class, 'toggleStatus'])
                     ->name('coupons.toggleStatus');
 
-                Route::get('categories/{id}/subcategories', [CategoryController::class, 'showSubCategories'])
+                Route::get('categories/{id}/subcategories', [CategoryController::class, 'subcategories'])
                     ->name('categories.subcategories');
 
             });

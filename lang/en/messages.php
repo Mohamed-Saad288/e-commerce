@@ -172,4 +172,5 @@ return [
     'results' => 'results',
     'all' => 'All',
     'filter_by_status' => 'Filter by Status',
+    'clear' => 'Clear',
 ];

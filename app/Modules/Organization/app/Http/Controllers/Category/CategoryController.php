@@ -15,14 +15,23 @@ class CategoryController extends Controller
 {
     public function __construct(protected CategoryService $service) {}
 
-    public function index()
+    public function index(Request $request)
     {
-        $categories = Category::whereNull('parent_id')
-            ->where('organization_id', auth('organization_employee')->user()->organization_id)
-            ->latest()
-            ->paginate(10);
+        $query = Category::query()
+            ->whereNull('parent_id')
+            ->where('organization_id', auth('organization_employee')->user()->organization_id);
 
-        return view('organization::dashboard.categories.index', get_defined_vars());
+        if ($request->filled('search')) {
+            $query->whereTranslationLike('name',  '%' . $request->search . '%');
+        }
+
+        $categories = $query->latest()->paginate(10);
+
+        if ($request->ajax()) {
+            return view('organization::dashboard.categories.partials._table', compact('categories'))->render();
+        }
+
+        return view('organization::dashboard.categories.index', compact('categories'));
     }
 
     public function create(Request $request)
@@ -87,11 +96,24 @@ class CategoryController extends Controller
         }
     }
 
-    public function showSubCategories($id)
+    public function subcategories(Request $request, $parentId)
     {
-        $parent = Category::with('translations')->findOrFail($id);
+        $parent = Category::findOrFail($parentId);
 
-        $subCategories = $parent->subCategories()->with('translations')->get();
+        $query = Category::where('parent_id', $parentId)
+            ->where('organization_id', auth('organization_employee')->user()->organization_id)
+            ->with('translations');
+
+        if ($request->has('search') && !empty($request->search)) {
+            $search = $request->search;
+            $query->whereTranslationLike('name', "%{$search}%");
+        }
+
+        $subCategories = $query->latest()->paginate(10)->appends(['search' => $request->search]);
+
+        if ($request->ajax()) {
+            return view('organization::dashboard.categories.partials._sub_table', compact('subCategories'))->render();
+        }
 
         return view('organization::dashboard.categories.subcategories', compact('parent', 'subCategories'));
     }

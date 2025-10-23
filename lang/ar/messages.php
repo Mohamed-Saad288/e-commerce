@@ -214,4 +214,5 @@ return [
     'results' => 'نتائج',
     'all' => 'الكل',
     'filter_by_status' => 'تصفية حسب الحالة',
+    'clear' => 'مسح',
 ];
