@@ -118,6 +118,50 @@
                 $('#results-count').text(rowsCount);
             }
         });
+
+        $(document).on('click', '.delete-category', function (e) {
+            e.preventDefault();
+            let id = $(this).data('id');
+            let url = "{{ route('organization.categories.destroy', ':id') }}".replace(':id', id);
+            let row = $(this).closest('tr');
+
+            Swal.fire({
+                title: "{{ __('messages.confirm_delete') }}",
+                text: "{{ __('messages.are_you_sure') }}",
+                icon: "warning",
+                showCancelButton: true,
+                confirmButtonColor: "#d33",
+                cancelButtonColor: "#3085d6",
+                confirmButtonText: "{{ __('messages.yes_delete') }}",
+                cancelButtonText: "{{ __('messages.no_cancel') }}"
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    $.ajax({
+                        url: url,
+                        type: "POST",
+                        data: {
+                            _token: "{{ csrf_token() }}",
+                            _method: "DELETE"
+                        },
+                        success: function (response) {
+                            if (response.success) {
+                                Swal.fire("{{ __('messages.deleted') }}", response.message, "success");
+
+                                row.fadeOut(300, function () {
+                                    $(this).remove();
+                                    updateResultsCount();
+                                });
+                            } else {
+                                Swal.fire("{{ __('messages.error') }}", "{{ __('messages.something_wrong') }}", "error");
+                            }
+                        },
+                        error: function () {
+                            Swal.fire("{{ __('messages.error') }}", "{{ __('messages.error_occurred') }}", "error");
+                        }
+                    });
+                }
+            });
+        });
     </script>
 
     <style>

@@ -10,20 +10,30 @@
                         <h4 class="card-title">{{ __('organizations.products') }}</h4>
                         <div>
                             <div class="btn-group">
-                                <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                <button type="button"
+                                        class="btn btn-primary dropdown-toggle"
+                                        data-bs-toggle="dropdown"
+                                        aria-expanded="false">
                                     <i class="fas fa-download"></i> {{ __('organizations.export') }}
                                 </button>
-                                <div class="dropdown-menu">
-                                    <a class="dropdown-item export-btn" href="#" data-type="excel">
-                                        <i class="far fa-file-excel"></i> {{ __('organizations.excel') }}
-                                    </a>
-                                    <a class="dropdown-item export-btn" href="#" data-type="csv">
-                                        <i class="fas fa-file-csv"></i> {{ __('organizations.csv') }}
-                                    </a>
-                                    <a class="dropdown-item export-btn" href="#" data-type="pdf">
-                                        <i class="far fa-file-pdf"></i> {{ __('organizations.pdf') }}
-                                    </a>
-                                </div>
+
+                                <ul class="dropdown-menu @if(LaravelLocalization::getCurrentLocale() == 'ar') dropdown-menu-end @endif">
+                                    <li>
+                                        <a class="dropdown-item export-btn" href="#" data-type="excel" role="menuitem">
+                                            <i class="far fa-file-excel me-2"></i> {{ __('organizations.excel') }}
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a class="dropdown-item export-btn" href="#" data-type="csv" role="menuitem">
+                                            <i class="fas fa-file-csv me-2"></i> {{ __('organizations.csv') }}
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a class="dropdown-item export-btn" href="#" data-type="pdf" role="menuitem">
+                                            <i class="far fa-file-pdf me-2"></i> {{ __('organizations.pdf') }}
+                                        </a>
+                                    </li>
+                                </ul>
                             </div>
                             <a href="{{ route('organization.products.create') }}" class="btn btn-primary ms-2">
                                 {{ __('organizations.add_product') }}
@@ -127,7 +137,6 @@
                                     <th>#</th>
                                     <th>{{ __('messages.name') }}</th>
                                     <th>{{ __('messages.slug') }}</th>
-                                    <th>{{ __('messages.sku') }}</th>
                                     <th>{{ __('organizations.category') }}</th>
                                     <th>{{ __('organizations.brand') }}</th>
                                     <th>{{ __('organizations.stock') }}</th>
@@ -156,8 +165,6 @@
 @endsection
 
 @section('after_script')
-    <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
-    <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
 
     <script>
         $(document).ready(function () {

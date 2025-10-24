@@ -269,9 +269,9 @@
                     </div>
                     <div class="col-md-6">
                         <div class="mb-3">
-                            <label class="form-label">Brand</label>
+                            <label class="form-label">{{ __('organizations.brand') }}</label>
                             <select name="brand_id" class="form-select @error('brand_id') is-invalid @enderror">
-                                <option value="">Select Brand</option>
+                                <option value="">{{ __('organizations.select_brand') }}</option>
                                 @foreach($brands as $brand)
                                     <option value="{{ $brand->id }}"
                                         {{ (old('brand_id', $product->brand_id ?? '') == $brand->id) ? 'selected' : '' }}>
@@ -288,9 +288,9 @@
                 <div class="row">
                     <div class="col-md-6">
                         <div class="mb-3">
-                            <label class="form-label">Category</label>
+                            <label class="form-label">{{ __("organizations.category") }}</label>
                             <select name="category_id" class="form-select @error('category_id') is-invalid @enderror">
-                                <option value="">Select Category</option>
+                                <option value="">{{ __("organizations.select_category") }}</option>
                                 @foreach($categories as $category)
                                     <option value="{{ $category->id }}"
                                         {{ (old('category_id', $product->category_id ?? '') == $category->id) ? 'selected' : '' }}>
@@ -305,11 +305,11 @@
                     </div>
                     <div class="col-md-6">
                         <div class="mb-3">
-                            <label class="form-label">Product Type</label>
+                            <label class="form-label">{{ __("organizations.product_type") }}</label>
                             <select name="type" class="form-select @error('type') is-invalid @enderror">
-                                <option value="1" {{ old('type', $product->type ?? 1) == 1 ? 'selected' : '' }}>Physical</option>
-                                <option value="2" {{ old('type', $product->type ?? '') == 2 ? 'selected' : '' }}>Digital</option>
-                                <option value="3" {{ old('type', $product->type ?? '') == 3 ? 'selected' : '' }}>Service</option>
+                                <option value="1" {{ old('type', $product->type ?? 1) == 1 ? 'selected' : '' }}>{{ __('organizations.physical') }}</option>
+                                <option value="2" {{ old('type', $product->type ?? '') == 2 ? 'selected' : '' }}> {{__('organizations.digital') }}</option>
+                                <option value="3" {{ old('type', $product->type ?? '') == 3 ? 'selected' : '' }}>{{ __('organizations.service') }}</option>
                             </select>
                             @error('type')
                             <div class="invalid-feedback">{{ $message }}</div>
@@ -320,7 +320,7 @@
                 <div class="row">
                     <div class="col-md-6">
                         <div class="mb-3">
-                            <label class="form-label">Barcode</label>
+                            <label class="form-label">{{ __("messages.barcode") }}</label>
                             <input type="text" name="barcode" class="form-control @error('barcode') is-invalid @enderror"
                                    value="{{ old('barcode', $product->barcode ?? '') }}">
                             @error('barcode')
@@ -344,7 +344,7 @@
                         <div class="form-check mb-3">
                             <input class="form-check-input" type="checkbox" name="is_featured" value="1"
                                    id="is_featured" {{ old('is_featured', $product->is_featured ?? '') ? 'checked' : '' }}>
-                            <label class="form-check-label" for="is_featured">Featured Product</label>
+                            <label class="form-check-label" for="is_featured">{{ __('organizations.featured_product') }}</label>
                         </div>
                     </div>
 
@@ -352,7 +352,7 @@
                         <div class="form-check mb-3">
                             <input class="form-check-input" type="checkbox" name="requires_shipping" value="1"
                                    id="requires_shipping" {{ old('requires_shipping', $product->requires_shipping ?? 1) ? 'checked' : '' }}>
-                            <label class="form-check-label" for="requires_shipping">Requires Shipping</label>
+                            <label class="form-check-label" for="requires_shipping">{{ __('organizations.requires_shipping') }}</label>
                         </div>
                     </div>
                 </div>
@@ -361,7 +361,7 @@
                     <div class="d-flex justify-content-between align-items-center mb-3">
                         <h5>Variations</h5>
                         <button type="button" class="btn btn-success btn-sm" id="addVariation">
-                            <i class="fas fa-plus"></i> Add Variation
+                            <i class="fas fa-plus"></i> {{ __('organizations.add_variation') }}
                         </button>
                     </div>
                     <div id="variationsContainer">
@@ -370,8 +370,8 @@
                             @foreach($product->variations as $index => $variation)
                                 <div class="variation-item">
                                     <div class="card-header">
-                                        <span>Variation <span class="variation-number">{{ $index + 1 }}</span></span>
-                                        <button type="button" class="btn btn-danger btn-sm remove-variation">Remove</button>
+                                        <span>{{ __('organizations.variations') }} <span class="variation-number">{{ $index + 1 }}</span></span>
+                                        <button type="button" class="btn btn-danger btn-sm remove-variation">{{ __('organizations.remove') }}</button>
                                     </div>
                                     <div class="card-body">
                                         <input type="hidden" name="variations[{{ $index }}][id]" value="{{ $variation->id }}">
@@ -385,14 +385,14 @@
                                             </div>
                                             <div class="col-md-4">
                                                 <div class="mb-3">
-                                                    <label class="form-label">Barcode</label>
+                                                    <label class="form-label">{{ __('messages.barcode') }}</label>
                                                     <input type="text" name="variations[{{ $index }}][barcode]" class="form-control"
                                                            value="{{ $variation->barcode }}">
                                                 </div>
                                             </div>
                                             <div class="col-md-4">
                                                 <div class="mb-3">
-                                                    <label class="form-label">Sort Order</label>
+                                                    <label class="form-label">{{ __('messages.sort_order') }}</label>
                                                     <input type="number" name="variations[{{ $index }}][sort_order]" class="form-control"
                                                            value="{{ $variation->sort_order }}">
                                                 </div>
@@ -401,7 +401,7 @@
                                         <div class="row">
                                             <div class="col-md-4">
                                                 <div class="mb-3">
-                                                    <label class="form-label">Cost Price</label>
+                                                    <label class="form-label">{{ __('messages.cost_price') }}</label>
                                                     <input type="number" step="0.01" name="variations[{{ $index }}][cost_price]"
                                                            class="form-control variation-cost-price"
                                                            value="{{ $variation->cost_price }}">
@@ -409,7 +409,7 @@
                                             </div>
                                             <div class="col-md-4">
                                                 <div class="mb-3">
-                                                    <label class="form-label">Selling Price</label>
+                                                    <label class="form-label">{{ __('messages.selling_price') }}</label>
                                                     <input type="number" step="0.01" name="variations[{{ $index }}][selling_price]"
                                                            class="form-control variation-selling-price"
                                                            value="{{ $variation->selling_price }}">
@@ -417,7 +417,7 @@
                                             </div>
                                             <div class="col-md-4">
                                                 <div class="mb-3">
-                                                    <label class="form-label">Stock Quantity</label>
+                                                    <label class="form-label">{{ __('messages.stock_quantity') }}</label>
                                                     <input type="number" name="variations[{{ $index }}][stock_quantity]"
                                                            class="form-control variation-stock"
                                                            value="{{ $variation->stock_quantity }}">
@@ -427,7 +427,7 @@
                                         <div class="row">
                                             <div class="col-md-3">
                                                 <div class="mb-3">
-                                                    <label class="form-label">Discount</label>
+                                                    <label class="form-label">{{ __('messages.discount') }}</label>
                                                     <input type="number" step="0.01" name="variations[{{ $index }}][discount]"
                                                            class="form-control variation-discount"
                                                            value="{{ $variation->discount }}">
@@ -435,7 +435,7 @@
                                             </div>
                                             <div class="col-md-3">
                                                 <div class="mb-3">
-                                                    <label class="form-label">Tax Amount</label>
+                                                    <label class="form-label">{{ __('messages.tax') }}</label>
                                                     <input type="number" step="0.01" name="variations[{{ $index }}][tax_amount]"
                                                            class="form-control variation-tax-amount"
                                                            value="{{ $variation->tax_amount }}">
@@ -443,16 +443,16 @@
                                             </div>
                                             <div class="col-md-3">
                                                 <div class="mb-3">
-                                                    <label class="form-label">Tax Type</label>
+                                                    <label class="form-label">{{ __('messages.tax_type') }}</label>
                                                     <select name="variations[{{ $index }}][tax_type]" class="form-select variation-tax-type">
-                                                        <option value="1" {{ $variation->tax_type == 1 ? 'selected' : '' }}>Amount</option>
-                                                        <option value="2" {{ $variation->tax_type == 2 ? 'selected' : '' }}>Percentage</option>
+                                                        <option value="1" {{ $variation->tax_type == 1 ? 'selected' : '' }}>{{ __('messages.fixed_amount') }}</option>
+                                                        <option value="2" {{ $variation->tax_type == 2 ? 'selected' : '' }}>{{ __('messages.percentage') }}</option>
                                                     </select>
                                                 </div>
                                             </div>
                                             <div class="col-md-3">
                                                 <div class="mb-3">
-                                                    <label class="form-label">Total Price</label>
+                                                    <label class="form-label">{{ __('messages.total_price') }}</label>
                                                     <input type="number" step="0.01" name="variations[{{ $index }}][total_price]"
                                                            class="form-control variation-total-price"
                                                            value="{{ $variation->total_price }}" readonly>
@@ -464,19 +464,19 @@
                                                 <div class="form-check mb-3">
                                                     <input class="form-check-input" type="checkbox" name="variations[{{ $index }}][is_taxable]"
                                                            value="1" {{ $variation->is_taxable ? 'checked' : '' }}>
-                                                    <label class="form-check-label">Is Taxable</label>
+                                                    <label class="form-check-label">{{ __('messages.is_taxable') }}</label>
                                                 </div>
                                             </div>
                                             <div class="col-md-6">
                                                 <div class="form-check mb-3">
                                                     <input class="form-check-input" type="checkbox" name="variations[{{ $index }}][is_featured]"
                                                            value="1" {{ $variation->is_featured ? 'checked' : '' }}>
-                                                    <label class="form-check-label">Is Featured</label>
+                                                    <label class="form-check-label">{{__('organizations.featured_product')}}}</label>
                                                 </div>
                                             </div>
                                         </div>
                                         <div class="mb-3">
-                                            <label class="form-label">Options</label>
+                                            <label class="form-label">{{__('organizations.options')}}</label>
                                             <div class="row">
                                                 @foreach($options as $option)
                                                     <div class="col-md-6 mb-2">
@@ -495,21 +495,24 @@
                                             </div>
                                         </div>
                                         <div class="mb-3">
-                                            <label class="form-label">Variation Main Images</label>
-                                            <p class="text-muted small">Primary images for this variation</p>
+                                            <label class="form-label">{{ __('messages.variation_main_images') }}</label>
+                                            <p class="text-muted small">{{ __('messages.variation_main_images_desc') }}</p>
+
                                             <div class="image-upload-container variation-main-image-upload" data-variation-index="{{ $index }}">
                                                 <input type="file" name="variations[{{ $index }}][main_images][]" multiple accept="image/*" class="variation-main-image-input">
+
                                                 <div class="upload-text">
                                                     <i class="fas fa-cloud-upload-alt fa-2x mb-2"></i>
-                                                    <p>Click to upload main images or drag and drop</p>
-                                                    <small class="text-muted">PNG, JPG, GIF up to 10MB (Multiple files allowed)</small>
+                                                    <p>{{ __('messages.click_upload_main') }}</p>
+                                                    <small class="text-muted">{{ __('messages.images_upload_help') }}</small>
                                                 </div>
                                             </div>
+
                                             <div class="image-preview-grid variation-main-image-preview" data-variation-index="{{ $index }}">
                                                 @if($variation->getMedia('main_images')->count() > 0)
                                                     @foreach($variation->getMedia('main_images') as $media)
                                                         <div class="image-preview-item" data-media-id="{{ $media->id }}">
-                                                            <img src="{{ $media->getUrl() }}" alt="Variation Main Image">
+                                                            <img src="{{ $media->getUrl() }}" alt="{{ __('messages.main_image_alt') }}">
                                                             <button type="button" class="remove-image" data-existing="true" data-media-id="{{ $media->id }}">×</button>
                                                             <input type="hidden" name="variations[{{ $index }}][existing_main_images][]" value="{{ $media->id }}">
                                                         </div>
@@ -517,22 +520,27 @@
                                                 @endif
                                             </div>
                                         </div>
+
+
                                         <div class="mb-3">
-                                            <label class="form-label">Variation Additional Images</label>
-                                            <p class="text-muted small">Gallery images for this variation</p>
+                                            <label class="form-label">{{ __('messages.variation_additional_images') }}</label>
+                                            <p class="text-muted small">{{ __('messages.variation_additional_images_desc') }}</p>
+
                                             <div class="image-upload-container variation-image-upload" data-variation-index="{{ $index }}">
                                                 <input type="file" name="variations[{{ $index }}][additional_images][]" multiple accept="image/*" class="variation-image-input">
+
                                                 <div class="upload-text">
                                                     <i class="fas fa-cloud-upload-alt fa-2x mb-2"></i>
-                                                    <p>Click to upload additional images or drag and drop</p>
-                                                    <small class="text-muted">PNG, JPG, GIF up to 10MB (Multiple files allowed)</small>
+                                                    <p>{{ __('messages.click_upload_additional') }}</p>
+                                                    <small class="text-muted">{{ __('messages.images_upload_help') }}</small>
                                                 </div>
                                             </div>
+
                                             <div class="image-preview-grid variation-image-preview" data-variation-index="{{ $index }}">
                                                 @if($variation->getMedia('additional_images')->count() > 0)
                                                     @foreach($variation->getMedia('additional_images') as $media)
                                                         <div class="image-preview-item" data-media-id="{{ $media->id }}">
-                                                            <img src="{{ $media->getUrl() }}" alt="Variation Additional Image">
+                                                            <img src="{{ $media->getUrl() }}" alt="{{ __('messages.additional_image_alt') }}">
                                                             <button type="button" class="remove-image" data-existing="true" data-media-id="{{ $media->id }}">×</button>
                                                             <input type="hidden" name="variations[{{ $index }}][existing_additional_images][]" value="{{ $media->id }}">
                                                         </div>
@@ -540,6 +548,7 @@
                                                 @endif
                                             </div>
                                         </div>
+
                                     </div>
                                 </div>
                             @endforeach
@@ -557,7 +566,7 @@
                         <div class="card-body">
                             <input type="hidden" name="translations[{{ $locale }}][locale]" value="{{ $locale }}">
                             <div class="mb-3">
-                                <label class="form-label">Name</label>
+                                <label class="form-label">{{ __('messages.name') }}</label>
                                 <input type="text" name="{{ $locale }}[name]" class="form-control @error("$locale.name") is-invalid @enderror"
                                        value="{{ old("$locale.name", $product?->translate($locale)?->name ?? '') }}">
                                 @error("$locale.name")
@@ -565,7 +574,7 @@
                                 @enderror
                             </div>
                             <div class="mb-3">
-                                <label class="form-label">Short Description</label>
+                                <label class="form-label">{{ __('messages.short_description') }}</label>
                                 <input type="text" name="{{ $locale }}[short_description]" class="form-control @error("$locale.short_description") is-invalid @enderror"
                                        value="{{ old("$locale.short_description", $product?->translate($locale)?->short_description ?? '') }}">
                                 @error("$locale.short_description")
@@ -573,7 +582,7 @@
                                 @enderror
                             </div>
                             <div class="mb-3">
-                                <label class="form-label">Description</label>
+                                <label class="form-label">{{__('messages.descriptions')}}</label>
                                 <textarea name="{{ $locale }}[description]" class="form-control @error("$locale.description") is-invalid @enderror"
                                           rows="3">{{ old("$locale.description", $product?->translate($locale)?->description ?? '') }}</textarea>
                                 @error("$locale.description")
@@ -588,19 +597,19 @@
             <div class="tab-pane" id="images">
                 <div id="mainImagesSection">
                     <div id="imagesDisabledNotice" class="images-disabled-notice" style="display: none;">
-                        <strong>Note:</strong> Images are disabled because you have variations. Please add images to each variation instead.
+                        <strong>{{ __('messages.images_disabled_notice') }}</strong>
                     </div>
 
                     <!-- Main Images -->
                     <div class="mb-4" id="mainImagesContainer">
-                        <h5>Main Images</h5>
-                        <p class="text-muted">These are the primary images for your product</p>
+                        <h5>{{ __('messages.main_images') }}</h5>
+                        <p class="text-muted">{{ __('messages.main_images_desc') }}</p>
                         <div class="image-upload-container" id="mainImageUploadArea">
                             <input type="file" name="main_images[]" id="mainImagesInput" multiple accept="image/*">
                             <div class="upload-text">
                                 <i class="fas fa-cloud-upload-alt fa-2x mb-2"></i>
-                                <p>Click to upload main images or drag and drop</p>
-                                <small class="text-muted">PNG, JPG, GIF up to 10MB (Multiple files allowed)</small>
+                                <p>{{ __('messages.click_to_upload_main') }}</p>
+                                <small class="text-muted">{{ __('messages.allowed_files') }}</small>
                             </div>
                         </div>
                         <div class="image-preview-grid" id="mainImagesPreview">
@@ -618,14 +627,14 @@
 
                     <!-- Additional Images -->
                     <div class="mb-4" id="additionalImagesContainer">
-                        <h5>Additional Images</h5>
-                        <p class="text-muted">Additional product images (gallery)</p>
+                        <h5>{{ __('messages.additional_images') }}</h5>
+                        <p class="text-muted">{{ __('messages.additional_images_desc') }}</p>
                         <div class="image-upload-container" id="additionalImageUploadArea">
                             <input type="file" name="additional_images[]" id="additionalImagesInput" multiple accept="image/*">
                             <div class="upload-text">
                                 <i class="fas fa-cloud-upload-alt fa-2x mb-2"></i>
-                                <p>Click to upload additional images or drag and drop</p>
-                                <small class="text-muted">PNG, JPG, GIF up to 10MB (Multiple files allowed)</small>
+                                <p>{{ __('messages.click_to_upload_additional') }}</p>
+                                <small class="text-muted">{{ __('messages.allowed_files') }}</small>
                             </div>
                         </div>
                         <div class="image-preview-grid" id="additionalImagesPreview">
@@ -647,7 +656,7 @@
                 <div class="row">
                     <div class="col-md-6">
                         <div class="mb-3">
-                            <label class="form-label">Cost Price</label>
+                            <label class="form-label">{{ __('messages.cost_price') }}</label>
                             <input type="number" step="0.01" name="cost_price" class="form-control @error('cost_price') is-invalid @enderror"
                                    value="{{ old('cost_price', $product->cost_price ?? 0) }}" id="cost_price">
                             @error('cost_price')
@@ -657,7 +666,7 @@
                     </div>
                     <div class="col-md-6">
                         <div class="mb-3">
-                            <label class="form-label">Selling Price</label>
+                            <label class="form-label">{{ __('messages.selling_price') }}</label>
                             <input type="number" step="0.01" name="selling_price" class="form-control @error('selling_price') is-invalid @enderror"
                                    value="{{ old('selling_price', $product->selling_price ?? 0) }}" id="selling_price">
                             @error('selling_price')
@@ -669,7 +678,7 @@
                 <div class="row">
                     <div class="col-md-6">
                         <div class="mb-3">
-                            <label class="form-label">Discount</label>
+                            <label class="form-label">{{ __('messages.discount') }}</label>
                             <input type="number" step="0.01" name="discount" class="form-control @error('discount') is-invalid @enderror"
                                    value="{{ old('discount', $product->discount ?? 0) }}" id="discount">
                             @error('discount')
@@ -679,7 +688,7 @@
                     </div>
                     <div class="col-md-6">
                         <div class="mb-3">
-                            <label class="form-label">Total Price</label>
+                            <label class="form-label">{{ __('messages.total_price') }}</label>
                             <input type="number" step="0.01" name="total_price" class="form-control"
                                    value="{{ old('total_price', $product->total_price ?? 0) }}" id="total_price" readonly>
                         </div>
@@ -690,15 +699,15 @@
                         <div class="form-check mb-3">
                             <input class="form-check-input" type="checkbox" name="is_taxable" value="1"
                                    id="is_taxable" {{ old('is_taxable', $product->is_taxable ?? '') ? 'checked' : '' }}>
-                            <label class="form-check-label" for="is_taxable">Is Taxable</label>
+                            <label class="form-check-label" for="is_taxable">{{ __('messages.is_taxable') }}</label>
                         </div>
                     </div>
                     <div class="col-md-4">
                         <div class="mb-3">
-                            <label class="form-label">Tax Type</label>
+                            <label class="form-label">{{ __('messages.tax_type') }}</label>
                             <select name="tax_type" class="form-select @error('tax_type') is-invalid @enderror" id="tax_type">
-                                <option value="1" {{ old('tax_type', $product->tax_type ?? 1) == 1 ? 'selected' : '' }}>Amount</option>
-                                <option value="2" {{ old('tax_type', $product->tax_type ?? '') == 2 ? 'selected' : '' }}>Percentage</option>
+                                <option value="1" {{ old('tax_type', $product->tax_type ?? 1) == 1 ? 'selected' : '' }}>{{ __('messages.tax_type_amount') }}</option>
+                                <option value="2" {{ old('tax_type', $product->tax_type ?? '') == 2 ? 'selected' : '' }}>{{ __('messages.tax_type_percentage') }}</option>
                             </select>
                             @error('tax_type')
                             <div class="invalid-feedback">{{ $message }}</div>
@@ -707,7 +716,7 @@
                     </div>
                     <div class="col-md-4">
                         <div class="mb-3">
-                            <label class="form-label">Tax Amount</label>
+                            <label class="form-label">{{ __('messages.tax_amount') }}</label>
                             <input type="number" step="0.01" name="tax_amount" class="form-control @error('tax_amount') is-invalid @enderror"
                                    value="{{ old('tax_amount', $product->tax_amount ?? 0) }}" id="tax_amount">
                             @error('tax_amount')
@@ -722,7 +731,7 @@
                 <div class="row">
                     <div class="col-md-6">
                         <div class="mb-3">
-                            <label class="form-label">Stock Quantity</label>
+                            <label class="form-label">{{ __('messages.stock_quantity') }}</label>
                             <input type="number" name="stock_quantity" class="form-control @error('stock_quantity') is-invalid @enderror"
                                    value="{{ old('stock_quantity', $product->stock_quantity ?? 0) }}" id="stock_quantity">
                             @error('stock_quantity')
@@ -732,7 +741,7 @@
                     </div>
                     <div class="col-md-6">
                         <div class="mb-3">
-                            <label class="form-label">Low Stock Threshold</label>
+                            <label class="form-label">{{ __('messages.low_stock_threshold') }}</label>
                             <input type="number" name="low_stock_threshold" class="form-control @error('low_stock_threshold') is-invalid @enderror"
                                    value="{{ old('low_stock_threshold', $product->low_stock_threshold ?? 5) }}" id="low_stock_threshold">
                             @error('low_stock_threshold')
@@ -746,9 +755,9 @@
     </div>
     <!-- Footer -->
     <div class="card-footer">
-        <a href="{{ route('organization.products.index') }}" class="btn btn-secondary">Cancel</a>
+        <a href="{{ route('organization.products.index') }}" class="btn btn-secondary">{{__('messages.cancel')}}</a>
         <button type="submit" class="btn btn-primary">
-            {{ isset($product) ? 'Update Product' : 'Create Product' }}
+            {{ isset($product) ? __('messages.edit_product') : __('messages.create_product') }}
         </button>
     </div>
 </form>
@@ -756,101 +765,105 @@
 <div id="variationTemplate">
     <div class="variation-item">
         <div class="card-header">
-            <span>Variation <span class="variation-number"></span></span>
-            <button type="button" class="btn btn-danger btn-sm remove-variation">Remove</button>
+            <span>{{ __('messages.variation') }} <span class="variation-number"></span></span>
+            <button type="button" class="btn btn-danger btn-sm remove-variation">{{ __('messages.remove') }}</button>
         </div>
         <div class="card-body">
             <div class="row">
                 <div class="col-md-4">
                     <div class="mb-3">
-                        <label class="form-label">SKU</label>
+                        <label class="form-label">{{ __('messages.sku') }}</label>
                         <input type="text" name="variations[INDEX][sku]" class="form-control">
                     </div>
                 </div>
                 <div class="col-md-4">
                     <div class="mb-3">
-                        <label class="form-label">Barcode</label>
+                        <label class="form-label">{{ __('messages.barcode') }}</label>
                         <input type="text" name="variations[INDEX][barcode]" class="form-control">
                     </div>
                 </div>
                 <div class="col-md-4">
                     <div class="mb-3">
-                        <label class="form-label">Sort Order</label>
+                        <label class="form-label">{{ __('messages.sort_order') }}</label>
                         <input type="number" name="variations[INDEX][sort_order]" class="form-control">
                     </div>
                 </div>
             </div>
+
             <div class="row">
                 <div class="col-md-4">
                     <div class="mb-3">
-                        <label class="form-label">Cost Price</label>
+                        <label class="form-label">{{ __('messages.cost_price') }}</label>
                         <input type="number" step="0.01" name="variations[INDEX][cost_price]" class="form-control variation-cost-price" value="0">
                     </div>
                 </div>
                 <div class="col-md-4">
                     <div class="mb-3">
-                        <label class="form-label">Selling Price</label>
+                        <label class="form-label">{{ __('messages.selling_price') }}</label>
                         <input type="number" step="0.01" name="variations[INDEX][selling_price]" class="form-control variation-selling-price" value="0">
                     </div>
                 </div>
                 <div class="col-md-4">
                     <div class="mb-3">
-                        <label class="form-label">Stock Quantity</label>
+                        <label class="form-label">{{ __('messages.stock_quantity') }}</label>
                         <input type="number" name="variations[INDEX][stock_quantity]" class="form-control variation-stock" value="0">
                     </div>
                 </div>
             </div>
+
             <div class="row">
                 <div class="col-md-3">
                     <div class="mb-3">
-                        <label class="form-label">Discount</label>
+                        <label class="form-label">{{ __('messages.discount') }}</label>
                         <input type="number" step="0.01" name="variations[INDEX][discount]" class="form-control variation-discount" value="0">
                     </div>
                 </div>
                 <div class="col-md-3">
                     <div class="mb-3">
-                        <label class="form-label">Tax Amount</label>
+                        <label class="form-label">{{ __('messages.tax_amount') }}</label>
                         <input type="number" step="0.01" name="variations[INDEX][tax_amount]" class="form-control variation-tax-amount" value="0">
                     </div>
                 </div>
                 <div class="col-md-3">
                     <div class="mb-3">
-                        <label class="form-label">Tax Type</label>
+                        <label class="form-label">{{ __('messages.tax_type') }}</label>
                         <select name="variations[INDEX][tax_type]" class="form-select variation-tax-type">
-                            <option value="1">Amount</option>
-                            <option value="2">Percentage</option>
+                            <option value="1">{{ __('messages.tax_type_amount') }}</option>
+                            <option value="2">{{ __('messages.tax_type_percentage') }}</option>
                         </select>
                     </div>
                 </div>
                 <div class="col-md-3">
                     <div class="mb-3">
-                        <label class="form-label">Total Price</label>
+                        <label class="form-label">{{ __('messages.total_price') }}</label>
                         <input type="number" step="0.01" name="variations[INDEX][total_price]" class="form-control variation-total-price" value="0" readonly>
                     </div>
                 </div>
             </div>
+
             <div class="row">
                 <div class="col-md-6">
                     <div class="form-check mb-3">
                         <input class="form-check-input" type="checkbox" name="variations[INDEX][is_taxable]" value="1">
-                        <label class="form-check-label">Is Taxable</label>
+                        <label class="form-check-label">{{ __('messages.is_taxable') }}</label>
                     </div>
                 </div>
                 <div class="col-md-6">
                     <div class="form-check mb-3">
                         <input class="form-check-input" type="checkbox" name="variations[INDEX][is_featured]" value="1">
-                        <label class="form-check-label">Is Featured</label>
+                        <label class="form-check-label">{{ __('messages.is_featured') }}</label>
                     </div>
                 </div>
             </div>
+
             <div class="mb-3">
-                <label class="form-label">Options</label>
+                <label class="form-label">{{ __('messages.options') }}</label>
                 <div class="row">
                     @foreach($options as $option)
                         <div class="col-md-6 mb-2">
                             <label class="form-label">{{ $option->name }}</label>
                             <select name="variations[INDEX][option_items][]" class="form-select">
-                                <option value="">Select {{ $option->name }}</option>
+                                <option value="">{{ __('messages.select') }} {{ $option->name }}</option>
                                 @foreach($option->items as $item)
                                     <option value="{{ $item->id }}">{{ $item->name }}</option>
                                 @endforeach
@@ -859,34 +872,35 @@
                     @endforeach
                 </div>
             </div>
+
             <div class="mb-3">
-                <label class="form-label">Variation Main Images</label>
-                <p class="text-muted small">Primary images for this variation</p>
+                <label class="form-label">{{ __('messages.variation_main_images') }}</label>
+                <p class="text-muted small">{{ __('messages.variation_main_images_hint') }}</p>
                 <div class="image-upload-container variation-main-image-upload" data-variation-index="INDEX">
                     <input type="file" name="variations[INDEX][main_images][]" multiple accept="image/*" class="variation-main-image-input">
                     <div class="upload-text">
                         <i class="fas fa-cloud-upload-alt fa-2x mb-2"></i>
-                        <p>Click to upload main images or drag and drop</p>
-                        <small class="text-muted">PNG, JPG, GIF up to 10MB (Multiple files allowed)</small>
+                        <p>{{ __('messages.upload_main_images') }}</p>
+                        <small class="text-muted">{{ __('messages.allowed_images') }}</small>
                     </div>
                 </div>
-                <div class="image-preview-grid variation-main-image-preview" data-variation-index="INDEX">
-                </div>
+                <div class="image-preview-grid variation-main-image-preview" data-variation-index="INDEX"></div>
             </div>
+
             <div class="mb-3">
-                <label class="form-label">Variation Additional Images</label>
-                <p class="text-muted small">Gallery images for this variation</p>
+                <label class="form-label">{{ __('messages.variation_additional_images') }}</label>
+                <p class="text-muted small">{{ __('messages.variation_gallery_images_hint') }}</p>
                 <div class="image-upload-container variation-image-upload" data-variation-index="INDEX">
                     <input type="file" name="variations[INDEX][additional_images][]" multiple accept="image/*" class="variation-image-input">
                     <div class="upload-text">
                         <i class="fas fa-cloud-upload-alt fa-2x mb-2"></i>
-                        <p>Click to upload additional images or drag and drop</p>
-                        <small class="text-muted">PNG, JPG, GIF up to 10MB (Multiple files allowed)</small>
+                        <p>{{ __('messages.upload_additional_images') }}</p>
+                        <small class="text-muted">{{ __('messages.allowed_images') }}</small>
                     </div>
                 </div>
-                <div class="image-preview-grid variation-image-preview" data-variation-index="INDEX">
-                </div>
+                <div class="image-preview-grid variation-image-preview" data-variation-index="INDEX"></div>
             </div>
+
         </div>
     </div>
 </div>

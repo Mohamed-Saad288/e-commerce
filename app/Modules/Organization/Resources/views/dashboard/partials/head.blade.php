@@ -51,6 +51,5 @@
             transform: rotate(180deg);
         }
     </style>
-
     @yield('styles')
 </head>
