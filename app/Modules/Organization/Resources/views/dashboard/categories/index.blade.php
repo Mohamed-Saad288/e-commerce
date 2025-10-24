@@ -49,34 +49,35 @@
 
 @section('after_script')
     <script>
+        // اجعل الدالة متاحة في الـ Global Scope
+        function updateResultsCount() {
+            let rowsCount = $('#categories-table-container tbody tr').not(':has(.no-data)').length;
+            $('#results-count').text(rowsCount);
+        }
+
         $(document).ready(function () {
             let searchTimeout;
 
-            // تحديث العداد
+            // تحديث العداد عند الصفحة الأولى
             updateResultsCount();
 
-            // 🔍 البحث الحي
             $('#search-input').on('keyup', function () {
                 clearTimeout(searchTimeout);
                 let query = $(this).val();
                 searchTimeout = setTimeout(() => searchCategories(query), 400);
             });
 
-            // ❌ زر مسح البحث
             $('#clear-search').on('click', function () {
                 $('#search-input').val('');
                 searchCategories('');
             });
 
-            // 📄 Pagination
             $(document).on('click', '.pagination a', function (e) {
                 e.preventDefault();
                 let pageUrl = $(this).attr('href');
-                let query = $('#search-input').val();
-                searchCategories(query, pageUrl);
+                searchCategories($('#search-input').val(), pageUrl);
             });
 
-            // 🧠 دالة البحث
             function searchCategories(query = '', pageUrl = "{{ route('organization.categories.index') }}") {
                 $.ajax({
                     url: pageUrl,
@@ -84,13 +85,13 @@
                     data: { search: query },
                     beforeSend: function () {
                         $('#categories-table-container').html(`
-                    <div class="text-center py-5">
-                        <div class="spinner-border text-primary" style="width:3rem;height:3rem;" role="status">
-                            <span class="visually-hidden">{{ __('messages.loading') }}</span>
+                        <div class="text-center py-5">
+                            <div class="spinner-border text-primary" style="width:3rem;height:3rem;" role="status">
+                                <span class="visually-hidden">{{ __('messages.loading') }}</span>
+                            </div>
+                            <p class="mt-3 text-muted">{{ __('messages.loading') }}...</p>
                         </div>
-                        <p class="mt-3 text-muted">{{ __('messages.loading') }}...</p>
-                    </div>
-                `);
+                    `);
                     },
                     success: function (response) {
                         $('#categories-table-container').html(response);
@@ -101,12 +102,51 @@
                     }
                 });
             }
+        });
 
-            // 🔢 تحديث عداد النتائج
-            function updateResultsCount() {
-                let rowsCount = $('#categories-table-container tbody tr').not(':has(.no-data)').length;
-                $('#results-count').text(rowsCount);
-            }
+        // Event الحذف يجب يبقى خارج الـ ready
+        $(document).on('click', '.delete-category', function (e) {
+            e.preventDefault();
+            let id = $(this).data('id');
+            let url = "{{ route('organization.categories.destroy', ':id') }}".replace(':id', id);
+            let row = $(this).closest('tr');
+
+            Swal.fire({
+                title: "{{ __('messages.confirm_delete') }}",
+                text: "{{ __('messages.are_you_sure') }}",
+                icon: "warning",
+                showCancelButton: true,
+                confirmButtonColor: "#d33",
+                cancelButtonColor: "#3085d6",
+                confirmButtonText: "{{ __('messages.yes_delete') }}",
+                cancelButtonText: "{{ __('messages.no_cancel') }}"
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    $.ajax({
+                        url: url,
+                        type: "POST",
+                        data: {
+                            _token: "{{ csrf_token() }}",
+                            _method: "DELETE"
+                        },
+                        success: function (response) {
+                            if (response.success) {
+                                Swal.fire("{{ __('messages.deleted') }}", response.message, "success");
+
+                                row.fadeOut(300, function () {
+                                    $(this).remove();
+                                    updateResultsCount();
+                                });
+                            } else {
+                                Swal.fire("{{ __('messages.error') }}", "{{ __('messages.something_wrong') }}", "error");
+                            }
+                        },
+                        error: function () {
+                            Swal.fire("{{ __('messages.error') }}", "{{ __('messages.error_occurred') }}", "error");
+                        }
+                    });
+                }
+            });
         });
     </script>
 
