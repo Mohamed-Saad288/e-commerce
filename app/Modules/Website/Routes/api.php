@@ -112,6 +112,7 @@ Route::prefix('api/site')->middleware(['set.organization.context'])->group(funct
             Route::post('delete_cart_item', 'delete_cart_item');
             Route::post('clear_cart', 'clear_cart');
             Route::post('get_my_cart', 'get_my_cart');
+            Route::post('apply_coupon_code', 'apply_coupon_code');
         });
 
         /** Order Endpoints */

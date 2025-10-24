@@ -3,6 +3,7 @@
 namespace App\Modules\Website\app\Http\Controllers\Cart;
 
 use App\Http\Controllers\Controller;
+use App\Modules\Website\app\Http\Request\Cart\CartCouponCodeRequest;
 use App\Modules\Website\app\Http\Request\Cart\CartItemRequest;
 use App\Modules\Website\app\Http\Request\Cart\StoreCartRequest;
 use App\Modules\Website\app\Http\Request\Cart\UpdateCartItemRequest;
@@ -35,5 +36,9 @@ class CartController extends Controller
     public function get_my_cart()
     {
         return $this->cartService->get_my_cart()->response();
+    }
+    public function apply_coupon_code(CartCouponCodeRequest $request)
+    {
+        return $this->cartService->apply_coupon_code($request->validated())->response();
     }
 }

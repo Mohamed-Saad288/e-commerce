@@ -199,4 +199,28 @@ class CartService
             message: 'Cart cleared successfully'
         );
     }
+    public function apply_coupon_code($data)
+    {
+        $user = auth('sanctum')->user();
+        $organization = $this->getOrganization();
+        $cart = Cart::where('user_id', $user->id)
+            ->where('organization_id', $organization->id)
+            ->first();
+        if (! $cart) {
+            return new DataFailed(status: false, message: 'No cart found');
+        }
+        $coupon = Coupon::where('organization_id', $organization->id)
+            ->where('code', $data['coupon_code'])
+            ->first();
+        if (! $coupon) {
+            return new DataFailed(status: false, message: 'Invalid coupon');
+        }
+        $cart->coupon_id = $coupon->id;
+        $cart->save();
+        return new DataSuccess(
+            data: new CartResource($cart),
+            status: true,
+            message: 'Coupon applied successfully'
+        );
+    }
 }
