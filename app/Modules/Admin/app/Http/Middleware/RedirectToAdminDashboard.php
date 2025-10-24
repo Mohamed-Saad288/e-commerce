@@ -17,6 +17,6 @@ class RedirectToAdminDashboard
             return redirect()->route('organization.home');
         }
 
-        return redirect()->route('admin.login');
+        return redirect()->route('organization.login');
     }
 }
