@@ -36,11 +36,11 @@
                                             <td>{{ $home_section->sort_order ?? "-" }}</td>
                                             <td>
                                                     <a href="{{ route('organization.home_sections.edit', $home_section->id) }}"
-                                                       class="btn btn-sm btn-success">
+                                                       class="btn btn-sm btn-outline-success">
                                                         <i class='fe fe-edit fa-2x'></i>
                                                     </a>
 
-                                                    <button class="btn btn-sm btn-danger delete-home_section"
+                                                    <button class="btn btn-sm btn-outline-danger delete-home_section"
                                                             data-id="{{ $home_section->id }}">
                                                         <i class="fe fe-trash-2 fa-2x"></i>
                                                     </button>

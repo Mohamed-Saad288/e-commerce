@@ -30,13 +30,13 @@
                                         <tr>
                                             <td>{{ $loop->iteration }}</td>
                                             <td>{{ $question->question ?? '-' }}</td>
-                                            <td>{{ $question->answer ?? '-' }}</td>
+                                            <td>{{ Illuminate\Support\Str::limit($question->answer, 40, '...') ?? '-' }}</td>
                                             <td>
                                                 <a href="{{ route('organization.questions.edit', $question->id) }}"
-                                                   class="btn btn-sm btn-success">
+                                                   class="btn btn-sm btn-outline-success">
                                                     <i class='fe fe-edit fa-2x'></i>
                                                 </a>
-                                                <button class="btn btn-sm btn-danger delete-question"
+                                                <button class="btn btn-sm btn-outline-danger delete-question"
                                                         data-id="{{ $question->id }}">
                                                     <i class="fe fe-trash-2 fa-2x"></i>
                                                 </button>
