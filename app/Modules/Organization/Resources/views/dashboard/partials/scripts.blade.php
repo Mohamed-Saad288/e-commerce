@@ -67,6 +67,33 @@
     });
 </script>
 
+<script>
+    $(function () {
+        const fullscreenButton = $('.fullscreen-toggle');
+        const fullscreenIcon = fullscreenButton.find('i');
+
+        fullscreenButton.on('click', function () {
+            if (!document.fullscreenElement) {
+                document.documentElement.requestFullscreen().then(() => {
+                    fullscreenIcon.removeClass('fe-maximize').addClass('fe-minimize');
+                });
+            } else {
+                document.exitFullscreen().then(() => {
+                    fullscreenIcon.removeClass('fe-minimize').addClass('fe-maximize');
+                });
+            }
+        });
+    });
+</script>
+
+<script>
+    toastr.options = {
+        "progressBar": true,
+        "timeOut": 3000,
+        "extendedTimeOut": 2000
+    };
+</script>
+
 @yield('after_script')
 
 
