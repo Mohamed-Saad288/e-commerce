@@ -6,7 +6,7 @@ use App\Modules\Website\app\Http\Resources\Product\ProductVariationResource;
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
 
-class CartResource extends JsonResource
+class CartItemsResource extends JsonResource
 {
     /**
      * Transform the resource into an array.
@@ -17,9 +17,9 @@ class CartResource extends JsonResource
     {
         return [
             'id' => $this->id,
-            'total' => $this->total ?? 0,
-            'coupon_code' => $this->coupon ? $this->coupon->code : null,
-            'items' => CartItemsResource::collection($this->items ?? []) ?? [],
+            'quantity' => $this->quantity ?? 0,
+            'price' => $this->price ?? 0,
+            'product' => new ProductVariationResource($this->productVariation ?? null)
         ];
     }
 }

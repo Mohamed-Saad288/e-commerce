@@ -4,7 +4,7 @@ namespace App\Modules\Website\app\Http\Request\Cart;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class UpdateCartRequest extends FormRequest
+class UpdateCartItemRequest extends FormRequest
 {
     public function authorize(): bool
     {
@@ -14,9 +14,10 @@ class UpdateCartRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'cart_id' => ['required', 'integer', 'exists:carts,id'],
+            'cart_item_id' => ['required', 'integer', 'exists:cart_item,id'],
             'product_id' => ['nullable', 'integer', 'exists:product_variations,id'],
             'quantity' => ['nullable', 'integer', 'min:1'],
+            'coupon_code' => ['nullable','integer','exists:coupons,code']
         ];
     }
 }

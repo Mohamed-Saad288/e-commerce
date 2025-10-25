@@ -3,9 +3,9 @@
 namespace App\Modules\Website\app\Http\Controllers\Cart;
 
 use App\Http\Controllers\Controller;
-use App\Modules\Website\app\Http\Request\Cart\CartRequest;
+use App\Modules\Website\app\Http\Request\Cart\CartItemRequest;
 use App\Modules\Website\app\Http\Request\Cart\StoreCartRequest;
-use App\Modules\Website\app\Http\Request\Cart\UpdateCartRequest;
+use App\Modules\Website\app\Http\Request\Cart\UpdateCartItemRequest;
 use App\Modules\Website\app\Services\Cart\CartService;
 
 class CartController extends Controller
@@ -17,20 +17,16 @@ class CartController extends Controller
         return $this->cartService->store_cart($request->validated())->response();
     }
 
-    public function update_cart(UpdateCartRequest $request)
+    public function update_cart_item(UpdateCartItemRequest $request)
     {
-        return $this->cartService->update_cart($request->validated())->response();
+        return $this->cartService->update_cart_item($request->validated())->response();
     }
 
-    public function delete_cart(CartRequest $request)
+    public function delete_cart_item(CartItemRequest $request)
     {
-        return $this->cartService->delete_cart($request->validated())->response();
+        return $this->cartService->delete_cart_item($request->validated())->response();
     }
 
-    public function show_cart(CartRequest $request)
-    {
-        return $this->cartService->show_cart($request->validated())->response();
-    }
 
     public function clear_cart()
     {

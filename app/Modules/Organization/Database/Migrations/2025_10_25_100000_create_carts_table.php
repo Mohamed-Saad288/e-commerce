@@ -11,14 +11,16 @@ return new class extends BaseMigration
      */
     public function up(): void
     {
-        // Create payment methods table
         Schema::create('carts', function (Blueprint $table) {
             $table->id();
             $table->foreignId('user_id')->nullable()->constrained('users')->nullOnDelete()->cascadeOnUpdate();
-            $table->foreignId('product_variation_id')->nullable()->constrained('product_variations')->nullOnDelete()->cascadeOnUpdate();
             $table->foreignId('organization_id')->nullable()->constrained('organizations')->nullOnDelete()->cascadeOnUpdate();
-            $table->integer('quantity')->default(1);
-            $table->decimal('price', 10, 2)->default(0);
+            $table->foreignId("coupon_id")
+                ->nullable()
+                ->constrained("coupons")
+                ->nullOnDelete()
+                ->cascadeOnUpdate();
+            $table->decimal('total', 10, 2)->default(0); // total cart
             $table->timestamps();
         });
     }
@@ -28,6 +30,6 @@ return new class extends BaseMigration
      */
     public function down(): void
     {
-        Schema::dropIfExists('favourite_products');
+        Schema::dropIfExists('carts');
     }
 };

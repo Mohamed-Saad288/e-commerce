@@ -108,9 +108,8 @@ Route::prefix('api/site')->middleware(['set.organization.context'])->group(funct
         /** Cart Endpoints */
         Route::controller(CartController::class)->group(function () {
             Route::post('store_cart', 'store_cart');
-            Route::post('update_cart', 'update_cart');
-            Route::post('delete_cart', 'delete_cart');
-            Route::post('show_cart', 'show_cart');
+            Route::post('update_cart_item', 'update_cart_item');
+            Route::post('delete_cart_item', 'delete_cart_item');
             Route::post('clear_cart', 'clear_cart');
             Route::post('get_my_cart', 'get_my_cart');
         });
