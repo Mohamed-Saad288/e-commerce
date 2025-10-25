@@ -2,7 +2,6 @@
 
 namespace App\Modules\Admin\app\Models\HomeSection;
 
-use App\Modules\Organization\app\Models\Product\Product;
 use App\Modules\Organization\app\Models\ProductVariation\ProductVariation;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;

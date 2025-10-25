@@ -35,11 +35,10 @@ class HomeSectionService extends BaseService
             $home_section = $this->model->query()->create($data);
 
             if (! empty($dto->products)) {
-                foreach ($dto->products as $product)
-                {
+                foreach ($dto->products as $product) {
                     HomeSectionProduct::create([
-                        'home_section_id' =>  $home_section->id,
-                        'product_variation_id' =>  $product
+                        'home_section_id' => $home_section->id,
+                        'product_variation_id' => $product,
                     ]);
                 }
 
