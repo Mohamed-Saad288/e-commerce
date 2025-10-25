@@ -70,6 +70,7 @@ class BaseService
             }
 
             Log::info('✅ [Update Completed Successfully]');
+
             return $model;
 
         } catch (\Throwable $e) {
@@ -81,7 +82,6 @@ class BaseService
             throw $e; // مهم علشان لو عندك Exception Handler يسجلها
         }
     }
-
 
     /**
      * Delete record (soft or hard depending on model)
