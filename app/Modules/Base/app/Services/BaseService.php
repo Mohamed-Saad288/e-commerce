@@ -39,7 +39,6 @@ class BaseService
         });
     }
 
-
     public function update(Model $model, DtoInterface $dto): Model
     {
         try {
