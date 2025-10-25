@@ -10,6 +10,7 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Pagination\LengthAwarePaginator;
 use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Log;
 
 class BaseService
 {
@@ -38,10 +39,6 @@ class BaseService
         });
     }
 
-    /**
-     * Update record with transaction and media handling
-     */
-    use Illuminate\Support\Facades\Log;
 
     public function update(Model $model, DtoInterface $dto): Model
     {
