@@ -57,7 +57,7 @@
                 @enderror
             </div>
 
-            {{-- Show old images if editing --}}
+            {{-- Show old images if edi ting --}}
             @if(isset($header) && $header->images)
                 <div class="mb-3 d-flex flex-wrap gap-2" id="old-images-container">
                     @foreach($header->images as $img)
