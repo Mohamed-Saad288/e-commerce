@@ -58,10 +58,10 @@
             </div>
 
             {{-- Show old images if edi ting --}}
-            @if(isset($header) && $header->images)
+            @if(isset($header) && $header->getImages())
                 <div class="mb-3 d-flex flex-wrap gap-2" id="old-images-container">
-                    @foreach($header->images as $img)
-                        <img src="{{ asset("storage/$img->image") }}"
+                    @foreach($header->getImages() as $img)
+                        <img src="{{ $img }}"
                              alt="Header Image"
                              class="img-thumbnail"
                              width="150">
