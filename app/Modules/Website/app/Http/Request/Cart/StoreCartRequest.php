@@ -16,6 +16,7 @@ class StoreCartRequest extends FormRequest
         return [
             'product_id' => ['required', 'integer', 'exists:product_variations,id'],
             'quantity' => ['required', 'integer', 'min:1'],
+            'coupon_code' => ['nullable','integer','exists:coupons,code']
         ];
     }
 }
