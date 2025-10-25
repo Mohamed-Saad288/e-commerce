@@ -56,7 +56,7 @@ class BrandDto implements DTOInterface
             slug: $arrayData['slug'] ?? null,
             organization_id: auth()->user()->organization_id ?? null,
             employee_id: auth()->user()->id,
-            categories: $arrayData['categories'],
+            categories: $arrayData['categories'] ?? [],
             image: $arrayData['image']
         );
     }
