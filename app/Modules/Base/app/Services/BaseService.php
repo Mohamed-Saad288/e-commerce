@@ -47,8 +47,8 @@ class BaseService
             $data = $dto->toArray();
             $model->update($data);
 
-            if (! empty($dto->images)) {
-                $model->storeImages(media: $dto->images, update: true);
+            if (! empty($dto->image)) {
+                $model->storeImages(media: $dto->image, update: true);
             }
 
             return $model;
