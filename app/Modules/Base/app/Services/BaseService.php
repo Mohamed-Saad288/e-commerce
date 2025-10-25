@@ -10,7 +10,6 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Pagination\LengthAwarePaginator;
 use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\DB;
-use Illuminate\Support\Facades\Log;
 
 class BaseService
 {
@@ -39,44 +38,21 @@ class BaseService
         });
     }
 
+    /**
+     * Update record with transaction and media handling
+     */
     public function update(Model $model, DtoInterface $dto): Model
     {
-        try {
-            Log::info('🔹 [Update Start]', [
-                'model' => get_class($model),
-                'id' => $model->id ?? null,
-            ]);
-
+        return DB::transaction(function () use ($model, $dto) {
             $data = $dto->toArray();
-            Log::info('✅ Data converted to array', $data);
-
             $model->update($data);
-            Log::info('✅ Model updated successfully');
 
             if (! empty($dto->images)) {
-                Log::info('🖼️ Images detected, storing...', [
-                    'count' => count($dto->images),
-                ]);
-
                 $model->storeImages(media: $dto->images, update: true);
-
-                Log::info('✅ Images stored successfully');
-            } else {
-                Log::info('⚠️ No images provided in DTO');
             }
 
-            Log::info('✅ [Update Completed Successfully]');
-
             return $model;
-
-        } catch (\Throwable $e) {
-            Log::error('❌ [Update Failed]', [
-                'error' => $e->getMessage(),
-                'trace' => $e->getTraceAsString(),
-            ]);
-
-            throw $e; // مهم علشان لو عندك Exception Handler يسجلها
-        }
+        });
     }
 
     /**
