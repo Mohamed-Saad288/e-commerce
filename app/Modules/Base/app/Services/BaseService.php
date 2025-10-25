@@ -41,19 +41,47 @@ class BaseService
     /**
      * Update record with transaction and media handling
      */
+    use Illuminate\Support\Facades\Log;
+
     public function update(Model $model, DtoInterface $dto): Model
     {
-        return DB::transaction(function () use ($model, $dto) {
+        try {
+            Log::info('🔹 [Update Start]', [
+                'model' => get_class($model),
+                'id' => $model->id ?? null,
+            ]);
+
             $data = $dto->toArray();
+            Log::info('✅ Data converted to array', $data);
+
             $model->update($data);
+            Log::info('✅ Model updated successfully');
 
             if (! empty($dto->images)) {
+                Log::info('🖼️ Images detected, storing...', [
+                    'count' => count($dto->images),
+                ]);
+
                 $model->storeImages(media: $dto->images, update: true);
+
+                Log::info('✅ Images stored successfully');
+            } else {
+                Log::info('⚠️ No images provided in DTO');
             }
 
+            Log::info('✅ [Update Completed Successfully]');
             return $model;
-        });
+
+        } catch (\Throwable $e) {
+            Log::error('❌ [Update Failed]', [
+                'error' => $e->getMessage(),
+                'trace' => $e->getTraceAsString(),
+            ]);
+
+            throw $e; // مهم علشان لو عندك Exception Handler يسجلها
+        }
     }
+
 
     /**
      * Delete record (soft or hard depending on model)
