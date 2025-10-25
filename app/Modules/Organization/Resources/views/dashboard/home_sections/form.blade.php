@@ -103,7 +103,6 @@
 
 
         {{-- Start Date --}}
-        {{-- Start Date --}}
         <div class="col-md-6">
             <div class="form-group">
                 <label for="start_date" class="font-weight-bold">{{ __('messages.start_date') }}</label>
@@ -141,8 +140,8 @@
                 <select class="form-control select2" name="products[]" multiple>
                     @foreach ($products as $product)
                         <option value="{{ $product->id }}"
-                            {{ in_array($product->id, old('products', isset($home_section) ? $home_section->products->pluck('id')->toArray() : [])) ? 'selected' : '' }}>
-                            {{ $product->name }}
+                            {{ in_array($product->id, old('products', isset($home_section) ? $home_section->productVariations?->pluck('id')->toArray() : [])) ? 'selected' : '' }}>
+                            {{ $product->name ?? $product->product?->name ?? "-" }}
                         </option>
                     @endforeach
                 </select>

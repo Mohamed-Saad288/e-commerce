@@ -3,6 +3,7 @@
 namespace App\Modules\Admin\app\Models\HomeSection;
 
 use App\Modules\Organization\app\Models\Product\Product;
+use App\Modules\Organization\app\Models\ProductVariation\ProductVariation;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
@@ -12,7 +13,7 @@ class HomeSectionProduct extends Model
 
     protected $fillable = [
         'home_section_id',
-        'product_id',
+        'product_variation_id',
         'sort_order',
     ];
 
@@ -21,8 +22,8 @@ class HomeSectionProduct extends Model
         return $this->belongsTo(HomeSection::class, 'home_section_id');
     }
 
-    public function product(): BelongsTo
+    public function productVariation(): BelongsTo
     {
-        return $this->belongsTo(Product::class, 'product_id');
+        return $this->belongsTo(productVariation::class, 'product_variation_id');
     }
 }

@@ -20,13 +20,17 @@ class HomeSectionProductResource extends JsonResource
     {
         $user = auth('sanctum')->user();
         $organization = $this->getOrganization();
-        $favouriteVariation = FavouriteProduct::where('user_id', $user->id)
-            ->where('organization_id', $organization->id)
-            ->where('product_variation_id', $this->id)->exists();
+        if (isset($user))
+        {
+            $favouriteVariation = FavouriteProduct::where('user_id', $user->id)
+                ->where('organization_id', $organization->id)
+                ->where('product_variation_id', $this->id)->exists();
+        }
 
-        return [
-            'name' => $this->name ?? null,
-            'slug' => $this->slug ?? null,
+
+        $data = [
+            'name' => $this->name ?? $this->product?->name ?? null,
+            'slug' => $this->slug ??$this->product?->slug ?? null,
             'description' => $this->product?->description ?? null,
             'short_description' => $this->product?->short_description ?? null,
             'sku' => $this->sku ?? null,
@@ -38,8 +42,13 @@ class HomeSectionProductResource extends JsonResource
             'tax_type' => $this->tax_type ?? null,
             'tax_amount' => $this->tax_amount ?? null,
             'discount' => $this->discount ?? null,
-            'is_favourite' => (bool) $favouriteVariation ?? false,
+            'is_favourite' =>  false,
             'main_image' => $this->getImages('main_images') ?? null,
         ];
+        if (isset($favouriteVariation))
+        {
+            $data['is_favourite'] = (bool) $favouriteVariation;
+        }
+        return  $data;
     }
 }
