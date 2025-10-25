@@ -2,7 +2,6 @@
 
 namespace App\Modules\Website\app\Http\Resources\Cart;
 
-use App\Modules\Website\app\Http\Resources\Product\ProductVariationResource;
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
 

@@ -15,9 +15,9 @@ return new class extends BaseMigration
             $table->id();
             $table->foreignId('user_id')->nullable()->constrained('users')->nullOnDelete()->cascadeOnUpdate();
             $table->foreignId('organization_id')->nullable()->constrained('organizations')->nullOnDelete()->cascadeOnUpdate();
-            $table->foreignId("coupon_id")
+            $table->foreignId('coupon_id')
                 ->nullable()
-                ->constrained("coupons")
+                ->constrained('coupons')
                 ->nullOnDelete()
                 ->cascadeOnUpdate();
             $table->decimal('total', 10, 2)->default(0); // total cart

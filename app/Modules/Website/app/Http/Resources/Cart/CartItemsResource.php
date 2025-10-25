@@ -19,7 +19,7 @@ class CartItemsResource extends JsonResource
             'id' => $this->id,
             'quantity' => $this->quantity ?? 0,
             'price' => $this->price ?? 0,
-            'product' => new ProductVariationResource($this->productVariation ?? null)
+            'product' => new ProductVariationResource($this->productVariation ?? null),
         ];
     }
 }

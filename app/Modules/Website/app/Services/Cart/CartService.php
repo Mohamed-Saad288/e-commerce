@@ -20,8 +20,8 @@ class CartService
         $organization = $this->getOrganization();
         $user = auth('sanctum')->user();
 
-        $productVariation = ProductVariation::where("organization_id", $organization->id)
-            ->where("id", $data['product_id'])
+        $productVariation = ProductVariation::where('organization_id', $organization->id)
+            ->where('id', $data['product_id'])
             ->first();
 
         if (! $productVariation) {
@@ -29,9 +29,9 @@ class CartService
         }
 
         $coupon = null;
-        if (!empty($data['coupon_code'])) {
-            $coupon = Coupon::where("organization_id", $organization->id)
-                ->where("code", $data['coupon_code'])
+        if (! empty($data['coupon_code'])) {
+            $coupon = Coupon::where('organization_id', $organization->id)
+                ->where('code', $data['coupon_code'])
                 ->first();
 
             if (! $coupon) {
@@ -87,14 +87,14 @@ class CartService
             return new DataFailed(status: false, message: 'Cart item not found');
         }
 
-        if (!empty($data['quantity'])) {
+        if (! empty($data['quantity'])) {
             $cartItem->quantity = $data['quantity'];
 
             $productVariation = $cartItem->productVariation;
             $cartItem->price = $productVariation->total_price * $cartItem->quantity;
         }
 
-        if (!empty($data['product_id'])) {
+        if (! empty($data['product_id'])) {
             $productVariation = ProductVariation::find($data['product_id']);
 
             if (! $productVariation) {
@@ -115,6 +115,7 @@ class CartService
             message: 'Cart updated successfully'
         );
     }
+
     public function delete_cart_item($data)
     {
         $user = auth('sanctum')->user();
@@ -147,7 +148,6 @@ class CartService
         );
     }
 
-
     public function get_my_cart()
     {
         $user = auth('sanctum')->user();
@@ -158,10 +158,9 @@ class CartService
             ->latest()
             ->first();
 
-        if (empty($cart))
-        {
+        if (empty($cart)) {
             return new DataSuccess(
-                data:(object)  null,
+                data: (object) null,
                 status: true,
                 message: 'No Items in your cart'
             );
@@ -200,5 +199,4 @@ class CartService
             message: 'Cart cleared successfully'
         );
     }
-
 }

@@ -17,7 +17,7 @@ class UpdateCartItemRequest extends FormRequest
             'cart_item_id' => ['required', 'integer', 'exists:cart_item,id'],
             'product_id' => ['nullable', 'integer', 'exists:product_variations,id'],
             'quantity' => ['nullable', 'integer', 'min:1'],
-            'coupon_code' => ['nullable','integer','exists:coupons,code']
+            'coupon_code' => ['nullable', 'integer', 'exists:coupons,code'],
         ];
     }
 }

@@ -4,7 +4,6 @@ namespace App\Modules\Organization\app\Models\Cart;
 
 use App\Models\User;
 use App\Modules\Admin\app\Models\Organization\Organization;
-use App\Modules\Base\app\Models\BaseModel;
 use App\Modules\Organization\app\Models\ProductVariation\ProductVariation;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
@@ -19,7 +18,7 @@ class CartItem extends Model
         'organization_id',
         'quantity',
         'price',
-        'cart_id'
+        'cart_id',
     ];
 
     public function user(): BelongsTo
@@ -39,6 +38,6 @@ class CartItem extends Model
 
     public function cart(): BelongsTo
     {
-        return $this->belongsTo(Cart::class,'cart_id');
+        return $this->belongsTo(Cart::class, 'cart_id');
     }
 }

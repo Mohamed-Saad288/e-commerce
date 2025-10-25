@@ -14,9 +14,9 @@ return new class extends BaseMigration
         // Create payment methods table
         Schema::create('cart_items', function (Blueprint $table) {
             $table->id();
-            $table->foreignId("cart_id")
+            $table->foreignId('cart_id')
                 ->nullable()
-                ->constrained("carts")
+                ->constrained('carts')
                 ->nullOnDelete()
                 ->cascadeOnUpdate();
             $table->foreignId('user_id')->nullable()->constrained('users')->nullOnDelete()->cascadeOnUpdate();

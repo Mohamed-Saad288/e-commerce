@@ -27,7 +27,6 @@ class CartController extends Controller
         return $this->cartService->delete_cart_item($request->validated())->response();
     }
 
-
     public function clear_cart()
     {
         return $this->cartService->clear_cart()->response();
