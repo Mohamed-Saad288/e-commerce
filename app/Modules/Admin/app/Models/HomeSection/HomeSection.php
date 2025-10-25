@@ -4,6 +4,7 @@ namespace App\Modules\Admin\app\Models\HomeSection;
 
 use App\Modules\Admin\app\Models\Organization\Organization;
 use App\Modules\Organization\app\Models\Product\Product;
+use App\Modules\Organization\app\Models\ProductVariation\ProductVariation;
 use Astrotomic\Translatable\Translatable;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
@@ -49,6 +50,6 @@ class HomeSection extends Model
 
     public function productVariations(): BelongsToMany
     {
-        return $this->belongsToMany(Product::class, 'home_section_products', 'home_section_id', 'product_variation_id');
+        return $this->belongsToMany(ProductVariation::class, 'home_section_products', 'home_section_id', 'product_variation_id');
     }
 }

@@ -3,6 +3,7 @@
 namespace App\Modules\Organization\app\Services\HomeSection;
 
 use App\Modules\Admin\app\Models\HomeSection\HomeSection;
+use App\Modules\Admin\app\Models\HomeSection\HomeSectionProduct;
 use App\Modules\Base\app\DTO\DTOInterface;
 use App\Modules\Base\app\Services\BaseService;
 use Illuminate\Database\Eloquent\Model;
@@ -34,7 +35,14 @@ class HomeSectionService extends BaseService
             $home_section = $this->model->query()->create($data);
 
             if (! empty($dto->products)) {
-                $home_section->productVariations()->attach($dto->products);
+                foreach ($dto->products as $product)
+                {
+                    HomeSectionProduct::create([
+                        'home_section_id' =>  $home_section->id,
+                        'product_variation_id' =>  $product
+                    ]);
+                }
+
             }
             $this->reorderOrganizationSections($dto->organization_id);
 
