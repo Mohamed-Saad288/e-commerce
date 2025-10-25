@@ -36,5 +36,31 @@
             </div>
         </div>
     </div>
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            const input = document.getElementById('images');
+            const previewContainer = document.getElementById('images-preview');
+
+            input.addEventListener('change', function() {
+                previewContainer.innerHTML = '';
+
+                Array.from(this.files).forEach(file => {
+                    if (!file.type.startsWith('image/')) return;
+
+                    const reader = new FileReader();
+                    reader.onload = function(e) {
+                        const img = document.createElement('img');
+                        img.src = e.target.result;
+                        img.classList.add('img-thumbnail');
+                        img.style.width = '150px';
+                        img.style.marginRight = '10px';
+                        previewContainer.appendChild(img);
+                    }
+                    reader.readAsDataURL(file);
+                });
+            });
+        });
+    </script>
+
 @endsection
 

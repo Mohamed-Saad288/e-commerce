@@ -15,7 +15,7 @@ class UpdateHeaderRequest extends FormRequest
     {
         $rules = [
             'images' => 'nullable|array',
-            'images.*' => 'nullable|image|max:2048',
+            'images.*' => 'nullable|image',
         ];
 
         foreach (config('translatable.locales') as $locale) {
