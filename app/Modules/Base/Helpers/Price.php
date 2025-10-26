@@ -23,3 +23,8 @@ function format_price($price): string
 {
     return number_format($price, 2);
 }
+
+function getPriceAfterDiscount($price, $discount): float
+{
+    return $price - ($price * $discount / 100);
+}

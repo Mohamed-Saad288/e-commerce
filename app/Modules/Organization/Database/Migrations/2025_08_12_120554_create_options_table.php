@@ -13,8 +13,12 @@ return new class extends BaseMigration
     {
         Schema::create('options', function (Blueprint $table) {
             $table->id();
+            $table->foreignId("category_id")->nullable()->constrained()->onDelete('cascade')->onUpdate('cascade');
             $this->addOrganizationFields($table);
             $this->addGeneralFields($table);
+
+            $table->unique(['category_id', 'organization_id']);
+            $table->index(['category_id', 'organization_id']);
         });
         Schema::create('option_translations', function (Blueprint $table) {
             $table->id();
