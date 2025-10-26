@@ -10,6 +10,7 @@ use App\Modules\Website\app\Http\Controllers\Faq\FaqController;
 use App\Modules\Website\app\Http\Controllers\FavouriteProduct\FavouriteProductController;
 use App\Modules\Website\app\Http\Controllers\Header\HeaderController;
 use App\Modules\Website\app\Http\Controllers\HomeSection\HomeSectionController;
+use App\Modules\Website\app\Http\Controllers\Option\OptionController;
 use App\Modules\Website\app\Http\Controllers\Order\OrderController;
 use App\Modules\Website\app\Http\Controllers\Privacy\PrivacyController;
 use App\Modules\Website\app\Http\Controllers\Products\ProductVariationController;
@@ -18,7 +19,6 @@ use App\Modules\Website\app\Http\Controllers\WebStatus\WebStatusController;
 use Illuminate\Support\Facades\Route;
 
 Route::prefix('api/site')->middleware(['set.organization.context'])->group(function () {
-
     // Auth Routes
     Route::post('login', [AuthController::class, 'login']);
     Route::post('register', [AuthController::class, 'register']);
@@ -98,7 +98,6 @@ Route::prefix('api/site')->middleware(['set.organization.context'])->group(funct
     });
 
     Route::middleware('auth:sanctum')->group(function () {
-
         /** FavouriteProduct Endpoints */
         Route::controller(FavouriteProductController::class)->group(function () {
             Route::post('toggle_favourite', 'toggle_favourite');
@@ -122,7 +121,11 @@ Route::prefix('api/site')->middleware(['set.organization.context'])->group(funct
             Route::post('update_order', 'update_order');
             Route::post('delete_order', 'delete_order');
         });
-
     });
 
+
+    /** Option Endpoints */
+    Route::controller(OptionController::class)->group(function () {
+        Route::post('fetch_options', 'index');
+    });
 });
