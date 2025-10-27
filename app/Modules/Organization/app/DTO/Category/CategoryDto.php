@@ -20,6 +20,7 @@ class CategoryDto implements DTOInterface
     public ?int $parent_id = null;
 
     public ?int $sort_order = null;
+
     public $image = null;
 
     public function __construct(

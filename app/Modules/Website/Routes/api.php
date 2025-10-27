@@ -124,7 +124,6 @@ Route::prefix('api/site')->middleware(['set.organization.context'])->group(funct
         });
     });
 
-
     /** Option Endpoints */
     Route::controller(OptionController::class)->group(function () {
         Route::post('fetch_options', 'index');

@@ -37,6 +37,7 @@ class CartController extends Controller
     {
         return $this->cartService->get_my_cart()->response();
     }
+
     public function apply_coupon_code(CartCouponCodeRequest $request)
     {
         return $this->cartService->apply_coupon_code($request->validated())->response();

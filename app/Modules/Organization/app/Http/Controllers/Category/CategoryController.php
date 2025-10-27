@@ -53,6 +53,7 @@ class CategoryController extends Controller
     public function store(StoreCategoryRequest $request)
     {
         $this->service->store(CategoryDto::fromArray($request));
+
         return to_route('organization.categories.index')->with([
             'message' => __('messages.success'),
             'alert-type' => 'success',
@@ -71,7 +72,7 @@ class CategoryController extends Controller
     public function update(UpdateCategoryRequest $request, Category $category)
     {
 
-         $this->service->update(model: $category, dto: CategoryDto::fromArray($request));
+        $this->service->update(model: $category, dto: CategoryDto::fromArray($request));
 
         return to_route('organization.categories.index')->with([
             'message' => __('messages.updated'),

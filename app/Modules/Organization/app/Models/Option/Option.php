@@ -18,15 +18,15 @@ class Option extends BaseModel implements TranslatableContract
 
     protected $table = 'options';
 
-    protected $fillable = ['organization_id', 'employee_id' , "category_id"];
+    protected $fillable = ['organization_id', 'employee_id', 'category_id'];
 
     public function items(): HasMany
     {
         return $this->hasMany(OptionItem::class);
     }
 
-    public function category():BelongsTo
+    public function category(): BelongsTo
     {
-        return $this->belongsTo(Category::class , "category_id");
+        return $this->belongsTo(Category::class, 'category_id');
     }
 }

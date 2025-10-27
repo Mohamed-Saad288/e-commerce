@@ -28,7 +28,7 @@ class Category extends BaseModel implements TranslatableContract
         'slug',
         'organization_id',
         'employee_id',
-        'image'
+        'image',
     ];
 
     public function parent(): BelongsTo

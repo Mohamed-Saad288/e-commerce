@@ -17,8 +17,8 @@ class OptionResource extends JsonResource
     {
         return [
             'id' => $this->id ?? null,
-            "name" => $this->name ?? null,
-            "items" => SimpleTitleResource::collection($this->whenLoaded("items") ?? [])??[],
+            'name' => $this->name ?? null,
+            'items' => SimpleTitleResource::collection($this->whenLoaded('items') ?? []) ?? [],
         ];
     }
 }

@@ -14,8 +14,8 @@ class CartCouponCodeRequest extends FormRequest
     public function rules(): array
     {
         return [
-           'cart_id' => ['required', 'integer', 'exists:carts,id'],
-          'coupon_code' => ['required', 'string', 'exists:coupons,code'],
+            'cart_id' => ['required', 'integer', 'exists:carts,id'],
+            'coupon_code' => ['required', 'string', 'exists:coupons,code'],
         ];
     }
 }

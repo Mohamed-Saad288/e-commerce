@@ -27,7 +27,7 @@ class HomeSectionProductResource extends JsonResource
         }
 
         $data = [
-            "id" => $this->id,
+            'id' => $this->id,
             'name' => $this->name ?? $this->product?->name ?? null,
             'slug' => $this->slug ?? $this->product?->slug ?? null,
             'description' => $this->product?->description ?? null,

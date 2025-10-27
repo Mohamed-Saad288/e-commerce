@@ -199,6 +199,7 @@ class CartService
             message: 'Cart cleared successfully'
         );
     }
+
     public function apply_coupon_code($data)
     {
         $user = auth('sanctum')->user();
@@ -217,6 +218,7 @@ class CartService
         }
         $cart->coupon_id = $coupon->id;
         $cart->save();
+
         return new DataSuccess(
             data: new CartResource($cart),
             status: true,

@@ -13,7 +13,6 @@ use Astrotomic\Translatable\Contracts\Translatable as TranslatableContract;
 use Astrotomic\Translatable\Translatable;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
-use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Database\Eloquent\Relations\HasOneThrough;
 
 class ProductVariation extends BaseModel implements TranslatableContract
@@ -75,12 +74,12 @@ class ProductVariation extends BaseModel implements TranslatableContract
         return $this->hasOneThrough(Brand::class, Product::class, 'id', 'id', 'product_id', 'brand_id');
     }
 
-//   =============================================================================================================> functions
+    //   =============================================================================================================> functions
 
     public function is_favorite(): bool
     {
         $user = auth('sanctum')->user();
-        if (!$user) {
+        if (! $user) {
             return false;
         }
 
@@ -104,5 +103,4 @@ class ProductVariation extends BaseModel implements TranslatableContract
             'home_section_id'
         );
     }
-
 }
