@@ -2,15 +2,18 @@
 
 namespace App\Modules\Organization\app\Models\ProductVariation;
 
+use App\Modules\Admin\app\Models\HomeSection\HomeSection;
 use App\Modules\Base\app\Models\BaseModel;
 use App\Modules\Organization\app\Models\Brand\Brand;
 use App\Modules\Organization\app\Models\Category\Category;
+use App\Modules\Organization\app\Models\FavouriteProduct\FavouriteProduct;
 use App\Modules\Organization\app\Models\OptionItem\OptionItem;
 use App\Modules\Organization\app\Models\Product\Product;
 use Astrotomic\Translatable\Contracts\Translatable as TranslatableContract;
 use Astrotomic\Translatable\Translatable;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
+use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Database\Eloquent\Relations\HasOneThrough;
 
 class ProductVariation extends BaseModel implements TranslatableContract
@@ -39,6 +42,14 @@ class ProductVariation extends BaseModel implements TranslatableContract
         'employee_id',
     ];
 
+    protected $casts = [
+        'discount' => 'float',
+        'cost_price' => 'float',
+        'selling_price' => 'float',
+        'total_price' => 'float',
+        'stock_quantity' => 'int',
+    ];
+
     public function option_items(): BelongsToMany
     {
         return $this->belongsToMany(
@@ -63,4 +74,35 @@ class ProductVariation extends BaseModel implements TranslatableContract
     {
         return $this->hasOneThrough(Brand::class, Product::class, 'id', 'id', 'product_id', 'brand_id');
     }
+
+//   =============================================================================================================> functions
+
+    public function is_favorite(): bool
+    {
+        $user = auth('sanctum')->user();
+        if (!$user) {
+            return false;
+        }
+
+        return FavouriteProduct::query()
+            ->where('user_id', $user->id)
+            ->where('product_variation_id', $this->id)
+            ->exists();
+    }
+
+    public function in_offer(): bool
+    {
+        return $this->discount > 0;
+    }
+
+    public function HomeSections(): BelongsToMany
+    {
+        return $this->BelongsToMany(
+            HomeSection::class,
+            'home_section_products',
+            'product_variation_id',
+            'home_section_id'
+        );
+    }
+
 }
