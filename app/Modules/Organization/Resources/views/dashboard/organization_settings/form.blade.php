@@ -179,11 +179,7 @@
             <div id="logo-preview" class="mt-2"></div>
         </div>
     </div>
-</div>
-
-
-{{-- breadcrumb_image في الآخر --}}
-<div class="row">
+    {{-- breadcrumb_image في الآخر --}}
     <div class="col-md-6">
         <div class="form-group">
             <div class="custom-file">
@@ -209,5 +205,8 @@
         </div>
     </div>
 </div>
+
+
+
 
 <button type="submit" class="btn btn-primary">{{ __('messages.submit') }}</button>
