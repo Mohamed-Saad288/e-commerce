@@ -34,6 +34,13 @@ class OrganizationServiceProvider extends ServiceProvider
             require_once $filename;
         }
 
+
+        $helpers = app_path("Modules/Organization/app/Helpers");
+        if (is_dir($helpers)) {
+            foreach (glob($helpers . "/*.php") as $filename) {
+                require_once $filename;
+            }
+        }
         // load all config files
         $configPath = app_path('Modules/Organization/Config');
         foreach (glob($configPath.'/*.php') as $file) {

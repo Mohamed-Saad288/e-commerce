@@ -216,6 +216,9 @@ class CartService
         if (! $coupon) {
             return new DataFailed(status: false, message: 'Invalid coupon');
         }
+        if (! validateCouponForUser(coupon:  $coupon,userId: $user->id)) {
+            return new DataFailed(status: false, message: 'Coupon is not valid for you');
+        }
         $cart->coupon_id = $coupon->id;
         $cart->save();
 

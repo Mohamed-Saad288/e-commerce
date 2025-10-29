@@ -33,4 +33,18 @@ class Coupon extends BaseModel
     {
         return $this->hasMany(CouponUsage::class, 'coupon_id');
     }
+    public function isValid()
+    {
+        return $this->is_active
+            && ($this->start_date === null || now()->greaterThanOrEqualTo($this->start_date))
+            && ($this->end_date === null || now()->lessThanOrEqualTo($this->end_date))
+            && ($this->usage_limit === null || $this->used_count < $this->usage_limit);
+    }
+    public function isValidForUser($userId): bool
+    {
+        return ! $this->usages()
+            ->where('user_id', $userId)
+            ->exists();
+    }
+
 }
