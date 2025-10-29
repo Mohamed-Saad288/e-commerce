@@ -34,10 +34,9 @@ class OrganizationServiceProvider extends ServiceProvider
             require_once $filename;
         }
 
-
-        $helpers = app_path("Modules/Organization/app/Helpers");
+        $helpers = app_path('Modules/Organization/app/Helpers');
         if (is_dir($helpers)) {
-            foreach (glob($helpers . "/*.php") as $filename) {
+            foreach (glob($helpers.'/*.php') as $filename) {
                 require_once $filename;
             }
         }

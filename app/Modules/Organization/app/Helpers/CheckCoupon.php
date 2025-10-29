@@ -1,4 +1,5 @@
 <?php
+
 function validateCouponForUser($coupon, $userId)
 {
     if (! $coupon->isValid()) {
