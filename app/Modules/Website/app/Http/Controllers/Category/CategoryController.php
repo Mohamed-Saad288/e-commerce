@@ -8,6 +8,7 @@ use App\Modules\Base\app\Response\DataSuccess;
 use App\Modules\Organization\app\Services\Category\CategoryService;
 use App\Modules\Website\app\Http\Resources\Category\CategoryResource;
 use App\Modules\Website\app\Http\Resources\Category\ShowCategoryResource;
+use App\Modules\Website\app\Http\Resources\Category\SimpleCategoryResource;
 use Illuminate\Http\Request;
 
 class CategoryController extends Controller
@@ -19,7 +20,7 @@ class CategoryController extends Controller
         $categories = $this->service->list($request);
 
         return (new DataSuccess(
-            data: SimpleTitleResource::collection($categories), status: true,
+            data: SimpleCategoryResource::collection($categories), status: true,
             message: __('messages.data_retrieved_successfully')
         ))->response();
     }

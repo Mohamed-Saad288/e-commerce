@@ -3,6 +3,7 @@
 namespace App\Modules\Base\app\Services;
 
 use App\Modules\Base\app\DTO\DTOInterface;
+use App\Modules\Base\app\Response\DataSuccess;
 use App\Modules\Base\Enums\ActiveEnum;
 use App\Modules\Base\Traits\Filterable;
 use Illuminate\Database\Eloquent\Collection;
@@ -74,7 +75,7 @@ class BaseService
     /**
      * Get records with optional pagination and filtering via Pipeline
      */
-    public function index($request = null, bool $paginate = true): Collection|LengthAwarePaginator
+    public function index($request = null, bool $paginate = false): Collection|LengthAwarePaginator|DataSuccess
     {
         $cacheKey = $this->cacheKeyPrefix.'index:'.md5(json_encode($request?->all()));
 
@@ -89,7 +90,8 @@ class BaseService
             $query->where('is_active', ActiveEnum::ACTIVE->value);
         }
 
-        $result = $paginate
+
+        $result = $paginate || (isset($request) && $request->has("with_pagination") && filled($request->with_pagination))
             ? $query->paginate($request->per_page ?? 10)
             : $query->get();
 

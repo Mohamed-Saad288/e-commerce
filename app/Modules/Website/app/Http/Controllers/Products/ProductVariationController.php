@@ -14,13 +14,7 @@ class ProductVariationController extends Controller
 
     public function index(Request $request)
     {
-        $productVariations = $this->service->index($request);
-
-        return (new DataSuccess(
-            data: ProductVariationResource::collection($productVariations),
-            status: true,
-            message: __('messages.data_retrieved_successfully')
-        ))->response();
+       return $this->service->index($request)->response();
     }
 
     public function show($id)
