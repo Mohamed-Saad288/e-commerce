@@ -3,7 +3,6 @@
 namespace App\Modules\Website\app\Http\Controllers\Category;
 
 use App\Http\Controllers\Controller;
-use App\Modules\Base\app\Http\Resources\SimpleTitleResource;
 use App\Modules\Base\app\Response\DataSuccess;
 use App\Modules\Organization\app\Services\Category\CategoryService;
 use App\Modules\Website\app\Http\Resources\Category\CategoryResource;

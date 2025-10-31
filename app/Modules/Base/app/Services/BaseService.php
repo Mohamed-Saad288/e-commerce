@@ -90,8 +90,7 @@ class BaseService
             $query->where('is_active', ActiveEnum::ACTIVE->value);
         }
 
-
-        $result = $paginate || (isset($request) && $request->has("with_pagination") && filled($request->with_pagination))
+        $result = $paginate || (isset($request) && $request->has('with_pagination') && filled($request->with_pagination))
             ? $query->paginate($request->per_page ?? 10)
             : $query->get();
 

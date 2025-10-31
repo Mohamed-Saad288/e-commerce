@@ -10,8 +10,6 @@ use App\Modules\Base\app\Response\DataSuccess;
 use App\Modules\Base\app\Services\BaseService;
 use App\Modules\Organization\app\Models\ProductVariation\ProductVariation;
 use App\Modules\Website\app\Http\Resources\Product\ProductVariationResource;
-use Illuminate\Database\Eloquent\Collection;
-use Illuminate\Pagination\LengthAwarePaginator;
 
 class ProductVariationService extends BaseService
 {
@@ -27,11 +25,12 @@ class ProductVariationService extends BaseService
         $results = $paginate || filled($request->with_pagination)
             ? ProductVariationResource::collection($result)->response()->getData(true)
             : ProductVariationResource::collection($result);
-        return (new DataSuccess(
+
+        return new DataSuccess(
             data: $results,
             status: true,
             message: __('messages.data_retrieved_successfully')
-        ));
+        );
     }
 
     public function filters($request = null): array
