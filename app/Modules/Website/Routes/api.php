@@ -12,6 +12,7 @@ use App\Modules\Website\app\Http\Controllers\Header\HeaderController;
 use App\Modules\Website\app\Http\Controllers\HomeSection\HomeSectionController;
 use App\Modules\Website\app\Http\Controllers\Option\OptionController;
 use App\Modules\Website\app\Http\Controllers\Order\OrderController;
+use App\Modules\Website\app\Http\Controllers\PaymentMethod\PaymentMethodController;
 use App\Modules\Website\app\Http\Controllers\Privacy\PrivacyController;
 use App\Modules\Website\app\Http\Controllers\Products\ProductVariationController;
 use App\Modules\Website\app\Http\Controllers\Term\TermController;
@@ -127,5 +128,10 @@ Route::prefix('api/site')->middleware(['set.organization.context'])->group(funct
     /** Option Endpoints */
     Route::controller(OptionController::class)->group(function () {
         Route::post('fetch_options', 'index');
+    });
+
+    /** Payment Method EndPoint */
+    Route::controller(PaymentMethodController::class)->group(function () {
+        Route::post('fetch_payment_methods', 'index');
     });
 });
