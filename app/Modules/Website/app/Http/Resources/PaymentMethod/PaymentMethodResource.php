@@ -2,7 +2,6 @@
 
 namespace App\Modules\Website\app\Http\Resources\PaymentMethod;
 
-use App\Modules\Base\app\Http\Resources\SimpleTitleResource;
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
 
