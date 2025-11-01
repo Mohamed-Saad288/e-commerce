@@ -238,4 +238,20 @@ return [
     'upload_additional_images' => 'Click to upload additional images or drag and drop',
     'allowed_images' => 'PNG, JPG, GIF up to 10MB (Multiple files allowed)',
     'create_product' => 'Create Product',
+    "select_category" => "Select Category",
+    "category" => "Category",
+    "main_category" => "Main Category",
+    "selected_path" => "Selected Path",
+    "please_select_category" => "Please select a category",
+    "level" => "Level",
+    "select_or_skip" => "Select or Skip",
+    "can_select_parent_or_child" => "You can select the parent category or choose a child category",
+    'filter_by_category' => 'Filter by Category',
+    'all_categories' => 'All Categories',
+    'select_or_keep_parent' => 'Select or Keep Parent',
+    'active_filters' => 'Active Filters',
+    'clear_all' => 'Clear All',
+    'no_categories' => 'No Categories',
+
+
 ];

@@ -12,15 +12,18 @@ class OptionDto implements DTOInterface
     public ?int $organization_id = null;
 
     public ?int $employee_id = null;
+    public ?int $category_id = null;
 
     public function __construct(
         ?array $translations = [],
         ?int $organization_id = null,
         ?int $employee_id = null,
+        ?int $category_id = null,
     ) {
         $this->translations = $translations;
         $this->organization_id = $organization_id;
         $this->employee_id = $employee_id;
+        $this->category_id = $category_id;
     }
 
     public static function fromArray(FormRequest|array $data): DTOInterface
@@ -37,6 +40,7 @@ class OptionDto implements DTOInterface
             translations: $translations,
             organization_id: auth()->user()->organization_id ?? null,
             employee_id: auth()->user()->id,
+            category_id: $arrayData['category_id'] ?? null,
         );
     }
 
@@ -47,6 +51,7 @@ class OptionDto implements DTOInterface
             [
                 'organization_id' => $this->organization_id,
                 'employee_id' => $this->employee_id,
+                'category_id' => $this->category_id,
             ]
         );
     }

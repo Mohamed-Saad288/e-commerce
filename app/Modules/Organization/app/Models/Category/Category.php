@@ -36,6 +36,11 @@ class Category extends BaseModel implements TranslatableContract
         return $this->belongsTo(Category::class, 'parent_id');
     }
 
+    public function children(): HasMany|Category
+    {
+        return $this->hasMany(Category::class, 'parent_id');
+    }
+
     public function brands(): BelongsToMany
     {
         return $this->belongsToMany(Brand::class, 'brand_categories', 'category_id', 'brand_id');

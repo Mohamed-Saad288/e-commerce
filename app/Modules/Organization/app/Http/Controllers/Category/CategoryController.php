@@ -118,4 +118,46 @@ class CategoryController extends Controller
 
         return view('organization::dashboard.categories.subcategories', compact('parent', 'subCategories'));
     }
+
+
+    // في CategoryController
+    public function getChildren($id)
+    {
+        $children = Category::where('parent_id', $id)
+            ->withCount('children') // مهم جداً
+            ->get();
+
+        return response()->json($children);
+    }
+
+    public function getRoots()
+    {
+        $categories = Category::whereNull('parent_id')
+            ->withCount('children')
+            ->get();
+
+        return response()->json($categories);
+    }
+
+    public function getCategoryPath($id)
+    {
+        $category = Category::find($id);
+        if (!$category) {
+            return response()->json([]);
+        }
+
+        $path = [];
+        $current = $category;
+
+        // Build path from child to parent
+        while ($current) {
+            array_unshift($path, [
+                'id' => $current->id,
+                'name' => $current->name
+            ]);
+            $current = $current->parent;
+        }
+
+        return response()->json($path);
+    }
 }

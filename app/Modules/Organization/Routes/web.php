@@ -2,6 +2,7 @@
 
 use App\Modules\Organization\app\Http\Controllers\About\AboutController;
 use App\Modules\Organization\app\Http\Controllers\Auth\AuthController;
+
 /**
  * --------------------------------------------------------------
  *  Organization Module Routes
@@ -37,7 +38,7 @@ use Mcamara\LaravelLocalization\Facades\LaravelLocalization;
 Route::group(
     [
         // Localized prefix, e.g. /en/organizations or /ar/organizations
-        'prefix' => LaravelLocalization::setLocale().'/organizations',
+        'prefix' => LaravelLocalization::setLocale() . '/organizations',
 
         // Localization middlewares for translated views & URLs
         'middleware' => [
@@ -92,8 +93,17 @@ Route::group(
                 /** Search Route */
                 Route::get('employees/search', [EmployeeController::class, 'search'])
                     ->name('employees.search');
-
                 /** End Search Route */
+
+                /** Categories Routes */
+                Route::controller(CategoryController::class)->group(function () {
+                    Route::get('categories/{id}/subcategories', 'subcategories')->name('categories.subcategories');
+                    Route::get('categories/{id}/children', 'getChildren');
+                    Route::get('categories/{id}/path', 'getCategoryPath');
+                    Route::get("categories/roots", 'getRoots');
+                    Route::get("categories/{id}/children", 'getChildren');
+                });
+
                 Route::resources([
                     'categories' => CategoryController::class,
                     'brands' => BrandController::class,
@@ -111,47 +121,31 @@ Route::group(
                 // #endregion
 
                 // #region Settings Pages (single edit/update routes)
-                Route::controller(OrganizationSettingController::class)
-                    ->prefix('organization_settings')
-                    ->name('organization_settings.')
-                    ->group(function () {
-                        Route::get('edit', 'edit')->name('edit');
-                        Route::post('edit', 'update')->name('update');
-                    });
+                Route::controller(OrganizationSettingController::class)->prefix('organization_settings')->name('organization_settings.')->group(function () {
+                    Route::get('edit', 'edit')->name('edit');
+                    Route::post('edit', 'update')->name('update');
+                });
 
-                Route::controller(HeaderController::class)
-                    ->prefix('headers')
-                    ->name('headers.')
-                    ->group(function () {
-                        Route::get('edit', 'edit')->name('edit');
-                        Route::post('edit', 'update')->name('update');
-                    });
+                Route::controller(HeaderController::class)->prefix('headers')->name('headers.')->group(function () {
+                    Route::get('edit', 'edit')->name('edit');
+                    Route::post('edit', 'update')->name('update');
+                });
 
-                Route::controller(PrivacyController::class)
-                    ->prefix('privacy')
-                    ->name('privacy.')
-                    ->group(function () {
-                        Route::get('edit', 'edit')->name('edit');
-                        Route::post('edit', 'update')->name('update');
-                    });
+                Route::controller(PrivacyController::class)->prefix('privacy')->name('privacy.')->group(function () {
+                    Route::get('edit', 'edit')->name('edit');
+                    Route::post('edit', 'update')->name('update');
+                });
 
-                Route::controller(TermController::class)
-                    ->prefix('terms')
-                    ->name('terms.')
-                    ->group(function () {
-                        Route::get('edit', 'edit')->name('edit');
-                        Route::post('edit', 'update')->name('update');
-                    });
-                // #endregion
+                Route::controller(TermController::class)->prefix('terms')->name('terms.')->group(function () {
+                    Route::get('edit', 'edit')->name('edit');
+                    Route::post('edit', 'update')->name('update');
+                });
 
                 // #region Payment Methods
-                Route::controller(OrganizationPaymentMethodController::class)
-                    ->prefix('payment-methods')
-                    ->name('payment_methods.')
-                    ->group(function () {
-                        Route::get('/', 'index')->name('index');
-                        Route::put('/{id}', 'update')->name('update');
-                    });
+                Route::controller(OrganizationPaymentMethodController::class)->prefix('payment-methods')->name('payment_methods.')->group(function () {
+                    Route::get('/', 'index')->name('index');
+                    Route::put('/{id}', 'update')->name('update');
+                });
                 // #endregion
 
                 // #region Status Change Routes
@@ -163,9 +157,6 @@ Route::group(
 
                 Route::post('coupons/{id}/toggle-status', [CouponController::class, 'toggleStatus'])
                     ->name('coupons.toggleStatus');
-
-                Route::get('categories/{id}/subcategories', [CategoryController::class, 'subcategories'])
-                    ->name('categories.subcategories');
 
             });
     }
