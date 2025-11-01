@@ -11,6 +11,8 @@ class PaymentMethodController extends Controller
     public function __construct(protected PaymentMethodService $service)
     {
     }
+    public function __construct(protected PaymentMethodService $service) {}
+
     public function index(Request $request)
     {
         return $this->service->index($request)->response();

@@ -14,7 +14,7 @@ class ProductVariationController extends Controller
 
     public function index(Request $request)
     {
-       return $this->service->index($request)->response();
+        return $this->service->index($request)->response();
     }
 
     public function show($id)

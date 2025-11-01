@@ -19,17 +19,17 @@ class PaymentMethodService extends BaseService
 
     public function index($request = null, bool $paginate = false): Collection|LengthAwarePaginator|DataSuccess
     {
-       $organization = Organization::query()->whereId(app()->bound('organization_id'))->first();
-       $paymentMethods = $organization->paymentMethods->where('is_active', true)->values();
+        $organization = Organization::query()->whereId(app()->bound('organization_id'))->first();
+        $paymentMethods = $organization->paymentMethods->where('is_active', true)->values();
 
         $results = $paginate || filled($request->with_pagination)
             ? PaymentMethodResource::collection($paymentMethods)->response()->getData(true)
             : PaymentMethodResource::collection($paymentMethods);
 
-        return (new DataSuccess(
+        return new DataSuccess(
             data: $results,
             status: true,
             message: __('messages.data_retrieved_successfully')
-        ));
+        );
     }
 }
