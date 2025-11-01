@@ -12,6 +12,7 @@ class OptionDto implements DTOInterface
     public ?int $organization_id = null;
 
     public ?int $employee_id = null;
+
     public ?int $category_id = null;
 
     public function __construct(

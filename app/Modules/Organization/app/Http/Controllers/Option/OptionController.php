@@ -20,13 +20,13 @@ class OptionController extends Controller
     {
         $query = Option::whereOrganizationId(auth('organization_employee')->user()->organization_id)->with('category');
 
-        if ($request->has('search') && !empty($request->search)) {
-            $query->where(function($q) use ($request) {
-                $q->whereTranslationLike('name', '%' . $request->search . '%');
+        if ($request->has('search') && ! empty($request->search)) {
+            $query->where(function ($q) use ($request) {
+                $q->whereTranslationLike('name', '%'.$request->search.'%');
             });
         }
 
-        if ($request->has('category_id') && !empty($request->category_id)) {
+        if ($request->has('category_id') && ! empty($request->category_id)) {
             $categoryId = $request->category_id;
             $category = Category::find($categoryId);
 
@@ -50,6 +50,7 @@ class OptionController extends Controller
     public function create()
     {
         $mainCategories = Category::whereNull('parent_id')->withCount('children')->get();
+
         return view('organization::dashboard.options.single', get_defined_vars());
     }
 
@@ -66,6 +67,7 @@ class OptionController extends Controller
     public function edit(Option $option)
     {
         $mainCategories = Category::whereNull('parent_id')->withCount('children')->get();
+
         return view('organization::dashboard.options.single', get_defined_vars());
     }
 

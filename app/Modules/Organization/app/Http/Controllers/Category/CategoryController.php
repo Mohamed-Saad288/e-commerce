@@ -119,7 +119,6 @@ class CategoryController extends Controller
         return view('organization::dashboard.categories.subcategories', compact('parent', 'subCategories'));
     }
 
-
     // في CategoryController
     public function getChildren($id)
     {
@@ -142,7 +141,7 @@ class CategoryController extends Controller
     public function getCategoryPath($id)
     {
         $category = Category::find($id);
-        if (!$category) {
+        if (! $category) {
             return response()->json([]);
         }
 
@@ -153,7 +152,7 @@ class CategoryController extends Controller
         while ($current) {
             array_unshift($path, [
                 'id' => $current->id,
-                'name' => $current->name
+                'name' => $current->name,
             ]);
             $current = $current->parent;
         }
