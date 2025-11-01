@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Modules\Organization\app\DTO\Option\OptionDto;
 use App\Modules\Organization\app\Http\Request\Option\StoreOptionRequest;
 use App\Modules\Organization\app\Http\Request\Option\UpdateOptionRequest;
+use App\Modules\Organization\app\Models\Category\Category;
 use App\Modules\Organization\app\Models\Option\Option;
 use App\Modules\Organization\app\Services\Option\OptionService;
 use Exception;
@@ -17,25 +18,38 @@ class OptionController extends Controller
 
     public function index(Request $request)
     {
-        $query = Option::whereOrganizationId(auth('organization_employee')->user()->organization_id);
+        $query = Option::whereOrganizationId(auth('organization_employee')->user()->organization_id)->with('category');
 
-        if ($request->ajax()) {
-            if ($request->filled('search')) {
-                $query->whereTranslationLike('name', '%'.$request->search.'%');
-            }
-
-            $options = $query->latest()->paginate(10);
-
-            return view('organization::dashboard.options.partials._table', compact('options'))->render();
+        if ($request->has('search') && !empty($request->search)) {
+            $query->where(function($q) use ($request) {
+                $q->whereTranslationLike('name', '%' . $request->search . '%');
+            });
         }
 
-        $options = $query->latest()->paginate(10);
+        if ($request->has('category_id') && !empty($request->category_id)) {
+            $categoryId = $request->category_id;
+            $category = Category::find($categoryId);
+
+            $categoryIds = [$categoryId];
+            if ($category) {
+                $categoryIds = array_merge($categoryIds, $category->allSubCategories()->pluck('id')->toArray());
+            }
+
+            $query->whereIn('category_id', $categoryIds);
+        }
+
+        $options = $query->paginate(15);
+
+        if ($request->ajax()) {
+            return view('organization::dashboard.options.partials._table', compact('options'))->render();
+        }
 
         return view('organization::dashboard.options.index', compact('options'));
     }
 
     public function create()
     {
+        $mainCategories = Category::whereNull('parent_id')->withCount('children')->get();
         return view('organization::dashboard.options.single', get_defined_vars());
     }
 
@@ -51,6 +65,7 @@ class OptionController extends Controller
 
     public function edit(Option $option)
     {
+        $mainCategories = Category::whereNull('parent_id')->withCount('children')->get();
         return view('organization::dashboard.options.single', get_defined_vars());
     }
 

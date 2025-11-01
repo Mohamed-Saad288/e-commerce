@@ -1,44 +1,50 @@
 <div class="table-responsive">
-    <table class="table table-hover align-middle">
-        <thead>
+    <table class="table table-hover table-striped">
+        <thead class="table-light">
         <tr>
             <th>#</th>
             <th>{{ __('messages.name') }}</th>
-            <th>{{ __('messages.actions') }}</th>
+            <th>{{ __('messages.category') }}</th>
+            <th>{{ __('messages.created_at') }}</th>
+            <th class="text-center">{{ __('messages.actions') }}</th>
         </tr>
         </thead>
         <tbody>
-        @if ($options->count() > 0)
-            @foreach ($options as $index => $option)
-                <tr>
-                    <td>{{ $options->firstItem() + $index }}</td>
-                    <td>{{ $option->name ?? '-' }}</td>
-                    <td>
-                        <a href="{{ route('organization.options.edit', $option->id) }}" class="btn btn-outline-success btn-sm">
-                            <i class="fe fe-edit fa-2x"></i>
-                        </a>
-                        <button class="btn btn-outline-danger btn-sm delete-option" data-id="{{ $option->id }}">
-                            <i class="fe fe-trash-2 fa-2x"></i>
-                        </button>
-                    </td>
-                </tr>
-            @endforeach
-        @else
+        @forelse($options as $option)
             <tr>
-                <td colspan="3" class="text-center">
-                    <div class="no-data py-5">
-                        <img src="{{ asset('no-data.png') }}" alt="No Data" style="width:120px;">
-                        <p class="mt-2 text-muted">{{ __('messages.no_data') }}</p>
-                    </div>
+                <td>{{ $loop->iteration }}</td>
+                <td>{{ $option->name }}</td>
+                <td>
+                    @if($option->category)
+                        <span class="badge bg-info">
+                                <i class="fe fe-tag"></i> {{ $option->category->name }}
+                            </span>
+                    @else
+                        <span class="text-muted">-</span>
+                    @endif
+                </td>
+                <td>{{ $option->created_at }}</td>
+                <td class="text-center">
+                    <a href="{{ route('organization.options.edit', $option->id) }}"
+                       class="btn btn-sm btn-warning">
+                        <i class="fe fe-edit"></i>
+                    </a>
+                    <button class="btn btn-sm btn-danger delete-option"
+                            data-id="{{ $option->id }}">
+                        <i class="fe fe-trash"></i>
+                    </button>
                 </td>
             </tr>
-        @endif
+        @empty
+            <tr class="no-data">
+                <td colspan="5" class="text-center py-4">
+                    <i class="fe fe-inbox fs-1 text-muted"></i>
+                    <p class="text-muted mt-2">{{ __('messages.no_data') }}</p>
+                </td>
+            </tr>
+        @endforelse
         </tbody>
     </table>
 </div>
 
-@if ($options->hasPages())
-    <div class="d-flex justify-content-center mt-3">
-        {{ $options->links('pagination::bootstrap-5') }}
-    </div>
-@endif
+{{ $options->links() }}
