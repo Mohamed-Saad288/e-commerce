@@ -19,8 +19,12 @@ class BaseService
     protected bool $cacheEnabled = false;
 
     protected string $cacheKeyPrefix = '';
+    protected ?string $resourceClass = null;
+    protected string $successMessage = 'messages.data_retrieved_successfully';
 
-    public function __construct(protected Model $model) {}
+    public function __construct(protected Model $model)
+    {
+    }
 
     /**
      * Store new record with transaction and media handling
@@ -31,7 +35,7 @@ class BaseService
             $data = $dto->toArray();
             $model = $this->model->query()->create($data);
 
-            if (! empty($dto->image)) {
+            if (!empty($dto->image)) {
                 $model->storeImages(media: $dto->image);
             }
 
@@ -48,7 +52,7 @@ class BaseService
             $data = $dto->toArray();
             $model->update($data);
 
-            if (! empty($dto->image)) {
+            if (!empty($dto->image)) {
                 $model->storeImages(media: $dto->image, update: true);
             }
 
@@ -67,9 +71,18 @@ class BaseService
     /**
      * Find record by id
      */
-    public function find(int $id): ?Model
+    public function find(int $id): Model|DataSuccess|null
     {
-        return $this->model->query()->with($this->withRelations())->find($id);
+        $result = $this->model->query()->with($this->withRelations())->find($id);
+        if ($this->resourceClass) {
+            $resource = ($this->resourceClass)::make($result);
+            return new DataSuccess(
+                data: $resource,
+                status: true,
+                message: __($this->successMessage)
+            );
+        }
+        return $result;
     }
 
     /**
@@ -77,25 +90,39 @@ class BaseService
      */
     public function index($request = null, bool $paginate = false): Collection|LengthAwarePaginator|DataSuccess
     {
-        $cacheKey = $this->cacheKeyPrefix.'index:'.md5(json_encode($request?->all()));
+        $cacheKey = $this->cacheKeyPrefix . 'index:' . md5(json_encode($request?->all()));
 
         if ($this->cacheEnabled && Cache::has($cacheKey)) {
             return Cache::get($cacheKey);
         }
-        $query = $this->model::query()->latest()->with($this->withRelations());
+        $query = $this->baseQuery($request);
 
         $query = $this->applyFilters($query, $this->filters($request));
 
-        if (! $this->isDashboardRequest()) {
+        if (!$this->isDashboardRequest()) {
             $query->where('is_active', ActiveEnum::ACTIVE->value);
         }
 
-        $result = $paginate || (isset($request) && $request->has('with_pagination') && filled($request->with_pagination))
+        $result = $paginate || (isset($request) && $request->has('with_pagination') && filled(
+                $request->with_pagination
+            ))
             ? $query->paginate($request->per_page ?? 10)
             : $query->get();
 
         if ($this->cacheEnabled) {
             Cache::put($cacheKey, $result, now()->addMinutes(10));
+        }
+
+        if ($this->resourceClass) {
+            $resource = $paginate || filled($request?->with_pagination)
+                ? ($this->resourceClass)::collection($result)->response()->getData(true)
+                : ($this->resourceClass)::collection($result);
+
+            return new DataSuccess(
+                data: $resource,
+                status: true,
+                message: __($this->successMessage)
+            );
         }
 
         return $result;
@@ -148,5 +175,12 @@ class BaseService
     protected function isDashboardRequest(): bool
     {
         return request()->is('admin/*') || request()->routeIs('organization.*');
+    }
+
+    protected function baseQuery($request = null)
+    {
+        return $this->model::query()
+            ->latest()
+            ->with($this->withRelations());
     }
 }

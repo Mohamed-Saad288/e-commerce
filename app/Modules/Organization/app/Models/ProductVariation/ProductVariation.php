@@ -49,6 +49,7 @@ class ProductVariation extends BaseModel implements TranslatableContract
         'stock_quantity' => 'int',
     ];
 
+//    ===================================================================================================================Relations
     public function option_items(): BelongsToMany
     {
         return $this->belongsToMany(
@@ -74,12 +75,22 @@ class ProductVariation extends BaseModel implements TranslatableContract
         return $this->hasOneThrough(Brand::class, Product::class, 'id', 'id', 'product_id', 'brand_id');
     }
 
+    public function HomeSections(): BelongsToMany
+    {
+        return $this->BelongsToMany(
+            HomeSection::class,
+            'home_section_products',
+            'product_variation_id',
+            'home_section_id'
+        );
+    }
+
     //   =============================================================================================================> functions
 
     public function is_favorite(): bool
     {
         $user = auth('sanctum')->user();
-        if (! $user) {
+        if (!$user) {
             return false;
         }
 
@@ -94,13 +105,5 @@ class ProductVariation extends BaseModel implements TranslatableContract
         return $this->discount > 0;
     }
 
-    public function HomeSections(): BelongsToMany
-    {
-        return $this->BelongsToMany(
-            HomeSection::class,
-            'home_section_products',
-            'product_variation_id',
-            'home_section_id'
-        );
-    }
+
 }
