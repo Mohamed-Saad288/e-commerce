@@ -208,6 +208,32 @@
             margin-bottom: 1rem;
             color: #856404;
         }
+
+        /* Category Selects Styling */
+        #category-selects-container .category-level {
+            min-width: 200px;
+            animation: slideIn 0.3s ease-out;
+        }
+
+        @keyframes slideIn {
+            from {
+                opacity: 0;
+                transform: translateX(-10px);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+
+        #category-path {
+            min-height: 24px;
+            line-height: 24px;
+        }
+
+        .category-select {
+            font-size: 0.9rem;
+        }
     </style>
     @if ($errors->any())
         <div class="alert alert-danger">
@@ -285,35 +311,55 @@
                         </div>
                     </div>
                 </div>
+{{--                <div class="row">--}}
+{{--                    <div class="col-md-6">--}}
+{{--                        <div class="mb-3">--}}
+{{--                            <label class="form-label">{{ __("organizations.category") }}</label>--}}
+{{--                            <select name="category_id" class="form-select @error('category_id') is-invalid @enderror">--}}
+{{--                                <option value="">{{ __("organizations.select_category") }}</option>--}}
+{{--                                @foreach($categories as $category)--}}
+{{--                                    <option value="{{ $category->id }}"--}}
+{{--                                        {{ (old('category_id', $product->category_id ?? '') == $category->id) ? 'selected' : '' }}>--}}
+{{--                                        {{ $category->name }}--}}
+{{--                                    </option>--}}
+{{--                                @endforeach--}}
+{{--                            </select>--}}
+{{--                            @error('category_id')--}}
+{{--                            <div class="invalid-feedback">{{ $message }}</div>--}}
+{{--                            @enderror--}}
+{{--                        </div>--}}
+{{--                    </div>--}}
+{{--                </div>--}}
+
+
                 <div class="row">
-                    <div class="col-md-6">
+                    <div class="col-md-12">
                         <div class="mb-3">
                             <label class="form-label">{{ __("organizations.category") }}</label>
-                            <select name="category_id" class="form-select @error('category_id') is-invalid @enderror">
-                                <option value="">{{ __("organizations.select_category") }}</option>
-                                @foreach($categories as $category)
-                                    <option value="{{ $category->id }}"
-                                        {{ (old('category_id', $product->category_id ?? '') == $category->id) ? 'selected' : '' }}>
-                                        {{ $category->name }}
-                                    </option>
-                                @endforeach
-                            </select>
+
+                            {{-- Container for dynamic category selects --}}
+                            <div id="category-selects-container" class="d-flex flex-wrap gap-2">
+                                {{-- First level will be populated via JS --}}
+                            </div>
+
+                            {{-- Hidden input for final selected category --}}
+                            <input type="hidden" name="category_id" id="category_id"
+                                   class="@error('category_id') is-invalid @enderror"
+                                   value="{{ old('category_id', $product->category_id ?? '') }}">
+
                             @error('category_id')
-                            <div class="invalid-feedback">{{ $message }}</div>
+                            <div class="invalid-feedback d-block">{{ $message }}</div>
                             @enderror
-                        </div>
-                    </div>
-                    <div class="col-md-6">
-                        <div class="mb-3">
-                            <label class="form-label">{{ __("organizations.product_type") }}</label>
-                            <select name="type" class="form-select @error('type') is-invalid @enderror">
-                                <option value="1" {{ old('type', $product->type ?? 1) == 1 ? 'selected' : '' }}>{{ __('organizations.physical') }}</option>
-                                <option value="2" {{ old('type', $product->type ?? '') == 2 ? 'selected' : '' }}> {{__('organizations.digital') }}</option>
-                                <option value="3" {{ old('type', $product->type ?? '') == 3 ? 'selected' : '' }}>{{ __('organizations.service') }}</option>
-                            </select>
-                            @error('type')
-                            <div class="invalid-feedback">{{ $message }}</div>
-                            @enderror
+
+                            {{-- Selected Path Display --}}
+                            <div class="mt-2 p-2 bg-light rounded">
+                                <small class="text-muted">
+                                    <i class="fas fa-sitemap"></i> {{ __('messages.selected_category') }}:
+                                </small>
+                                <div id="category-path" class="text-primary font-weight-bold mt-1">
+                                    <span class="text-muted">{{ __('messages.please_select_category') }}</span>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -340,14 +386,6 @@
                     </div>
                 </div>
                 <div class="row">
-                    <div class="col-md-6">
-                        <div class="form-check mb-3">
-                            <input class="form-check-input" type="checkbox" name="is_featured" value="1"
-                                   id="is_featured" {{ old('is_featured', $product->is_featured ?? '') ? 'checked' : '' }}>
-                            <label class="form-check-label" for="is_featured">{{ __('organizations.featured_product') }}</label>
-                        </div>
-                    </div>
-
                     <div class="col-md-6">
                         <div class="form-check mb-3">
                             <input class="form-check-input" type="checkbox" name="requires_shipping" value="1"
@@ -467,21 +505,37 @@
                                                     <label class="form-check-label">{{ __('messages.is_taxable') }}</label>
                                                 </div>
                                             </div>
-                                            <div class="col-md-6">
-                                                <div class="form-check mb-3">
-                                                    <input class="form-check-input" type="checkbox" name="variations[{{ $index }}][is_featured]"
-                                                           value="1" {{ $variation->is_featured ? 'checked' : '' }}>
-                                                    <label class="form-check-label">{{__('organizations.featured_product')}}}</label>
-                                                </div>
-                                            </div>
                                         </div>
+{{--                                        <div class="mb-3">--}}
+{{--                                            <label class="form-label">{{__('organizations.options')}}</label>--}}
+{{--                                            <div class="row">--}}
+{{--                                                @foreach($options as $option)--}}
+{{--                                                    <div class="col-md-6 mb-2">--}}
+{{--                                                        <label class="form-label">{{ $option->name }}</label>--}}
+{{--                                                        <select name="variations[{{ $index }}][option_items][]" class="form-select">--}}
+{{--                                                            <option value="">Select {{ $option->name }}</option>--}}
+{{--                                                            @foreach($option->items as $item)--}}
+{{--                                                                <option value="{{ $item->id }}"--}}
+{{--                                                                    {{ $variation->option_items->contains('id', $item->id) ? 'selected' : '' }}>--}}
+{{--                                                                    {{ $item->name }}--}}
+{{--                                                                </option>--}}
+{{--                                                            @endforeach--}}
+{{--                                                        </select>--}}
+{{--                                                    </div>--}}
+{{--                                                @endforeach--}}
+{{--                                            </div>--}}
+{{--                                        </div>--}}
+
+
                                         <div class="mb-3">
                                             <label class="form-label">{{__('organizations.options')}}</label>
                                             <div class="row">
                                                 @foreach($options as $option)
-                                                    <div class="col-md-6 mb-2">
+                                                    <div class="col-md-6 mb-2" data-option-id="{{ $option->id }}">
                                                         <label class="form-label">{{ $option->name }}</label>
-                                                        <select name="variations[{{ $index }}][option_items][]" class="form-select">
+                                                        <select name="variations[{{ $index }}][option_items][]"
+                                                                class="form-select"
+                                                                data-option-id="{{ $option->id }}">
                                                             <option value="">Select {{ $option->name }}</option>
                                                             @foreach($option->items as $item)
                                                                 <option value="{{ $item->id }}"
@@ -856,13 +910,32 @@
                 </div>
             </div>
 
+{{--            <div class="mb-3">--}}
+{{--                <label class="form-label">{{ __('messages.options') }}</label>--}}
+{{--                <div class="row">--}}
+{{--                    @foreach($options as $option)--}}
+{{--                        <div class="col-md-6 mb-2">--}}
+{{--                            <label class="form-label">{{ $option->name }}</label>--}}
+{{--                            <select name="variations[INDEX][option_items][]" class="form-select">--}}
+{{--                                <option value="">{{ __('messages.select') }} {{ $option->name }}</option>--}}
+{{--                                @foreach($option->items as $item)--}}
+{{--                                    <option value="{{ $item->id }}">{{ $item->name }}</option>--}}
+{{--                                @endforeach--}}
+{{--                            </select>--}}
+{{--                        </div>--}}
+{{--                    @endforeach--}}
+{{--                </div>--}}
+{{--            </div>--}}
+
             <div class="mb-3">
-                <label class="form-label">{{ __('messages.options') }}</label>
+                <label class="form-label">{{__('organizations.options')}}</label>
                 <div class="row">
                     @foreach($options as $option)
-                        <div class="col-md-6 mb-2">
+                        <div class="col-md-6 mb-2" data-option-id="{{ $option->id }}">
                             <label class="form-label">{{ $option->name }}</label>
-                            <select name="variations[INDEX][option_items][]" class="form-select">
+                            <select name="variations[INDEX][option_items][]"
+                                    class="form-select"
+                                    data-option-id="{{ $option->id }}">
                                 <option value="">{{ __('messages.select') }} {{ $option->name }}</option>
                                 @foreach($option->items as $item)
                                     <option value="{{ $item->id }}">{{ $item->name }}</option>
@@ -872,7 +945,6 @@
                     @endforeach
                 </div>
             </div>
-
             <div class="mb-3">
                 <label class="form-label">{{ __('messages.variation_main_images') }}</label>
                 <p class="text-muted small">{{ __('messages.variation_main_images_hint') }}</p>
@@ -974,7 +1046,6 @@
                 handleFiles(newFiles, previewContainer, inputElement, filesList);
             });
         }
-
         // Handle file preview
         function handleFiles(files, previewContainer, inputElement, filesList) {
             if (!files || !previewContainer) return;
@@ -1264,5 +1335,299 @@
         document.querySelectorAll('.variation-item').forEach(setupVariationCalc);
         reindexVariations();
         togglePricingTab();
+
+
+
+        // ===========================================
+        // DYNAMIC CATEGORY SELECTION
+        // ===========================================
+        const categoryContainer = document.getElementById('category-selects-container');
+        const categoryHiddenInput = document.getElementById('category_id');
+        const categoryPathDisplay = document.getElementById('category-path');
+
+        let selectedCategoryPath = [];
+        let currentCategoryId = null;
+
+        // Initialize category selection
+        function initializeCategorySelection() {
+            loadCategoryLevel(null, 0);
+
+            // Load existing category if editing
+            const existingCategoryId = categoryHiddenInput.value;
+            if (existingCategoryId) {
+                loadExistingCategoryPath(existingCategoryId);
+            }
+        }
+
+        // Load category level
+        function loadCategoryLevel(parentId, level) {
+            const url = parentId
+                ? `/organizations/categories/${parentId}/children`
+                : '/organizations/categories/roots';
+
+            fetch(url)
+                .then(response => response.json())
+                .then(categories => {
+                    if (categories.length > 0) {
+                        createCategorySelect(categories, level, parentId);
+                    } else if (level === 0) {
+                        categoryContainer.innerHTML = '<p class="text-muted small mb-0">{{ __('messages.no_categories') }}</p>';
+                    }
+                })
+                .catch(error => {
+                    console.error('Error loading categories:', error);
+                });
+        }
+
+        // Create category select
+        function createCategorySelect(categories, level, parentId) {
+            // Remove all selects after this level
+            const existingSelects = categoryContainer.querySelectorAll('.category-level');
+            existingSelects.forEach((select, index) => {
+                if (index >= level) {
+                    select.remove();
+                }
+            });
+
+            // Trim selected path
+            selectedCategoryPath = selectedCategoryPath.slice(0, level);
+
+            // Create wrapper
+            const wrapper = document.createElement('div');
+            wrapper.className = 'category-level';
+            wrapper.dataset.level = level;
+
+            // Create select
+            const select = document.createElement('select');
+            select.className = 'form-select form-select-sm category-select';
+            select.dataset.level = level;
+
+            // Default option
+            const defaultOption = document.createElement('option');
+            defaultOption.value = '';
+            defaultOption.textContent = level === 0
+                ? '{{ __('messages.main_category') }}'
+                : '{{ __('messages.select_or_keep_parent') }}';
+            select.appendChild(defaultOption);
+
+            // Add categories
+            categories.forEach(cat => {
+                const option = document.createElement('option');
+                option.value = cat.id;
+                option.textContent = cat.name;
+                option.dataset.hasChildren = cat.children_count > 0 ? '1' : '0';
+                select.appendChild(option);
+            });
+
+            wrapper.appendChild(select);
+            categoryContainer.appendChild(wrapper);
+
+            // Event handler
+            select.addEventListener('change', function() {
+                const selectedId = this.value;
+                const selectedName = this.options[this.selectedIndex].text;
+                const hasChildren = this.options[this.selectedIndex].dataset.hasChildren === '1';
+
+                if (selectedId) {
+                    selectedCategoryPath[level] = {
+                        id: selectedId,
+                        name: selectedName
+                    };
+
+                    currentCategoryId = selectedId;
+                    categoryHiddenInput.value = selectedId;
+
+                    if (hasChildren) {
+                        loadCategoryLevel(selectedId, level + 1);
+                    } else {
+                        // Remove any selects after this
+                        const selectsToRemove = categoryContainer.querySelectorAll(`.category-level[data-level="${level + 1}"]`);
+                        selectsToRemove.forEach(s => s.remove());
+                        selectedCategoryPath = selectedCategoryPath.slice(0, level + 1);
+                    }
+
+                    updateCategoryPath();
+                    filterOptionsByCategory(selectedId);
+                } else {
+                    // Clear selection at this level
+                    const selectsToRemove = categoryContainer.querySelectorAll(`.category-level`);
+                    selectsToRemove.forEach((s, index) => {
+                        if (index > level) s.remove();
+                    });
+
+                    selectedCategoryPath = selectedCategoryPath.slice(0, level);
+
+                    if (selectedCategoryPath.length > 0) {
+                        currentCategoryId = selectedCategoryPath[selectedCategoryPath.length - 1].id;
+                        categoryHiddenInput.value = currentCategoryId;
+                        filterOptionsByCategory(currentCategoryId);
+                    } else {
+                        currentCategoryId = null;
+                        categoryHiddenInput.value = '';
+                        filterOptionsByCategory(null);
+                    }
+
+                    updateCategoryPath();
+                }
+            });
+        }
+
+        // Update category path display
+        function updateCategoryPath() {
+            if (selectedCategoryPath.length === 0) {
+                categoryPathDisplay.innerHTML = '<span class="text-muted">{{ __('messages.please_select_category') }}</span>';
+            } else {
+                const pathText = selectedCategoryPath.map(item => item.name).join(' <i class="fas fa-angle-left mx-2"></i> ');
+                categoryPathDisplay.innerHTML = pathText;
+            }
+        }
+
+        // Load existing category path for edit
+        function loadExistingCategoryPath(categoryId) {
+            fetch(`/organizations/categories/${categoryId}/path`)
+                .then(response => response.json())
+                .then(data => {
+                    if (data && data.length > 0) {
+                        selectedCategoryPath = data;
+                        currentCategoryId = categoryId;
+
+                        // Recursively load and select categories
+                        let currentLevel = 0;
+
+                        function selectNext(index) {
+                            if (index >= data.length) {
+                                updateCategoryPath();
+                                filterOptionsByCategory(categoryId);
+                                return;
+                            }
+
+                            setTimeout(() => {
+                                const select = categoryContainer.querySelector(`.category-select[data-level="${currentLevel}"]`);
+                                if (select) {
+                                    select.value = data[index].id;
+
+                                    if (index < data.length - 1) {
+                                        loadCategoryLevel(data[index].id, currentLevel + 1);
+                                        currentLevel++;
+                                        setTimeout(() => selectNext(index + 1), 300);
+                                    } else {
+                                        updateCategoryPath();
+                                        filterOptionsByCategory(categoryId);
+                                    }
+                                }
+                            }, 100);
+                        }
+
+                        selectNext(0);
+                    }
+                })
+                .catch(error => {
+                    console.error('Error loading category path:', error);
+                });
+        }
+
+        // ===========================================
+        // FILTER OPTIONS BY CATEGORY
+        // ===========================================
+// ===========================================
+// FILTER OPTIONS BY CATEGORY
+// ===========================================
+        function filterOptionsByCategory(categoryId) {
+            // Get all option containers
+            const optionContainers = document.querySelectorAll('[data-option-id]');
+
+            if (!categoryId) {
+                // Show all options if no category selected
+                optionContainers.forEach(container => {
+                    container.style.display = '';
+                });
+                return;
+            }
+
+            // Fetch filtered options for this category
+            fetch(`/organizations/categories/${categoryId}/options`)
+                .then(response => response.json())
+                .then(data => {
+                    const allowedOptionIds = data.option_ids || [];
+
+                    optionContainers.forEach(container => {
+                        const optionId = parseInt(container.dataset.optionId);
+
+                        if (allowedOptionIds.includes(optionId)) {
+                            // Show this option
+                            container.style.display = '';
+                        } else {
+                            // Hide this option and reset its value
+                            container.style.display = 'none';
+                            const select = container.querySelector('select');
+                            if (select) {
+                                select.value = '';
+                            }
+                        }
+                    });
+                })
+                .catch(error => {
+                    console.error('Error filtering options:', error);
+                });
+        }
+        // Update option containers visibility based on category
+        function updateOptionContainersVisibility(allowedOptionIds) {
+            // This function hides entire option groups if they're not in the category
+            const optionContainers = document.querySelectorAll('[data-option-id]');
+
+            optionContainers.forEach(container => {
+                const optionId = parseInt(container.dataset.optionId);
+                if (allowedOptionIds.includes(optionId)) {
+                    container.style.display = '';
+                } else {
+                    container.style.display = 'none';
+                }
+            });
+        }
+
+        // ===========================================
+        // VARIATION OPTIONS WITH CATEGORY FILTER
+        // ===========================================
+        function setupVariationOptions(variationElement) {
+            // When a new variation is added, apply current category filter
+            if (currentCategoryId) {
+                filterOptionsByCategory(currentCategoryId);
+            }
+        }
+
+        // Initialize
+        initializeCategorySelection();
+
+        // Re-apply filters when new variations are added
+        const addVariationBtn = document.getElementById('addVariation');
+        if (addVariationBtn) {
+            const originalAddClick = addVariationBtn.onclick;
+            addVariationBtn.addEventListener('click', function(e) {
+                // Let the original add variation logic run
+                setTimeout(() => {
+                    const latestVariation = document.querySelector('#variationsContainer .variation-item:last-child');
+                    if (latestVariation && currentCategoryId) {
+                        filterOptionsByCategory(currentCategoryId);
+                    }
+                }, 100);
+            });
+        }
+
+        // Monitor variation container for changes
+        const variationsContainer = document.getElementById('variationsContainer');
+        if (variationsContainer) {
+            const observer = new MutationObserver(function(mutations) {
+                mutations.forEach(function(mutation) {
+                    if (mutation.addedNodes.length > 0 && currentCategoryId) {
+                        filterOptionsByCategory(currentCategoryId);
+                    }
+                });
+            });
+
+            observer.observe(variationsContainer, {
+                childList: true,
+                subtree: true
+            });
+        }
     });
 </script>

@@ -252,5 +252,8 @@ return [
     'active_filters' => 'Active Filters',
     'clear_all' => 'Clear All',
     'no_categories' => 'No Categories',
+
+
+    "search" => "Search",
     'data_not_found' => 'Data Not Found',
 ];

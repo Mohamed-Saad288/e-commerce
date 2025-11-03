@@ -3,8 +3,10 @@
 namespace App\Modules\Organization\app\DTO\Product;
 
 use App\Modules\Base\app\DTO\DTOInterface;
+use App\Modules\Organization\app\Enum\ProductTypeEnum;
 use App\Modules\Organization\app\Models\OptionItem\OptionItem;
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Support\Str;
 
 class ProductDto implements DTOInterface
 {
@@ -25,6 +27,7 @@ class ProductDto implements DTOInterface
     public ?int $low_stock_threshold = null;
 
     public ?bool $requires_shipping = true;
+    public ?int $stock_quantity = 0;
 
     public ?array $variations = [];
 
@@ -38,6 +41,7 @@ class ProductDto implements DTOInterface
         ?int $type = null,
         ?int $low_stock_threshold = null,
         ?bool $requires_shipping = null,
+        ?int $stock_quantity = 0,
         ?array $variations = []
 
     ) {
@@ -50,6 +54,7 @@ class ProductDto implements DTOInterface
         $this->type = $type;
         $this->low_stock_threshold = $low_stock_threshold;
         $this->requires_shipping = $requires_shipping;
+        $this->stock_quantity = $stock_quantity;
         $this->variations = $variations;
     }
 
@@ -87,8 +92,8 @@ class ProductDto implements DTOInterface
             category_id: $arrayData['category_id'],
             organization_id: auth()->user()->organization_id ?? null,
             employee_id: auth()->user()->id,
-            slug: $arrayData['slug'] ?? null,
-            type: $arrayData['type'] ?? null,
+            slug: $arrayData['slug'] ?? Str::slug(($arrayData[config('translatable.fallback_locale')]['name'] ?? '')),
+            type: $arrayData['type'] ?? ProductTypeEnum::PHYSICAL->value,
             low_stock_threshold: $arrayData['low_stock_threshold'] ?? 0,
             requires_shipping: $arrayData['requires_shipping'] ?? true,
             variations: $variations

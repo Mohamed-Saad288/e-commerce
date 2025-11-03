@@ -37,23 +37,23 @@ class StoreProductRequest extends FormRequest
             ],
             'sku' => [
                 'nullable',
-                Rule::unique('products', 'sku')->whereNull('deleted_at')->where(
+                Rule::unique('product_variations', 'sku')->whereNull('deleted_at')->where(
                     'organization_id',
                     auth('organization_employee')->user()->organization_id
                 ),
             ],
             'barcode' => [
                 'nullable',
-                Rule::unique('products', 'barcode')->whereNull('deleted_at')->where(
+                Rule::unique('product_variations', 'barcode')->whereNull('deleted_at')->where(
                     'organization_id',
                     auth('organization_employee')->user()->organization_id
                 ),
             ],
-            'type' => ['required', new Enum(ProductTypeEnum::class)],
+//            'type' => ['required', new Enum(ProductTypeEnum::class)],
             'stock_quantity' => ['required', 'numeric'],
             'low_stock_threshold' => ['required', 'numeric'],
             'requires_shipping' => ['nullable', 'boolean'],
-            'is_featured' => ['nullable', 'boolean'],
+//            'is_featured' => ['nullable', 'boolean'],
             'is_taxable' => ['nullable', 'boolean'],
             'tax_type' => ['nullable', new Enum(TaxTypeEnum::class)],
             'tax_amount' => ['nullable', 'numeric'],
