@@ -50,7 +50,6 @@ class Product extends BaseModel implements TranslatableContract
         return $this->belongsTo(Category::class, 'category_id');
     }
 
-
     public static function booted(): void
     {
         static::saving(function (Product $product) {
@@ -59,5 +58,4 @@ class Product extends BaseModel implements TranslatableContract
             }
         });
     }
-
 }

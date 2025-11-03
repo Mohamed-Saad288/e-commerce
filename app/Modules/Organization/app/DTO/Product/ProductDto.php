@@ -27,6 +27,7 @@ class ProductDto implements DTOInterface
     public ?int $low_stock_threshold = null;
 
     public ?bool $requires_shipping = true;
+
     public ?int $stock_quantity = 0;
 
     public ?array $variations = [];

@@ -49,11 +49,11 @@ class StoreProductRequest extends FormRequest
                     auth('organization_employee')->user()->organization_id
                 ),
             ],
-//            'type' => ['required', new Enum(ProductTypeEnum::class)],
+            //            'type' => ['required', new Enum(ProductTypeEnum::class)],
             'stock_quantity' => ['required', 'numeric'],
             'low_stock_threshold' => ['required', 'numeric'],
             'requires_shipping' => ['nullable', 'boolean'],
-//            'is_featured' => ['nullable', 'boolean'],
+            //            'is_featured' => ['nullable', 'boolean'],
             'is_taxable' => ['nullable', 'boolean'],
             'tax_type' => ['nullable', new Enum(TaxTypeEnum::class)],
             'tax_amount' => ['nullable', 'numeric'],

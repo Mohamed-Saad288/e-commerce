@@ -2,7 +2,7 @@
 
 namespace App\Modules\Organization\app\Enum;
 
-enum ProductTypeEnum :int
+enum ProductTypeEnum: int
 {
     case PHYSICAL = 1;
     case DIGITAL = 2;

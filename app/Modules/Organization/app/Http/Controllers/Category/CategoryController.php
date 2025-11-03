@@ -11,7 +11,6 @@ use App\Modules\Organization\app\Models\Option\Option;
 use App\Modules\Organization\app\Services\Category\CategoryService;
 use Exception;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\DB;
 
 class CategoryController extends Controller
 {
@@ -162,12 +161,11 @@ class CategoryController extends Controller
         return response()->json($path);
     }
 
-
     public function getCategoryOptions($id)
     {
         $category = Category::find($id);
 
-        if (!$category) {
+        if (! $category) {
             return response()->json(['option_ids' => []]);
         }
 
@@ -184,7 +182,7 @@ class CategoryController extends Controller
 
         return response()->json([
             'option_ids' => $optionIds,
-            'category_ids' => $categoryIds
+            'category_ids' => $categoryIds,
         ]);
     }
 }

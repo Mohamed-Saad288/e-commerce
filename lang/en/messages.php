@@ -253,7 +253,6 @@ return [
     'clear_all' => 'Clear All',
     'no_categories' => 'No Categories',
 
-
-    "search" => "Search",
+    'search' => 'Search',
     'data_not_found' => 'Data Not Found',
 ];
