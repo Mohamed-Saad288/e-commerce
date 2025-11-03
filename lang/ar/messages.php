@@ -279,6 +279,6 @@ return [
     'active_filters' => 'الفلاتر النشطة',
     'clear_all' => 'مسح الكل',
     'no_categories' => 'لا توجد تصنيفات',
-    "data_not_found" => "لا توجد داتا"
+    'data_not_found' => 'لا توجد داتا',
 
 ];

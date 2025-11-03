@@ -49,7 +49,7 @@ class ProductVariation extends BaseModel implements TranslatableContract
         'stock_quantity' => 'int',
     ];
 
-//    ===================================================================================================================Relations
+    //    ===================================================================================================================Relations
     public function option_items(): BelongsToMany
     {
         return $this->belongsToMany(
@@ -90,7 +90,7 @@ class ProductVariation extends BaseModel implements TranslatableContract
     public function is_favorite(): bool
     {
         $user = auth('sanctum')->user();
-        if (!$user) {
+        if (! $user) {
             return false;
         }
 
@@ -104,6 +104,4 @@ class ProductVariation extends BaseModel implements TranslatableContract
     {
         return $this->discount > 0;
     }
-
-
 }
