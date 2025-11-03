@@ -19,7 +19,7 @@ class UpdateOptionRequest extends FormRequest
             $rules["$locale.name"] = 'required|string|max:255';
         }
 
-        $rules["category_id"] = ["sometimes", Rule::exists("categories", "id")->where(function ($query) {
+        $rules['category_id'] = ['sometimes', Rule::exists('categories', 'id')->where(function ($query) {
             $query->whereNull('deleted_at')->where('organization_id', auth('organization_employee')->user()->organization_id);
         })];
 

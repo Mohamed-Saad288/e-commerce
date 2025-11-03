@@ -2,7 +2,6 @@
 
 use App\Modules\Organization\app\Http\Controllers\About\AboutController;
 use App\Modules\Organization\app\Http\Controllers\Auth\AuthController;
-
 /**
  * --------------------------------------------------------------
  *  Organization Module Routes
@@ -38,7 +37,7 @@ use Mcamara\LaravelLocalization\Facades\LaravelLocalization;
 Route::group(
     [
         // Localized prefix, e.g. /en/organizations or /ar/organizations
-        'prefix' => LaravelLocalization::setLocale() . '/organizations',
+        'prefix' => LaravelLocalization::setLocale().'/organizations',
 
         // Localization middlewares for translated views & URLs
         'middleware' => [
@@ -103,6 +102,8 @@ Route::group(
                     Route::get("categories/roots", 'getRoots');
                     Route::get("categories/{id}/children", 'getChildren');
                     Route::get('categories/{id}/options', [CategoryController::class, 'getCategoryOptions']);
+                    Route::get('categories/roots', 'getRoots');
+                    Route::get('categories/{id}/children', 'getChildren');
                 });
 
                 Route::resources([

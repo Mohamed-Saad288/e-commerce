@@ -266,12 +266,12 @@ return [
     'select_or_skip' => 'اختر أو تخطى',
     'selected_category' => 'التصنيف المختار',
     'can_select_parent_or_child' => 'يمكنك اختيار القسم الرئيسي أو اختيار قسم فرعي',
-    "select_category" => "اختر التصنيف",
-    "category" => "التصنيف",
-    "main_category" => "التصنيف الرئيسي",
-    "selected_path" => "المسار المحدد",
-    "please_select_category" => "من فضلك اختر تصنيفًا",
-    "level" => "المستوى",
+    'select_category' => 'اختر التصنيف',
+    'category' => 'التصنيف',
+    'main_category' => 'التصنيف الرئيسي',
+    'selected_path' => 'المسار المحدد',
+    'please_select_category' => 'من فضلك اختر تصنيفًا',
+    'level' => 'المستوى',
 
     'filter_by_category' => 'تصفية حسب التصنيف',
     'all_categories' => 'كل التصنيفات',
@@ -279,5 +279,6 @@ return [
     'active_filters' => 'الفلاتر النشطة',
     'clear_all' => 'مسح الكل',
     'no_categories' => 'لا توجد تصنيفات',
+    "data_not_found" => "لا توجد داتا"
 
 ];

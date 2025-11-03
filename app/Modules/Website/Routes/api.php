@@ -29,25 +29,25 @@ Route::prefix('api/site')->middleware(['set.organization.context'])->group(funct
     //        Route::get('apple/callback', [SocialAuthController::class, 'handleAppleCallback']);
 
     /*****************************************REST PASSWORD******************************************/
-//    Route::post('send_otp', [RestPasswordController::class, 'sendOtp']);
-//    Route::post('check_otp', [RestPasswordController::class, 'checkOtp'])->name('check_otp');
-//    Route::post('rest_password', [RestPasswordController::class, 'resetPassword']);
-//    Route::post('resend_otp', [RestPasswordController::class, 'resendOtp']);
+    //    Route::post('send_otp', [RestPasswordController::class, 'sendOtp']);
+    //    Route::post('check_otp', [RestPasswordController::class, 'checkOtp'])->name('check_otp');
+    //    Route::post('rest_password', [RestPasswordController::class, 'resetPassword']);
+    //    Route::post('resend_otp', [RestPasswordController::class, 'resendOtp']);
 
     // Protected Routes
-//    Route::middleware('auth:sanctum')->group(function () {
-//        Route::get('logout', [AuthController::class, 'logout']);
-//
-//        // Email Verification Routes
-//        Route::post('email/verification-notification', [EmailVerificationController::class, 'sendVerificationEmail']
-//        )
-//            ->middleware('throttle:6,1')
-//            ->name('verification.send');
-//
-//        Route::get('email/verify/{id}/{hash}', [EmailVerificationController::class, 'verify'])
-//            ->middleware('signed')
-//            ->name('verification.verify');
-//    });
+    //    Route::middleware('auth:sanctum')->group(function () {
+    //        Route::get('logout', [AuthController::class, 'logout']);
+    //
+    //        // Email Verification Routes
+    //        Route::post('email/verification-notification', [EmailVerificationController::class, 'sendVerificationEmail']
+    //        )
+    //            ->middleware('throttle:6,1')
+    //            ->name('verification.send');
+    //
+    //        Route::get('email/verify/{id}/{hash}', [EmailVerificationController::class, 'verify'])
+    //            ->middleware('signed')
+    //            ->name('verification.verify');
+    //    });
 
     /** Category & Brand Endpoints */
     Route::controller(CategoryController::class)->group(function () {
@@ -65,6 +65,7 @@ Route::prefix('api/site')->middleware(['set.organization.context'])->group(funct
     Route::controller(ProductVariationController::class)->group(function () {
         Route::post('fetch_products', 'index');
         Route::get('show_products/{id}', 'show');
+        Route::post('get_product_variation_by_option_items_ids', 'getProductVariationByOptionItemsIds');
     });
 
     /** Terms Endpoints */
