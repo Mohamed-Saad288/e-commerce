@@ -252,11 +252,8 @@ return [
     'active_filters' => 'Active Filters',
     'clear_all' => 'Clear All',
     'no_categories' => 'No Categories',
-<<<<<<< HEAD
 
 
     "search" => "Search",
-=======
-    "data_not_found" => "Data Not Found",
->>>>>>> 04687e16b3970b95c8f26061b6a609d596656a6a
+    'data_not_found' => 'Data Not Found',
 ];

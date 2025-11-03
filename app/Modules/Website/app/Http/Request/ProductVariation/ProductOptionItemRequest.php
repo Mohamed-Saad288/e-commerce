@@ -15,9 +15,9 @@ class ProductOptionItemRequest extends FormRequest
     public function rules(): array
     {
         return [
-            "option_items_ids" => "required|array",
-            "option_items_ids.*" => ["required", "integer", Rule::exists("option_items", "id")
-                ->whereNull("deleted_at")
+            'option_items_ids' => 'required|array',
+            'option_items_ids.*' => ['required', 'integer', Rule::exists('option_items', 'id')
+                ->whereNull('deleted_at'),
             ],
         ];
     }

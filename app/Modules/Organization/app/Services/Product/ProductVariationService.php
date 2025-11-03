@@ -30,12 +30,13 @@ class ProductVariationService extends BaseService
 
         $resource = $result ? ($this->resourceClass)::make($result) : null;
 
-        if (!$resource) {
+        if (! $resource) {
             return new DataFailed(
                 status: false,
                 message: __('messages.data_not_found')
             );
         }
+
         return new DataSuccess(
             data: $resource,
             status: true,
@@ -52,19 +53,19 @@ class ProductVariationService extends BaseService
             (new RelationFilter($request))->setRelations(
                 [
                     'category' => ['key' => 'category_id', 'column' => 'categories.id'],
-                    'brand' => ['key' => 'brand_id', 'column' => 'brands.id']
+                    'brand' => ['key' => 'brand_id', 'column' => 'brands.id'],
                 ]
             ),
             (new BooleanFilter($request))->setFilters(
                 [
                     'sale' => ['column' => 'discount', 'true_condition' => ['>', 0], 'false_condition' => ['=', 0]],
-                    'is_featured' => ['column' => 'is_featured']
+                    'is_featured' => ['column' => 'is_featured'],
                 ]
             ),
             (new ArithmeticFilter($request))->setFilters([
                 'min_price' => ['column' => 'total_price', 'operator' => '>=', 'range' => false],
                 'max_price' => ['column' => 'total_price', 'operator' => '<=', 'range' => false],
-                'price_range' => ['column' => 'total_price', 'range' => true]
+                'price_range' => ['column' => 'total_price', 'range' => true],
             ]),
             (new RelationFilter($request))->setRelations(
                 ['HomeSections' => ['key' => 'home_section_id', 'column' => 'home_sections.id']]

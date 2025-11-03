@@ -19,12 +19,12 @@ class BaseService
     protected bool $cacheEnabled = false;
 
     protected string $cacheKeyPrefix = '';
+
     protected ?string $resourceClass = null;
+
     protected string $successMessage = 'messages.data_retrieved_successfully';
 
-    public function __construct(protected Model $model)
-    {
-    }
+    public function __construct(protected Model $model) {}
 
     /**
      * Store new record with transaction and media handling
@@ -35,7 +35,7 @@ class BaseService
             $data = $dto->toArray();
             $model = $this->model->query()->create($data);
 
-            if (!empty($dto->image)) {
+            if (! empty($dto->image)) {
                 $model->storeImages(media: $dto->image);
             }
 
@@ -52,7 +52,7 @@ class BaseService
             $data = $dto->toArray();
             $model->update($data);
 
-            if (!empty($dto->image)) {
+            if (! empty($dto->image)) {
                 $model->storeImages(media: $dto->image, update: true);
             }
 
@@ -76,12 +76,14 @@ class BaseService
         $result = $this->model->query()->with($this->withRelations())->find($id);
         if ($this->resourceClass) {
             $resource = ($this->resourceClass)::make($result);
+
             return new DataSuccess(
                 data: $resource,
                 status: true,
                 message: __($this->successMessage)
             );
         }
+
         return $result;
     }
 
@@ -90,7 +92,7 @@ class BaseService
      */
     public function index($request = null, bool $paginate = false): Collection|LengthAwarePaginator|DataSuccess
     {
-        $cacheKey = $this->cacheKeyPrefix . 'index:' . md5(json_encode($request?->all()));
+        $cacheKey = $this->cacheKeyPrefix.'index:'.md5(json_encode($request?->all()));
 
         if ($this->cacheEnabled && Cache::has($cacheKey)) {
             return Cache::get($cacheKey);
@@ -99,13 +101,13 @@ class BaseService
 
         $query = $this->applyFilters($query, $this->filters($request));
 
-        if (!$this->isDashboardRequest()) {
+        if (! $this->isDashboardRequest()) {
             $query->where('is_active', ActiveEnum::ACTIVE->value);
         }
 
         $result = $paginate || (isset($request) && $request->has('with_pagination') && filled(
-                $request->with_pagination
-            ))
+            $request->with_pagination
+        ))
             ? $query->paginate($request->per_page ?? 10)
             : $query->get();
 
