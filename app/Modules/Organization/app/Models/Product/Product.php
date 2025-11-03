@@ -49,4 +49,15 @@ class Product extends BaseModel implements TranslatableContract
     {
         return $this->belongsTo(Category::class, 'category_id');
     }
+
+
+    public static function booted(): void
+    {
+        static::saving(function (Product $product) {
+            if ($product->variations()->exists()) {
+                $product->stock_quantity = $product->variations()->sum('stock_quantity');
+            }
+        });
+    }
+
 }

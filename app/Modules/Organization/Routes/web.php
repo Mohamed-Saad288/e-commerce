@@ -102,6 +102,7 @@ Route::group(
                     Route::get('categories/{id}/path', 'getCategoryPath');
                     Route::get("categories/roots", 'getRoots');
                     Route::get("categories/{id}/children", 'getChildren');
+                    Route::get('categories/{id}/options', [CategoryController::class, 'getCategoryOptions']);
                 });
 
                 Route::resources([

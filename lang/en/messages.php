@@ -254,4 +254,5 @@ return [
     'no_categories' => 'No Categories',
 
 
+    "search" => "Search",
 ];

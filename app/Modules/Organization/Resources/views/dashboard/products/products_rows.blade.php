@@ -6,7 +6,6 @@
 {{--            <td>{{\Illuminate\Support\Str::limit($product->description ?? '-', 50)}}</td>--}}
 {{--            <td>{{\Illuminate\Support\Str::limit($product->short_description ?? '-', 20)}}</td>--}}
             <td>{{ $product->slug ?? '-' }}</td>
-            <td>{{ $product->sku ?? '-' }}</td>
             <td>{{ $product->category?->name ?? '-' }}</td>
             <td>{{ $product->brand?->name ?? '-' }}</td>
             <td>

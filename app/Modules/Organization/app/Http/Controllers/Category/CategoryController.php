@@ -7,9 +7,11 @@ use App\Modules\Organization\app\DTO\Category\CategoryDto;
 use App\Modules\Organization\app\Http\Request\Category\StoreCategoryRequest;
 use App\Modules\Organization\app\Http\Request\Category\UpdateCategoryRequest;
 use App\Modules\Organization\app\Models\Category\Category;
+use App\Modules\Organization\app\Models\Option\Option;
 use App\Modules\Organization\app\Services\Category\CategoryService;
 use Exception;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class CategoryController extends Controller
 {
@@ -159,5 +161,31 @@ class CategoryController extends Controller
         }
 
         return response()->json($path);
+    }
+
+
+    public function getCategoryOptions($id)
+    {
+        $category = Category::find($id);
+
+        if (!$category) {
+            return response()->json(['option_ids' => []]);
+        }
+
+        // جلب التصنيف الحالي + كل الأبناء والأحفاد
+        $categoryIds = [$id];
+        $categoryIds = array_merge($categoryIds, $category->allSubCategories()->pluck('id')->toArray());
+
+        // جلب الـ Options (مش الـ Items) المرتبطة بالتصنيفات دي
+        $optionIds = Option::query()
+            ->whereIn('category_id', $categoryIds)
+            ->pluck('id')
+            ->unique()
+            ->toArray();
+
+        return response()->json([
+            'option_ids' => $optionIds,
+            'category_ids' => $categoryIds
+        ]);
     }
 }
