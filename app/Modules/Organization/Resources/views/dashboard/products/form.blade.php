@@ -283,16 +283,7 @@
             <!-- Basic Info -->
             <div class="tab-pane active" id="basic">
                 <div class="row">
-                    <div class="col-md-6">
-                        <div class="mb-3">
-                            <label class="form-label">SKU</label>
-                            <input type="text" name="sku" class="form-control @error('sku') is-invalid @enderror"
-                                   value="{{ old('sku', $product->sku ?? '') }}">
-                            @error('sku')
-                            <div class="invalid-feedback">{{ $message }}</div>
-                            @enderror
-                        </div>
-                    </div>
+
                     <div class="col-md-6">
                         <div class="mb-3">
                             <label class="form-label">{{ __('organizations.brand') }}</label>
@@ -310,28 +301,17 @@
                             @enderror
                         </div>
                     </div>
+                    <div class="col-md-6">
+                        <div class="mb-3" id="sku-field-wrapper">
+                            <label class="form-label">SKU</label>
+                            <input type="text" name="sku" class="form-control @error('sku') is-invalid @enderror"
+                                   value="{{ old('sku', $product->sku ?? '') }}">
+                            @error('sku')
+                            <div class="invalid-feedback">{{ $message }}</div>
+                            @enderror
+                        </div>
+                    </div>
                 </div>
-{{--                <div class="row">--}}
-{{--                    <div class="col-md-6">--}}
-{{--                        <div class="mb-3">--}}
-{{--                            <label class="form-label">{{ __("organizations.category") }}</label>--}}
-{{--                            <select name="category_id" class="form-select @error('category_id') is-invalid @enderror">--}}
-{{--                                <option value="">{{ __("organizations.select_category") }}</option>--}}
-{{--                                @foreach($categories as $category)--}}
-{{--                                    <option value="{{ $category->id }}"--}}
-{{--                                        {{ (old('category_id', $product->category_id ?? '') == $category->id) ? 'selected' : '' }}>--}}
-{{--                                        {{ $category->name }}--}}
-{{--                                    </option>--}}
-{{--                                @endforeach--}}
-{{--                            </select>--}}
-{{--                            @error('category_id')--}}
-{{--                            <div class="invalid-feedback">{{ $message }}</div>--}}
-{{--                            @enderror--}}
-{{--                        </div>--}}
-{{--                    </div>--}}
-{{--                </div>--}}
-
-
                 <div class="row">
                     <div class="col-md-12">
                         <div class="mb-3">
@@ -363,8 +343,8 @@
                         </div>
                     </div>
                 </div>
-                <div class="row">
-                    <div class="col-md-6">
+                <div class="row" id="barcode-sortorder-row">
+                    <div class="col-md-6" id="barcode-field-wrapper">
                         <div class="mb-3">
                             <label class="form-label">{{ __("messages.barcode") }}</label>
                             <input type="text" name="barcode" class="form-control @error('barcode') is-invalid @enderror"
@@ -374,7 +354,7 @@
                             @enderror
                         </div>
                     </div>
-                    <div class="col-md-6">
+                    <div class="col-md-6" id="sortorder-field-wrapper">
                         <div class="mb-3">
                             <label class="form-label">Sort Order</label>
                             <input type="number" name="sort_order" class="form-control @error('sort_order') is-invalid @enderror"
@@ -910,23 +890,6 @@
                 </div>
             </div>
 
-{{--            <div class="mb-3">--}}
-{{--                <label class="form-label">{{ __('messages.options') }}</label>--}}
-{{--                <div class="row">--}}
-{{--                    @foreach($options as $option)--}}
-{{--                        <div class="col-md-6 mb-2">--}}
-{{--                            <label class="form-label">{{ $option->name }}</label>--}}
-{{--                            <select name="variations[INDEX][option_items][]" class="form-select">--}}
-{{--                                <option value="">{{ __('messages.select') }} {{ $option->name }}</option>--}}
-{{--                                @foreach($option->items as $item)--}}
-{{--                                    <option value="{{ $item->id }}">{{ $item->name }}</option>--}}
-{{--                                @endforeach--}}
-{{--                            </select>--}}
-{{--                        </div>--}}
-{{--                    @endforeach--}}
-{{--                </div>--}}
-{{--            </div>--}}
-
             <div class="mb-3">
                 <label class="form-label">{{__('organizations.options')}}</label>
                 <div class="row">
@@ -1233,18 +1196,62 @@
                 if (pricingTabLi) pricingTabLi.style.display = 'none';
                 document.getElementById('cost_price')?.setAttribute('disabled', 'disabled');
                 document.getElementById('selling_price')?.setAttribute('disabled', 'disabled');
+
+                // Hide SKU, Barcode, Sort Order fields when variations exist
+                hideBasicInfoFields();
             } else {
                 if (pricingTabLi) pricingTabLi.style.display = '';
                 document.getElementById('cost_price')?.removeAttribute('disabled');
                 document.getElementById('selling_price')?.removeAttribute('disabled');
+
+                // Show SKU, Barcode, Sort Order fields when no variations
+                showBasicInfoFields();
             }
             updateTotalStock();
             toggleImageSections();
         }
+        function hideBasicInfoFields() {
+            const skuFieldWrapper = document.getElementById('sku-field-wrapper');
+            const barcodeFieldWrapper = document.getElementById('barcode-field-wrapper');
+            const sortOrderFieldWrapper = document.getElementById('sortorder-field-wrapper');
+            const barcodeRow = document.getElementById('barcode-sortorder-row');
 
+            if (skuFieldWrapper) {
+                skuFieldWrapper.style.display = 'none';
+                const input = skuFieldWrapper.querySelector('input[name="sku"]');
+                if (input) input.value = '';
+            }
+            if (barcodeFieldWrapper) {
+                barcodeFieldWrapper.style.display = 'none';
+                const input = barcodeFieldWrapper.querySelector('input[name="barcode"]');
+                if (input) input.value = '';
+            }
+            if (sortOrderFieldWrapper) {
+                sortOrderFieldWrapper.style.display = 'none';
+                const input = sortOrderFieldWrapper.querySelector('input[name="sort_order"]');
+                if (input) input.value = '0';
+            }
+
+            // Hide entire row if both fields are hidden
+            if (barcodeRow && barcodeFieldWrapper?.style.display === 'none' && sortOrderFieldWrapper?.style.display === 'none') {
+                barcodeRow.style.display = 'none';
+            }
+        }
+        function showBasicInfoFields() {
+            const skuFieldWrapper = document.getElementById('sku-field-wrapper');
+            const barcodeFieldWrapper = document.getElementById('barcode-field-wrapper');
+            const sortOrderFieldWrapper = document.getElementById('sortorder-field-wrapper');
+            const barcodeRow = document.getElementById('barcode-sortorder-row');
+
+            if (skuFieldWrapper) skuFieldWrapper.style.display = '';
+            if (barcodeFieldWrapper) barcodeFieldWrapper.style.display = '';
+            if (sortOrderFieldWrapper) sortOrderFieldWrapper.style.display = '';
+            if (barcodeRow) barcodeRow.style.display = '';
+        }
         function updateTotalStock() {
             const hasVariations = container.children.length > 0;
             if (hasVariations) {
+                hideBasicInfoFields();
                 let total = 0;
                 document.querySelectorAll('.variation-stock').forEach(input => {
                     total += parseFloat(input.value) || 0;
@@ -1253,6 +1260,7 @@
                 stockInput.setAttribute('readonly', 'readonly');
                 stockInput.style.backgroundColor = '#f8f9fa';
             } else {
+                showBasicInfoFields();
                 stockInput.removeAttribute('readonly');
                 stockInput.style.backgroundColor = '#fff';
                 if (stockInput.value === '' || isNaN(stockInput.value)) {
@@ -1529,9 +1537,6 @@
         // ===========================================
         // FILTER OPTIONS BY CATEGORY
         // ===========================================
-// ===========================================
-// FILTER OPTIONS BY CATEGORY
-// ===========================================
         function filterOptionsByCategory(categoryId) {
             // Get all option containers
             const optionContainers = document.querySelectorAll('[data-option-id]');
@@ -1613,6 +1618,9 @@
             });
         }
 
+        @if(isset($product) && $product->variations && $product->variations->count() > 0)
+        hideBasicInfoFields();
+        @endif
         // Monitor variation container for changes
         const variationsContainer = document.getElementById('variationsContainer');
         if (variationsContainer) {
@@ -1630,4 +1638,6 @@
             });
         }
     });
+
+
 </script>
