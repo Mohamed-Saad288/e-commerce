@@ -4,7 +4,6 @@ namespace App\Modules\Website\app\Http\Resources\Product;
 
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
-use Illuminate\Support\Facades\Auth;
 
 class ProductVariationResource extends JsonResource
 {
@@ -14,8 +13,8 @@ class ProductVariationResource extends JsonResource
             'id' => $this->id,
             'name' => $this->name ?? null,
             'slug' => $this->slug ?? null,
-            "base_image" => $this->getImages('main_images')[0] ?? null,
-            "hover_image" => $this->getImages('main_images')[1] ?? null,
+            'base_image' => $this->getImages('main_images')[0] ?? null,
+            'hover_image' => $this->getImages('main_images')[1] ?? null,
             'description' => $this->product?->description ?? null,
             'short_description' => $this->product?->short_description ?? null,
             'sku' => $this->sku ?? null,

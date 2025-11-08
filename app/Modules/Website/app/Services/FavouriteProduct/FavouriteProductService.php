@@ -25,6 +25,7 @@ class FavouriteProductService
 
         if ($favourite) {
             $favourite->delete();
+
             return new DataSuccess(status: true, message: __('messages.removed_from_favourites'));
         }
 
