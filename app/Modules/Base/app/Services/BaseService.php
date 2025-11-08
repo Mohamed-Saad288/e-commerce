@@ -111,7 +111,6 @@ class BaseService
             ? $query->paginate($request->per_page ?? 10)
             : $query->get();
 
-
         if ($this->cacheEnabled) {
             Cache::put($cacheKey, $result, now()->addMinutes(10));
         }
