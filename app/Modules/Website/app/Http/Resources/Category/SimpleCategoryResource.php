@@ -17,6 +17,7 @@ class SimpleCategoryResource extends JsonResource
         return [
             'id' => $this->id,
             'name' => $this->name ?? null,
+            'image' => $this->image ? url("storage/".$this->image) : null,
             'has_sub_categories' => $this->allSubCategories->isNotEmpty(),
             'has_brands' => $this->resource->relationLoaded('brands') ? $this->brands->isNotEmpty() : false,
             'has_products' => $this->resource->relationLoaded('productVariations') ? $this->productVariations->isNotEmpty() : false,
