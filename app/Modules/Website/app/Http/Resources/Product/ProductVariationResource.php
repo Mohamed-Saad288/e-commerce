@@ -2,6 +2,7 @@
 
 namespace App\Modules\Website\app\Http\Resources\Product;
 
+use App\Modules\Website\app\Http\Resources\Category\SimpleCategoryResource;
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
 use Illuminate\Support\Facades\Auth;
@@ -33,7 +34,8 @@ class ProductVariationResource extends JsonResource
             'is_active' => $this->is_active ?? null,
             'main_image' => $this->getImages('main_images') ?? null,
             'additional_images' => $this->getImages('additional_images') ?? [],
-            'category' => $this->product?->category?->name ?? null,
+
+            'category' => new SimpleCategoryResource($this->product?->category ?? null) ?? null,
             'brand' => $this->product?->category?->name ?? null,
             //            'tax_amount' => $this->tax_amount ?? null,
             //            'tax_type' => $this->tax_type ?? null,
