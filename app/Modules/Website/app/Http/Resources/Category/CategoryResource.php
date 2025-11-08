@@ -18,7 +18,7 @@ class CategoryResource extends JsonResource
             'id' => $this->id,
             'name' => $this->name ?? null,
             'has_sub_categories' => $this->allSubCategories->isNotEmpty(),
-            'image' => $this->image ? url("storage/".$this->image) : null,
+            'image' => $this->image ? url('storage/'.$this->image) : null,
             'has_brands' => $this->resource->relationLoaded('brands') ? $this->brands->isNotEmpty() : false,
             'has_products' => $this->resource->relationLoaded('productVariations') ? $this->productVariations->isNotEmpty() : false,
             'sub_categories' => CategoryResource::collection($this->whenLoaded('allSubCategories') ?? []) ?? [],

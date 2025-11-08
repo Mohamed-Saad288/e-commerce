@@ -23,7 +23,7 @@ class ShowCategoryResource extends JsonResource
             'has_brands' => $this->resource->relationLoaded('brands') ? $this->brands->isNotEmpty() : false,
             'has_products' => $this->resource->relationLoaded('productVariations') ? $this->productVariations->isNotEmpty() : false,
             'slug' => $this->slug ?? null,
-            'image' => $this->image ? url("storage/".$this->image) : null,
+            'image' => $this->image ? url('storage/'.$this->image) : null,
             'sub_categories' => CategoryResource::collection($this->whenLoaded('allSubCategories') ?? []) ?? [],
             'brands' => BrandResource::collection($this->whenLoaded('brands') ?? []) ?? [],
             'products' => ProductVariationResource::collection($this->getFinalProducts() ?? []) ?? [],
