@@ -283,7 +283,6 @@
             <!-- Basic Info -->
             <div class="tab-pane active" id="basic">
                 <div class="row">
-
                     <div class="col-md-6">
                         <div class="mb-3">
                             <label class="form-label">{{ __('organizations.brand') }}</label>

@@ -180,7 +180,7 @@ class ProductDto implements DTOInterface
 
     private static function generateDefaultVariation(array $data): array
     {
-        if (! isset($data['variations']) || ! is_array($data['variations']) || count($data['variations']) === 0) {
+        if (!isset($data['variations']) || ! is_array($data['variations']) || count($data['variations']) === 0) {
             $defaultVariation = [
                 'sku' => $data['sku'] ?? null,
                 'barcode' => $data['barcode'] ?? null,
@@ -210,5 +210,6 @@ class ProductDto implements DTOInterface
 
             return $data;
         }
+        return  $data;
     }
 }
