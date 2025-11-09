@@ -2,103 +2,108 @@
 
 return [
     'employees' => 'الموظفين',
+
+    // التصنيفات
     'categories' => 'التصنيفات',
     'edit_category' => 'تعديل التصنيف',
-    'create_category' => 'إنشاء تصنيف جديد',
+    'create_category' => 'إنشاء تصنيف جديد',
     'category_name' => 'اسم التصنيف',
     'category_description' => 'وصف التصنيف',
-    'parent_category' => 'التصنيف الرئيسي',
-    'add_category' => 'إنشاء تصنيف جديد',
+    'parent_category' => 'التصنيف الرئيسي',
+    'add_category' => 'إنشاء تصنيف جديد',
     'category_image' => 'صورة التصنيف',
-    'parent' => 'التصنيف الرئيسي',
+    'parent' => 'التصنيف الرئيسي',
+
+    // العلامات التجارية
     'brands' => 'العلامات التجارية',
     'edit_brand' => 'تعديل العلامة التجارية',
-    'create_brand' => 'إنشاء علامة تجارية جديدة',
+    'create_brand' => 'إنشاء علامة تجارية جديدة',
     'brand_name' => 'اسم العلامة التجارية',
     'brand_description' => 'وصف العلامة التجارية',
-    'add_brand' => 'إنشاء علامة تجارية جديدة',
+    'add_brand' => 'إنشاء علامة تجارية جديدة',
     'brand_image' => 'صورة العلامة التجارية',
     'brand' => 'العلامة التجارية',
     'brand_categories' => 'التصنيفات الخاصة بالعلامة التجارية',
+
+    // المشرفين
     'is_master' => 'هل مدير',
     'supervisors' => 'المشرفون',
-    'add_supervisor' => 'إضافة مشرف',
+    'add_supervisor' => 'إضافة مشرف',
     'edit_supervisor' => 'تعديل مشرف',
     'supervisor_deleted_successfully' => 'تم حذف المشرف بنجاح',
+
+    // الخيارات
     'options' => 'الخيارات',
     'edit_option' => 'تعديل الخيار',
-    'create_option' => 'إنشاء خيار جديد',
+    'create_option' => 'إنشاء خيار جديد',
     'option_name' => 'اسم الخيار',
     'option_description' => 'وصف الخيار',
-    'add_option' => 'إنشاء خيار جديد',
+    'add_option' => 'إنشاء خيار جديد',
     'option_image' => 'صورة الخيار',
     'option' => 'الخيار',
-    'option_items' => 'قائمة الخيارات',
-    'add_option_item' => 'إنشاء عنصر خيار جديد',
+
+    // عناصر الخيار
+    'option_items' => 'قائمة الخيارات',
+    'add_option_item' => 'إنشاء عنصر خيار جديد',
     'edit_option_item' => 'تعديل عنصر خيار',
     'option_item_name' => 'اسم عنصر الخيار',
     'option_item_description' => 'وصف عنصر الخيار',
     'option_item_image' => 'صورة عنصر الخيار',
     'option_item' => 'عنصر الخيار',
     'option_item_deleted_successfully' => 'تم حذف العنصر بنجاح',
+
+    // المنتجات
     'products' => 'المنتجات',
-    'add_product' => 'إنشاء منتج جديد',
+    'add_product' => 'إنشاء منتج جديد',
     'edit_product' => 'تعديل المنتج',
+
+    // الاسليدر
     'headers' => 'اسليدر',
-    'add_header' => 'إنشاء اسليدر جديد',
+    'add_header' => 'إنشاء اسليدر جديد',
     'edit_header' => 'تعديل اسليدر',
     'header_name' => 'اسم اسليدر',
     'header_description' => 'وصف العنوان',
     'header_image' => 'صورة العنوان',
     'header' => 'العنوان',
-    'questions' => 'الأسئلة الشائعة',
-    'add_question' => 'إنشاء سؤال جديد',
-    'edit_question' => 'تعديل السؤال',
-    'question_name' => 'اسم السؤال',
-    'question_description' => 'وصف السؤال',
-    'terms' => 'سياسة الخصوصية',
-    'edit_term' => 'تعديل سياسة الخصوصية',
-    'add_term' => 'إنشاء سياسة خصوصية جديدة',
-    'term_name' => 'اسم سياسة الخصوصية',
-    'products' => 'المنتجات',
-    'add_product' => 'إنشاء منتج جديد',
-    'edit_product' => 'تعديل المنتج',
-    'headers' => 'اسليدر',
-    'add_header' => 'إنشاء اسليدر جديد',
-    'edit_header' => 'تعديل اسليدر',
-    'header_name' => 'اسم اسليدر',
-    'header_description' => 'وصف العنوان',
-    'header_image' => 'صورة العنوان',
-    'header' => 'العنوان',
-    'questions' => 'الأسئلة الشائعة',
-    'add_question' => 'إنشاء سؤال جديد',
-    'edit_question' => 'تعديل السؤال',
-    'question_name' => 'اسم السؤال',
-    'question_description' => 'وصف السؤال',
+
+    // الأسئلة الشائعة
+    'questions' => 'الأسئلة الشائعة',
+    'add_question' => 'إنشاء سؤال جديد',
+    'edit_question' => 'تعديل السؤال',
+    'question_name' => 'اسم السؤال',
+    'question_description' => 'وصف السؤال',
+
+    // الشروط والأحكام
     'terms' => 'الشروط والأحكام',
     'edit_terms' => 'تعديل الشروط والأحكام',
-    'add_term' => 'إنشاء الشروط والأحكام',
+    'add_term' => 'إنشاء الشروط والأحكام',
     'term_name' => 'اسم الشروط والأحكام',
+
+    // من نحن
     'abouts' => 'من نحن',
     'edit_about' => 'تعديل من نحن',
-    'add_about' => 'إنشاء من نحن جديد',
+    'add_about' => 'إنشاء من نحن جديد',
     'about_name' => 'اسم من نحن',
     'about_description' => 'وصف من نحن',
     'about_image' => 'صورة من نحن',
 
-    'basic_info' => 'معلومات أساسية',
-    'pricing&tax' => 'التسعير والضرائب',
-    'inventory' => 'المخزون',
-    'translations' => 'الترجمات',
-    'variations' => 'المتغيرات',
+    // لماذا نحن
     'whys' => 'لماذا نحن',
     'edit_why' => 'تعديل لماذا نحن',
-    'add_why' => 'إنشاء لماذا نحن جديد',
+    'add_why' => 'إنشاء لماذا نحن جديد',
     'why_name' => 'اسم لماذا نحن',
     'why_description' => 'وصف لماذا نحن',
 
+    // معلومات إضافية
+    'basic_info' => 'معلومات أساسية',
+    'pricing&tax' => 'التسعير والضرائب',
+    'inventory' => 'المخزون',
+    'translations' => 'الترجمات',
+    'variations' => 'المتغيرات',
+
+    // إدارة المنتجات
     'all_brands' => 'كل العلامات التجارية',
-    'all_categories' => 'كل الأقسام',
+    'all_categories' => 'كل الأقسام',
     'in_stock' => 'متوفر',
     'low_stock' => 'منخفض',
     'out_of_stock' => 'نفذ',
@@ -111,50 +116,47 @@ return [
     'all_status' => 'كل الحالات',
     'stock' => 'المخزون',
 
+    // التصدير والاستيراد
     'export' => 'تصدير',
-    'excel' => 'إكسيل',
+    'excel' => 'إكسيل',
     'csv' => 'ملف CSV',
-    'pdf' => 'بي دي اف',
+    'pdf' => 'بي دي إف',
     'import' => 'استيراد',
 
     'number_of_variations' => 'عدد المنتجات',
-    'product_management' => 'إدارة المنتجات',
+    'product_management' => 'إدارة المنتجات',
     'content_website' => 'محتوى الموقع',
-    'content_menu' => 'محتوى القائمة',
-    'products_menu' => 'قائمة المنتجات',
+    'content_menu' => 'محتوى القائمة',
+    'products_menu' => 'قائمة المنتجات',
+
+    // سكاشن وفريق العمل
     'our_teams' => 'سكشن فريقنا',
-    'add_our_team' => 'اضافة بيانات عضو',
+    'add_our_team' => 'إضافة بيانات عضو',
     'edit_our_team' => 'تعديل بيانات عضو',
-    'edit_organization_setting' => 'تعديل اعدادت المنظمة',
-    'organization_settings' => 'اعدادت المنظمة',
+    'home_sections' => 'سكاشن الرئيسية',
+    'add_home_section' => 'إضافة سكشن',
+    'edit_home_section' => 'تعديل سكشن',
+
+    // الإعدادات
+    'edit_organization_setting' => 'تعديل إعدادات المنظمة',
+    'organization_settings' => 'إعدادات المنظمة',
+
+    // طرق الدفع
     'payment_methods' => 'طرق الدفع',
-    'An_error_occurred_while_updating_payment_method. Please_try_again_later.' => 'حدث خطأ ما اثناء تحديث طريقة الدفع. يرجى المحاولة مرة أخرى لاحقا.',
+    'payment' => 'طرق الدفع',
+    'An_error_occurred_while_updating_payment_method. Please_try_again_later.' => 'حدث خطأ ما أثناء تحديث طريقة الدفع. يرجى المحاولة مرة أخرى لاحقًا.',
     'payment_method_not_found.' => 'طريقة الدفع غير موجودة.',
     'Organization not found.' => 'المنظمة غير موجودة.',
     'Payment method activated successfully.' => 'تم تفعيل طريقة الدفع بنجاح.',
     'Payment method deactivated successfully.' => 'تم تعطيل طريقة الدفع بنجاح.',
-    'payment' => 'طرق الدفع',
-    'home_sections' => 'سكاشن الريئسية',
-    'add_home_section' => 'اضافة سكشن',
-    'edit_home_section' => 'تعديل سكشن',
-    'our_teams' => 'سكشن فريقنا',
-    'add_our_team' => 'اضافة بيانات عضو',
-    'edit_our_team' => 'تعديل بيانات عضو',
-    'edit_organization_setting' => 'تعديل اعدادت المنظمة',
-    'payment_methods' => 'طرق الدفع',
-    'An_error_occurred_while_updating_payment_method. Please_try_again_later.' => 'حدث خطأ ما اثناء تحديث طريقة الدفع. يرجى المحاولة مرة أخرى لاحقا.',
-    'payment_method_not_found.' => 'طريقة الدفع غير موجودة.',
-    'Organization not found.' => 'المنظمة غير موجودة.',
-    'Payment method activated successfully.' => 'تم تفعيل طريقة الدفع بنجاح.',
-    'Payment method deactivated successfully.' => 'تم تعطيل طريقة الدفع بنجاح.',
-    'payment' => 'طرق الدفع',
-    'home_sections' => 'سكاشن الريئسية',
-    'add_home_section' => 'اضافة سكشن',
-    'edit_home_section' => 'تعديل سكشن',
+
+    // الخصوصية
     'privacy' => 'سياسة الخصوصية',
     'edit_privacy' => 'تعديل سياسة الخصوصية',
+
+    // الكوبونات
     'edit_coupon' => 'تعديل الكوبون',
-    'add_coupon' => 'إنشاء كوبون جديد',
+    'add_coupon' => 'إنشاء كوبون جديد',
     'coupon_code' => 'كود الكوبون',
     'code' => 'كود الكوبون',
     'enter_code' => 'أدخل كود الكوبون',
@@ -177,9 +179,13 @@ return [
     'coupon_type_PERCENTAGE' => 'خصم نسبة مئوية',
     'coupon_type_FREE_SHIPPING' => 'شحن مجاني',
     'coupons' => 'الكوبونات',
+
+    // الفئات الفرعية
     'subcategories_for' => 'الفروع التابعة لـ',
     'main_category' => 'تصنيف رئيسي',
     'add_subcategory' => 'إضافة تصنيف فرعي',
+
+    // تفاصيل المنتج
     'product_details' => 'تفاصيل المنتج',
     'physical' => 'منتج مادي',
     'digital' => 'منتج رقمي',
@@ -192,8 +198,10 @@ return [
     'product_type' => 'نوع المنتج',
     'featured_product' => 'منتج مميز',
     'requires_shipping' => 'يلزم التوصيل',
-    'add_variation' => 'اضافة متغيرات',
-    'remove' => 'ازالة',
+
+    // المتغيرات
+    'add_variation' => 'إضافة متغيرات',
+    'remove' => 'إزالة',
     'variation_main_images' => 'صور المتغير الأساسية',
     'variation_main_images_desc' => 'الصور الرئيسية لهذا المتغير',
     'variation_additional_images' => 'الصور الإضافية للمتغير',
@@ -224,4 +232,6 @@ return [
     'upload_additional_images' => 'اضغط لرفع الصور الإضافية أو اسحبها هنا',
     'allowed_images' => 'PNG, JPG, GIF بحد أقصى 10 ميجابايت (يمكن رفع عدة ملفات)',
 
+    // الدفع
+    "the_payment_added_successfully" => "تمت إضافة الدفعة بنجاح، يرجى انتظار الموافقة على الدفع",
 ];

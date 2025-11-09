@@ -65,12 +65,12 @@ class OrderItemsDto
     {
         $product_variation = ProductVariation::find($item['product_variation_id']);
         $item['price'] = $product_variation ? $product_variation->selling_price : 0.0;
-        $item['sub_total'] = $item['price'] * ($item['quantity'] ?? 1);
-        // Additional calculations for discount_amount, tax_amount, total_amount can be added
-        $item['discount_amount'] = $product_variation->discount ?? 0.0;
-        $item['tax_amount'] = $product_variation->tax_amount ?? 0.0;
-        $item['tax_type'] = $product_variation->tax_type ?? null;
-        $item['total_amount'] = $item['sub_total'] - $item['discount_amount'];
+//        $item['sub_total'] = $item['price'] * ($item['quantity'] ?? 1);
+//        // Additional calculations for discount_amount, tax_amount, total_amount can be added
+//        $item['discount_amount'] = $product_variation->discount ?? 0.0;
+//        $item['tax_amount'] = $product_variation->tax_amount ?? 0.0;
+//        $item['tax_type'] = $product_variation->tax_type ?? null;
+//        $item['total_amount'] = $item['sub_total'] - $item['discount_amount'];
 
         return $item;
     }

@@ -12,6 +12,7 @@ use App\Modules\Website\app\Http\Controllers\Header\HeaderController;
 use App\Modules\Website\app\Http\Controllers\HomeSection\HomeSectionController;
 use App\Modules\Website\app\Http\Controllers\Option\OptionController;
 use App\Modules\Website\app\Http\Controllers\Order\OrderController;
+use App\Modules\Website\app\Http\Controllers\Payment\PaymentController;
 use App\Modules\Website\app\Http\Controllers\PaymentMethod\PaymentMethodController;
 use App\Modules\Website\app\Http\Controllers\Privacy\PrivacyController;
 use App\Modules\Website\app\Http\Controllers\Products\ProductVariationController;
@@ -123,6 +124,11 @@ Route::prefix('api/site')->middleware(['set.organization.context'])->group(funct
             Route::post('show_order', 'show_order');
             Route::post('update_order', 'update_order');
             Route::post('delete_order', 'delete_order');
+        });
+
+        /** Payments Endpoints */
+        Route::controller(PaymentController::class)->group(function () {
+            Route::post('store_payment', 'store');
         });
     });
 

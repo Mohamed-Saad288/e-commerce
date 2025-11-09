@@ -6,6 +6,7 @@ use App\Modules\Admin\app\Models\Organization\Organization;
 use App\Modules\Base\app\Response\DataSuccess;
 use App\Modules\Base\app\Services\BaseService;
 use App\Modules\Organization\app\Models\Order\Payment;
+use App\Modules\Organization\app\Models\PaymentMethod;
 use App\Modules\Website\app\Http\Resources\PaymentMethod\PaymentMethodResource;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Pagination\LengthAwarePaginator;
@@ -14,7 +15,7 @@ class PaymentMethodService extends BaseService
 {
     public function __construct()
     {
-        parent::__construct(resolve(Payment::class));
+        parent::__construct(resolve(PaymentMethod::class));
     }
 
     public function index($request = null, bool $paginate = false): Collection|LengthAwarePaginator|DataSuccess

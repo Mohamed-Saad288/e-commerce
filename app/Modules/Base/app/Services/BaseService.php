@@ -35,7 +35,7 @@ class BaseService
             $data = $dto->toArray();
             $model = $this->model->query()->create($data);
 
-            if (! empty($dto->image)) {
+            if (!empty($dto->image)) {
                 $model->storeImages(media: $dto->image);
             }
 
