@@ -8,17 +8,16 @@ use Illuminate\Foundation\Http\FormRequest;
 
 class ProductBuilder
 {
-
     public function __construct(
         protected array $data = [],
         protected array $translation = [],
         protected array $variations = []
-    ) {
-    }
+    ) {}
 
     public function setData(FormRequest|array $data): ProductBuilder
     {
         $this->data = $data instanceof FormRequest ? $data->validated() : $data;
+
         return $this;
     }
 
@@ -34,18 +33,21 @@ class ProductBuilder
             ];
         }
         $this->translation = $translations;
+
         return $this;
     }
 
     public function setDefaultVariation(): ProductBuilder
     {
         $this->data = self::generateDefaultVariation($this->data);
+
         return $this;
     }
 
     public function setVariationTranslation(): ProductBuilder
     {
         $this->data = self::prepareVariationTranslation($this->data);
+
         return $this;
     }
 
@@ -53,10 +55,10 @@ class ProductBuilder
     {
         $variations = [];
         if (array_key_exists('variations', $this->data) && is_array($this->data['variations']) && count(
-                $this->data['variations']
-            ) > 0) {
+            $this->data['variations']
+        ) > 0) {
             foreach ($this->data['variations'] as $variant) {
-                $variations[] = (new VariationBuilder())
+                $variations[] = (new VariationBuilder)
                     ->setData($variant)
                     ->setTranslation()
                     ->setTotalPrice()
@@ -65,6 +67,7 @@ class ProductBuilder
         }
 
         $this->variations = $variations;
+
         return $this;
     }
 
@@ -87,7 +90,7 @@ class ProductBuilder
 
     private static function generateDefaultVariation(array $data): array
     {
-        if (!isset($data['variations']) || !is_array($data['variations']) || count($data['variations']) === 0) {
+        if (! isset($data['variations']) || ! is_array($data['variations']) || count($data['variations']) === 0) {
             $defaultVariation = [
                 'sku' => $data['sku'] ?? null,
                 'barcode' => $data['barcode'] ?? null,
@@ -121,11 +124,10 @@ class ProductBuilder
         return $data;
     }
 
-
     public static function prepareVariationTranslation(array $data): array
     {
         // If no variations, return as is
-        if (!isset($data['variations']) || !is_array($data['variations']) || count($data['variations']) === 0) {
+        if (! isset($data['variations']) || ! is_array($data['variations']) || count($data['variations']) === 0) {
             return $data;
         }
 
@@ -143,7 +145,7 @@ class ProductBuilder
 
         // Load option items if there are any
         $optionItems = collect();
-        if (!empty($allOptionItemIds)) {
+        if (! empty($allOptionItemIds)) {
             $optionItems = OptionItem::query()
                 ->whereIn('id', $allOptionItemIds)
                 ->get()
@@ -158,7 +160,7 @@ class ProductBuilder
                 $variationName = $productName;
 
                 // Append option item names to the variation name
-                if (is_array($variant['option_items']) && !empty($variant['option_items'])) {
+                if (is_array($variant['option_items']) && ! empty($variant['option_items'])) {
                     $optionNames = [];
                     foreach ($variant['option_items'] as $itemId) {
                         if ($optionItems->has($itemId)) {
@@ -169,8 +171,8 @@ class ProductBuilder
                         }
                     }
 
-                    if (!empty($optionNames)) {
-                        $variationName .= ' - ' . implode(' - ', $optionNames);
+                    if (! empty($optionNames)) {
+                        $variationName .= ' - '.implode(' - ', $optionNames);
                     }
                 }
                 $data['variations'][$key][$locale]['name'] = $variationName;
@@ -179,5 +181,4 @@ class ProductBuilder
 
         return $data;
     }
-
 }

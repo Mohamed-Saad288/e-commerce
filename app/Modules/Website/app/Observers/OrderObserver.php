@@ -2,7 +2,6 @@
 
 namespace App\Modules\Website\app\Observers;
 
-
 use App\Models\User;
 use App\Modules\Organization\app\Models\Coupon\CouponUsage;
 use App\Modules\Organization\app\Models\Order\Order;
@@ -19,7 +18,7 @@ class OrderObserver
         DB::transaction(function () use ($order) {
             $user = User::find($order->user_id);
 
-            if (!$user) {
+            if (! $user) {
                 return;
             }
 
@@ -33,7 +32,7 @@ class OrderObserver
                     ->where('coupon_id', $order->coupon_id)
                     ->exists();
 
-                if (!$exists) {
+                if (! $exists) {
                     CouponUsage::create([
                         'user_id' => $user->id,
                         'coupon_id' => $order->coupon_id,
@@ -60,7 +59,7 @@ class OrderObserver
     {
         DB::transaction(function () use ($order) {
             $user = User::find($order->user_id);
-            if (!$user) {
+            if (! $user) {
                 return;
             }
 
@@ -82,7 +81,6 @@ class OrderObserver
             // }
         });
     }
-
 
     /**
      * Handle the Order "restored" event.

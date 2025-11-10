@@ -4,10 +4,7 @@ namespace App\Modules\Organization\app\DTO\Product\v2;
 
 use App\Modules\Base\app\DTO\DTOInterface;
 use App\Modules\Organization\app\Builder\Product\ProductBuilder;
-use App\Modules\Organization\app\Enum\ProductTypeEnum;
-use App\Modules\Organization\app\Models\OptionItem\OptionItem;
 use Illuminate\Foundation\Http\FormRequest;
-use Illuminate\Support\Str;
 
 class ProductDto implements DTOInterface
 {
@@ -27,13 +24,13 @@ class ProductDto implements DTOInterface
 
     public static function fromArray(FormRequest|array $data): DTOInterface
     {
-       return (new ProductBuilder())
-           ->setData($data)
-           ->setTranslation()
-           ->setDefaultVariation()
-           ->setVariationTranslation()
-           ->setVariations()
-           ->build();
+        return (new ProductBuilder)
+            ->setData($data)
+            ->setTranslation()
+            ->setDefaultVariation()
+            ->setVariationTranslation()
+            ->setVariations()
+            ->build();
     }
 
     public function toArray(): array
@@ -54,5 +51,4 @@ class ProductDto implements DTOInterface
             ]
         );
     }
-
 }

@@ -233,5 +233,5 @@ return [
     'allowed_images' => 'PNG, JPG, GIF بحد أقصى 10 ميجابايت (يمكن رفع عدة ملفات)',
 
     // الدفع
-    "the_payment_added_successfully" => "تمت إضافة الدفعة بنجاح، يرجى انتظار الموافقة على الدفع",
+    'the_payment_added_successfully' => 'تمت إضافة الدفعة بنجاح، يرجى انتظار الموافقة على الدفع',
 ];

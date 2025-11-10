@@ -7,12 +7,12 @@ use Illuminate\Foundation\Http\FormRequest;
 
 class VariationBuilder
 {
-
-    public function __construct(protected $data = [] , protected $translation = [] ){}
+    public function __construct(protected $data = [], protected $translation = []) {}
 
     public function setData(FormRequest|array $data): VariationBuilder
     {
         $this->data = $data instanceof FormRequest ? $data->validated() : $data;
+
         return $this;
     }
 
@@ -26,16 +26,18 @@ class VariationBuilder
             ];
         }
         $this->translation = $translations;
+
         return $this;
     }
 
     public function setTotalPrice(): VariationBuilder
     {
         $this->data['total_price'] = calculateTotalPrice($this->data);
+
         return $this;
     }
 
-    public function build():VariationDto
+    public function build(): VariationDto
     {
         return new VariationDto(
             id: $this->data['id'] ?? null,

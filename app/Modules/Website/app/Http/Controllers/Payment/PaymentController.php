@@ -10,7 +10,6 @@ use App\Modules\Website\app\Services\Payment\PaymentService;
 
 class PaymentController extends Controller
 {
-
     public function __construct(protected PaymentService $service) {}
 
     public function store(StorePaymentRequest $request)
@@ -19,7 +18,7 @@ class PaymentController extends Controller
 
         return (new DataSuccess(
             status: true,
-            message: __("organizations.the_payment_added_successfully")
+            message: __('organizations.the_payment_added_successfully')
         ))->response();
     }
 }

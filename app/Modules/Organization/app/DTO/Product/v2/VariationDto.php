@@ -33,11 +33,11 @@ class VariationDto implements DTOInterface
 
     public static function fromArray(FormRequest|array $data): DTOInterface
     {
-       return (new VariationBuilder())
-           ->setData($data)
-           ->setTranslation()
-           ->setTotalPrice()
-           ->build();
+        return (new VariationBuilder)
+            ->setData($data)
+            ->setTranslation()
+            ->setTotalPrice()
+            ->build();
     }
 
     public function toArray(): array

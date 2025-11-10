@@ -163,5 +163,5 @@ return [
     'add_variation' => 'Add Variation',
     'remove' => 'Remove',
 
-    "the_payment_added_successfully" => "The payment added successfully, please wait for payment approval",
+    'the_payment_added_successfully' => 'The payment added successfully, please wait for payment approval',
 ];

@@ -14,7 +14,7 @@ return new class extends BaseMigration
         Schema::create('payments', function (Blueprint $table) {
             $table->id();
             $table->foreignId('order_id')->constrained('orders')->onDelete('cascade');
-            $table->foreignId("user_id")->nullable()->constrained('users')->nullOnDelete()->cascadeOnUpdate();
+            $table->foreignId('user_id')->nullable()->constrained('users')->nullOnDelete()->cascadeOnUpdate();
             $table->foreignId('payment_method_id')->constrained('payment_methods')->onDelete('cascade');
             $table->tinyInteger('status')->default(1)->comment('1=>pending , 2=>completed , 3=>failed , 4=>refunded');
             $table->decimal('amount', 10, 2)->default(0);

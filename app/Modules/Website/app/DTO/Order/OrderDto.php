@@ -29,8 +29,7 @@ class OrderDto implements DTOInterface
         public ?AddressDto $billing_address = null,
         public array $orderItems = [],
         public ?string $order_number = null,
-    ) {
-    }
+    ) {}
 
     public static function fromArray(FormRequest|array $data): DTOInterface
     {
@@ -60,7 +59,7 @@ class OrderDto implements DTOInterface
             shipping_address: self::shippingAddress($arrayData),
             billing_address: self::billingAddress($arrayData),
             orderItems: $orderItems,
-            order_number: 'ORD-' . now()->format('Ymd') . '-' . random_int(1000, 9999),
+            order_number: 'ORD-'.now()->format('Ymd').'-'.random_int(1000, 9999),
         );
     }
 
@@ -82,7 +81,7 @@ class OrderDto implements DTOInterface
             'sub_total' => $this->sub_total,
             'shipping_address' => $this->shipping_address?->toArray(),
             'billing_address' => $this->billing_address?->toArray(),
-            'order_items' => array_map(fn($item) => $item->toArray(), $this->orderItems),
+            'order_items' => array_map(fn ($item) => $item->toArray(), $this->orderItems),
         ];
     }
 
@@ -93,7 +92,7 @@ class OrderDto implements DTOInterface
     {
         $productVariations = self::getCartProduct($data);
 
-        return array_map(fn($item) => OrderItemsDto::fromArray($item), $productVariations);
+        return array_map(fn ($item) => OrderItemsDto::fromArray($item), $productVariations);
     }
 
     /**
@@ -105,7 +104,7 @@ class OrderDto implements DTOInterface
         $subTotal = $cart->total;
 
         // Apply coupon discount if provided
-        if (!empty($data['coupon_id'])) {
+        if (! empty($data['coupon_id'])) {
             // You can add coupon calculation logic here
             // $couponDiscount = self::calculateCouponDiscount($data['coupon_id'], $subTotal);
             // $totalDiscount += $couponDiscount;
@@ -113,9 +112,9 @@ class OrderDto implements DTOInterface
 
         return [
             'sub_total' => $subTotal,
-//            'discount_amount' => $totalDiscount,
-//            'tax_amount' => $totalTax,
-//            'shipping_amount' => $shippingAmount,
+            //            'discount_amount' => $totalDiscount,
+            //            'tax_amount' => $totalTax,
+            //            'shipping_amount' => $shippingAmount,
             'total_amount' => $subTotal,
         ];
     }
@@ -141,7 +140,7 @@ class OrderDto implements DTOInterface
      */
     private static function billingAddress(array $data): AddressDto
     {
-        if (!empty($data['billing_same_as_shipping']) && $data['billing_same_as_shipping']) {
+        if (! empty($data['billing_same_as_shipping']) && $data['billing_same_as_shipping']) {
             if (isset($data['shipping_address'])) {
                 return AddressDto::fromArray([
                     ...$data['shipping_address'],
@@ -168,7 +167,7 @@ class OrderDto implements DTOInterface
     {
         $cart = self::getCart();
 
-        if (!$cart || $cart->items->isEmpty()) {
+        if (! $cart || $cart->items->isEmpty()) {
             return [];
         }
 
@@ -178,14 +177,15 @@ class OrderDto implements DTOInterface
             $products[] = [
                 'product_variation_id' => $item->product_variation_id,
                 'quantity' => $item->quantity,
-                "sub_total" => $item->price,
+                'sub_total' => $item->price,
             ];
         }
 
         return $products;
     }
 
-    private static function getCart(){
+    private static function getCart()
+    {
         return Cart::where('user_id', auth()->id())
             ->where('organization_id', auth()->user()->organization_id)
             ->with('items')

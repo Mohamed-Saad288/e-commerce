@@ -10,22 +10,22 @@ use Illuminate\Http\UploadedFile;
 
 class PaymentDto implements DTOInterface
 {
-    public function __construct(protected ?int $order_id=null , protected ?int $payment_method_id=null , public ?UploadedFile $image=null , protected ?float $amount=null , protected ?int $organization_id=null,
-    protected ?string $transaction_id = null , protected ?int $status = null , protected ?string $currency = null , protected ?array $meta = null)
-    {
-    }
+    public function __construct(protected ?int $order_id = null, protected ?int $payment_method_id = null, public ?UploadedFile $image = null, protected ?float $amount = null, protected ?int $organization_id = null,
+        protected ?string $transaction_id = null, protected ?int $status = null, protected ?string $currency = null, protected ?array $meta = null) {}
+
     public static function fromArray(FormRequest|array $data): DTOInterface
     {
         $data = $data instanceof FormRequest ? $data->validated() : $data;
+
         return new self(
             order_id: $data['order_id'] ?? null,
             payment_method_id: $data['payment_method_id'] ?? null,
             image: $data['receipt'] ?? null,
-            amount: self::getAmount(order_id: $data["order_id"]),
+            amount: self::getAmount(order_id: $data['order_id']),
             organization_id: $data['organization_id'] ?? auth()->user()->organization_id,
             transaction_id: $data['transaction_id'] ?? null,
             status: $data['status'] ?? PaymentStatusEnum::PENDING->value,
-            currency: $data['currency'] ?? "EGP",
+            currency: $data['currency'] ?? 'EGP',
             meta: $data['meta'] ?? null,
         );
     }

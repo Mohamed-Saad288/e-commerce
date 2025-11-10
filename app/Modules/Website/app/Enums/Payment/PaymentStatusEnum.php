@@ -2,7 +2,7 @@
 
 namespace App\Modules\Website\app\Enums\Payment;
 
-enum PaymentStatusEnum : int
+enum PaymentStatusEnum: int
 {
     case PENDING = 1;
     case COMPLETED = 2;
