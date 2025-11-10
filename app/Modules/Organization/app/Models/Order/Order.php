@@ -6,9 +6,12 @@ use App\Models\User;
 use App\Modules\Base\app\Models\BaseModel;
 use App\Modules\Organization\app\Models\Coupon\Coupon;
 use App\Modules\Organization\app\Models\PaymentMethod;
+use App\Modules\Website\app\Observers\OrderObserver;
+use Illuminate\Database\Eloquent\Attributes\ObservedBy;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 
+#[ObservedBy([OrderObserver::class])]
 class Order extends BaseModel
 {
     protected $table = 'orders';
