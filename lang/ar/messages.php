@@ -281,4 +281,65 @@ return [
     'no_categories' => 'لا توجد تصنيفات',
     'data_not_found' => 'لا توجد داتا',
 
+    'product_details' => 'تفاصيل المنتج',
+    // Pricing
+    'pricing_summary' => 'ملخص الأسعار',
+    'selling' => 'بيع',
+    'final' => 'نهائي',
+    'profit_per_unit' => 'الربح لكل وحدة',
+    'total_profit' => 'إجمالي الربح',
+
+    // Images
+    'variation_main_images' => 'صور الاختيار الرئيسية',
+    'variation_additional_images' => 'صور الاختيار الإضافية',
+    'main_image_alt' => 'صورة رئيسية',
+    'additional_image_alt' => 'صورة إضافية',
+    'variation_main_images_desc' => 'الصور الرئيسية للاختيار',
+    'variation_additional_images_desc' => 'صور إضافية للاختيار',
+    'variation_main_images_hint' => 'أضف صور رئيسية لهذا الاختيار',
+    'variation_gallery_images_hint' => 'أضف صور إضافية لهذا الاختيار',
+    'click_upload_main' => 'انقر لرفع الصور الرئيسية',
+    'click_upload_additional' => 'انقر لرفع الصور الإضافية',
+    'upload_main_images' => 'رفع صور رئيسية',
+    'upload_additional_images' => 'رفع صور إضافية',
+    'images_upload_help' => 'اختر عدة صور (JPEG, PNG, JPG, GIF, SVG)',
+    'allowed_images' => 'الملفات المسموح بها: JPEG, PNG, JPG, GIF, SVG (حد أقصى: 2MB)',
+    'total_images_in_variations' => 'إجمالي :count صورة في جميع الاختيارات',
+    'add_images_to_variations' => 'أضف صور للاختيارات',
+
+    // Variations
+    'variation' => 'اختيار',
+    'variations' => 'الاختيارات',
+    'add_variation' => 'إضافة اختيار',
+    'remove' => 'حذف',
+    'options' => 'الخيارات',
+    'select' => 'اختر',
+    'is_featured' => 'مميز',
+    'default_variation' => 'اختيار افتراضي',
+    'multiple_variations' => 'عدة اختيارات',
+    'view_details' => 'عرض التفاصيل',
+
+
+    // Messages
+    'brand' => 'العلامة التجارية',
+    'sku_already_exists' => 'رقم المنتج (SKU) موجود مسبقاً',
+    'at_least_one_option_required' => 'يجب اختيار خيار واحد على الأقل',
+
+    "collapse_all" => "طيّ الكل",
+    "expand_all" => "توسيع الكل",
+    "delete_all" => "حذف الكل",
+    "bulk_actions" => "إجراءات جماعية",
+
+    "pricing_tax" => "ضريبة التسعير",
+    "inventory" => "المخزون",
+    "variation_images" => "صور المتغيرات",
+    "stock" => "الكمية المتاحة",
+
+    "basic_info" => "المعلومات الأساسية",
+    "confirm_delete_variation" => "هل أنت متأكد أنك تريد حذف هذا المتغير؟",
+    "loading" => "جاري التحميل",
+
+    "no_variations" => "لا توجد متغيرات",
+    "click_add_variation" => "اضغط لإضافة متغير",
+
 ];

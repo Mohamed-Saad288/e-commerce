@@ -37,25 +37,9 @@ class UpdateProductRequest extends FormRequest
                     ->where('organization_id', auth('organization_employee')->user()->organization_id)
                     ->ignore($productId),
             ],
-            'sku' => [
-                'nullable',
-                Rule::unique('products', 'sku')
-                    ->whereNull('deleted_at')
-                    ->where('organization_id', auth('organization_employee')->user()->organization_id)
-                    ->ignore($productId),
-            ],
-            'barcode' => [
-                'nullable',
-                Rule::unique('products', 'barcode')
-                    ->whereNull('deleted_at')
-                    ->where('organization_id', auth('organization_employee')->user()->organization_id)
-                    ->ignore($productId),
-            ],
-            'type' => ['required', new Enum(ProductTypeEnum::class)],
             'stock_quantity' => ['required', 'numeric'],
             'low_stock_threshold' => ['required', 'numeric'],
             'requires_shipping' => ['nullable', 'boolean'],
-            'is_featured' => ['nullable', 'boolean'],
             'is_taxable' => ['nullable', 'boolean'],
             'tax_type' => ['nullable', new Enum(TaxTypeEnum::class)],
             'tax_amount' => ['nullable', 'numeric'],
@@ -63,9 +47,6 @@ class UpdateProductRequest extends FormRequest
             'cost_price' => [Rule::requiredIf(fn () => empty($this->variations)), 'numeric', 'gt:0'],
             'selling_price' => [Rule::requiredIf(fn () => empty($this->variations)), 'numeric', 'gt:0'],
             'sort_order' => ['nullable', 'numeric'],
-            'featured_image' => ['nullable', 'image', 'mimes:jpeg,png,jpg,gif,svg', 'max:2048'],
-            'images' => ['nullable', 'array'],
-            'images.*' => ['nullable', 'image', 'mimes:jpeg,png,jpg,gif,svg', 'max:2048'],
             'variations' => ['nullable', 'array'],
         ];
 
@@ -103,8 +84,18 @@ class UpdateProductRequest extends FormRequest
                 $rules["variations.{$index}.tax_type"] = ['nullable', new Enum(TaxTypeEnum::class)];
                 $rules["variations.{$index}.tax_amount"] = ['nullable', 'numeric'];
                 $rules["variations.{$index}.discount"] = ['nullable', 'numeric'];
-                $rules["variations.{$index}.images"] = ['nullable', 'array'];
-                $rules["variations.{$index}.images.*"] = ['nullable', 'image', 'mimes:jpeg,png,jpg,gif,svg', 'max:2048'];
+                $rules["variations.{$index}.sku"] = ['nullable', Rule::unique('product_variations', 'sku')->whereNull('deleted_at')->where('organization_id', auth('organization_employee')->user()->organization_id)->ignore($variationId)];
+                $rules["variations.{$index}.barcode"] = ['nullable', Rule::unique('product_variations', 'barcode')->whereNull('deleted_at')->where('organization_id', auth('organization_employee')->user()->organization_id)->ignore($variationId)];
+                
+                $rules["variations.{$index}.main_images"] = ['nullable', 'array'];
+                $rules["variations.{$index}.main_images.*"] = ['nullable'];
+                $rules["variations.{$index}.main_images.existing"] = ['nullable', 'array'];
+                $rules["variations.{$index}.main_images.existing.*"] = ['nullable', 'exists:media,id'];
+
+                $rules["variations.{$index}.additional_images"] = ['nullable', 'array'];
+                $rules["variations.{$index}.additional_images.*"] = ['nullable'];
+                $rules["variations.{$index}.additional_images.existing"] = ['nullable', 'array'];
+                $rules["variations.{$index}.additional_images.existing.*"] = ['nullable', 'exists:media,id'];
             }
         }
 
