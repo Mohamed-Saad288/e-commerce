@@ -45,7 +45,11 @@ class VariationDto implements DTOInterface
 
     public ?array $main_images = [];
 
+    public ?array $main_images_existing = [];
+
     public ?array $additional_images = [];
+
+    public ?array $additional_images_existing = [];
 
     public function __construct(
         ?int $id = null,
@@ -67,7 +71,9 @@ class VariationDto implements DTOInterface
         ?array $translations = [],
         ?array $option_items = [],
         ?array $main_images = [],
-        ?array $additional_images = []
+        ?array $main_images_existing = [],
+        ?array $additional_images = [],
+        ?array $additional_images_existing = []
 
     ) {
         $this->organization_id = $organization_id;
@@ -89,10 +95,12 @@ class VariationDto implements DTOInterface
         $this->option_items = $option_items;
         $this->id = $id;
         $this->main_images = $main_images;
+        $this->main_images_existing = $main_images_existing;
         $this->additional_images = $additional_images;
+        $this->additional_images_existing = $additional_images_existing;
     }
 
-    public static function fromArray(FormRequest|array $data): DTOInterface
+    public static function fromArray(FormRequest|array $data): VariationDto
     {
         $total_price = calculateTotalPrice($data);
 
@@ -101,6 +109,40 @@ class VariationDto implements DTOInterface
             $translations[$locale] = [
                 'name' => $data[$locale]['name'] ?? null,
             ];
+        }
+
+        // Extract main images - separate new files from existing IDs
+        $mainImages = [];
+        $mainImagesExisting = [];
+
+        if (isset($data['main_images'])) {
+            if (is_array($data['main_images'])) {
+                foreach ($data['main_images'] as $key => $value) {
+                    if ($key === 'existing' && is_array($value)) {
+                        $mainImagesExisting = array_filter($value, fn($id) => !empty($id));
+                    } elseif ($key !== 'existing') {
+                        $mainImages[] = $value;
+                    }
+                }
+            }
+        }
+
+        // Extract additional images - separate new files from existing IDs
+        $additionalImages = [];
+        $additionalImagesExisting = [];
+
+        if (isset($data['additional_images'])) {
+            if (is_array($data['additional_images'])) {
+                foreach ($data['additional_images'] as $key => $value) {
+                    if ($key === 'existing' && is_array($value)) {
+                        // These are existing image IDs
+                        $additionalImagesExisting = array_filter($value, fn($id) => !empty($id));
+                    } elseif ($key !== 'existing') {
+                        // These are new uploaded files
+                        $additionalImages[] = $value;
+                    }
+                }
+            }
         }
 
         return new self(
@@ -122,8 +164,10 @@ class VariationDto implements DTOInterface
             total_price: $total_price,
             translations: $translations,
             option_items: $data['option_items'] ?? [],
-            main_images: $data['main_images'] ?? [],
-            additional_images: $data['additional_images'] ?? []
+            main_images: $mainImages,
+            main_images_existing: $mainImagesExisting,
+            additional_images: $additionalImages,
+            additional_images_existing: $additionalImagesExisting
         );
     }
 
@@ -150,8 +194,58 @@ class VariationDto implements DTOInterface
                 'total_price' => $this->total_price,
                 'option_items' => $this->option_items,
                 'main_images' => $this->main_images,
+                'main_images_existing' => $this->main_images_existing,
                 'additional_images' => $this->additional_images,
+                'additional_images_existing' => $this->additional_images_existing,
             ]
         );
+    }
+
+    /**
+     * Get all main images (new files only)
+     */
+    public function getNewMainImages(): array
+    {
+        return $this->main_images;
+    }
+
+    /**
+     * Get existing main image IDs to keep
+     */
+    public function getExistingMainImageIds(): array
+    {
+        return $this->main_images_existing;
+    }
+
+    /**
+     * Get all additional images (new files only)
+     */
+    public function getNewAdditionalImages(): array
+    {
+        return $this->additional_images;
+    }
+
+    /**
+     * Get existing additional image IDs to keep
+     */
+    public function getExistingAdditionalImageIds(): array
+    {
+        return $this->additional_images_existing;
+    }
+
+    /**
+     * Check if has any new main images
+     */
+    public function hasNewMainImages(): bool
+    {
+        return !empty($this->main_images);
+    }
+
+    /**
+     * Check if has any new additional images
+     */
+    public function hasNewAdditionalImages(): bool
+    {
+        return !empty($this->additional_images);
     }
 }

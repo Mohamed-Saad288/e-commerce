@@ -1,3 +1,4 @@
+{{-- resources/views/organization/products/partials/_actions.blade.php --}}
 <div class="text-lg-right mb-4">
     <div class="btn-group" role="group">
         <a href="{{ route('organization.products.edit', $product->id) }}"

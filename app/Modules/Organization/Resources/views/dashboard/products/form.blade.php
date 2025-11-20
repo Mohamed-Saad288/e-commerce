@@ -485,26 +485,6 @@
                                                 </div>
                                             </div>
                                         </div>
-{{--                                        <div class="mb-3">--}}
-{{--                                            <label class="form-label">{{__('organizations.options')}}</label>--}}
-{{--                                            <div class="row">--}}
-{{--                                                @foreach($options as $option)--}}
-{{--                                                    <div class="col-md-6 mb-2">--}}
-{{--                                                        <label class="form-label">{{ $option->name }}</label>--}}
-{{--                                                        <select name="variations[{{ $index }}][option_items][]" class="form-select">--}}
-{{--                                                            <option value="">Select {{ $option->name }}</option>--}}
-{{--                                                            @foreach($option->items as $item)--}}
-{{--                                                                <option value="{{ $item->id }}"--}}
-{{--                                                                    {{ $variation->option_items->contains('id', $item->id) ? 'selected' : '' }}>--}}
-{{--                                                                    {{ $item->name }}--}}
-{{--                                                                </option>--}}
-{{--                                                            @endforeach--}}
-{{--                                                        </select>--}}
-{{--                                                    </div>--}}
-{{--                                                @endforeach--}}
-{{--                                            </div>--}}
-{{--                                        </div>--}}
-
 
                                         <div class="mb-3">
                                             <label class="form-label">{{__('organizations.options')}}</label>
@@ -513,7 +493,7 @@
                                                     <div class="col-md-6 mb-2" data-option-id="{{ $option->id }}">
                                                         <label class="form-label">{{ $option->name }}</label>
                                                         <select name="variations[{{ $index }}][option_items][]"
-                                                                class="form-select"
+                                                                class="form-select variation-option-select"
                                                                 data-option-id="{{ $option->id }}">
                                                             <option value="">Select {{ $option->name }}</option>
                                                             @foreach($option->items as $item)
@@ -544,10 +524,10 @@
                                             <div class="image-preview-grid variation-main-image-preview" data-variation-index="{{ $index }}">
                                                 @if($variation->getMedia('main_images')->count() > 0)
                                                     @foreach($variation->getMedia('main_images') as $media)
-                                                        <div class="image-preview-item" data-media-id="{{ $media->id }}">
+                                                        <div class="image-preview-item" data-media-id="{{ $media->id }}" data-is-existing="true">
                                                             <img src="{{ $media->getUrl() }}" alt="{{ __('messages.main_image_alt') }}">
                                                             <button type="button" class="remove-image" data-existing="true" data-media-id="{{ $media->id }}">×</button>
-                                                            <input type="hidden" name="variations[{{ $index }}][existing_main_images][]" value="{{ $media->id }}">
+                                                            <input type="hidden" name="variations[{{ $index }}][main_images_existing][]" value="{{ $media->id }}" class="keep-image-input">
                                                         </div>
                                                     @endforeach
                                                 @endif
@@ -572,10 +552,10 @@
                                             <div class="image-preview-grid variation-image-preview" data-variation-index="{{ $index }}">
                                                 @if($variation->getMedia('additional_images')->count() > 0)
                                                     @foreach($variation->getMedia('additional_images') as $media)
-                                                        <div class="image-preview-item" data-media-id="{{ $media->id }}">
+                                                        <div class="image-preview-item" data-media-id="{{ $media->id }}" data-is-existing="true">
                                                             <img src="{{ $media->getUrl() }}" alt="{{ __('messages.additional_image_alt') }}">
                                                             <button type="button" class="remove-image" data-existing="true" data-media-id="{{ $media->id }}">×</button>
-                                                            <input type="hidden" name="variations[{{ $index }}][existing_additional_images][]" value="{{ $media->id }}">
+                                                            <input type="hidden" name="variations[{{ $index }}][additional_images_existing][]" value="{{ $media->id }}" class="keep-image-input">
                                                         </div>
                                                     @endforeach
                                                 @endif
@@ -648,10 +628,10 @@
                         <div class="image-preview-grid" id="mainImagesPreview">
                             @if(isset($product) && $product->getMedia('main_images')->count() > 0)
                                 @foreach($product->getMedia('main_images') as $media)
-                                    <div class="image-preview-item" data-media-id="{{ $media->id }}">
+                                    <div class="image-preview-item" data-media-id="{{ $media->id }}" data-is-existing="true">
                                         <img src="{{ $media->getUrl() }}" alt="Main Image">
                                         <button type="button" class="remove-image" data-existing="true" data-media-id="{{ $media->id }}">×</button>
-                                        <input type="hidden" name="existing_main_images[]" value="{{ $media->id }}" class="keep-image-input">
+                                        <input type="hidden" name="main_images_existing[]" value="{{ $media->id }}" class="keep-image-input">
                                     </div>
                                 @endforeach
                             @endif
@@ -673,10 +653,10 @@
                         <div class="image-preview-grid" id="additionalImagesPreview">
                             @if(isset($product) && $product->getMedia('images')->count() > 0)
                                 @foreach($product->getMedia('images') as $media)
-                                    <div class="image-preview-item" data-media-id="{{ $media->id }}">
+                                    <div class="image-preview-item" data-media-id="{{ $media->id }}" data-is-existing="true">
                                         <img src="{{ $media->getUrl() }}" alt="Additional Image">
                                         <button type="button" class="remove-image" data-existing="true" data-media-id="{{ $media->id }}">×</button>
-                                        <input type="hidden" name="existing_additional_images[]" value="{{ $media->id }}" class="keep-image-input">
+                                        <input type="hidden" name="additional_images_existing[]" value="{{ $media->id }}" class="keep-image-input">
                                     </div>
                                 @endforeach
                             @endif
@@ -896,7 +876,7 @@
                         <div class="col-md-6 mb-2" data-option-id="{{ $option->id }}">
                             <label class="form-label">{{ $option->name }}</label>
                             <select name="variations[INDEX][option_items][]"
-                                    class="form-select"
+                                    class="form-select variation-option-select"
                                     data-option-id="{{ $option->id }}">
                                 <option value="">{{ __('messages.select') }} {{ $option->name }}</option>
                                 @foreach($option->items as $item)
@@ -1008,6 +988,7 @@
                 handleFiles(newFiles, previewContainer, inputElement, filesList);
             });
         }
+
         // Handle file preview
         function handleFiles(files, previewContainer, inputElement, filesList) {
             if (!files || !previewContainer) return;
@@ -1020,6 +1001,7 @@
                     const previewItem = document.createElement('div');
                     previewItem.className = 'image-preview-item';
                     previewItem.dataset.fileName = file.name;
+                    previewItem.dataset.isExisting = 'false';
                     previewItem.innerHTML = `
                         <img src="${e.target.result}" alt="Preview">
                         <button type="button" class="remove-image" data-existing="false">×</button>
@@ -1071,17 +1053,92 @@
                     keepInput.remove();
                 }
 
-                // Add a hidden input to mark for deletion
-                const deleteInput = document.createElement('input');
-                deleteInput.type = 'hidden';
-                deleteInput.name = 'delete_images[]';
-                deleteInput.value = mediaId;
-                previewItem.appendChild(deleteInput);
-
-                // Visually mark as deleted
-                previewItem.style.opacity = '0.3';
-                e.target.style.display = 'none';
+                // Visually mark as deleted and remove from DOM
+                previewItem.remove();
             }
+        });
+
+        // Convert existing images to File objects and merge with new files
+        function convertExistingImagesToFiles(previewContainer, inputElement, imageType) {
+            const existingImages = previewContainer.querySelectorAll('.image-preview-item[data-is-existing="true"]');
+            const filesList = new DataTransfer();
+
+            // Add existing images as hidden inputs (media IDs)
+            existingImages.forEach(item => {
+                const mediaId = item.dataset.mediaId;
+                if (mediaId && !item.querySelector('.keep-image-input')) {
+                    // Image was deleted, don't include it
+                    return;
+                }
+            });
+
+            // Add new files from input
+            if (inputElement && inputElement.files) {
+                Array.from(inputElement.files).forEach(file => {
+                    filesList.items.add(file);
+                });
+            }
+
+            return filesList;
+        }
+
+        // Before form submit, prepare all images
+        document.getElementById('productForm').addEventListener('submit', function(e) {
+            // Main Images: Rename existing images to match array name
+            const mainPreview = document.getElementById('mainImagesPreview');
+            const existingMainImages = mainPreview.querySelectorAll('.image-preview-item[data-is-existing="true"]');
+
+            existingMainImages.forEach((item, index) => {
+                const keepInput = item.querySelector('.keep-image-input');
+                if (keepInput) {
+                    keepInput.name = `main_images[existing][]`;
+                }
+            });
+
+            // Additional Images: Rename existing images to match array name
+            const additionalPreview = document.getElementById('additionalImagesPreview');
+            const existingAdditionalImages = additionalPreview.querySelectorAll('.image-preview-item[data-is-existing="true"]');
+
+            existingAdditionalImages.forEach((item, index) => {
+                const keepInput = item.querySelector('.keep-image-input');
+                if (keepInput) {
+                    keepInput.name = `additional_images[existing][]`;
+                }
+            });
+
+            // Variation Images
+            document.querySelectorAll('.variation-item').forEach((variation, varIndex) => {
+                // Variation Main Images
+                const varMainPreview = variation.querySelector('.variation-main-image-preview');
+                if (varMainPreview) {
+                    const existingVarMainImages = varMainPreview.querySelectorAll('.image-preview-item[data-is-existing="true"]');
+                    existingVarMainImages.forEach(item => {
+                        const keepInput = item.querySelector('.keep-image-input');
+                        if (keepInput) {
+                            keepInput.name = `variations[${varIndex}][main_images][existing][]`;
+                        }
+                    });
+                }
+
+                // Variation Additional Images
+                const varAdditionalPreview = variation.querySelector('.variation-image-preview');
+                if (varAdditionalPreview) {
+                    const existingVarAdditionalImages = varAdditionalPreview.querySelectorAll('.image-preview-item[data-is-existing="true"]');
+                    existingVarAdditionalImages.forEach(item => {
+                        const keepInput = item.querySelector('.keep-image-input');
+                        if (keepInput) {
+                            keepInput.name = `variations[${varIndex}][additional_images][existing][]`;
+                        }
+                    });
+                }
+            });
+
+            // Clean up all variation option selects
+            document.querySelectorAll('.variation-option-select').forEach(select => {
+                if (select.value === '' || select.value === null) {
+                    select.removeAttribute('name');
+                }
+            });
         });
 
         // Setup main images upload
@@ -1122,6 +1179,18 @@
 
         // Setup image uploads for existing variations
         document.querySelectorAll('.variation-item').forEach(setupVariationImageUpload);
+
+        // ===========================================
+        // FIX OPTION ITEMS - REMOVE EMPTY VALUES BEFORE SUBMIT
+        // ===========================================
+        document.getElementById('productForm').addEventListener('submit', function(e) {
+            // Clean up all variation option selects
+            document.querySelectorAll('.variation-option-select').forEach(select => {
+                if (select.value === '' || select.value === null) {
+                    select.removeAttribute('name');
+                }
+            });
+        });
 
         // ===========================================
         // MAIN PRICE CALCULATION
@@ -1209,6 +1278,7 @@
             updateTotalStock();
             toggleImageSections();
         }
+
         function hideBasicInfoFields() {
             const skuFieldWrapper = document.getElementById('sku-field-wrapper');
             const barcodeFieldWrapper = document.getElementById('barcode-field-wrapper');
@@ -1236,6 +1306,7 @@
                 barcodeRow.style.display = 'none';
             }
         }
+
         function showBasicInfoFields() {
             const skuFieldWrapper = document.getElementById('sku-field-wrapper');
             const barcodeFieldWrapper = document.getElementById('barcode-field-wrapper');
@@ -1247,6 +1318,7 @@
             if (sortOrderFieldWrapper) sortOrderFieldWrapper.style.display = '';
             if (barcodeRow) barcodeRow.style.display = '';
         }
+
         function updateTotalStock() {
             const hasVariations = container.children.length > 0;
             if (hasVariations) {
@@ -1281,8 +1353,13 @@
                 // Update variation image attributes
                 const imageUpload = variation.querySelector('.variation-image-upload');
                 const imagePreview = variation.querySelector('.variation-image-preview');
+                const mainImageUpload = variation.querySelector('.variation-main-image-upload');
+                const mainImagePreview = variation.querySelector('.variation-main-image-preview');
+
                 if (imageUpload) imageUpload.dataset.variationIndex = index;
                 if (imagePreview) imagePreview.dataset.variationIndex = index;
+                if (mainImageUpload) mainImageUpload.dataset.variationIndex = index;
+                if (mainImagePreview) mainImagePreview.dataset.variationIndex = index;
             });
             variationCounter = container.children.length;
             updateTotalStock();
@@ -1342,8 +1419,6 @@
         document.querySelectorAll('.variation-item').forEach(setupVariationCalc);
         reindexVariations();
         togglePricingTab();
-
-
 
         // ===========================================
         // DYNAMIC CATEGORY SELECTION
@@ -1574,30 +1649,6 @@
                     console.error('Error filtering options:', error);
                 });
         }
-        // Update option containers visibility based on category
-        function updateOptionContainersVisibility(allowedOptionIds) {
-            // This function hides entire option groups if they're not in the category
-            const optionContainers = document.querySelectorAll('[data-option-id]');
-
-            optionContainers.forEach(container => {
-                const optionId = parseInt(container.dataset.optionId);
-                if (allowedOptionIds.includes(optionId)) {
-                    container.style.display = '';
-                } else {
-                    container.style.display = 'none';
-                }
-            });
-        }
-
-        // ===========================================
-        // VARIATION OPTIONS WITH CATEGORY FILTER
-        // ===========================================
-        function setupVariationOptions(variationElement) {
-            // When a new variation is added, apply current category filter
-            if (currentCategoryId) {
-                filterOptionsByCategory(currentCategoryId);
-            }
-        }
 
         // Initialize
         initializeCategorySelection();
@@ -1620,6 +1671,7 @@
         @if(isset($product) && $product->variations && $product->variations->count() > 0)
         hideBasicInfoFields();
         @endif
+
         // Monitor variation container for changes
         const variationsContainer = document.getElementById('variationsContainer');
         if (variationsContainer) {
@@ -1637,6 +1689,4 @@
             });
         }
     });
-
-
 </script>

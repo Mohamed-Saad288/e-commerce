@@ -1,3 +1,5 @@
+
+{{-- resources/views/organization/products/partials/_description.blade.php --}}
 <div class="card border-0 shadow-sm mb-4">
     <div class="card-body">
         <h5 class="card-title font-size-15 text-primary mb-3">
