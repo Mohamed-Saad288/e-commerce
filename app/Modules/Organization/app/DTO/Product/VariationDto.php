@@ -119,7 +119,7 @@ class VariationDto implements DTOInterface
             if (is_array($data['main_images'])) {
                 foreach ($data['main_images'] as $key => $value) {
                     if ($key === 'existing' && is_array($value)) {
-                        $mainImagesExisting = array_filter($value, fn($id) => !empty($id));
+                        $mainImagesExisting = array_filter($value, fn ($id) => ! empty($id));
                     } elseif ($key !== 'existing') {
                         $mainImages[] = $value;
                     }
@@ -136,7 +136,7 @@ class VariationDto implements DTOInterface
                 foreach ($data['additional_images'] as $key => $value) {
                     if ($key === 'existing' && is_array($value)) {
                         // These are existing image IDs
-                        $additionalImagesExisting = array_filter($value, fn($id) => !empty($id));
+                        $additionalImagesExisting = array_filter($value, fn ($id) => ! empty($id));
                     } elseif ($key !== 'existing') {
                         // These are new uploaded files
                         $additionalImages[] = $value;
@@ -238,7 +238,7 @@ class VariationDto implements DTOInterface
      */
     public function hasNewMainImages(): bool
     {
-        return !empty($this->main_images);
+        return ! empty($this->main_images);
     }
 
     /**
@@ -246,6 +246,6 @@ class VariationDto implements DTOInterface
      */
     public function hasNewAdditionalImages(): bool
     {
-        return !empty($this->additional_images);
+        return ! empty($this->additional_images);
     }
 }

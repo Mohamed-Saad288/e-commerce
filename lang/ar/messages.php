@@ -319,27 +319,26 @@ return [
     'multiple_variations' => 'عدة اختيارات',
     'view_details' => 'عرض التفاصيل',
 
-
     // Messages
     'brand' => 'العلامة التجارية',
     'sku_already_exists' => 'رقم المنتج (SKU) موجود مسبقاً',
     'at_least_one_option_required' => 'يجب اختيار خيار واحد على الأقل',
 
-    "collapse_all" => "طيّ الكل",
-    "expand_all" => "توسيع الكل",
-    "delete_all" => "حذف الكل",
-    "bulk_actions" => "إجراءات جماعية",
+    'collapse_all' => 'طيّ الكل',
+    'expand_all' => 'توسيع الكل',
+    'delete_all' => 'حذف الكل',
+    'bulk_actions' => 'إجراءات جماعية',
 
-    "pricing_tax" => "ضريبة التسعير",
-    "inventory" => "المخزون",
-    "variation_images" => "صور المتغيرات",
-    "stock" => "الكمية المتاحة",
+    'pricing_tax' => 'ضريبة التسعير',
+    'inventory' => 'المخزون',
+    'variation_images' => 'صور المتغيرات',
+    'stock' => 'الكمية المتاحة',
 
-    "basic_info" => "المعلومات الأساسية",
-    "confirm_delete_variation" => "هل أنت متأكد أنك تريد حذف هذا المتغير؟",
-    "loading" => "جاري التحميل",
+    'basic_info' => 'المعلومات الأساسية',
+    'confirm_delete_variation' => 'هل أنت متأكد أنك تريد حذف هذا المتغير؟',
+    'loading' => 'جاري التحميل',
 
-    "no_variations" => "لا توجد متغيرات",
-    "click_add_variation" => "اضغط لإضافة متغير",
+    'no_variations' => 'لا توجد متغيرات',
+    'click_add_variation' => 'اضغط لإضافة متغير',
 
 ];

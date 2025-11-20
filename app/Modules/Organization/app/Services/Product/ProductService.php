@@ -75,8 +75,8 @@ class ProductService extends BaseService
                         $productVariation = $model->variations()->create($variationData);
                     }
 
-                    $productVariation->getMedia('main_images')->whereNotIn('id', $variationDto->getExistingMainImageIds())->each(fn($media) => $media->delete()); //     // 1. احذف الصور القديمة اللي مش موجودة في existing
-                    $productVariation->getMedia('additional_images')->whereNotIn('id', $variationDto->getExistingAdditionalImageIds())->each(fn($media) => $media->delete());     // 1. احذف الصور القديمة اللي مش موجودة في existing
+                    $productVariation->getMedia('main_images')->whereNotIn('id', $variationDto->getExistingMainImageIds())->each(fn ($media) => $media->delete()); //     // 1. احذف الصور القديمة اللي مش موجودة في existing
+                    $productVariation->getMedia('additional_images')->whereNotIn('id', $variationDto->getExistingAdditionalImageIds())->each(fn ($media) => $media->delete());     // 1. احذف الصور القديمة اللي مش موجودة في existing
                     $productVariation->storeImages(media: $variationData['main_images'], collection: 'main_images');
                     $productVariation->storeImages(media: $variationData['additional_images'], collection: 'additional_images');
 

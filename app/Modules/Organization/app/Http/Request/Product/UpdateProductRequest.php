@@ -2,7 +2,6 @@
 
 namespace App\Modules\Organization\app\Http\Request\Product;
 
-use App\Modules\Organization\Enums\Product\ProductTypeEnum;
 use App\Modules\Organization\Enums\Product\TaxTypeEnum;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Validation\Rule;
@@ -86,7 +85,7 @@ class UpdateProductRequest extends FormRequest
                 $rules["variations.{$index}.discount"] = ['nullable', 'numeric'];
                 $rules["variations.{$index}.sku"] = ['nullable', Rule::unique('product_variations', 'sku')->whereNull('deleted_at')->where('organization_id', auth('organization_employee')->user()->organization_id)->ignore($variationId)];
                 $rules["variations.{$index}.barcode"] = ['nullable', Rule::unique('product_variations', 'barcode')->whereNull('deleted_at')->where('organization_id', auth('organization_employee')->user()->organization_id)->ignore($variationId)];
-                
+
                 $rules["variations.{$index}.main_images"] = ['nullable', 'array'];
                 $rules["variations.{$index}.main_images.*"] = ['nullable'];
                 $rules["variations.{$index}.main_images.existing"] = ['nullable', 'array'];
