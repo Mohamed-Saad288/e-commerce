@@ -108,6 +108,6 @@ class BaseModel extends Model implements HasMedia
 
     protected static function booted(): void
     {
-        static::addGlobalScope(new TenantScope());
+        static::addGlobalScope(new TenantScope);
     }
 }

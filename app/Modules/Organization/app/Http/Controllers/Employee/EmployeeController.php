@@ -13,9 +13,7 @@ use Illuminate\Http\Request;
 
 class EmployeeController extends Controller
 {
-    public function __construct(protected EmployeeService $service)
-    {
-    }
+    public function __construct(protected EmployeeService $service) {}
 
     public function index()
     {

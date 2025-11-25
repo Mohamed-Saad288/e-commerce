@@ -20,9 +20,7 @@ use PDF;
 
 class ProductController extends Controller
 {
-    public function __construct(protected ProductService $service)
-    {
-    }
+    public function __construct(protected ProductService $service) {}
 
     public function index(Request $request)
     {
@@ -31,23 +29,23 @@ class ProductController extends Controller
 
         // Search: Search variation name and SKU only (not parent product)
         if ($request->filled('search')) {
-            $query->where(function($q) use ($request) {
+            $query->where(function ($q) use ($request) {
                 $q->whereTranslationLike('name', '%'.$request->search.'%')
-                  ->orWhere('sku', 'like', '%'.$request->search.'%')
-                  ->orWhere('barcode', 'like', '%'.$request->search.'%');
+                    ->orWhere('sku', 'like', '%'.$request->search.'%')
+                    ->orWhere('barcode', 'like', '%'.$request->search.'%');
             });
         }
 
         // Category filter: Filter by parent product's category
         if ($request->filled('category')) {
-            $query->whereHas('product', function($q) use ($request) {
+            $query->whereHas('product', function ($q) use ($request) {
                 $q->where('category_id', $request->category);
             });
         }
 
         // Brand filter: Filter by parent product's brand
         if ($request->filled('brand')) {
-            $query->whereHas('product', function($q) use ($request) {
+            $query->whereHas('product', function ($q) use ($request) {
                 $q->where('brand_id', $request->brand);
             });
         }
@@ -65,7 +63,7 @@ class ProductController extends Controller
 
         // Status filter: Filter by parent product's is_active status
         if ($request->filled('status')) {
-            $query->whereHas('product', function($q) use ($request) {
+            $query->whereHas('product', function ($q) use ($request) {
                 $q->where('is_active', $request->status);
             });
         }
@@ -169,24 +167,24 @@ class ProductController extends Controller
         // Query ProductVariation with same filters as index
         $variations = ProductVariation::with(['product.category', 'product.brand', 'option_items.option'])
             ->when($request->search, function ($query) use ($request) {
-                return $query->where(function($q) use ($request) {
+                return $query->where(function ($q) use ($request) {
                     $q->whereTranslationLike('name', '%'.$request->search.'%')
-                      ->orWhere('sku', 'like', '%'.$request->search.'%')
-                      ->orWhere('barcode', 'like', '%'.$request->search.'%');
+                        ->orWhere('sku', 'like', '%'.$request->search.'%')
+                        ->orWhere('barcode', 'like', '%'.$request->search.'%');
                 });
             })
             ->when($request->category, function ($query) use ($request) {
-                return $query->whereHas('product', function($q) use ($request) {
+                return $query->whereHas('product', function ($q) use ($request) {
                     $q->where('category_id', $request->category);
                 });
             })
             ->when($request->brand, function ($query) use ($request) {
-                return $query->whereHas('product', function($q) use ($request) {
+                return $query->whereHas('product', function ($q) use ($request) {
                     $q->where('brand_id', $request->brand);
                 });
             })
             ->when($request->status !== null, function ($query) use ($request) {
-                return $query->whereHas('product', function($q) use ($request) {
+                return $query->whereHas('product', function ($q) use ($request) {
                     $q->where('is_active', $request->status);
                 });
             })

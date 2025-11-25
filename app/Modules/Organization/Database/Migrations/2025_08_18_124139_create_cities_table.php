@@ -4,7 +4,8 @@ use App\Modules\Base\Database\Migrations\BaseMigration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-return new class () extends BaseMigration {
+return new class extends BaseMigration
+{
     public function up(): void
     {
         Schema::create('cities', function (Blueprint $table) {

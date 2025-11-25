@@ -18,8 +18,7 @@ class OrderItemsDto
         public ?float $total_amount = 0.0,
         public ?int $organization_id = null,
         public ?int $order_id = null
-    ) {
-    }
+    ) {}
 
     public static function fromArray(array $item): OrderItemsDto
     {

@@ -14,9 +14,7 @@ use Exception;
 
 class PlansController extends Controller
 {
-    public function __construct(protected PlanService $service)
-    {
-    }
+    public function __construct(protected PlanService $service) {}
 
     public function index()
     {
@@ -28,7 +26,7 @@ class PlansController extends Controller
     public function create()
     {
         $types = BillingTypeEnum::cases();
-        $features = (new FeatureService())->list();
+        $features = (new FeatureService)->list();
 
         return view('admin::dashboard.plans.single', get_defined_vars());
     }
@@ -59,7 +57,7 @@ class PlansController extends Controller
     public function edit(Plan $plan)
     {
         $types = BillingTypeEnum::cases();
-        $features = (new FeatureService())->list();
+        $features = (new FeatureService)->list();
 
         return view('admin::dashboard.plans.single', get_defined_vars());
     }

@@ -13,9 +13,7 @@ use Exception;
 
 class FeaturesController extends Controller
 {
-    public function __construct(protected FeatureService $service)
-    {
-    }
+    public function __construct(protected FeatureService $service) {}
 
     public function index()
     {

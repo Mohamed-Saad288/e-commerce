@@ -13,9 +13,7 @@ use Illuminate\Support\Facades\Storage;
 
 class OurTeamController extends Controller
 {
-    public function __construct(protected OurTeamService $service)
-    {
-    }
+    public function __construct(protected OurTeamService $service) {}
 
     public function index()
     {

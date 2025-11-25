@@ -12,8 +12,7 @@ class ProductBuilder
         protected array $data = [],
         protected array $translation = [],
         protected array $variations = []
-    ) {
-    }
+    ) {}
 
     public function setData(FormRequest|array $data): ProductBuilder
     {
@@ -59,7 +58,7 @@ class ProductBuilder
             $this->data['variations']
         ) > 0) {
             foreach ($this->data['variations'] as $variant) {
-                $variations[] = (new VariationBuilder())
+                $variations[] = (new VariationBuilder)
                     ->setData($variant)
                     ->setTranslation()
                     ->setTotalPrice()

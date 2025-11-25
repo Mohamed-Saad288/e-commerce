@@ -8,9 +8,7 @@ use App\Modules\Website\app\Services\HomeSection\HomeSectionService;
 
 class HomeSectionController extends Controller
 {
-    public function __construct(protected HomeSectionService $service)
-    {
-    }
+    public function __construct(protected HomeSectionService $service) {}
 
     public function fetch_home_sections()
     {

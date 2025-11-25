@@ -391,12 +391,12 @@ return [
     'confirm_delete_variation' => 'Are you sure you want to delete this variation?',
     'loading' => 'Loading',
 
-    "no_variations" => "No variations found",
-    "click_add_variation" => "Click to add variation",
+    'no_variations' => 'No variations found',
+    'click_add_variation' => 'Click to add variation',
 
-    "are_you_sure_delete_variation" => "Are you sure you want to delete this variation?",
+    'are_you_sure_delete_variation' => 'Are you sure you want to delete this variation?',
 
-    "deleted_successfully" => "Deleted successfully",
+    'deleted_successfully' => 'Deleted successfully',
 
     'delete_all_variations_title' => 'Delete all variations?',
     'delete_all_variations_text' => 'Are you sure? All variations will be permanently deleted!',

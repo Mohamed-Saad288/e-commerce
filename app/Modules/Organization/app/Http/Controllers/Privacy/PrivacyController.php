@@ -10,9 +10,7 @@ use App\Modules\Organization\app\Services\Privacy\PrivacyService;
 
 class PrivacyController extends Controller
 {
-    public function __construct(protected PrivacyService $service)
-    {
-    }
+    public function __construct(protected PrivacyService $service) {}
 
     public function edit()
     {

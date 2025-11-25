@@ -12,9 +12,7 @@ use Exception;
 
 class WhyController extends Controller
 {
-    public function __construct(protected WhyService $service)
-    {
-    }
+    public function __construct(protected WhyService $service) {}
 
     public function index()
     {

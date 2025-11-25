@@ -13,9 +13,7 @@ use Exception;
 
 class HomeSectionController extends Controller
 {
-    public function __construct(protected HomeSectionService $service)
-    {
-    }
+    public function __construct(protected HomeSectionService $service) {}
 
     public function index()
     {
