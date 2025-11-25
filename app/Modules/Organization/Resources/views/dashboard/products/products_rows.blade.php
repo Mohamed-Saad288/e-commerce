@@ -18,15 +18,15 @@
             </td>
             <td>
                 <div class="d-flex flex-column">
-                    <span class="fw-bold">{{ $variation->name ?? $variation->product->name }}</span>
-                    <small class="text-muted">SKU: {{ $variation->sku }}</small>
+                    <span class="fw-bold">{{ $variation->name ?? $variation?->product?->name ?? '-' }}</span>
+                    <small class="text-muted">SKU: {{ $variation->sku ?? '-' }}</small>
                 </div>
             </td>
             <td>
                 @if ($variation->option_items && $variation->option_items->count() > 0)
                     @foreach ($variation->option_items as $optionItem)
                         <span class="badge bg-info text-white me-1">
-                            {{ $optionItem->option->name }}: {{ $optionItem->name }}
+                            {{ $optionItem?->option?->name ?? '-' }}: {{ $optionItem?->name ?? '-' }}
                         </span>
                     @endforeach
                 @else
