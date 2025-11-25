@@ -29,11 +29,12 @@ class VariationDto implements DTOInterface
         public ?array $option_items = [],
         public ?array $main_images = [],
         public ?array $additional_images = [],
-    ) {}
+    ) {
+    }
 
     public static function fromArray(FormRequest|array $data): DTOInterface
     {
-        return (new VariationBuilder)
+        return (new VariationBuilder())
             ->setData($data)
             ->setTranslation()
             ->setTotalPrice()

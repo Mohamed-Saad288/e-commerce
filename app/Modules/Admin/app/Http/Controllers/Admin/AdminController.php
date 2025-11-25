@@ -12,7 +12,9 @@ use Exception;
 
 class AdminController extends Controller
 {
-    public function __construct(protected AdminService $service) {}
+    public function __construct(protected AdminService $service)
+    {
+    }
 
     public function index()
     {

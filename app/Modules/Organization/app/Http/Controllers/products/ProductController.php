@@ -11,6 +11,7 @@ use App\Modules\Organization\app\Models\Brand\Brand;
 use App\Modules\Organization\app\Models\Category\Category;
 use App\Modules\Organization\app\Models\Option\Option;
 use App\Modules\Organization\app\Models\Product\Product;
+use App\Modules\Organization\app\Models\ProductVariation\ProductVariation;
 use App\Modules\Organization\app\Services\Product\ProductService;
 use Exception;
 use Illuminate\Http\Request;
@@ -19,47 +20,70 @@ use PDF;
 
 class ProductController extends Controller
 {
-    public function __construct(protected ProductService $service) {}
+    public function __construct(protected ProductService $service)
+    {
+    }
 
     public function index(Request $request)
     {
-        $query = Product::whereOrganizationId(auth('organization_employee')->user()->organization_id);
+        // Query ProductVariation instead of Product
+        $query = ProductVariation::whereOrganizationId(auth('organization_employee')->user()->organization_id);
 
+        // Search: Search variation name and SKU only (not parent product)
         if ($request->filled('search')) {
-            $query->whereTranslationLike('name', '%'.$request->search.'%');
+            $query->where(function($q) use ($request) {
+                $q->whereTranslationLike('name', '%'.$request->search.'%')
+                  ->orWhere('sku', 'like', '%'.$request->search.'%')
+                  ->orWhere('barcode', 'like', '%'.$request->search.'%');
+            });
         }
 
+        // Category filter: Filter by parent product's category
         if ($request->filled('category')) {
-            $query->where('category_id', $request->category);
+            $query->whereHas('product', function($q) use ($request) {
+                $q->where('category_id', $request->category);
+            });
         }
 
+        // Brand filter: Filter by parent product's brand
         if ($request->filled('brand')) {
-            $query->where('brand_id', $request->brand);
+            $query->whereHas('product', function($q) use ($request) {
+                $q->where('brand_id', $request->brand);
+            });
         }
 
+        // Stock status filter: Filter by variation's stock_quantity
         if ($request->filled('stock_status')) {
             if ($request->stock_status == 'in_stock') {
-                $query->where('stock_quantity', '>', 0);
+                $query->where('stock_quantity', '>', 10);
             } elseif ($request->stock_status == 'out_of_stock') {
-                $query->where('stock_quantity', 0);
+                $query->where('stock_quantity', '<=', 0);
             } elseif ($request->stock_status == 'low_stock') {
-                $query->where('stock_quantity', '>=', 1)->where('stock_quantity', '<=', 10); // مثال للمخزون المنخفض
+                $query->where('stock_quantity', '>=', 1)->where('stock_quantity', '<=', 10);
             }
         }
 
+        // Status filter: Filter by parent product's is_active status
         if ($request->filled('status')) {
-            $query->where('is_active', $request->status);
+            $query->whereHas('product', function($q) use ($request) {
+                $q->where('is_active', $request->status);
+            });
         }
 
+        // Eager load relationships
+        $query->with(['product.category', 'product.brand', 'option_items.option']);
+
+        // AJAX response for filters
         if ($request->ajax()) {
-            $products = $query->latest()->paginate(10);
+            $variations = $query->latest()->paginate(10);
 
             return [
-                'products_rows' => view('organization::dashboard.products.products_rows', compact('products'))->render(),
-                'pagination' => $products->appends($request->query())->links()->toHtml(),
+                'products_rows' => view('organization::dashboard.products.products_rows', ['products' => $variations])->render(),
+                'pagination' => $variations->appends($request->query())->links()->toHtml(),
             ];
         }
 
+        // Regular page load
         $categories = Category::whereOrganizationId(auth('organization_employee')->user()->organization_id)->get();
         $brands = Brand::whereOrganizationId(auth('organization_employee')->user()->organization_id)->get();
         $products = $query->latest()->paginate(10);
@@ -142,15 +166,29 @@ class ProductController extends Controller
     {
         $type = $request->get('type', 'excel');
 
-        $products = Product::with(['category', 'brand'])
+        // Query ProductVariation with same filters as index
+        $variations = ProductVariation::with(['product.category', 'product.brand', 'option_items.option'])
+            ->when($request->search, function ($query) use ($request) {
+                return $query->where(function($q) use ($request) {
+                    $q->whereTranslationLike('name', '%'.$request->search.'%')
+                      ->orWhere('sku', 'like', '%'.$request->search.'%')
+                      ->orWhere('barcode', 'like', '%'.$request->search.'%');
+                });
+            })
             ->when($request->category, function ($query) use ($request) {
-                return $query->where('category_id', $request->category);
+                return $query->whereHas('product', function($q) use ($request) {
+                    $q->where('category_id', $request->category);
+                });
             })
             ->when($request->brand, function ($query) use ($request) {
-                return $query->where('brand_id', $request->brand);
+                return $query->whereHas('product', function($q) use ($request) {
+                    $q->where('brand_id', $request->brand);
+                });
             })
             ->when($request->status !== null, function ($query) use ($request) {
-                return $query->where('is_active', $request->status);
+                return $query->whereHas('product', function($q) use ($request) {
+                    $q->where('is_active', $request->status);
+                });
             })
             ->when($request->stock_status, function ($query) use ($request) {
                 if ($request->stock_status == 'in_stock') {
@@ -164,8 +202,8 @@ class ProductController extends Controller
             ->latest()
             ->get();
 
-        // Check if there are products to export
-        if ($products->isEmpty()) {
+        // Check if there are variations to export
+        if ($variations->isEmpty()) {
             return response()->json([
                 'error' => __('organizations.no_data_to_export'),
             ], 404);
@@ -173,13 +211,13 @@ class ProductController extends Controller
 
         try {
             if ($type === 'csv') {
-                return Excel::download(new ProductsExport($products), 'products.csv');
+                return Excel::download(new ProductsExport($variations), 'product_variations.csv');
             } elseif ($type === 'pdf') {
-                $pdf = PDF::loadView('organization::dashboard.products.export_pdf', compact('products'));
+                $pdf = PDF::loadView('organization::dashboard.products.export_pdf', ['products' => $variations]);
 
-                return $pdf->download('products.pdf');
+                return $pdf->download('product_variations.pdf');
             } else {
-                return Excel::download(new ProductsExport($products), 'products.xlsx');
+                return Excel::download(new ProductsExport($variations), 'product_variations.xlsx');
             }
         } catch (\Exception $e) {
             return response()->json([

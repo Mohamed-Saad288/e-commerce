@@ -341,4 +341,19 @@ return [
     'no_variations' => 'لا توجد متغيرات',
     'click_add_variation' => 'اضغط لإضافة متغير',
 
+
+    'are_you_sure_delete_variation' => 'هل أنت متأكد أنك تريد حذف هذه النسخة؟ لن تتمكن من استرجاعها!',
+
+    "deleted_successfully" => "تم حذف النسخة بنجاح. ",
+        'delete_all_variations_title' => 'حذف جميع النسخ؟',
+        'delete_all_variations_text' => 'هل أنت متأكد؟ سيتم حذف كل النسخ نهائيًا!',
+        'yes_delete_all' => 'أيوه، امسح الكل!',
+        'all_variations_deleted_successfully' => 'تم حذف كل النسخ.',
+
+    // Quick Edit Modal
+    'quick_edit_variation' => 'تعديل سريع للنسخة',
+    'save_changes' => 'حفظ التغييرات',
+    'error_loading_data' => 'خطأ في تحميل البيانات',
+    'delete_variation' => 'حذف النسخة',
+
 ];

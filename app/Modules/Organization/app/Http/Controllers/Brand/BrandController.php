@@ -14,7 +14,9 @@ use Illuminate\Http\Request;
 
 class BrandController extends Controller
 {
-    public function __construct(protected BrandService $service) {}
+    public function __construct(protected BrandService $service)
+    {
+    }
 
     public function index(Request $request)
     {

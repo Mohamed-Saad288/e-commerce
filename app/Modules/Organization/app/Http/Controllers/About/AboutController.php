@@ -12,7 +12,9 @@ use Exception;
 
 class AboutController extends Controller
 {
-    public function __construct(protected AboutService $service) {}
+    public function __construct(protected AboutService $service)
+    {
+    }
 
     public function index()
     {

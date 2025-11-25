@@ -15,7 +15,9 @@ use Spatie\MediaLibrary\InteractsWithMedia;
 
 class BaseModel extends Model implements HasMedia
 {
-    use HasActivation, InteractsWithMedia, SoftDeletes;
+    use HasActivation;
+    use InteractsWithMedia;
+    use SoftDeletes;
 
     public function getCreatedAtAttribute($value): ?string
     {
@@ -106,6 +108,6 @@ class BaseModel extends Model implements HasMedia
 
     protected static function booted(): void
     {
-        static::addGlobalScope(new TenantScope);
+        static::addGlobalScope(new TenantScope());
     }
 }

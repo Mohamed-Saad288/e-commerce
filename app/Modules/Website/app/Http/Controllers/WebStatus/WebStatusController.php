@@ -7,7 +7,9 @@ use App\Modules\Website\app\Services\WebStatus\WebStatusService;
 
 class WebStatusController extends Controller
 {
-    public function __construct(protected WebStatusService $service) {}
+    public function __construct(protected WebStatusService $service)
+    {
+    }
 
     public function fetch_web_status()
     {

@@ -9,7 +9,9 @@ use Illuminate\Http\Request;
 
 class ProductVariationController extends Controller
 {
-    public function __construct(protected ProductVariationService $service) {}
+    public function __construct(protected ProductVariationService $service)
+    {
+    }
 
     public function index(Request $request)
     {

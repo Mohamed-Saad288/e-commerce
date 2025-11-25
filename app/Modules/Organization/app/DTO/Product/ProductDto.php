@@ -44,7 +44,6 @@ class ProductDto implements DTOInterface
         ?bool $requires_shipping = null,
         ?int $stock_quantity = 0,
         ?array $variations = []
-
     ) {
         $this->translations = $translations;
         $this->brand_id = $brand_id;

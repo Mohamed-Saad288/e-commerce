@@ -74,7 +74,6 @@ class VariationDto implements DTOInterface
         ?array $main_images_existing = [],
         ?array $additional_images = [],
         ?array $additional_images_existing = []
-
     ) {
         $this->organization_id = $organization_id;
         $this->employee_id = $employee_id;

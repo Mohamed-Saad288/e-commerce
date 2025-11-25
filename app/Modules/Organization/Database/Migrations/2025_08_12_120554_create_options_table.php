@@ -4,8 +4,7 @@ use App\Modules\Base\Database\Migrations\BaseMigration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-return new class extends BaseMigration
-{
+return new class () extends BaseMigration {
     /**
      * Run the migrations.
      */
@@ -16,8 +15,6 @@ return new class extends BaseMigration
             $table->foreignId('category_id')->nullable()->constrained()->onDelete('cascade')->onUpdate('cascade');
             $this->addOrganizationFields($table);
             $this->addGeneralFields($table);
-
-            $table->unique(['category_id', 'organization_id']);
             $table->index(['category_id', 'organization_id']);
         });
         Schema::create('option_translations', function (Blueprint $table) {

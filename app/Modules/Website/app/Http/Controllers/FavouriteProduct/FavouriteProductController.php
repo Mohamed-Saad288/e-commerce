@@ -9,7 +9,9 @@ use App\Modules\Website\app\Services\FavouriteProduct\FavouriteProductService;
 
 class FavouriteProductController extends Controller
 {
-    public function __construct(protected FavouriteProductService $service) {}
+    public function __construct(protected FavouriteProductService $service)
+    {
+    }
 
     public function toggle_favourite(FavouriteProductRequest $request)
     {

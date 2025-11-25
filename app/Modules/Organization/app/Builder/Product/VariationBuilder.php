@@ -7,7 +7,9 @@ use Illuminate\Foundation\Http\FormRequest;
 
 class VariationBuilder
 {
-    public function __construct(protected $data = [], protected $translation = []) {}
+    public function __construct(protected $data = [], protected $translation = [])
+    {
+    }
 
     public function setData(FormRequest|array $data): VariationBuilder
     {

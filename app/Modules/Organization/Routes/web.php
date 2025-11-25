@@ -26,6 +26,7 @@ use App\Modules\Organization\app\Http\Controllers\OrganizationSetting\Organizati
 use App\Modules\Organization\app\Http\Controllers\OurTeam\OurTeamController;
 use App\Modules\Organization\app\Http\Controllers\Privacy\PrivacyController;
 use App\Modules\Organization\app\Http\Controllers\products\ProductController;
+use App\Modules\Organization\app\Http\Controllers\products\ProductVariationController;
 use App\Modules\Organization\app\Http\Controllers\Question\QuestionController;
 use App\Modules\Organization\app\Http\Controllers\Term\TermController;
 use App\Modules\Organization\app\Http\Controllers\Why\WhyController;
@@ -105,6 +106,11 @@ Route::group(
                     Route::get('categories/roots', 'getRoots');
                     Route::get('categories/{id}/children', 'getChildren');
                 });
+
+                // Product Variation Quick Edit Routes
+                Route::get('product-variations/{id}', [ProductVariationController::class, 'show']);
+                Route::put('product-variations/{id}', [ProductVariationController::class, 'update']);
+                Route::delete('product-variations/{id}', [ProductVariationController::class, 'destroy']);
 
                 Route::resources([
                     'categories' => CategoryController::class,

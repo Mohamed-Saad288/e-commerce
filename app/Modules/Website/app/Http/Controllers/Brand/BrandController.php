@@ -11,14 +11,17 @@ use App\Modules\Website\app\Http\Resources\Brand\BrandResource;
 
 class BrandController extends Controller
 {
-    public function __construct(protected BrandService $service) {}
+    public function __construct(protected BrandService $service)
+    {
+    }
 
     public function list(BrandRequest $request)
     {
         $brands = $this->service->list($request);
 
         return (new DataSuccess(
-            data: SimpleTitleResource::collection($brands), status: true,
+            data: SimpleTitleResource::collection($brands),
+            status: true,
             message: __('messages.data_retrieved_successfully')
         ))->response();
     }
@@ -28,7 +31,8 @@ class BrandController extends Controller
         $brands = $this->service->index($request);
 
         return (new DataSuccess(
-            data: BrandResource::collection($brands), status: true,
+            data: BrandResource::collection($brands),
+            status: true,
             message: __('messages.data_retrieved_successfully')
         ))->response();
     }
@@ -38,7 +42,8 @@ class BrandController extends Controller
         $brand = $this->service->find($id);
 
         return (new DataSuccess(
-            data: new BrandResource($brand), status: true,
+            data: new BrandResource($brand),
+            status: true,
             message: __('messages.data_retrieved_successfully')
         ))->response();
     }

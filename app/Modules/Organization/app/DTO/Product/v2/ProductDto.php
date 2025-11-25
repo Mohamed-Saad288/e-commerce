@@ -20,11 +20,12 @@ class ProductDto implements DTOInterface
         public ?bool $requires_shipping = true,
         public ?int $stock_quantity = 0,
         public ?array $variations = [],
-    ) {}
+    ) {
+    }
 
     public static function fromArray(FormRequest|array $data): DTOInterface
     {
-        return (new ProductBuilder)
+        return (new ProductBuilder())
             ->setData($data)
             ->setTranslation()
             ->setDefaultVariation()
