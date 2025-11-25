@@ -12,9 +12,7 @@ use Exception;
 
 class QuestionController extends Controller
 {
-    public function __construct(protected QuestionService $service)
-    {
-    }
+    public function __construct(protected QuestionService $service) {}
 
     public function index()
     {

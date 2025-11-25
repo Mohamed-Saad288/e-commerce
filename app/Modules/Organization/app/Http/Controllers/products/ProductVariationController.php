@@ -17,14 +17,14 @@ class ProductVariationController extends Controller
             ->findOrFail($id);
 
         // Get images
-        $mainImages = $variation->getMedia('main_images')->map(function($media) {
+        $mainImages = $variation->getMedia('main_images')->map(function ($media) {
             return [
                 'id' => $media->id,
                 'url' => $media->getUrl(),
             ];
         });
 
-        $additionalImages = $variation->getMedia('additional_images')->map(function($media) {
+        $additionalImages = $variation->getMedia('additional_images')->map(function ($media) {
             return [
                 'id' => $media->id,
                 'url' => $media->getUrl(),
@@ -76,8 +76,8 @@ class ProductVariationController extends Controller
             $keepIds = $request->input('main_images_existing', []);
 
             // Delete images not in the keep list
-            $variation->getMedia('main_images')->each(function($media) use ($keepIds) {
-                if (!in_array($media->id, $keepIds)) {
+            $variation->getMedia('main_images')->each(function ($media) use ($keepIds) {
+                if (! in_array($media->id, $keepIds)) {
                     $media->delete();
                 }
             });
@@ -97,8 +97,8 @@ class ProductVariationController extends Controller
         if ($request->has('additional_images_existing')) {
             $keepIds = $request->input('additional_images_existing', []);
 
-            $variation->getMedia('additional_images')->each(function($media) use ($keepIds) {
-                if (!in_array($media->id, $keepIds)) {
+            $variation->getMedia('additional_images')->each(function ($media) use ($keepIds) {
+                if (! in_array($media->id, $keepIds)) {
                     $media->delete();
                 }
             });

@@ -11,9 +11,7 @@ use App\Modules\Website\app\Http\Resources\Brand\BrandResource;
 
 class BrandController extends Controller
 {
-    public function __construct(protected BrandService $service)
-    {
-    }
+    public function __construct(protected BrandService $service) {}
 
     public function list(BrandRequest $request)
     {

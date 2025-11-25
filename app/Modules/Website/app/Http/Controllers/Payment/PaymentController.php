@@ -10,9 +10,7 @@ use App\Modules\Website\app\Services\Payment\PaymentService;
 
 class PaymentController extends Controller
 {
-    public function __construct(protected PaymentService $service)
-    {
-    }
+    public function __construct(protected PaymentService $service) {}
 
     public function store(StorePaymentRequest $request)
     {

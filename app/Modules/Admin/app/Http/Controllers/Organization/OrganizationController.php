@@ -12,9 +12,7 @@ use Exception;
 
 class OrganizationController extends Controller
 {
-    public function __construct(protected OrganizationService $service)
-    {
-    }
+    public function __construct(protected OrganizationService $service) {}
 
     public function index()
     {

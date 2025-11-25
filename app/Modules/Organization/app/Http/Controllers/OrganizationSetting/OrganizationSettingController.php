@@ -10,9 +10,7 @@ use App\Modules\Organization\app\Services\OrganizationSetting\OrganizationSettin
 
 class OrganizationSettingController extends Controller
 {
-    public function __construct(protected OrganizationSettingService $service)
-    {
-    }
+    public function __construct(protected OrganizationSettingService $service) {}
 
     public function edit()
     {

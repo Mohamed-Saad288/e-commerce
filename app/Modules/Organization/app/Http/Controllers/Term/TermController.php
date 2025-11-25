@@ -12,9 +12,7 @@ use Exception;
 
 class TermController extends Controller
 {
-    public function __construct(protected TermService $service)
-    {
-    }
+    public function __construct(protected TermService $service) {}
 
     public function index()
     {

@@ -7,9 +7,7 @@ use App\Modules\Website\app\Services\Term\TermService;
 
 class TermController extends Controller
 {
-    public function __construct(protected TermService $service)
-    {
-    }
+    public function __construct(protected TermService $service) {}
 
     public function fetch_terms()
     {

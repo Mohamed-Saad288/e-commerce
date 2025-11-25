@@ -29,8 +29,7 @@ class OrderDto implements DTOInterface
         public ?AddressDto $billing_address = null,
         public array $orderItems = [],
         public ?string $order_number = null,
-    ) {
-    }
+    ) {}
 
     public static function fromArray(FormRequest|array $data): DTOInterface
     {
@@ -133,7 +132,7 @@ class OrderDto implements DTOInterface
             ]);
         }
 
-        return new AddressDto();
+        return new AddressDto;
     }
 
     /**
@@ -150,7 +149,7 @@ class OrderDto implements DTOInterface
                 ]);
             }
 
-            return new AddressDto();
+            return new AddressDto;
         }
 
         if (isset($data['billing_address'])) {
@@ -161,7 +160,7 @@ class OrderDto implements DTOInterface
             ]);
         }
 
-        return new AddressDto();
+        return new AddressDto;
     }
 
     private static function getCartProduct($data): array

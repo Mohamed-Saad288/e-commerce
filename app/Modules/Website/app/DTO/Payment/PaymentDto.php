@@ -20,8 +20,7 @@ class PaymentDto implements DTOInterface
         protected ?int $status = null,
         protected ?string $currency = null,
         protected ?array $meta = null
-    ) {
-    }
+    ) {}
 
     public static function fromArray(FormRequest|array $data): DTOInterface
     {

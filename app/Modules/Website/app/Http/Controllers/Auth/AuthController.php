@@ -17,9 +17,7 @@ use Illuminate\Support\Facades\Password;
 
 class AuthController extends Controller
 {
-    public function __construct(protected AuthService $authService)
-    {
-    }
+    public function __construct(protected AuthService $authService) {}
 
     public function login(LoginRequest $request): JsonResponse
     {
