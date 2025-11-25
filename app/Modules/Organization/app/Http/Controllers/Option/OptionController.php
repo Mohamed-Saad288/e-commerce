@@ -14,7 +14,9 @@ use Illuminate\Http\Request;
 
 class OptionController extends Controller
 {
-    public function __construct(protected OptionService $service) {}
+    public function __construct(protected OptionService $service)
+    {
+    }
 
     public function index(Request $request)
     {

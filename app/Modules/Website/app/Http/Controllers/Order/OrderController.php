@@ -9,7 +9,9 @@ use App\Modules\Website\app\Services\Order\OrderService;
 
 class OrderController extends Controller
 {
-    public function __construct(protected OrderService $service) {}
+    public function __construct(protected OrderService $service)
+    {
+    }
 
     public function store(StoreOrderRequest $request)
     {

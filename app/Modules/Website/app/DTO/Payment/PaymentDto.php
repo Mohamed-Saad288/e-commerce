@@ -10,8 +10,18 @@ use Illuminate\Http\UploadedFile;
 
 class PaymentDto implements DTOInterface
 {
-    public function __construct(protected ?int $order_id = null, protected ?int $payment_method_id = null, public ?UploadedFile $image = null, protected ?float $amount = null, protected ?int $organization_id = null,
-        protected ?string $transaction_id = null, protected ?int $status = null, protected ?string $currency = null, protected ?array $meta = null) {}
+    public function __construct(
+        protected ?int $order_id = null,
+        protected ?int $payment_method_id = null,
+        public ?UploadedFile $image = null,
+        protected ?float $amount = null,
+        protected ?int $organization_id = null,
+        protected ?string $transaction_id = null,
+        protected ?int $status = null,
+        protected ?string $currency = null,
+        protected ?array $meta = null
+    ) {
+    }
 
     public static function fromArray(FormRequest|array $data): DTOInterface
     {

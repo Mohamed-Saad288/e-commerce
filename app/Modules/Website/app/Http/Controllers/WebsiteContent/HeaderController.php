@@ -9,7 +9,9 @@ use App\Modules\Website\app\Http\Resources\WebsiteContent\HeaderResource;
 
 class HeaderController extends Controller
 {
-    public function __construct(protected HeaderService $service) {}
+    public function __construct(protected HeaderService $service)
+    {
+    }
 
     public function index()
     {

@@ -74,7 +74,6 @@ class VariationDto implements DTOInterface
         ?array $main_images_existing = [],
         ?array $additional_images = [],
         ?array $additional_images_existing = []
-
     ) {
         $this->organization_id = $organization_id;
         $this->employee_id = $employee_id;
@@ -119,7 +118,7 @@ class VariationDto implements DTOInterface
             if (is_array($data['main_images'])) {
                 foreach ($data['main_images'] as $key => $value) {
                     if ($key === 'existing' && is_array($value)) {
-                        $mainImagesExisting = array_filter($value, fn($id) => !empty($id));
+                        $mainImagesExisting = array_filter($value, fn ($id) => !empty($id));
                     } elseif ($key !== 'existing') {
                         $mainImages[] = $value;
                     }
@@ -136,7 +135,7 @@ class VariationDto implements DTOInterface
                 foreach ($data['additional_images'] as $key => $value) {
                     if ($key === 'existing' && is_array($value)) {
                         // These are existing image IDs
-                        $additionalImagesExisting = array_filter($value, fn($id) => !empty($id));
+                        $additionalImagesExisting = array_filter($value, fn ($id) => !empty($id));
                     } elseif ($key !== 'existing') {
                         // These are new uploaded files
                         $additionalImages[] = $value;

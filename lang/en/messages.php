@@ -395,4 +395,20 @@ return [
 
     "no_variations" => "No variations found",
     "click_add_variation" => "Click to add variation",
+
+    "are_you_sure_delete_variation" => "Are you sure you want to delete this variation?",
+
+    "deleted_successfully" => "Deleted successfully",
+
+    'delete_all_variations_title' => 'Delete all variations?',
+    'delete_all_variations_text' => 'Are you sure? All variations will be permanently deleted!',
+    'yes_delete_all' => 'Yes, delete all!',
+    'all_variations_deleted_successfully' => 'All variations have been deleted successfully.',
+
+    // Quick Edit Modal
+    'quick_edit_variation' => 'Quick Edit Variation',
+    'save_changes' => 'Save Changes',
+    'error_loading_data' => 'Error loading data',
+    'delete_variation' => 'Delete Variation',
+
 ];

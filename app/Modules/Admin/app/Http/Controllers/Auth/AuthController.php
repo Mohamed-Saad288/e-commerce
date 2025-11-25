@@ -10,7 +10,9 @@ use Illuminate\View\View;
 
 class AuthController extends Controller
 {
-    public function __construct() {}
+    public function __construct()
+    {
+    }
 
     public function getLogin(): View
     {

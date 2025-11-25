@@ -27,8 +27,17 @@ class AddressDto implements DTOInterface
 
     protected ?int $organization_id = null;
 
-    public function __construct(?string $address1 = null, ?string $address2 = null, ?int $city_id = null, ?int $country_id = null, ?string $postal_code = null,
-        ?string $phone = null, ?int $user_id = null, ?bool $is_default = null, ?int $type = null, ?int $organization_id = null
+    public function __construct(
+        ?string $address1 = null,
+        ?string $address2 = null,
+        ?int $city_id = null,
+        ?int $country_id = null,
+        ?string $postal_code = null,
+        ?string $phone = null,
+        ?int $user_id = null,
+        ?bool $is_default = null,
+        ?int $type = null,
+        ?int $organization_id = null
     ) {
         $this->address1 = $address1;
         $this->address2 = $address2;

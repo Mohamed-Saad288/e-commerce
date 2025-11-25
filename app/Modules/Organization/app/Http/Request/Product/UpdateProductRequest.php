@@ -86,7 +86,7 @@ class UpdateProductRequest extends FormRequest
                 $rules["variations.{$index}.discount"] = ['nullable', 'numeric'];
                 $rules["variations.{$index}.sku"] = ['nullable', Rule::unique('product_variations', 'sku')->whereNull('deleted_at')->where('organization_id', auth('organization_employee')->user()->organization_id)->ignore($variationId)];
                 $rules["variations.{$index}.barcode"] = ['nullable', Rule::unique('product_variations', 'barcode')->whereNull('deleted_at')->where('organization_id', auth('organization_employee')->user()->organization_id)->ignore($variationId)];
-                
+
                 $rules["variations.{$index}.main_images"] = ['nullable', 'array'];
                 $rules["variations.{$index}.main_images.*"] = ['nullable'];
                 $rules["variations.{$index}.main_images.existing"] = ['nullable', 'array'];

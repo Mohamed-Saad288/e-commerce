@@ -17,7 +17,9 @@ use Illuminate\Support\Facades\Password;
 
 class AuthController extends Controller
 {
-    public function __construct(protected AuthService $authService) {}
+    public function __construct(protected AuthService $authService)
+    {
+    }
 
     public function login(LoginRequest $request): JsonResponse
     {
@@ -25,7 +27,8 @@ class AuthController extends Controller
             $result = $this->authService->login($request);
 
             return (new DataSuccess(
-                data: UserResource::make($result), status: true,
+                data: UserResource::make($result),
+                status: true,
                 message: __('auth.Login_successfully')
             ))->response();
         } catch (Exception $e) {
@@ -41,7 +44,8 @@ class AuthController extends Controller
         $result = $this->authService->register($request);
 
         return (new DataSuccess(
-            data: UserResource::make($result), status: true,
+            data: UserResource::make($result),
+            status: true,
             message: __('auth.Register_successfully')
         ))->response();
     }

@@ -24,7 +24,9 @@ class BaseService
 
     protected string $successMessage = 'messages.data_retrieved_successfully';
 
-    public function __construct(protected Model $model) {}
+    public function __construct(protected Model $model)
+    {
+    }
 
     /**
      * Store new record with transaction and media handling

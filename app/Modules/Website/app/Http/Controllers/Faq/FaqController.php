@@ -8,7 +8,9 @@ use Illuminate\Http\Request;
 
 class FaqController extends Controller
 {
-    public function __construct(protected FaqService $service) {}
+    public function __construct(protected FaqService $service)
+    {
+    }
 
     public function fetch_faqs(Request $request)
     {

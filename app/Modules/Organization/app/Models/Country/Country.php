@@ -10,7 +10,8 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 class Country extends BaseModel implements TranslatableContract
 {
-    use HasFactory, Translatable;
+    use HasFactory;
+    use Translatable;
 
     protected $table = 'countries';
 

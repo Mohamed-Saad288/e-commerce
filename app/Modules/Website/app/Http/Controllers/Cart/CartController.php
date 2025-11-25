@@ -11,7 +11,9 @@ use App\Modules\Website\app\Services\Cart\CartService;
 
 class CartController extends Controller
 {
-    public function __construct(protected CartService $cartService) {}
+    public function __construct(protected CartService $cartService)
+    {
+    }
 
     public function store_cart(StoreCartRequest $request)
     {

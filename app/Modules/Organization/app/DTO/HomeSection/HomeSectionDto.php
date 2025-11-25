@@ -35,7 +35,6 @@ class HomeSectionDto implements DTOInterface
         $start_date = null,
         $end_date = null,
         $template_type = null
-
     ) {
         $this->translations = $translations;
         $this->organization_id = $organization_id;

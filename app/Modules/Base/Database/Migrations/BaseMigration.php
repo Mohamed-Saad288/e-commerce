@@ -9,5 +9,7 @@ use Illuminate\Database\Migrations\Migration;
 
 abstract class BaseMigration extends Migration
 {
-    use MigrationAddedByTrait,MigrationTrait,OrganizationMigrationTrait;
+    use MigrationAddedByTrait;
+    use MigrationTrait;
+    use OrganizationMigrationTrait;
 }
