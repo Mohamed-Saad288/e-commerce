@@ -256,7 +256,6 @@ return [
     'search' => 'Search',
     'data_not_found' => 'Data Not Found',
 
-
     'product_details' => 'Product Details',
     'product_info' => 'Product Information',
     'product_pricing' => 'Product Pricing',
@@ -379,19 +378,18 @@ return [
     'lang_ar' => 'Arabic',
     'lang_en' => 'English',
 
+    'collapse_all' => 'Collapse All',
+    'expand_all' => 'Expand All',
+    'delete_all' => 'Delete All',
+    'bulk_actions' => 'Bulk Actions',
+    'pricing_tax' => 'Pricing Tax',
+    'inventory' => 'Inventory',
+    'variation_images' => 'Variation Images',
+    'stock' => 'Stock',
 
-    "collapse_all" => "Collapse All",
-    "expand_all" => "Expand All",
-    "delete_all" => "Delete All",
-    "bulk_actions" => "Bulk Actions",
-    "pricing_tax" => "Pricing Tax",
-    "inventory" => "Inventory",
-    "variation_images" => "Variation Images",
-    "stock" => "Stock",
-
-    "basic_info" => "Basic Info",
-    "confirm_delete_variation" => "Are you sure you want to delete this variation?",
-    "loading" => "Loading",
+    'basic_info' => 'Basic Info',
+    'confirm_delete_variation' => 'Are you sure you want to delete this variation?',
+    'loading' => 'Loading',
 
     "no_variations" => "No variations found",
     "click_add_variation" => "Click to add variation",
@@ -411,4 +409,6 @@ return [
     'error_loading_data' => 'Error loading data',
     'delete_variation' => 'Delete Variation',
 
+    'no_variations' => 'No variations found',
+    'click_add_variation' => 'Click to add variation',
 ];

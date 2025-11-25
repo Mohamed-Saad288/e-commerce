@@ -120,7 +120,7 @@ class ProductController extends Controller
         $categories = Category::query()->get();
         $brands = Brand::query()->get();
         $options = Option::query()->get();
-        $product->load(["variations.option_items" , "category" , "brand"]);
+        $product->load(['variations.option_items', 'category', 'brand']);
 
         return view('organization::dashboard.products.single', get_defined_vars());
     }
@@ -128,6 +128,7 @@ class ProductController extends Controller
     public function update(UpdateProductRequest $request, Product $product)
     {
         $this->service->update(model: $product, dto: ProductDto::fromArray($request));
+
         return to_route('organization.products.index')->with([
             'message' => __('messages.updated'),
             'alert-type' => 'success',

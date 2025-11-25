@@ -2,7 +2,6 @@
 
 namespace App\Modules\Organization\app\Http\Request\Product;
 
-use App\Modules\Organization\Enums\Product\ProductTypeEnum;
 use App\Modules\Organization\Enums\Product\TaxTypeEnum;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Validation\Rule;
